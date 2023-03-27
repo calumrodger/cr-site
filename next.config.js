@@ -14,7 +14,7 @@ module.exports = {
       '1.gravatar.com',
       '2.gravatar.com',
       'secure.gravatar.com',
-      'wp-cms.calumrodger.co.uk'
+      'cms.calumrodger.com'
     ],
   },
 }
