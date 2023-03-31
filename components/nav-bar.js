@@ -11,9 +11,14 @@ const NavBar = (props) => {
 
     const router = useRouter()
     let tagRef = useRef()
+
+    let allUniqueTags = []
+
+    if (posts) {
     // Filter by tag logic
         const allTags = posts.map((tags) => (tags.tags)).flat()
-        const allUniqueTags = allTags.filter((item, pos, self) => (self.indexOf(item) === pos))
+        allUniqueTags = allTags.filter((item, pos, self) => (self.indexOf(item) === pos))
+    }
     // Go to relevant tag slug page
     const selectHandler = () => {
         const fullPath = `/tag/${tagRef.current.value}`
@@ -34,6 +39,20 @@ const NavBar = (props) => {
         } else {
             setBurgerToggle(true)
         }
+    }
+
+    let latestPostSlug
+    if (posts) {
+        latestPostSlug = posts[0]
+    } else {
+        latestPostSlug = ''
+    }
+
+    let randomPostSlug
+    if (randomPost ) {
+        randomPostSlug = randomPost.slug
+    } else {
+        randomPostSlug = ''
     }
    
     // Return navbar
@@ -57,8 +76,8 @@ const NavBar = (props) => {
             <div className={classes.link}><Link href='/'>Home</Link></div>
             <div className={classes.link}><Link href='/search'>Search</Link></div>
             <div className={classes.link}><Link href='/about'>About</Link></div>
-            <div className={classes.link}><Link href={`/posts/${posts[0].slug}`}>Latest Post</Link></div>
-            <div className={classes.link}><Link href={`/posts/${randomPost.slug}`}>Random Post</Link></div>
+            <div className={classes.link}><Link href={`/posts/${latestPostSlug}`}>Latest Post</Link></div>
+            <div className={classes.link}><Link href={`/posts/${randomPostSlug}`}>Random Post</Link></div>
             </div>
         </div>
     )

@@ -49,7 +49,7 @@ export async function getStaticPaths() {
     const paths = tagArray.map(tag => ({ params: { tag: tag } }))
     return {
       paths: paths,
-      fallback: 'blocking'
+      fallback: false
     }
   }
 
