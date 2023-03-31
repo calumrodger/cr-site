@@ -91,7 +91,7 @@ export async function getPageData() {
 }
 
 export function postDataSorter(data) {
-  const placeholderImage = '../../img/placeholder-image.png'
+  const placeholderImage = 'http://cms.calumrodger.com/wp-content/uploads/2023/03/placeholderImage.png'
   const posts = data.map((item) => ({
     title: item.node.title,
     author: item.node.author.node.name,
@@ -107,7 +107,7 @@ export function postDataSorter(data) {
 }
 
 export function pageDataSorter(data) {
-  const placeholderImage = '../../img/placeholder-image.png'
+  const placeholderImage = 'http://cms.calumrodger.com/wp-content/uploads/2023/03/placeholderImage.png'
   const sortedData = data.map((item) => ({
     title: item.title,
     content: item.content,
