@@ -1,0 +1,29 @@
+
+  
+  .container {
+    border-radius: 8px;
+    border: 2px solid #000;
+    background-color: var(--box-color);
+    margin: 10px;
+    padding: 10px;
+    width: auto;
+    font-size: large;
+  }
+  
+  .image {
+    max-height: 500px;
+    max-width: 500px;
+  }
+  
+  .title {
+    font-size: xx-large;
+    font-weight: bold;
+  }
+  
+  .author {
+    font-weight: bold;
+  }
+  
+  .title {
+    font-size: 5rem;
+  }

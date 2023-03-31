@@ -1,0 +1,14 @@
+.footer {
+    margin-top: auto;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    background-color: var(--navbar-color);
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    min-height: calc(0% + 2rem);
+}

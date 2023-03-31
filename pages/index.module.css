@@ -1,0 +1,39 @@
+.standardPostsHighlight {
+  background-color: var(--highlight-bg-color);
+  margin: 1rem;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.standardPostsContainer {
+  text-align: left;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: black;
+  }
+
+.featuredPostContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: auto;
+}
+
+.featuredPostHighlight {
+  padding: 3rem;
+  background: var(--highlight-bg-color);
+  color: white;
+  border: 1px solid #fff;
+  border-radius: 8px;
+}
+

@@ -1,0 +1,24 @@
+.searchBoxContainer {
+    display: flex;
+    width: 50%;
+    align-self: center;
+    background: var(--box-color);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 2px solid #000;
+    flex-direction: column;
+}
+
+.postsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: center;
+    margin: 6px;
+    padding: 10px;
+}
+
+.searchBox {
+    width: 90%;
+}

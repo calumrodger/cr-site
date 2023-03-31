@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
+:root {
+  --main-bg-color: #413c58;
+  --highlight-bg-color: #a3c4bc;
+  --box-color: #bfd7b5;
+  --navbar-color: #e7efc5;
+  --special-color: #f2dda4;
+  --highlight-home-color: #5c5480;
+}
+
+.global-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: 'Work Sans', sans-serif;
+  overflow: visible;
+}
+
+body {
+    margin: 0;
+    width: auto;
+    background-color: var(--main-bg-color);
+    font-family: 'Work Sans', sans-serif;
+    overflow: visible;
+  }
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}

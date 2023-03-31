@@ -1,0 +1,71 @@
+ 
+
+  .container {
+    height: 20rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 8px;
+    border: 2px solid #000;
+    background-color: var(--box-color);
+    margin: 6px 6px 3px 3px;
+    padding: 10px;
+    width: 38%;
+  }
+  
+  .image {
+    border: 1px solid #000;
+    height: 5rem;
+    width: 6rem;
+    object-fit: cover;
+  }
+  
+  .title {
+    font-size: 1rem;
+    height: 3rem;
+  }
+
+  .tags {
+    font-size: .8rem;
+  }
+
+  .tag {
+    height: 1rem;
+    font-weight: bold;
+    color: purple;
+  }
+
+  .blurb {
+    height: 5rem;
+    font-size: .8rem;
+  }
+
+  @media (min-width: 769px) {
+    .container {
+      height: 15rem;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      width: 28%;
+    }
+    
+    .image {
+      border: 1px solid #000;
+      height: 6rem;
+      width: 6rem;
+      object-fit: cover;
+    }
+    
+    .title {
+      font-size: 1rem;
+      height: 1rem;
+    }
+  
+    .tag {
+      font-weight: bold;
+      color: purple;
+    }
+  
+    .blurb {
+      font-size: .8rem;
+    }
+  }

@@ -1,0 +1,9 @@
+.postsContainer {
+        text-align: left;
+          width: auto;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          color: black;
+}
