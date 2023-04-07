@@ -6,6 +6,9 @@ import { useRouter } from 'next/router'
 const NavBar = (props) => {
     const { posts } = props
     const { randomPost } = props
+    const { categories } = props
+
+    const realCategories = categories.filter((category) => (category.slug !== 'uncategorized'))
 
     const [burgerToggle, setBurgerToggle] = useState(false)
 
@@ -41,13 +44,6 @@ const NavBar = (props) => {
         }
     }
 
-    let latestPostSlug
-    if (posts) {
-        latestPostSlug = posts[0]
-    } else {
-        latestPostSlug = ''
-    }
-
     let randomPostSlug
     if (randomPost ) {
         randomPostSlug = randomPost.slug
@@ -76,8 +72,14 @@ const NavBar = (props) => {
             <div className={classes.link}><Link href='/'>Home</Link></div>
             <div className={classes.link}><Link href='/search'>Search</Link></div>
             <div className={classes.link}><Link href='/about'>About</Link></div>
-            <div className={classes.link}><Link href={`/posts/${latestPostSlug}`}>Latest Post</Link></div>
-            <div className={classes.link}><Link href={`/posts/${randomPostSlug}`}>Random Post</Link></div>
+            <div className={classes.link}><Link href={`/${randomPostSlug}`}>Random Post</Link></div>
+            </div>
+            <div className={`${classes.catsContainer} ${burgerToggle ? classes.show : classes.hidden}`}>
+            {realCategories.map((item) => {
+                return (
+            <div className={classes.link}><Link href={`/category/${item.slug}`}>{item.name}</Link></div>
+            )})}
+            
             </div>
         </div>
     )

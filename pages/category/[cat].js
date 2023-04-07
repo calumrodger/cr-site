@@ -1,9 +1,9 @@
 import PostPreview from '../../components/post-preview'
-import { getPostsByTag, getPostData, postDataSorter, getRandomPost, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
-import classes from './tag.module.css'
+import { getPostsByTag, getPostData, postDataSorter, getRandomPost, getPostsByCategory, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
+import classes from './category.module.css'
 
-const AllPostsByTag = (props) => {
-    const posts = props.tagPosts
+const AllPostsByCategory = (props) => {
+    const posts = props.catPosts
 
     return (
         <>
@@ -19,6 +19,7 @@ const AllPostsByTag = (props) => {
         tags={item.tags}
         slug={item.slug}
         blurb={item.blurb}
+        categories={item.categories}
         />
         )
       })}
@@ -27,31 +28,33 @@ const AllPostsByTag = (props) => {
     )
 }
 
-export default AllPostsByTag
+export default AllPostsByCategory
 
 export async function getStaticProps(context) {
   const data = await getPostData()
   const posts = postDataSorter(data)
-  const { params } = context
-  const tag = params.tag
-  const tagPosts = await getPostsByTag(tag)
-  const randomPost = await getRandomPost(posts)
   const categoryData = await getCategoryData()
   const categories = categoryDataSorter(categoryData)
+  const { params } = context
+  console.log(context)
+  // console.log(params)
+  const cat = params.cat
+  const catPosts = await getPostsByCategory(cat)
+  const randomPost = await getRandomPost(posts)
   return {
-      props: { posts, tagPosts, categories, randomPost },
+      props: { posts, catPosts, categories, randomPost },
       revalidate: 600
   }
 }
 
 export async function getStaticPaths() {
     const posts = await getPostData()
-    const tagObjects = posts.map((post) => ((post.node.tags.nodes)))
-    const tagArray = tagObjects.map((tag) => (tag.map((tagName) => tagName.name))).flat()
-    const paths = tagArray.map(tag => ({ params: { tag: tag } }))
+    const catObjects = posts.map((post) => ((post.node.categories.nodes)))
+    console.log(catObjects)
+    const catArray = catObjects.map((cat) => (cat.map((catName) => catName.slug))).flat()
+    const paths = catArray.map(cat => ({ params: { cat: cat } }))
     return {
       paths: paths,
       fallback: false
     }
   }
-

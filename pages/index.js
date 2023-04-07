@@ -1,4 +1,4 @@
-import { getPostData, postDataSorter, getRandomPost } from "../helpers/api-utils";
+import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
 import PostPreview from "../components/post-preview";
 import PostPreviewFeatured from "../components/post-preview-featured";
 import classes from './index.module.css'
@@ -64,10 +64,12 @@ const HomePage = (props) => {
 export async function getStaticProps() {
   const data = await getPostData()
   const posts = postDataSorter(data)
+  const categoryData = await getCategoryData()
+  const categories = categoryDataSorter(categoryData)
   const randomPost = await getRandomPost(posts)
 
   return {
-    props: { posts, randomPost },
+    props: { posts, randomPost, categories },
     revalidate: 600
   }
 }

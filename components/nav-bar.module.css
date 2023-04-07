@@ -76,6 +76,13 @@
   justify-content: center;
 }
 
+.catsContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
 .link {
   border-radius: 8px;
   width: auto;
@@ -114,6 +121,10 @@
   }
 
   .linksContainer {
+    display: flex;
+  }
+
+  .catsContainer {
     display: flex;
   }
 

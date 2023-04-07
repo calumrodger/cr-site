@@ -55,6 +55,12 @@ export async function getPostData() {
               featuredPost
               blurb
             }
+            categories {
+                nodes {
+                  name
+                  slug
+              }
+            }
           }
         }
       }
@@ -90,6 +96,25 @@ export async function getPageData() {
     return pageDataSorter(data?.pages.nodes)
 }
 
+export async function getCategoryData() {
+  const data = await fetchAPI(
+      `
+      query Categories {
+        categories {
+          edges {
+            node {
+              id
+              slug
+              name
+            }
+          }
+        }
+      }
+    `,
+    )
+    return data?.categories.edges
+}
+
 export function postDataSorter(data) {
   const placeholderImage = 'http://cms.calumrodger.com/wp-content/uploads/2023/03/placeholderImage.png'
   const posts = data.map((item) => ({
@@ -101,8 +126,11 @@ export function postDataSorter(data) {
     key: item.node.id,
     tags: item.node.tags.nodes.map((tag) => (tag.name)),
     featured: item.node.extraPostData.featuredPost,
-    blurb: item.node.extraPostData.blurb
+    blurb: item.node.extraPostData.blurb,
+    category_slugs: item.node.categories.nodes.map((category) => (category.slug)),
+    category_names: item.node.categories.nodes.map((category) => (category.name))
   }))
+  // console.log(posts)
   return posts
 }
 
@@ -112,11 +140,23 @@ export function pageDataSorter(data) {
     title: item.title,
     content: item.content,
     image: item.featuredImage ? item.featuredImage.node.sourceUrl : placeholderImage,
-    slug: item.slug,
+    slug: item.slug, 
     key: item.id
   }))
   return sortedData
 }
+
+export function categoryDataSorter(data) {
+  // console.log(data)
+  const sortedData = data.map((item) => ({
+    slug: item.node.slug,
+    key: item.node.id,
+    name: item.node.name
+  }))
+  return sortedData
+}
+
+
 
 export async function getPageBySlug(slug) {
   const data = await getPageData()
@@ -135,6 +175,13 @@ export async function getPostsByTag(currentTag) {
   const data = await getPostData()
   const sortedData = postDataSorter(data)
   const posts = sortedData.filter((post) => (post.tags.includes(currentTag)))
+  return posts
+}
+
+export async function getPostsByCategory(currentCat) {
+  const data = await getPostData()
+  const sortedData = postDataSorter(data)
+  const posts = sortedData.filter((post) => (post.category_slugs.includes(currentCat)))
   return posts
 }
 

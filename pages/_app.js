@@ -6,11 +6,12 @@ export default function App({ Component, pageProps }) {
 
   const { posts } = pageProps
   const { randomPost } = pageProps
+  const { categories } = pageProps
   
   return (
         <>
         <div className='global-container'>
-      <NavBar posts={posts} randomPost={randomPost} />
+      <NavBar posts={posts} randomPost={randomPost} categories={categories}/>
   <Component {...pageProps} />
   <Footer />
   </div>
