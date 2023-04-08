@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <>
         <div className={classes.footer}>
-            <p>NEXT-STEPS</p>
+            <p>calumrodger.com</p>
         </div>
         </>
     )

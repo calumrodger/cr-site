@@ -1,4 +1,4 @@
-.searchBoxContainer {
+/* .searchBoxContainer {
     display: flex;
     width: 50%;
     align-self: center;
@@ -7,7 +7,7 @@
     border-radius: 8px;
     border: 2px solid #000;
     flex-direction: column;
-}
+} */
 
 .postsContainer {
     width: 80%;

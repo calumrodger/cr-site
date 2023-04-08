@@ -6,7 +6,6 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
   overflow: visible;
 }
 
@@ -78,9 +77,10 @@
 
 .catsContainer {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  align-self: center;
 }
 
 .link {

@@ -11,7 +11,7 @@ const SearchForm = (props) => {
     return (
         <>
         <div className={classes.searchBoxContainer}>
-            <p>Search:</p>
+            <span>Search:</span>
             <input type='text' className={classes.searchBox} onChange={e => setQuery(e.target.value)}/>
             </div>
             <div className={classes.postsContainer}>
