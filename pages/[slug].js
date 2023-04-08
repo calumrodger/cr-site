@@ -1,6 +1,6 @@
 import PostSingle from '../components/post-single'
 import { getPostBySlug, getPostData, postDataSorter, getRandomPost, getCategoryData, categoryDataSorter } from '../helpers/api-utils'
-import classes from './slug.module.css'
+import classes from './slug.module.scss'
 
 const SinglePost = (props) => {
 

@@ -1,4 +1,4 @@
-import classes from './post-preview-featured.module.css'
+import classes from './post-preview-featured.module.scss'
 import Image from 'next/image'
 import Link from "next/link"
 

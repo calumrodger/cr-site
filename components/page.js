@@ -1,4 +1,4 @@
-import classes from './page.module.css'
+import classes from './page.module.scss'
 import SearchForm from './search'
 
 const Page = (props) => {

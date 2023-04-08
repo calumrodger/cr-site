@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getRandomPost } from '../helpers/api-utils'
 
-export default function FourOhFour(props) {
+export default function FiveOhOh(props) {
   return <>
-    <h1>404 - Page Not Found</h1>
+    <h1>500 - Server error</h1>
     <Link href="/">
         Go back home
     </Link>

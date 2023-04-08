@@ -1,4 +1,4 @@
-import classes from './nav-bar.module.css'
+import classes from './nav-bar.module.scss'
 import Link from 'next/link'
 import { useRef, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'

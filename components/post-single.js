@@ -1,4 +1,4 @@
-import classes from './post-single.module.css'
+import classes from './post-single.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
 

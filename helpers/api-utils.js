@@ -130,7 +130,6 @@ export function postDataSorter(data) {
     category_slugs: item.node.categories.nodes.map((category) => (category.slug)),
     category_names: item.node.categories.nodes.map((category) => (category.name))
   }))
-  // console.log(posts)
   return posts
 }
 
@@ -147,7 +146,6 @@ export function pageDataSorter(data) {
 }
 
 export function categoryDataSorter(data) {
-  // console.log(data)
   const sortedData = data.map((item) => ({
     slug: item.node.slug,
     key: item.node.id,

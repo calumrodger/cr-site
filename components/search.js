@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import PostPreview from './post-preview'
-import classes from './search.module.css'
+import classes from './search.module.scss'
 
 const SearchForm = (props) => {
     const { posts } = props
