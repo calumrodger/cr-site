@@ -1,4 +1,3 @@
-import Page from '../components/page'
 import SearchForm from '../components/search'
 import { getPostData, postDataSorter, getRandomPost, getCategoryData, categoryDataSorter } from '../helpers/api-utils'
 
