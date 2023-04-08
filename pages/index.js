@@ -17,25 +17,6 @@ const HomePage = (props) => {
 
   return (
     <>
-    <div className={classes.featuredPostContainer}>
-      <div className={classes.featuredPostHighlight}>
-        <p>FEATURED POST</p>
-    {featured.map((item) => {
-        return (
-        <PostPreviewFeatured
-        title={item.title}
-        author={item.author}
-        image={item.image}
-        content={item.content}
-        key={item.key}
-        tags={item.tags}
-        slug={item.slug}
-        blurb={item.blurb}
-        />
-        )
-      })}
-        </div>
-      </div>
       <div className={classes.standardPostsHighlight}>
           <p>MORE POSTS</p>
 

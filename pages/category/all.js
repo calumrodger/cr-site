@@ -1,14 +1,16 @@
 import PostPreview from '../../components/post-preview'
-import { getPostsByTag, getPostData, postDataSorter, getRandomPost, getPostsByCategory, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
-import classes from './category.module.scss'
+import { getPostData, postDataSorter, getRandomPost, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
+import classes from './all.module.scss'
 
 const AllPostsByCategory = (props) => {
-    const posts = props.catPosts
+    const posts = props.posts
+
+    const sortedPosts = posts.sort()
 
     return (
         <>
         <div className={classes.postsContainer}>
-        {posts.map((item) => {
+        {sortedPosts.map((item) => {
         return (
         <PostPreview
         title={item.title}
@@ -35,23 +37,9 @@ export async function getStaticProps(context) {
   const posts = postDataSorter(data)
   const categoryData = await getCategoryData()
   const categories = categoryDataSorter(categoryData)
-  const { params } = context
-  const cat = params.cat
-  const catPosts = await getPostsByCategory(cat)
   const randomPost = await getRandomPost(posts)
   return {
-      props: { posts, catPosts, categories, randomPost },
+      props: { posts, categories, randomPost },
       revalidate: 600
   }
 }
-
-export async function getStaticPaths() {
-    const posts = await getPostData()
-    const catObjects = posts.map((post) => ((post.node.categories.nodes)))
-    const catArray = catObjects.map((cat) => (cat.map((catName) => catName.slug))).flat()
-    const paths = catArray.map(cat => ({ params: { cat: cat } }))
-    return {
-      paths: paths,
-      fallback: false
-    }
-  }

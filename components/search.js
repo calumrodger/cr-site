@@ -7,16 +7,26 @@ const SearchForm = (props) => {
     const { posts } = props
 
     const [query, setQuery] = useState('')
+    const [show, setShow] = useState(false)
+
+    const searchClickHandler = () => {
+        show ? setShow(false) : setShow(true)
+    }
 
     return (
         <>
         <div className={classes.searchBoxContainer}>
-            <span>Search:</span>
-            <input type='text' className={classes.searchBox} onChange={e => setQuery(e.target.value)}/>
-            </div>
-            <div className={classes.postsContainer}>
+            <button className={classes.searchToggle} onClick={searchClickHandler}>Search</button>
+        { show ?
+            <>
+            <input type='text' className={classes.searchBox} onChange={e => setQuery(e.target.value)}/>           
+            
+            </>
+        : null }
+        
         { query ?
             <>
+            <div className={classes.postsContainer}>
             {posts.filter((post) => 
             (post.blurb.toLowerCase().includes(query.toLowerCase()) 
             || post.title.toLowerCase().includes(query.toLowerCase()) 
@@ -35,9 +45,10 @@ const SearchForm = (props) => {
                         />
                         )
                         })}
-          </>
-            : null }
             </div>
+            </>
+        : null }
+        </div>
         </>
     )
 }
