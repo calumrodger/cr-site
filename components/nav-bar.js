@@ -50,11 +50,13 @@ const NavBar = (props) => {
     let tagRef = useRef()
 
     let allUniqueTags = []
+    let allUniqueTagsSorted = []
 
     if (posts) {
     // Filter by tag logic
         const allTags = posts.map((tags) => (tags.tags)).flat()
         allUniqueTags = allTags.filter((item, pos, self) => (self.indexOf(item) === pos))
+        allUniqueTagsSorted = allUniqueTags.sort()
     }
     // Go to relevant tag slug page
     const selectHandler = () => {
@@ -112,7 +114,7 @@ const NavBar = (props) => {
                 <span className={classes.dropdownLabel}>Tag: </span>
                 <select className={classes.dropdown} defaultValue='select' name="tags" id="tags" onChange={selectHandler} ref={tagRef}>
                 <option value='select' key='0' disabled hidden>Select</option>
-                {allUniqueTags.map((tag, i) => {
+                {allUniqueTagsSorted.map((tag, i) => {
                     return (
                     <option value={tag} key={i + 1}>{tag}</option>
                 )})}

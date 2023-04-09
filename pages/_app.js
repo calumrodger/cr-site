@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }) {
   const { randomPost } = pageProps
   const { categories } = pageProps
 
-  const [access, setAccess] = useState(false)
+  const [access, setAccess] = useState(true)
   
   return (
         <>
