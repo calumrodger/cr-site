@@ -13,10 +13,22 @@ const FeaturedPosts = (props) => {
     
     const featured = getFeaturedPosts(posts)
 
+    const shuffleArray = array => {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+        }
+        return array
+      }
+    
+    const shuffledPosts = shuffleArray(featured)
+
     return (
         <>
         <div className={classes.postsContainer}>
-        {featured.map((item) => {
+        {shuffledPosts.map((item) => {
         return (
         <PostPreview
         title={item.title}

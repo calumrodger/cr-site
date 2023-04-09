@@ -3,12 +3,68 @@ import { getPostsByTag, getPostData, postDataSorter, getRandomPost, getPostsByCa
 import classes from './category.module.scss'
 
 const AllPostsByCategory = (props) => {
+
     const posts = props.catPosts
+    const cat = props.cat
+
+    const poetryOrder = ['random-poem', 'slam-poem-showcase', 'lumpcuts-ai-poetics']
+    const gamesOrder = ['rabbie-burns-saves-the-world-and-by-extension-book-week-scotland', 'gotta-eat-the-plums-with-william-carlos-williams', 'sisyphus-reacts-only', 'sha-lot']
+    const filmsOrder = ['rock-star-north', 'p0etryb1ts', 'whale-tree', 'burns-in-translation']
+    const booksOrder = ['occasional-poems-2012-2019', 'ports', , 'makar-unmakar-twelve-contemporary-poets-in-scotland', 'fiat-ontology-a-pataphysical-proteus-playthrough', 'poems-in-anthologies', 'glasgow-flourishes', 'know-yr-stuff-poems-on-hedonism']
+    const appsOrder = ['random-poem', 'webpoems']
+    const performanceOrder = ['slam-poem-showcase', 'the-linton-worm-is-eating-the-world', 'rock-star-north', 'glasgow-flourishes', 'occasional-poems-2012-2019', 'know-yr-stuff-poems-on-hedonism']
+    const otherWritingOrder = ['zealots-of-ontographic-metagaming-zomg', 'exits-in-videogames-immanence-and-transcendence', 'reading-the-drones', 'ian-hamilton-finlays-topographical-poetics', 'glasgow-review-of-books-articles']
+
+    let postDisplayOrder = posts
+
+    const arraySorter = (array1, array2) => {
+      let sortedPosts = []
+      for (let i = 0; i < array1.length; i++) {
+        let category = array2.filter(item => item.slug === array1[i])
+        sortedPosts.push(category)
+      }
+      let finalPostSort = sortedPosts.flat()
+    return finalPostSort
+    }
+
+    const shuffleArray = array => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+      return array
+    }
+
+
+    if (cat === 'game') {
+      postDisplayOrder = arraySorter(gamesOrder, posts)
+    }
+    if (cat === 'film-image') {
+      postDisplayOrder = arraySorter(filmsOrder, posts)
+    }
+    if (cat === 'book') {
+      postDisplayOrder = arraySorter(booksOrder, posts)
+    }
+    if (cat === 'app') {
+      postDisplayOrder = arraySorter(appsOrder, posts)
+    }
+    if (cat === 'performance') {
+      postDisplayOrder = arraySorter(performanceOrder, posts)
+    }
+    if (cat === 'other-writing') {
+      postDisplayOrder = arraySorter(otherWritingOrder, posts)
+    }
+    if (cat === 'poetry') {
+      postDisplayOrder = shuffleArray(posts)
+    }
+    
 
     return (
         <>
         <div className={classes.postsContainer}>
-        {posts.map((item) => {
+        {postDisplayOrder.map((item) => {
         return (
         <PostPreview
         title={item.title}
@@ -20,6 +76,7 @@ const AllPostsByCategory = (props) => {
         slug={item.slug}
         blurb={item.blurb}
         categories={item.categories}
+        indexed={item.indexed}
         />
         )
       })}
@@ -40,7 +97,7 @@ export async function getStaticProps(context) {
   const catPosts = await getPostsByCategory(cat)
   const randomPost = await getRandomPost(posts)
   return {
-      props: { posts, catPosts, categories, randomPost },
+      props: { posts, cat, catPosts, categories, randomPost },
       revalidate: 600
   }
 }
