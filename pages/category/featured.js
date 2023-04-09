@@ -2,15 +2,21 @@ import PostPreview from '../../components/post-preview'
 import { getPostData, postDataSorter, getRandomPost, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
 import classes from './all.module.scss'
 
-const AllPosts = (props) => {
+const FeaturedPosts = (props) => {
     const posts = props.posts
 
-    const indexedPosts = posts.filter((item) => item.indexed === true)
+    const getFeaturedPosts = (posts) => {
+        let featured = []
+        posts.forEach((post) => (post.featured === true ? featured.push(post) : null))
+        return featured
+      }     
+    
+    const featured = getFeaturedPosts(posts)
 
     return (
         <>
         <div className={classes.postsContainer}>
-        {indexedPosts.map((item) => {
+        {featured.map((item) => {
         return (
         <PostPreview
         title={item.title}
@@ -31,7 +37,7 @@ const AllPosts = (props) => {
     )
 }
 
-export default AllPosts
+export default FeaturedPosts
 
 export async function getStaticProps(context) {
   const data = await getPostData()

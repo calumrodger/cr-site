@@ -7,36 +7,11 @@ const HomePage = (props) => {
 
   const { posts } = props
 
-  const sortStandardFromFeaturedPosts = (posts) => {
-    let featured = [], standard = []
-    posts.forEach((post) => (post.featured === true ? featured : standard).push(post))
-    return [featured, standard]
-  }
-  
-  const [ featured, standard ] = sortStandardFromFeaturedPosts(posts)
+  const homePageContent = posts.find(item => item.slug === 'home')
 
   return (
     <>
-      <div className={classes.standardPostsHighlight}>
-          <p>MORE POSTS</p>
-
-      <div className={classes.standardPostsContainer}>       
-      {standard.map((item) => {
-        return (
-        <PostPreview
-        title={item.title}
-        author={item.author}
-        image={item.image}
-        content={item.content}
-        key={item.key}
-        tags={item.tags}
-        slug={item.slug}
-        blurb={item.blurb}
-        />
-        )
-      })}
-      </div>
-      </div>
+      <div className={classes.content} dangerouslySetInnerHTML={{__html: homePageContent.content}}/>
    </>
   )
 }
