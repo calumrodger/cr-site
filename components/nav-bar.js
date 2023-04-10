@@ -22,25 +22,25 @@ const NavBar = (props) => {
 
     const getCategoryDisplayName = (cat) => {
         if (cat.slug === 'poetry') {
-            return 'Poetry'
+            return 'POETRY'
         }
         if (cat.slug === 'game') {
-            return 'Games'
+            return 'GAMES'
         }
         if (cat.slug === 'film-image') {
-            return 'Film/Image'
+            return 'FILM/IMAGE'
         }
         if (cat.slug === 'book') {
-            return 'Books'
+            return 'BOOKS'
         }
         if (cat.slug === 'app') {
-            return 'Apps'
+            return 'APPS'
         }
         if (cat.slug === 'performance') {
-            return 'Performance'
+            return 'PERFORMANCE'
         }
         if (cat.slug === 'other-writing') {
-            return 'Other Writing'
+            return 'OTHER WRITING'
         }
     }
 
@@ -105,19 +105,19 @@ const NavBar = (props) => {
         </div>
 
         <div className={`${classes.catsContainer} ${burgerToggle ? classes.show : classes.hidden}`}>
-            <div className={classes.link} key='featured'><Link href={`/category/featured`}>Featured</Link></div>
+            <div className={classes.link} key='featured'><Link className={classes.linkText} href={`/category/featured`}>FEATURED</Link></div>
             <div className={classes.line}>|</div>
             {finalCategories.map((item) => {
                 return (
                 <>
-                <div className={classes.link} key={item.id}><Link href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
+                <div className={classes.link} key={item.id}><Link className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
                 <div className={classes.line}>|</div>
                 </>
             )})}
-                <div className={classes.link} key='all'><Link href={`/category/all`}>All</Link></div>
+                <div className={classes.link} key='all'><Link className={classes.linkText} href={`/category/all`}>ALL</Link></div>
                 <div className={classes.line}>|</div>
             <div className={classes.dropdownConatiner}>
-                <span className={classes.dropdownLabel}>Tag: </span>
+                <span className={classes.dropdownLabel}>BY TAG: </span>
                 <select className={classes.dropdown} defaultValue='select' name="tags" id="tags" onChange={selectHandler} ref={tagRef}>
                 <option value='select' key='0' disabled hidden>Select</option>
                 {allUniqueTagsSorted.map((tag, i) => {

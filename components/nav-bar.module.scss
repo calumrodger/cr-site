@@ -30,7 +30,7 @@
 }
 
 .dropdownLabel {
-  color: #000;
+  color: white;
   margin-top: .5rem;
   margin-bottom: -.8rem;
   margin-left: .2rem;
@@ -73,14 +73,17 @@
 }
 
 .link {
-  border-radius: 8px;
   width: auto;
   padding: 5px;
   margin: .2em;
-  background-color: var(--special-color);
   position: relative;
-  vertical-align: middle;
-  border: 1px solid #000;
+  // vertical-align: middle;
+  border: 1px solid white;
+}
+
+.linkText {
+  color: white;
+  font-size: small;
 }
 
 .topButtonsContainer {
