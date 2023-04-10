@@ -116,10 +116,9 @@ const NavBar = (props) => {
             )})}
                 <div className={classes.link} key='all'><Link className={classes.linkText} href={`/category/all`}>ALL</Link></div>
                 <div className={classes.line}>|</div>
-            <div className={classes.dropdownConatiner}>
-                <span className={classes.dropdownLabel}>BY TAG: </span>
-                <select className={classes.dropdown} defaultValue='select' name="tags" id="tags" onChange={selectHandler} ref={tagRef}>
-                <option value='select' key='0' disabled hidden>Select</option>
+            <div className={`${classes.dropdownConatiner} ${classes.link}`}>
+                <select className={classes.dropdown} defaultValue="BY TAG" name="tags" id="tags" onChange={selectHandler} ref={tagRef}>
+                <option value='select' key='0' disabled hidden>BY TAG</option>
                 {allUniqueTagsSorted.map((tag, i) => {
                     return (
                     <option value={tag} key={i + 1}>{tag}</option>
