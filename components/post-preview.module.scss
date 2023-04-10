@@ -3,26 +3,26 @@
   .container {
     height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    border-radius: 8px;
+    border-radius: 4px;
     border: 2px solid #000;
     background-color: var(--box-color);
     margin: 6px 6px 3px 3px;
     padding: 10px;
-    width: 38%;
+    width: 70%;
   }
   
   .image {
     border: 1px solid #000;
-    height: 5rem;
+    height: 6rem;
     width: 6rem;
     object-fit: cover;
+    margin: 1rem;
   }
   
   .title {
     font-size: 1rem;
-    /* height: 3rem; */
   }
 
   .tags {
@@ -30,7 +30,6 @@
   }
 
   .tag {
-    height: 1rem;
     font-weight: bold;
     color: purple;
   }
@@ -42,22 +41,28 @@
 
   @media (min-width: 769px) {
     .container {
+<<<<<<< HEAD
       // height: 15rem;
+=======
+>>>>>>> 21ccdf7b41a11f94dc1062f7fc118727e9eb0fd2
       flex-direction: column;
       flex-wrap: nowrap;
-      width: 28%;
+      width: 70%;
     }
     
     .image {
       border: 1px solid #000;
-      height: 6rem;
-      width: 6rem;
+      height: 20rem;
+      width: 20rem;
       object-fit: cover;
     }
     
     .title {
       font-size: 1rem;
+<<<<<<< HEAD
       // height: 1rem;
+=======
+>>>>>>> 21ccdf7b41a11f94dc1062f7fc118727e9eb0fd2
     }
   
     .tag {

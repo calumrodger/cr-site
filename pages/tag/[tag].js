@@ -5,10 +5,12 @@ import classes from './tag.module.css'
 const AllPostsByTag = (props) => {
     const posts = props.tagPosts
 
+    const indexedPosts = posts.filter((item) => item.indexed === true)
+
     return (
         <>
         <div className={classes.postsContainer}>
-        {posts.map((item) => {
+        {indexedPosts.map((item) => {
         return (
         <PostPreview
         title={item.title}
@@ -19,6 +21,7 @@ const AllPostsByTag = (props) => {
         tags={item.tags}
         slug={item.slug}
         blurb={item.blurb}
+        indexed={item.indexed}
         />
         )
       })}

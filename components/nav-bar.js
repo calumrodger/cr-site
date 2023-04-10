@@ -105,11 +105,17 @@ const NavBar = (props) => {
         </div>
 
         <div className={`${classes.catsContainer} ${burgerToggle ? classes.show : classes.hidden}`}>
+            <div className={classes.link} key='featured'><Link href={`/category/featured`}>Featured</Link></div>
+            <div className={classes.line}>|</div>
             {finalCategories.map((item) => {
                 return (
+                <>
                 <div className={classes.link} key={item.id}><Link href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
+                <div className={classes.line}>|</div>
+                </>
             )})}
                 <div className={classes.link} key='all'><Link href={`/category/all`}>All</Link></div>
+                <div className={classes.line}>|</div>
             <div className={classes.dropdownConatiner}>
                 <span className={classes.dropdownLabel}>Tag: </span>
                 <select className={classes.dropdown} defaultValue='select' name="tags" id="tags" onChange={selectHandler} ref={tagRef}>

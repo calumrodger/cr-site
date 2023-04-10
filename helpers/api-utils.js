@@ -54,6 +54,7 @@ export async function getPostData() {
             extraPostData {
               featuredPost
               blurb
+              indexPost
             }
             categories {
                 nodes {
@@ -128,7 +129,8 @@ export function postDataSorter(data) {
     featured: item.node.extraPostData.featuredPost,
     blurb: item.node.extraPostData.blurb,
     category_slugs: item.node.categories.nodes.map((category) => (category.slug)),
-    category_names: item.node.categories.nodes.map((category) => (category.name))
+    category_names: item.node.categories.nodes.map((category) => (category.name)),
+    indexed: item.node.extraPostData.indexPost
   }))
   return posts
 }
