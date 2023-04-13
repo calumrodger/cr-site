@@ -35,10 +35,24 @@
   // margin-top: .5rem;
   // margin-bottom: -.8rem;
   // margin-left: .2rem;
+  
 }
 
 .dropdown {
   width: 6rem;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  outline: none;
+  color: white;
+  display: grid;
   // height: 2em;
   // margin-top: 1rem;
   // margin-right: .3em;
@@ -48,6 +62,14 @@
   // border-radius: 8px;
   // font-size: 1em;
   // font-family: 'Work Sans', sans-serif;;
+}
+
+.dropdown::after {
+  content: "";
+  width: 0.8em;
+  height: 0.5em;
+  background-color: var(--select-arrow);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
 }
 
 .navToggle {
@@ -81,6 +103,14 @@
   position: relative;
   // vertical-align: middle;
   border: 1px solid white;
+
+  &:hover {
+    background-color: white;
+
+    .linkText {
+      color: var(--highlight-home-color);
+    }
+  }
 }
 
 .linkText {
