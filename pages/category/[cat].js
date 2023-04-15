@@ -1,11 +1,14 @@
 import PostPreview from '../../components/post-preview'
-import { getPostsByTag, getPostData, postDataSorter, getRandomPost, getPostsByCategory, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
+import { getCategoryIntroPost, getPostData, postDataSorter, getRandomPost, getPostsByCategory, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
 import classes from './category.module.scss'
 
 const AllPostsByCategory = (props) => {
 
     const posts = props.catPosts
     const cat = props.cat
+    const introPost = props.introPost
+
+    console.log(introPost)
 
     const gamesOrder = ['rabbie-burns-saves-the-world-and-by-extension-book-week-scotland', 'gotta-eat-the-plums-with-william-carlos-williams', 'sisyphus-reacts-only', 'sha-lot']
     const filmsOrder = ['rock-star-north', 'p0etryb1ts', 'whale-tree', 'burns-in-translation']
@@ -61,23 +64,24 @@ const AllPostsByCategory = (props) => {
 
     return (
         <>
+        <div className={classes.intro} dangerouslySetInnerHTML={{__html: introPost.content}} />
         <div className={classes.postsContainer}>
-        {postDisplayOrder.map((item) => {
-        return (
-        <PostPreview
-        title={item.title}
-        author={item.author}
-        image={item.image}
-        content={item.content}
-        key={item.key}
-        tags={item.tags}
-        slug={item.slug}
-        blurb={item.blurb}
-        categories={item.categories}
-        indexed={item.indexed}
-        />
-        )
-      })}
+            {postDisplayOrder.map((item) => {
+            return (
+            <PostPreview
+            title={item.title}
+            author={item.author}
+            image={item.image}
+            content={item.content}
+            key={item.key}
+            tags={item.tags}
+            slug={item.slug}
+            blurb={item.blurb}
+            categories={item.categories}
+            indexed={item.indexed}
+            />
+            )
+          })}
       </div>
         </>
     )
@@ -93,9 +97,10 @@ export async function getStaticProps(context) {
   const { params } = context
   const cat = params.cat
   const catPosts = await getPostsByCategory(cat)
+  const introPost = await getCategoryIntroPost(cat)
   const randomPost = await getRandomPost(posts)
   return {
-      props: { posts, cat, catPosts, categories, randomPost },
+      props: { posts, cat, catPosts, introPost, categories, randomPost },
       revalidate: 600
   }
 }

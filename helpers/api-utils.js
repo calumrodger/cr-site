@@ -185,6 +185,13 @@ export async function getPostsByCategory(currentCat) {
   return posts
 }
 
+export async function getCategoryIntroPost(currentCat) {
+  const data = await getPostData()
+  const sortedData = postDataSorter(data)
+  const post = sortedData.filter((post) => (post.title === currentCat))
+  return post[0]
+}
+
 export async function getRandomPost(posts) {
   const randomPost = posts[Math.floor(Math.random()*posts.length)]
   return randomPost

@@ -1,9 +1,10 @@
 import PostPreview from '../../components/post-preview'
-import { getPostData, postDataSorter, getRandomPost, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
-import classes from './all.module.scss'
+import { getCategoryIntroPost, getPostData, postDataSorter, getRandomPost, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
+import classes from './category.module.scss'
 
 const AllPosts = (props) => {
     const posts = props.posts
+    const { introPost } = props
 
     const indexedPosts = posts.filter((item) => item.indexed === true)
 
@@ -21,6 +22,7 @@ const AllPosts = (props) => {
 
     return (
         <>
+        <div className={classes.intro} dangerouslySetInnerHTML={{__html: introPost.content}} />
         <div className={classes.postsContainer}>
         {shuffledPosts.map((item) => {
         return (
@@ -50,9 +52,10 @@ export async function getStaticProps(context) {
   const posts = postDataSorter(data)
   const categoryData = await getCategoryData()
   const categories = categoryDataSorter(categoryData)
+  const introPost = await getCategoryIntroPost('all')
   const randomPost = await getRandomPost(posts)
   return {
-      props: { posts, categories, randomPost },
+      props: { introPost, posts, categories, randomPost },
       revalidate: 600
   }
 }

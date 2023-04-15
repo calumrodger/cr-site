@@ -1,6 +1,6 @@
 import PostPreview from '../../components/post-preview'
 import { getPostData, postDataSorter, getRandomPost, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
-import classes from './all.module.scss'
+import classes from './category.module.scss'
 
 const FeaturedPosts = (props) => {
     const posts = props.posts

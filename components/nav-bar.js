@@ -108,7 +108,7 @@ const NavBar = (props) => {
             {/* <div className={classes.line}>|</div> */}
             {finalCategories.map((item) => {
                 return (
-                <div className={classes.catContainer}>
+                <div key={item.id} className={classes.catContainer}>
                 <div className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`} key={item.id}><Link className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
                 </div>
             )})}
