@@ -13,7 +13,7 @@ const NavBar = (props) => {
     console.log(cat)
 
     const realCategories = categories.filter((category) => (category.slug !== 'uncategorized' || 'poetry'))
-    const categoryOrder = ['game', 'film-image', 'book', 'app', 'performance', 'other-writing']
+    const categoryOrder = ['game', 'film-image', 'book', 'app', 'performance', 'article']
     const sortedCategories = []
 
     for (let i = 0; i < categoryOrder.length; i++) {
@@ -39,7 +39,7 @@ const NavBar = (props) => {
         if (cat.slug === 'performance') {
             return 'PERFORMANCE'
         }
-        if (cat.slug === 'other-writing') {
+        if (cat.slug === 'article') {
             return 'ARTICLES'
         }
     }

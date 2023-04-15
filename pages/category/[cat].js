@@ -51,7 +51,7 @@ const AllPostsByCategory = (props) => {
     if (cat === 'performance') {
       postDisplayOrder = arraySorter(performanceOrder, posts)
     }
-    if (cat === 'other-writing') {
+    if (cat === 'article') {
       postDisplayOrder = arraySorter(otherWritingOrder, posts)
     }
     if (cat === 'poetry') {
