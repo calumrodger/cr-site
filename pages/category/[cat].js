@@ -7,7 +7,6 @@ const AllPostsByCategory = (props) => {
     const posts = props.catPosts
     const cat = props.cat
 
-    const poetryOrder = ['random-poem', 'slam-poem-showcase', 'lumpcuts-ai-poetics']
     const gamesOrder = ['rabbie-burns-saves-the-world-and-by-extension-book-week-scotland', 'gotta-eat-the-plums-with-william-carlos-williams', 'sisyphus-reacts-only', 'sha-lot']
     const filmsOrder = ['rock-star-north', 'p0etryb1ts', 'whale-tree', 'burns-in-translation']
     const booksOrder = ['occasional-poems-2012-2019', 'ports', , 'makar-unmakar-twelve-contemporary-poets-in-scotland', 'fiat-ontology-a-pataphysical-proteus-playthrough', 'poems-in-anthologies', 'glasgow-flourishes', 'know-yr-stuff-poems-on-hedonism']
@@ -36,7 +35,6 @@ const AllPostsByCategory = (props) => {
       }
       return array
     }
-
 
     if (cat === 'game') {
       postDisplayOrder = arraySorter(gamesOrder, posts)

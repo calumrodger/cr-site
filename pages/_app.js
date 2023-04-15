@@ -9,6 +9,7 @@ export default function App({ Component, pageProps }) {
   const { posts } = pageProps
   const { randomPost } = pageProps
   const { categories } = pageProps
+  const { cat } = pageProps
 
   const [access, setAccess] = useState(true)
   
@@ -16,7 +17,7 @@ export default function App({ Component, pageProps }) {
         <>
         { access ?
         <div className='global-container'>
-      <NavBar posts={posts} randomPost={randomPost} categories={categories}/>
+      <NavBar posts={posts} randomPost={randomPost} categories={categories} cat={cat}/>
   <Component {...pageProps} />
   <Footer />
   </div>

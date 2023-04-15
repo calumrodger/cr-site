@@ -8,9 +8,12 @@ const NavBar = (props) => {
     const { posts } = props
     const { randomPost } = props
     const { categories } = props
+    let { cat } = props
 
-    const realCategories = categories.filter((category) => (category.slug !== 'uncategorized'))
-    const categoryOrder = ['poetry', 'game', 'film-image', 'book', 'app', 'performance', 'other-writing']
+    console.log(cat)
+
+    const realCategories = categories.filter((category) => (category.slug !== 'uncategorized' || 'poetry'))
+    const categoryOrder = ['game', 'film-image', 'book', 'app', 'performance', 'other-writing']
     const sortedCategories = []
 
     for (let i = 0; i < categoryOrder.length; i++) {
@@ -21,9 +24,6 @@ const NavBar = (props) => {
     const finalCategories = sortedCategories.flat()
 
     const getCategoryDisplayName = (cat) => {
-        if (cat.slug === 'poetry') {
-            return 'POETRY'
-        }
         if (cat.slug === 'game') {
             return 'GAMES'
         }
@@ -34,13 +34,13 @@ const NavBar = (props) => {
             return 'BOOKS'
         }
         if (cat.slug === 'app') {
-            return 'APPS'
+            return 'WEB'
         }
         if (cat.slug === 'performance') {
             return 'PERFORMANCE'
         }
         if (cat.slug === 'other-writing') {
-            return 'OTHER WRITING'
+            return 'ARTICLES'
         }
     }
 
@@ -48,6 +48,8 @@ const NavBar = (props) => {
 
     const router = useRouter()
     let tagRef = useRef()
+
+    console.log(router.pathname)
 
     let allUniqueTags = []
     let allUniqueTagsSorted = []
@@ -101,30 +103,25 @@ const NavBar = (props) => {
             </div>
         </div>
 
-        <div className={`${classes.linksContainer} ${burgerToggle ? classes.show : classes.hidden}`}>        
-        </div>
-
         <div className={`${classes.catsContainer} ${burgerToggle ? classes.show : classes.hidden}`}>
-            <div className={classes.link} key='featured'><Link className={classes.linkText} href={`/category/featured`}>FEATURED</Link></div>
-            <div className={classes.line}>|</div>
+            {/* <div className={classes.link} key='featured'><Link className={classes.linkText} href={`/category/featured`}>FEATURED</Link></div> */}
+            {/* <div className={classes.line}>|</div> */}
             {finalCategories.map((item) => {
                 return (
-                <>
-                <div className={classes.link} key={item.id}><Link className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
-                <div className={classes.line}>|</div>
-                </>
+                <div className={classes.catContainer}>
+                <div className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`} key={item.id}><Link className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
+                </div>
             )})}
-                <div className={classes.link} key='all'><Link className={classes.linkText} href={`/category/all`}>ALL</Link></div>
-                <div className={classes.line}>|</div>
-            <div className={`${classes.dropdownConatiner} ${classes.link}`}>
-                <select className={classes.dropdown} defaultValue="BY TAG" name="tags" id="tags" onChange={selectHandler} ref={tagRef}>
+                <div className={classes.catContainer}>
+                <div className={`${classes.link} ${router.pathname === '/category/all' ? classes.selectedCat : null}`} key='all'><Link className={classes.linkText} href={`/category/all`}>ALL</Link></div>
+                </div>
+                <select className={`${classes.dropdown} ${router.pathname.startsWith('/tag/') ? classes.selectedCat : null}`} defaultValue="BY TAG" name="tags" id="tags" onChange={selectHandler} ref={tagRef}>
                 <option value='select' key='0' disabled hidden>BY TAG</option>
                 {allUniqueTagsSorted.map((tag, i) => {
                     return (
                     <option value={tag} key={i + 1}>{tag}</option>
                 )})}
                 </select>
-            </div>
         </div>
         </>
         
