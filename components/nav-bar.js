@@ -10,10 +10,8 @@ const NavBar = (props) => {
     const { categories } = props
     let { cat } = props
 
-    console.log(cat)
-
     const realCategories = categories.filter((category) => (category.slug !== 'uncategorized' || 'poetry'))
-    const categoryOrder = ['game', 'film-image', 'book', 'app', 'performance', 'article']
+    const categoryOrder = ['game', 'film-image', 'book', 'web', 'performance', 'article']
     const sortedCategories = []
 
     for (let i = 0; i < categoryOrder.length; i++) {
@@ -22,6 +20,7 @@ const NavBar = (props) => {
     }
 
     const finalCategories = sortedCategories.flat()
+    console.log(finalCategories)
 
     const getCategoryDisplayName = (cat) => {
         if (cat.slug === 'game') {
@@ -33,8 +32,8 @@ const NavBar = (props) => {
         if (cat.slug === 'book') {
             return 'BOOKS'
         }
-        if (cat.slug === 'app') {
-            return 'WEB'
+        if (cat.slug === 'web') {
+            return 'WEBPOEMS'
         }
         if (cat.slug === 'performance') {
             return 'PERFORMANCE'
