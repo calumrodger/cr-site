@@ -1,7 +1,6 @@
 import '../styles/globals.scss'
 import NavBar from '../components/nav-bar'
 import Footer from '../components/footer'
-import PostPreviewFeatured from '../components/post-preview-featured'
 import { useState } from 'react'
 
 export default function App({ Component, pageProps }) {

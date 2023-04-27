@@ -8,8 +8,6 @@ const AllPostsByCategory = (props) => {
     const cat = props.cat
     const introPost = props.introPost
 
-    console.log(introPost)
-
     const gamesOrder = ['rabbie-burns-saves-the-world-and-by-extension-book-week-scotland', 'gotta-eat-the-plums-with-william-carlos-williams', 'sisyphus-reacts-only', 'sha-lot']
     const filmsOrder = ['rock-star-north', 'p0etryb1ts', 'whale-tree', 'burns-in-translation']
     const booksOrder = ['occasional-poems-2012-2019', 'ports', 'makar-unmakar', 'fiat-ontology', 'poems-in-anthologies', 'glasgow-flourishes', 'know-yr-stuff-poems-on-hedonism']
@@ -48,7 +46,7 @@ const AllPostsByCategory = (props) => {
     if (cat === 'book') {
       postDisplayOrder = arraySorter(booksOrder, posts)
     }
-    if (cat === 'app') {
+    if (cat === 'webpoem') {
       postDisplayOrder = arraySorter(appsOrder, posts)
     }
     if (cat === 'performance') {
@@ -79,6 +77,7 @@ const AllPostsByCategory = (props) => {
             blurb={item.blurb}
             categories={item.categories}
             indexed={item.indexed}
+            altText={item.imageAltText}
             />
             )
           })}

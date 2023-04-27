@@ -1,6 +1,4 @@
 import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
-import PostPreview from "../components/post-preview";
-import PostPreviewFeatured from "../components/post-preview-featured";
 import classes from './index.module.scss'
 
 const HomePage = (props) => {

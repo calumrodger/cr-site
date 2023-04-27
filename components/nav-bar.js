@@ -1,8 +1,7 @@
 import classes from './nav-bar.module.scss'
 import Link from 'next/link'
-import { useRef, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
-import SearchForm from './search'
 
 const NavBar = (props) => {
     const { posts } = props
@@ -11,7 +10,7 @@ const NavBar = (props) => {
     let { cat } = props
 
     const realCategories = categories.filter((category) => (category.slug !== 'uncategorized' || 'poetry'))
-    const categoryOrder = ['game', 'film-image', 'book', 'web', 'performance', 'article']
+    const categoryOrder = ['game', 'film-image', 'book', 'webpoem', 'performance', 'article']
     const sortedCategories = []
 
     for (let i = 0; i < categoryOrder.length; i++) {
@@ -20,7 +19,6 @@ const NavBar = (props) => {
     }
 
     const finalCategories = sortedCategories.flat()
-    console.log(finalCategories)
 
     const getCategoryDisplayName = (cat) => {
         if (cat.slug === 'game') {
@@ -32,7 +30,7 @@ const NavBar = (props) => {
         if (cat.slug === 'book') {
             return 'books'
         }
-        if (cat.slug === 'web') {
+        if (cat.slug === 'webpoem') {
             return 'webpoems'
         }
         if (cat.slug === 'performance') {

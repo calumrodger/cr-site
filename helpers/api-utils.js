@@ -1,5 +1,3 @@
-import { allPostsQuery, allPagesQuery } from './queries'
-
 const API_URL = process.env.WORDPRESS_API_URL
 
 // note original getting passed in: query = '', { variables } = {}
@@ -39,6 +37,7 @@ export async function getPostData() {
             featuredImage {
               node {
                 sourceUrl
+                altText
               }
             }
             tags {
@@ -123,6 +122,7 @@ export function postDataSorter(data) {
     author: item.node.author.node.name,
     content: item.node.content ? item.node.content : 'No content at this time.',
     image: item.node.featuredImage ? item.node.featuredImage.node.sourceUrl : placeholderImage,
+    imageAltText: item.node.featuredImage ? item.node.featuredImage.node.altText : '',
     slug: item.node.slug,
     key: item.node.id,
     tags: item.node.tags.nodes.map((tag) => (tag.name)),
