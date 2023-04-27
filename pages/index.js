@@ -11,8 +11,10 @@ const HomePage = (props) => {
 
   return (
     <>
+    <div className={classes.mainContainer}>
       <div className={classes.content} dangerouslySetInnerHTML={{__html: homePageContent.content}}/>
-   </>
+    </div>
+    </>
   )
 }
 

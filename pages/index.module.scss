@@ -1,43 +1,52 @@
+.mainContainer {
+  background-color: var(--3);
+  width: 80%;
+  height: 100vh;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+
 .content {
   color: white;
 }
 
-.standardPostsHighlight {
-  background-color: var(--highlight-bg-color);
-  margin: 1rem;
-  padding: 1rem;
-  text-align: center;
-  color: white;
-  border: 1px solid #fff;
-  border-radius: 8px;
-  overflow: hidden;
-}
+// .standardPostsHighlight {
+//   background-color: var(--2);
+//   margin: 1rem;
+//   padding: 1rem;
+//   text-align: center;
+//   color: white;
+//   border: 1px solid #fff;
+//   border-radius: 8px;
+//   overflow: hidden;
+// }
 
-.standardPostsContainer {
-  text-align: left;
-    width: auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    color: black;
-  }
+// .standardPostsContainer {
+//   text-align: left;
+//     width: auto;
+//     display: flex;
+//     flex-direction: row;
+//     flex-wrap: wrap;
+//     justify-content: center;
+//     color: black;
+//   }
 
-.featuredPostContainer {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  width: auto;
-}
+// .featuredPostContainer {
+//   display: flex;
+//   flex-wrap: wrap;
+//   margin: 10px;
+//   justify-content: center;
+//   align-items: center;
+//   overflow: hidden;
+//   width: auto;
+// }
 
-.featuredPostHighlight {
-  padding: 3rem;
-  background: var(--highlight-bg-color);
-  color: white;
-  border: 1px solid #fff;
-  border-radius: 8px;
-}
+// .featuredPostHighlight {
+//   padding: 3rem;
+//   background: var(--2);
+//   color: white;
+//   border: 1px solid #fff;
+//   border-radius: 8px;
+// }
 

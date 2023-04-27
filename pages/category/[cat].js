@@ -12,7 +12,7 @@ const AllPostsByCategory = (props) => {
 
     const gamesOrder = ['rabbie-burns-saves-the-world-and-by-extension-book-week-scotland', 'gotta-eat-the-plums-with-william-carlos-williams', 'sisyphus-reacts-only', 'sha-lot']
     const filmsOrder = ['rock-star-north', 'p0etryb1ts', 'whale-tree', 'burns-in-translation']
-    const booksOrder = ['occasional-poems-2012-2019', 'ports', , 'makar-unmakar-twelve-contemporary-poets-in-scotland', 'fiat-ontology-a-pataphysical-proteus-playthrough', 'poems-in-anthologies', 'glasgow-flourishes', 'know-yr-stuff-poems-on-hedonism']
+    const booksOrder = ['occasional-poems-2012-2019', 'ports', 'makar-unmakar', 'fiat-ontology', 'poems-in-anthologies', 'glasgow-flourishes', 'know-yr-stuff-poems-on-hedonism']
     const appsOrder = ['random-poem', 'webpoems']
     const performanceOrder = ['slam-poem-showcase', 'the-linton-worm-is-eating-the-world', 'rock-star-north', 'glasgow-flourishes', 'occasional-poems-2012-2019', 'know-yr-stuff-poems-on-hedonism']
     const otherWritingOrder = ['zealots-of-ontographic-metagaming-zomg', 'exits-in-videogames-immanence-and-transcendence', 'reading-the-drones', 'ian-hamilton-finlays-topographical-poetics', 'glasgow-review-of-books-articles']

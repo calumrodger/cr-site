@@ -1,6 +1,5 @@
 .topContainer {
-  background-color: var(--navbar-color);
-  margin-bottom: 20px;
+  background-color: var(--4);
   color: #bcb8b1;
   display: flex;
   flex-wrap: wrap;
@@ -10,7 +9,7 @@
 }
 
 .title {
-  background-color: var(--special-color);
+  background-color: var(--1);
   border-radius: 8px;
   padding: 5px;
   margin: .5rem;
@@ -30,7 +29,7 @@
   border-radius: 8px;
   width: auto;
   padding: 5px;
-  background-color: var(--special-color);
+  background-color: var(--1);
   border: 1px solid #000;
 }
 
@@ -39,13 +38,13 @@
   border-radius: 8px;
   width: auto;
   padding: 5px;
-  background-color: var(--special-color);
+  background-color: var(--1);
   border: 1px solid #000;
 }
 
 .burgerButton {
   margin-right: .5rem;
-  background-color: var(--special-color);
+  background-color: var(--1);
   border-radius: 8px;
   border: 1px solid #000;
   padding: 5px;
@@ -73,25 +72,21 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  background-color: var(--4);
 }
 
 .catContainer {
-  display: flex;
+  // display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 
-  &::after {
-    content:'';
-    background-color: white;
-    width: 2px;
-    height: 2rem;
-  }
-
-  &:last-child{
+  &:not(:last-child) {
     &::after {
-      width: 0;
-      height: 0;
+      content:'';
+      background-color: white;
+      width: 2px;
+      height: 2rem;
     }
   }
 }
@@ -108,7 +103,7 @@
     background-color: white;
 
     .linkText {
-      color: var(--highlight-home-color);
+      color: var(--6);
     }
   }
 
@@ -116,7 +111,7 @@
     background-color: white;
 
     .linkText {
-      color: var(--highlight-home-color);
+      color: var(--6);
     }
   }
 }
@@ -190,6 +185,10 @@
   }
 
   .linksContainer {
+    display: flex;
+  }
+
+  .catContainer {
     display: flex;
   }
 
