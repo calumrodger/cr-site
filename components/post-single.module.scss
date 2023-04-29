@@ -1,6 +1,3 @@
-
-
-
 .container {
   background-color: var(--3);
   margin: 2rem;
@@ -10,12 +7,14 @@
   align-items: center;
   align-self: center;
 
-  h2 {
+  .title {
     color: var(--text-colour);
+    font-size: 2rem;
   }
 
   p {
     color: var(--text-colour);
+    font-weight: 300;
   }
 
   iframe {
@@ -26,25 +25,3 @@
     margin-right: auto;
   }
 }
-
-
-  
-  .image {
-    max-height: 500px;
-    max-width: 75%;
-    object-fit: cover;
-    border: 1px solid #000;
-  }
-  
-  .author {
-    font-weight: bold;
-  }
-  
-  .title {
-    font-size: 3rem;
-  }
-
-  .tag {
-    font-weight: bold;
-    color: purple;
-  }

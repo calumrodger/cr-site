@@ -63,7 +63,7 @@ const NavBar = (props) => {
     return (
         <>
         <div className={`${classes.catsContainer}`}>
-            <div className={classes.link}><Link className={classes.linkText} href='/'>Calum Rodger</Link></div>
+            <div className={classes.link}><Link className={classes.linkText} href='/'><p className={classes.titleMain}>Calum Rodger</p><p className={classes.titleSub}>poetry +</p></Link></div>
             <div className={classes.link}>
                         <button className={classes.navToggle} onClick={burgerHandler}>Menu</button>
             </div>

@@ -1,17 +1,16 @@
  
-
-  .container {
+.container {
     height: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    border-radius: 4px;
-    border: 2px solid #000;
-    background-color: var(--3);
+    // border-radius: 4px;
+    // border: 2px solid #000;
+    // background-color: var(--3);
     margin: 6px 6px 3px 3px;
     padding: 10px;
     width: 70%;
-  }
+}
   
   .image {
     border: 1px solid #000;
@@ -25,23 +24,13 @@
     font-size: 1rem;
   }
 
-  .tags {
-    font-size: .8rem;
-  }
-
-  .tag {
-    font-weight: bold;
-    color: purple;
-  }
-
   .blurb {
-    /* height: 5rem; */
+    display: inline;
     font-size: .8rem;
   }
 
   @media (min-width: 769px) {
     .container {
-      // height: 15rem;
       flex-direction: column;
       flex-wrap: nowrap;
       width: 70%;
@@ -56,14 +45,8 @@
     
     .title {
       font-size: 1rem;
-      // height: 1rem;
     }
-  
-    .tag {
-      font-weight: bold;
-      color: purple;
-    }
-  
+
     .blurb {
       font-size: .8rem;
     }

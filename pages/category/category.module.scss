@@ -1,15 +1,23 @@
+.pageContainer {
+    background-color: var(--main-bg);
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
 .postsContainer {
-        text-align: left;
-          width: auto;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: center;
-          color: black;
+    text-align: left;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: black;
 }
 
 .intro {
-  display: flex;
-  justify-content: center;
-  color: white;
+    display: flex;
+    justify-content: center;
+    color: white;
 }

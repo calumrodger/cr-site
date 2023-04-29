@@ -9,22 +9,17 @@
   --5: #d9c3b0;
   --6: #736b1e;
   --text-colour: white;
-}
-
-.global-container {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  justify-content: flex-start;
-  font-family: 'Lexend', sans-serif;
-  overflow: visible;
+  --main-bg: pink;
+  --border: green;
+  --border-highlight: darkgreen;
+  --highlight-bg: blue;
 }
 
 body {
     margin: 0;
     width: auto;
     background-color: var(--4);
-    font-family: sans-serif;
+    font-family: 'Lexend', sans-serif;
     overflow: visible;
   }
 

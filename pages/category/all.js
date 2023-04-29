@@ -22,6 +22,7 @@ const AllPosts = (props) => {
 
     return (
         <>
+        <div className={classes.pageContainer}>
         <div className={classes.intro} dangerouslySetInnerHTML={{__html: introPost.content}} />
         <div className={classes.postsContainer}>
         {shuffledPosts.map((item) => {
@@ -40,6 +41,7 @@ const AllPosts = (props) => {
         />
         )
       })}
+      </div>
       </div>
         </>
     )

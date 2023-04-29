@@ -1,5 +1,5 @@
-import '../styles/globals.scss'
-import NavBar from '../components/nav-bar'
+import classes from '../styles/globals.scss'
+import Layout from '../components/layout'
 import Footer from '../components/footer'
 
 export default function App({ Component, pageProps }) {
@@ -11,11 +11,9 @@ export default function App({ Component, pageProps }) {
   
   return (
     <>
-        <div className='global-container'>
-          <NavBar posts={posts} randomPost={randomPost} categories={categories} cat={cat}/>
+          <Layout className={classes.globalContainer} posts={posts} randomPost={randomPost} categories={categories} cat={cat}>
           <Component {...pageProps} />
-          <Footer />
-        </div>
+          </Layout>
     </>
   )
 }
