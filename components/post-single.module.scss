@@ -1,12 +1,5 @@
-.container {
-  background-color: var(--3);
-  margin: 2rem;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-self: center;
 
+.container {
   .title {
     color: var(--text-colour);
     font-size: 2rem;
@@ -15,6 +8,10 @@
   p {
     color: var(--text-colour);
     font-weight: 300;
+  }
+
+  .content {
+    color: var(--text-colour);
   }
 
   iframe {

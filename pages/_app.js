@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
   
   return (
     <>
-          <Layout className={classes.globalContainer} posts={posts} randomPost={randomPost} categories={categories} cat={cat}>
+          <Layout posts={posts} randomPost={randomPost} categories={categories} cat={cat}>
           <Component {...pageProps} />
           </Layout>
     </>

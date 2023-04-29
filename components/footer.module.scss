@@ -5,10 +5,14 @@
     align-items: center;
     justify-content: center;
     height: 2rem;
-    background-color: var(--4);
-    position: relative;
+    background-color: var(--border);
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     min-height: calc(0% + 2rem);
+    
+    p {
+        color: var(--navtext-colour);
+    }
 }

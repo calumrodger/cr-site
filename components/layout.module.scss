@@ -1,9 +1,13 @@
 
 .globalContainer {
     display: flex;
-    min-height: 100vh;
+    height: 100%;
     flex-direction: column;
     justify-content: flex-start;
     font-family: 'Lexend', sans-serif;
     overflow: visible;
   }
+
+.main {
+  margin-bottom: 2rem;
+}

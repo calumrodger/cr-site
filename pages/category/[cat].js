@@ -63,6 +63,7 @@ const AllPostsByCategory = (props) => {
     return (
         <>
         <div className={classes.pageContainer}>
+          <div className={classes.pageContent}>
         <div className={classes.intro} dangerouslySetInnerHTML={{__html: introPost.content}} />
         <div className={classes.postsContainer}>
             {postDisplayOrder.map((item) => {
@@ -82,6 +83,7 @@ const AllPostsByCategory = (props) => {
             />
             )
           })}
+      </div>
       </div>
       </div>
         </>

@@ -2,47 +2,15 @@ import classes from './nav-bar.module.scss'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import CatBar from './cat-bar'
 
 const NavBar = (props) => {
     const { randomPost } = props
     const { categories } = props
     let { cat } = props
 
-    const realCategories = categories.filter((category) => (category.slug !== 'uncategorized' || 'poetry'))
-    const categoryOrder = ['game', 'film-image', 'book', 'webpoem', 'performance', 'article']
-    const sortedCategories = []
-
-    for (let i = 0; i < categoryOrder.length; i++) {
-        let category = realCategories.filter(item => item.slug === categoryOrder[i])
-        sortedCategories.push(category)
-    }
-
-    const finalCategories = sortedCategories.flat()
-
-    const getCategoryDisplayName = (cat) => {
-        if (cat.slug === 'game') {
-            return 'games'
-        }
-        if (cat.slug === 'film-image') {
-            return 'film/image'
-        }
-        if (cat.slug === 'book') {
-            return 'books'
-        }
-        if (cat.slug === 'webpoem') {
-            return 'webpoems'
-        }
-        if (cat.slug === 'performance') {
-            return 'performance'
-        }
-        if (cat.slug === 'article') {
-            return 'articles'
-        }
-    }
-
     const [burgerToggle, setBurgerToggle] = useState(false)
-
-    const router = useRouter()
+    console.log(burgerToggle)
 
     const burgerHandler = () => {
         if (burgerToggle === true) {
@@ -51,35 +19,20 @@ const NavBar = (props) => {
             setBurgerToggle(true)
         }
     }
-
-    let randomPostSlug
-    if (randomPost ) {
-        randomPostSlug = randomPost.slug
-    } else {
-        randomPostSlug = ''
-    }
    
     // Return navbar
     return (
         <>
-        <div className={`${classes.catsContainer}`}>
-            <div className={classes.link}><Link className={classes.linkText} href='/'><p className={classes.titleMain}>Calum Rodger</p><p className={classes.titleSub}>poetry +</p></Link></div>
-            <div className={classes.link}>
-                        <button className={classes.navToggle} onClick={burgerHandler}>Menu</button>
+        <div className={`${classes.headerContainer}`}>
+            <div className={classes.title}><Link href='/'><p className={classes.titleMain}>Calum Rodger</p><p className={classes.titleSub}>poetry +</p></Link></div>
+            
+            <div className={classes.burgerButton}>
+                        <button className={`${classes.title} ${classes.navToggle}`} onClick={burgerHandler}>Menu</button>
             </div>
-            {finalCategories.map((item) => {
-                return (
-                <div key={item.id} className={`${classes.catContainer} ${burgerToggle ? classes.show : classes.hidden}`}>
-                <div className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`}><Link key={item.id} className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
-                </div>
-            )})}
-                <div className={`${classes.catContainer} ${burgerToggle ? classes.show : classes.hidden}`}>
-                    <div className={`${classes.link} ${router.pathname === '/category/all' ? classes.selectedCat : null}`} key='all'><Link className={classes.linkText} href={`/category/all`}>all</Link>
-                </div>
-                <div className={`${classes.catContainer} ${burgerToggle ? classes.show : classes.hidden}`}></div>
-                <div className={classes.link}><Link className={classes.linkText} href={`/${randomPostSlug}`}>random</Link></div>
-                </div>
-        </div>
+           <CatBar cat={cat} categories={categories} randomPost={randomPost} burgerToggle={burgerToggle}/>
+           
+           </div>
+           
         </>
         
     )

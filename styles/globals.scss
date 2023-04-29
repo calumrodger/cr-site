@@ -2,33 +2,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;500;800&display=swap');
 
 :root {
-  --1: #af2e1b;
-  --2: #cc6324;
-  --3: #3b4b59;
-  --4: #bfa07a;
-  --5: #d9c3b0;
-  --6: #736b1e;
-  --text-colour: white;
-  --main-bg: pink;
-  --border: green;
-  --border-highlight: darkgreen;
-  --highlight-bg: blue;
+  --text-colour: #000;
+  --navtext-colour: #fff;
+  --navtext-highlight: blue;
+  --border: black;
+  --border-highlight: gray;
+  --main-bg: #fff;
+  --highlight-bg: #pink;
 }
+
+  html,
+  body,
+  body > div:first-child,
+  div#__next,
+  div#__next > div {
+    height: 100%;
+  }
 
 body {
     margin: 0;
     width: auto;
-    background-color: var(--4);
     font-family: 'Lexend', sans-serif;
     overflow: visible;
   }
 
+main {
+  height: 100%;
+}
+
 a {
-  color: black;
+  color: inherit;
   text-decoration: none;
 }
 
 button {
-  border: none;
-  cursor: pointer;
+  background-color: transparent;
+  border-width: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  padding: 0;
 }

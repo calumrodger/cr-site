@@ -1,0 +1,61 @@
+
+.catsContainer {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: stretch;
+    background-color: var(--border);
+    width: 100%;
+  }
+  
+  
+  .link {
+    display: flex;
+    width: auto;
+    justify-content: center;
+    height: auto;
+    padding: 5px;
+    margin: .2rem;
+    border: 1px solid white;
+    flex: 1;
+  
+    &.selectedCat {
+      background-color: white;
+  
+      .linkText {
+        color: var(--navtext-highlight);
+      }
+    }
+  
+    &:hover {
+      background-color: var(--border-highlight);
+  
+      .linkText {
+        color: var(--navtext-highlight);
+      }
+    }
+  }
+  
+  .linkText {
+    color: white;
+  }
+
+  .show {
+    display: flex;
+  }
+  
+  .hidden {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+  
+    .catsContainer {
+      display: flex;
+      width: auto;
+    }
+  
+    .link {
+      font-size: 1.2em;
+    }
+  }
+  

@@ -9,6 +9,7 @@ const SinglePost = (props) => {
     return (
         <>
         <div className={classes.pageContainer}>
+            <div className={classes.pageContent}>
         <PostSingle
         title={post.title}
         author={post.author}
@@ -17,6 +18,7 @@ const SinglePost = (props) => {
         tags={post.tags}
         slug={post.slug}
         />
+        </div>
         </div>
         </>
     )

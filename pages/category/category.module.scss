@@ -1,9 +1,22 @@
 .pageContainer {
-    background-color: var(--main-bg);
-    width: 80%;
-    margin: auto;
+    background-color: var(--border);
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.pageContent {
+    width: 80%;
+    background-color: var(--main-bg);
+    padding-bottom: 4rem;
+}
+
+.intro {
+    display: flex;
+    justify-content: center;
+    color: var(--text-colour);
+    border: 1px solid #000;
+    margin: 1rem;
 }
 
 .postsContainer {
@@ -16,8 +29,3 @@
     color: black;
 }
 
-.intro {
-    display: flex;
-    justify-content: center;
-    color: white;
-}
