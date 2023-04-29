@@ -5,7 +5,11 @@ const HomePage = (props) => {
 
   const { posts } = props
 
-  const homePageContent = posts.find(item => item.slug === 'home')
+  let homePageContent = posts.find(item => item.slug === 'home')
+
+  if (!homePageContent) {
+    homePageContent = ''
+  }
 
   return (
     <>

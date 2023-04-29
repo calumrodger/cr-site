@@ -1,6 +1,5 @@
 const API_URL = process.env.WORDPRESS_API_URL
 
-// note original getting passed in: query = '', { variables } = {}
 async function fetchAPI(query) {
     const headers = { 'Content-Type': 'application/json' }
   
@@ -10,7 +9,6 @@ async function fetchAPI(query) {
       method: 'POST',
       body: JSON.stringify({
         query,
-        // variables,
       }),
     })
   
@@ -32,22 +30,11 @@ export async function getPostData() {
             title
             excerpt
             slug
-            date
             content
             featuredImage {
               node {
                 sourceUrl
                 altText
-              }
-            }
-            tags {
-              nodes {
-                name
-              }
-            }
-            author {
-              node {
-                name
               }
             }
             extraPostData {
@@ -73,29 +60,6 @@ export async function getPostData() {
       return data?.posts.edges
 }
 
-export async function getPageData() {
-  const data = await fetchAPI(
-      `
-      query AllPages {
-        pages {
-          nodes {
-            id
-            title
-            slug
-            featuredImage {
-              node {
-                sourceUrl
-              }
-            }
-            content
-          }
-        }
-      }
-    `,
-    )
-    return pageDataSorter(data?.pages.nodes)
-}
-
 export async function getCategoryData() {
   const data = await fetchAPI(
       `
@@ -119,13 +83,11 @@ export function postDataSorter(data) {
   const placeholderImage = 'http://cms.calumrodger.com/wp-content/uploads/2023/03/placeholderImage.png'
   const posts = data.map((item) => ({
     title: item.node.title,
-    author: item.node.author.node.name,
     content: item.node.content ? item.node.content : 'No content at this time.',
     image: item.node.featuredImage ? item.node.featuredImage.node.sourceUrl : placeholderImage,
     imageAltText: item.node.featuredImage ? item.node.featuredImage.node.altText : '',
     slug: item.node.slug,
     key: item.node.id,
-    tags: item.node.tags.nodes.map((tag) => (tag.name)),
     featured: item.node.extraPostData.featuredPost,
     blurb: item.node.extraPostData.blurb,
     category_slugs: item.node.categories.nodes.map((category) => (category.slug)),
@@ -133,18 +95,6 @@ export function postDataSorter(data) {
     indexed: item.node.extraPostData.indexPost
   }))
   return posts
-}
-
-export function pageDataSorter(data) {
-  const placeholderImage = 'http://cms.calumrodger.com/wp-content/uploads/2023/03/placeholderImage.png'
-  const sortedData = data.map((item) => ({
-    title: item.title,
-    content: item.content,
-    image: item.featuredImage ? item.featuredImage.node.sourceUrl : placeholderImage,
-    slug: item.slug, 
-    key: item.id
-  }))
-  return sortedData
 }
 
 export function categoryDataSorter(data) {
@@ -156,26 +106,11 @@ export function categoryDataSorter(data) {
   return sortedData
 }
 
-
-
-export async function getPageBySlug(slug) {
-  const data = await getPageData()
-  const page = data.find((item) => item.slug === slug)
-  return page
-}
-
 export async function getPostBySlug(slug) {
   const data = await getPostData()
   const sortedData = postDataSorter(data)
   const post = sortedData.find((item) => item.slug === slug)
   return post
-}
-
-export async function getPostsByTag(currentTag) {
-  const data = await getPostData()
-  const sortedData = postDataSorter(data)
-  const posts = sortedData.filter((post) => (post.tags.includes(currentTag)))
-  return posts
 }
 
 export async function getPostsByCategory(currentCat) {

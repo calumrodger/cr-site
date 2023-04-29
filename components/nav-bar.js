@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 
 const NavBar = (props) => {
-    const { posts } = props
     const { randomPost } = props
     const { categories } = props
     let { cat } = props
@@ -63,16 +62,15 @@ const NavBar = (props) => {
     // Return navbar
     return (
         <>
-
         <div className={`${classes.catsContainer}`}>
-            <div className={classes.title}><Link href='/'>calum rodger</Link></div>
-            <div className={classes.burgerButton}>
+            <div className={classes.link}><Link className={classes.linkText} href='/'>Calum Rodger</Link></div>
+            <div className={classes.link}>
                         <button className={classes.navToggle} onClick={burgerHandler}>Menu</button>
             </div>
             {finalCategories.map((item) => {
                 return (
                 <div key={item.id} className={`${classes.catContainer} ${burgerToggle ? classes.show : classes.hidden}`}>
-                <div className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`} key={item.id}><Link className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
+                <div className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`}><Link key={item.id} className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
                 </div>
             )})}
                 <div className={`${classes.catContainer} ${burgerToggle ? classes.show : classes.hidden}`}>
