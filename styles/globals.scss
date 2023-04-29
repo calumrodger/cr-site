@@ -24,7 +24,7 @@ body {
     margin: 0;
     width: auto;
     font-family: 'Lexend', sans-serif;
-    overflow: visible;
+    // overflow: visible;
   }
 
 main {
@@ -34,6 +34,7 @@ main {
 a {
   color: inherit;
   text-decoration: none;
+  cursor: default;
 }
 
 button {

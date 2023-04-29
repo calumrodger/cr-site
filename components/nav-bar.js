@@ -10,22 +10,26 @@ const NavBar = (props) => {
     let { cat } = props
 
     const [burgerToggle, setBurgerToggle] = useState(false)
-    console.log(burgerToggle)
+    const [burgerIcon, setBurgerIcon] = useState('▼')
+ 
 
     const burgerHandler = () => {
         if (burgerToggle === true) {
             setBurgerToggle(false)
+            setBurgerIcon('▼')
         } else {
             setBurgerToggle(true)
+            setBurgerIcon('▲')
         }
     }
+
    
     // Return navbar
     return (
         <>
         <div className={`${classes.navbarContainer}`}>
             <div className={classes.title}><Link href='/'><p className={classes.titleMain}>Calum Rodger</p><p className={classes.titleSub}>poetry +</p></Link></div>
-                        <button className={classes.burgerButton} onClick={burgerHandler}>Menu</button>
+                        <button className={classes.burgerButton} onClick={burgerHandler}>{burgerIcon}</button>
            <CatBar cat={cat} categories={categories} randomPost={randomPost} burgerToggle={burgerToggle}/>
         </div>
            
