@@ -2,13 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;500;800&display=swap');
 
 :root {
-  --text-colour: #000;
   --navtext-colour: #fff;
   --navtext-highlight: blue;
   --border: black;
   --border-highlight: gray;
   --main-bg: #fff;
   --highlight-bg: #pink;
+  --text-colour: #000;
 }
 
   html,
@@ -34,7 +34,7 @@ main {
 a {
   color: inherit;
   text-decoration: none;
-  cursor: default;
+  cursor: pointer;
 }
 
 button {

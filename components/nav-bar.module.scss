@@ -22,11 +22,16 @@
   margin: .2rem;
   border: 1px solid white;
   color: var(--navtext-colour);
+  
+  a {
+    cursor: default;
+  }
 
   &:hover {
     background-color: var(--border-highlight);
 
-    .titleText {
+    .titleMain,
+    .titleSub {
       color: var(--navtext-highlight);
     }
   }

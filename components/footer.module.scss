@@ -1,6 +1,5 @@
 .footer {
     margin-top: auto;
-    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -16,7 +15,7 @@
     
     p {
         color: var(--navtext-colour);
-        font-weight: 300;
+        // font-weight: 600;
     }
 }
 
@@ -30,7 +29,6 @@
 }
 
 .link {
-    font-weight: 300;
     padding: 3px;
     margin: .2rem;
     border: 1px solid white;
