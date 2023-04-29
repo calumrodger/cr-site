@@ -1,5 +1,5 @@
 import NavBar from "./nav-bar"
-import classes from './footer.module.scss'
+import classes from './layout.module.scss'
 import Footer from "./footer"
 
 const Layout = (props) => {
@@ -7,7 +7,9 @@ const Layout = (props) => {
         <>
         <div className={classes.globalContainer}>
         <NavBar posts={props.posts} randomPost={props.randomPost} categories={props.categories} cat={props.cat}/> 
+        <div className={classes.mainContainer}>
         <main>{props.children}</main>
+        </div>
         <Footer />
         </div>
         </>

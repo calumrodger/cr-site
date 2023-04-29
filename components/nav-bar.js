@@ -23,15 +23,11 @@ const NavBar = (props) => {
     // Return navbar
     return (
         <>
-        <div className={`${classes.headerContainer}`}>
+        <div className={`${classes.navbarContainer}`}>
             <div className={classes.title}><Link href='/'><p className={classes.titleMain}>Calum Rodger</p><p className={classes.titleSub}>poetry +</p></Link></div>
-            
-            <div className={classes.burgerButton}>
-                        <button className={`${classes.title} ${classes.navToggle}`} onClick={burgerHandler}>Menu</button>
-            </div>
+                        <button className={classes.burgerButton} onClick={burgerHandler}>Menu</button>
            <CatBar cat={cat} categories={categories} randomPost={randomPost} burgerToggle={burgerToggle}/>
-           
-           </div>
+        </div>
            
         </>
         

@@ -4,7 +4,12 @@ const Footer = () => {
     return (
         <>
         <div className={classes.footer}>
-            <p>calumrodger.com</p>
+            <p className={classes.namecheck}>Calum Rodger: Poet + Software Developer</p>
+            <div className={classes.footerLinksContainer}>
+            <div className={classes.link}>bio</div>
+            <div className={classes.link}>contact</div>
+            <div className={classes.link}>mailing list</div>
+            </div>
         </div>
         </>
     )

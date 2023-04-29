@@ -1,10 +1,15 @@
-.headerContainer {
-  width: 100%;
+.navbarContainer {
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  align-items: last baseline;
+  justify-content: center;
   background-color: var(--border);
+  margin-left: 5%;
+  padding-top: .5rem;
+  padding-bottom: 1rem;
+  padding-left: 0;
+  padding-right: .5rem;
 }
 
 .title {
@@ -12,6 +17,8 @@
   width: auto;
   height: auto;
   padding: 5px;
+  padding-bottom: 6px;
+  margin-left: 0;
   margin: .2rem;
   border: 1px solid white;
   color: var(--navtext-colour);
@@ -35,10 +42,27 @@
   font-size: .7rem;
 }
 
-.navToggle {
+.burgerButton {
+  display: flex;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  margin-left: 0;
+  margin: .2rem;
+  border: 1px solid white;
+  color: var(--navtext-colour);
+
+  &:hover {
+    background-color: var(--border-highlight);
+
+    .titleText {
+      color: var(--navtext-highlight);
+    }
+  }
+  margin-left: 0;
+  margin: .2rem;
   color: var(--navtext-colour);
 }
-
 
 
 @media (min-width: 900px) {

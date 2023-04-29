@@ -3,7 +3,7 @@
     font-weight: bold;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     height: 2rem;
     background-color: var(--border);
     position: fixed;
@@ -14,5 +14,28 @@
     
     p {
         color: var(--navtext-colour);
+        font-weight: 300;
     }
 }
+
+.namecheck {
+    margin-left: 1rem;
+}
+
+.footerLinksContainer {
+    display: flex;
+    margin-right: 1rem;
+}
+
+.link {
+    font-weight: 300;
+    padding: 3px;
+    margin: .2rem;
+    border: 1px solid white;
+    color: var(--navtext-colour);
+  
+    &:hover {
+      background-color: var(--border-highlight);
+        color: var(--navtext-highlight);
+    }
+  }
