@@ -3,13 +3,14 @@
   display: flex;
   justify-content: center;
   position: absolute;
-  min-height: 85%;
+  height: 100%;
   width: 100%;
 }
 
 .pageContent {
   display: flex;
   position: relative;
+  // height: 100%;
   width: 80%;
   background-color: var(--main-bg);
   padding-bottom: 4rem;
