@@ -43,7 +43,12 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
     const posts = await getPostData()
-    const paths = posts.map(post => ({ params: { slug: post.node.slug } }))
+    const filteredPosts = posts.filter(post => 
+        post.node.slug !== ('news') && 
+        post.node.slug !== ('bio') && 
+        post.node.slug !== ('contact') &&
+        post.node.slug !== ('mailing-list'))
+    const paths = filteredPosts.map(post => ({ params: { slug: post.node.slug } }))
     return {
       paths: paths,
       fallback: false

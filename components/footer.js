@@ -1,4 +1,5 @@
 import classes from './footer.module.scss'
+import Link from 'next/link'
 
 const Footer = () => {
     return (
@@ -6,10 +7,10 @@ const Footer = () => {
         <div className={classes.footer}>
             <p className={classes.namecheck}>Calum Rodger: Poet + Software Developer</p>
             <div className={classes.footerLinksContainer}>
-            <div className={classes.link}>news</div>
-            <div className={classes.link}>bio</div>
-            <div className={classes.link}>contact</div>
-            <div className={classes.link}>mailing list</div>
+            <div className={classes.link}><Link href='/news'>news</Link></div>
+            <div className={classes.link}><Link href='/bio'>bio</Link></div>
+            <div className={classes.link}><Link href='/contact'>contact</Link></div>
+            <div className={classes.link}><Link href='/mailing-list'>mailing list</Link></div>
             </div>
         </div>
         </>
