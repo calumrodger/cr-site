@@ -1,17 +1,17 @@
 .navbarContainer {
-  width: 90%;
   display: flex;
   position: fixed;
   top: 0;
   flex-wrap: wrap;
-  align-items: last baseline;
-  justify-content: center;
+  justify-content: left;
   background-color: var(--border);
-  margin-left: 5%;
-  padding-top: .5rem;
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
+  width: calc(100% - 2rem);
+  // padding-top: .5rem;
   // padding-bottom: 1rem;
-  padding-left: 0;
-  padding-right: .5rem;
+  // padding-left: 0;
+  // padding-right: .5rem;
   z-index: 1;
 
 
@@ -38,9 +38,16 @@
 // }
 }
 
+.titleContainer {
+  display: flex;
+  justify-content: center;
+  // max-height: 1.2rem;
+  // flex-direction: column;
+}
+
 .title {
   display: flex;
-  width: auto;
+  // width: 100%;
   height: auto;
   // padding: 5px;
   // padding-bottom: 6px;
@@ -65,13 +72,30 @@
 
 .titleMain {
   margin: 0;
+  font-size: 1rem;
+}
+
+.titleLink {
+  white-space: nowrap;
+}
+
+.subtitleContainer {
+  width: 100%;
+  display: flex;
+  // flex-flow: row nowrap;
+  // flex-direction: column;
+  justify-content: space-between;
 }
 
 .titleSub {
-  text-align: right;
+  // text-align: right;
   margin: 0;
-  font-size: .7rem;
+  font-size: 1rem;
 }
+
+// .poetryPlus {
+//   text-align: left;
+// }
 
 .burgerButton {
   display: flex;
@@ -95,11 +119,19 @@
   color: var(--navtext-colour);
 }
 
+// .burgerIcon {
+//   text-align: right;
+// }
 
-@media (min-width: 997px) {
+
+@media (min-width: 769px) {
 
   .titleSub {
-    font-size: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .titleMain {
+    font-size: 1.2rem;
   }
 
   .burgerButton {

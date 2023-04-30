@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <>
         <div className={classes.footer}>
-            <span className={classes.namecheck}>Calum Rodger: Poet + Software Developer</span>
+            <span className={classes.namecheck}>fun text here</span>
             <div className={classes.footerLinksContainer}>
             <div className={classes.link}><Link href='/news'>news</Link></div>
             <div className={classes.link}><Link href='/bio'>bio</Link></div>

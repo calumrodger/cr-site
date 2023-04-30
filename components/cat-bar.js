@@ -1,6 +1,6 @@
 import classes from './cat-bar.module.scss'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 const CatBar = (props) => {
@@ -17,7 +17,6 @@ const CatBar = (props) => {
         let category = realCategories.filter(item => item.slug === categoryOrder[i])
         sortedCategories.push(category)
     }
-
     const finalCategories = sortedCategories.flat()
 
     const getCategoryDisplayName = (cat) => {
@@ -49,6 +48,7 @@ const CatBar = (props) => {
     } else {
         randomPostSlug = ''
     }
+
    
     // Return navbar
     return (

@@ -1,5 +1,6 @@
 .footer {
     margin-top: auto;
+    height: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,7 +35,10 @@
     // margin: .2rem;
     border: 1px solid white;
     color: var(--navtext-colour);
-    cursor: default;
+
+    a {
+        cursor: default;
+    }
   
     &:hover {
       background-color: var(--border-highlight);
