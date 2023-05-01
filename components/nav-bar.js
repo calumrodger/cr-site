@@ -55,12 +55,13 @@ const NavBar = (props) => {
     return (
         <>
         <div ref={heightRef} className={`${classes.navbarContainer}`}>
-            <div className={classes.titleContainer}>
-                <div className={`${classes.title} ${classes.titleMain}`}><Link className={classes.titleLink} href='/'>Calum Rodger</Link></div>
+            {/* <div className={classes.titleContainer}> */}
+                
                 <div className={`${classes.title} ${classes.titleSub} ${classes.subtitleContainer}`} onClick={burgerHandler}>
                     <div className={classes.poetryPlus}>poetry +</div>{ isMobile && <div className={classes.burgerIcon}>{burgerIcon}</div> }            
-                </div>
+                {/* </div> */}
             </div>
+            <div className={`${classes.title} ${classes.titleMain}`}><Link className={classes.titleLink} href='/'>Calum Rodger</Link></div>
            <CatBar setHeight={setHeight} cat={cat} categories={categories} randomPost={randomPost} burgerToggle={burgerToggle}/>
         </div>
            

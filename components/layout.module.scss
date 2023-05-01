@@ -20,3 +20,14 @@
     height: auto;
     // height: 1rem;
 }
+
+.grid {
+    height: 100%;
+    display: grid;
+    grid-template-columns: var(--border-size) auto min-content min-content var(--border-size);
+    grid-template-rows: min-content min-content auto min-content;
+    grid-template-areas: ". navbar desktop-catbar title ."
+                        ". mobile-catbar mobile-catbar mobile-catbar ."
+                        ". main-content main-content main-content ."
+                        ". footer-text footer-text footer-buttons ."
+}

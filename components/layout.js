@@ -9,7 +9,7 @@ const Layout = (props) => {
 
     return (
         <>
-        <div className={classes.globalContainer}>
+        <div className={classes.grid}>
             <div className={classes.navbarContainer}>
         <NavBar setHeight={setHeight} posts={props.posts} randomPost={props.randomPost} categories={props.categories} cat={props.cat}/> 
              </div>
