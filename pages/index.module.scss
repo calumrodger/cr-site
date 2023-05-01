@@ -1,24 +1,3 @@
-.pageContainer {
-  background-color: var(--border);
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-
 .pageContent {
-  display: flex;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  margin-left: 1.2rem;
-  margin-right: 1.2rem;
-  // margin-bottom: 4.2rem;
   background-color: var(--main-bg);
-  // padding-bottom: 4rem;
-}
-
-.content {
-  color: var(--text-colour);
 }

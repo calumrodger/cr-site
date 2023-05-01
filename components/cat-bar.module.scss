@@ -1,25 +1,16 @@
 
 .catsContainer {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+    display: flex;
+    justify-content: stretch;
     background-color: var(--border);
-    width: 100%;
-    // margin-left: 1rem;
-    // margin-right: 1rem;
   }
   
   
   .link {
+    border: 1px solid white;
     flex-grow: 1;
     display: flex;
-    width: auto;
     justify-content: center;
-    height: auto;
-    // padding: 5px;
-    // margin: .2rem;
-    border: 1px solid white;
-    // flex: 1;
 
     a {
         cursor: default;
@@ -47,20 +38,8 @@
     font-size: .7rem;
   }
 
-  .show {
-    display: flex;
-  }
-  
-  .hidden {
-    display: none;
-  }
-
   @media (min-width: 768px) {
-  
-    .catsContainer {
-      display: flex;
-      width: auto;
-    }
+
   
     .linkText {
       font-size: 1.2em;
