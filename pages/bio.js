@@ -26,6 +26,7 @@ const BioPage = (props) => {
 export async function getStaticProps() {
   const data = await getPostData()
   const posts = postDataSorter(data)
+  console.log(posts)
   const categoryData = await getCategoryData()
   const categories = categoryDataSorter(categoryData)
   const randomPost = await getRandomPost(posts)

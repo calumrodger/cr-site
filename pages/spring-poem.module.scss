@@ -1,0 +1,76 @@
+
+.gridContainer {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    font-family: 'Lexend', sans-serif;
+    font-weight: bold;
+    font-size: 1.3rem;
+    overflow: auto;
+}
+.topLeft {
+    display: flex;
+    justify-content: right;
+    align-items: flex-end;
+    background-color: #6e96e6;
+    color: #f7f8fa;
+    padding: .5rem;
+    padding-bottom: 0;
+}
+.topLeftText {
+    margin-right: 5%;
+    padding-right: .4rem;
+}
+.topRight {
+    display: flex;
+    justify-content: left;
+    align-items: flex-end;
+    background-color: #6e96e6;
+    color: #f7f8fa;
+    padding: .5rem;
+    padding-bottom: 0;
+}
+.topRightText {
+    margin-left: 5%;
+}
+.bottomLeft {
+    display: flex;
+    justify-content: right;
+    align-items: flex-start;
+    background-color: #f7f8fa;
+    color: #6e96e6;
+    padding: .5rem;
+    padding-top: 0;
+}
+.bottomLeftText {
+    margin-right: 5%;
+}
+.bottomRight {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    background-color: #f7f8fa;
+    color: #6e96e6;
+    padding: .5rem;
+    padding-top: 0;
+}
+.bottomRightText {
+    margin-left: 5%;
+}
+
+.topRowFirstLine {
+    margin-bottom: -.55rem;
+}
+
+.topRowSecondLine {
+    margin-bottom: -.1rem;
+}
+
+.bottomRowFirstLine {
+    margin-top: -.35rem;
+}
+
+.bottomRowSecondLine {
+    margin-top: -.7rem;
+}

@@ -41,7 +41,7 @@ const Layout = (props) => {
             }
 
             <div className={classes.mainContent} >
-                <main>{props.children}</main>
+                {props.children}
             </div>
 
             <div className={classes.footerText} >

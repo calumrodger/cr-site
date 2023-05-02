@@ -128,7 +128,8 @@ export async function getCategoryIntroPost(currentCat) {
 }
 
 export async function getRandomPost(posts) {
-  const randomPost = posts[Math.floor(Math.random()*posts.length)]
+  const indexedPosts = posts.filter((item) => item.indexed === true)
+  const randomPost = indexedPosts[Math.floor(Math.random()*indexedPosts.length)]
   return randomPost
 }
 

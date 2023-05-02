@@ -2,11 +2,12 @@
 .container {
   .title {
     color: var(--text-colour);
-    font-size: 2rem;
+    font-size: var(--body-title-text-size);
   }
 
   p {
     color: var(--text-colour);
+    font-size: var(--body-text-size);
     font-weight: 300;
   }
 

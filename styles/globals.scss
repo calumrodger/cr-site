@@ -9,7 +9,17 @@
   --main-bg: #fff;
   --highlight-bg: #pink;
   --text-colour: #000;
+
   --border-size: 1.5rem;
+  --title-text-size-mob: 1.5rem;
+  --title-text-size-desk: 1.5rem;
+  --footer-text-size-mob: 1.5rem;
+  --footer-text-size-desk: 1.5rem;
+  --footer-buttons-text-size-mob: 1.5rem;
+  --footer-buttons-text-size-desk: 1.5rem;
+
+  --body-title-text-size: 1.5rem;
+  --body-text-size: 1rem;
 }
 
 html {
@@ -25,16 +35,10 @@ html {
   }
 
 body {
-  background-color: var(--border);
+    background-color: var(--border);
     margin: 0;
-    // width: auto;
     font-family: 'Lexend', sans-serif;
-    // overflow: visible;
   }
-
-// main {
-//   height: 100%;
-// }
 
 a {
   color: inherit;
