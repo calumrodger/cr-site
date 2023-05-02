@@ -108,7 +108,7 @@ export async function getStaticPaths() {
     const posts = await getPostData()
     const catObjects = posts.map((post) => ((post.node.categories.nodes)))
     const catArray = catObjects.map((cat) => (cat.map((catName) => catName.slug))).flat()
-    const filteredCats = catArray.filter(post => post.node.slug !== ('web') )
+    const filteredCats = catArray.filter(cat => cat !== ('web') )
     const paths = filteredCats.map(cat => ({ params: { cat: cat } }))
     return {
       paths: paths,

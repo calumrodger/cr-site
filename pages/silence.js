@@ -28,7 +28,6 @@ const Silence = () => {
     [bottomleft, setBottomLeft], [bottomcentre, setBottomCentre], [bottomright, setBottomRight]]
 
     const change = (e) => {
-        console.log(e.target)
         if (e.target.textContent === '') {
         let silences = all.filter(item => item.includes('silence'))
         let trueSilence = all.filter(item => item.includes(''))
