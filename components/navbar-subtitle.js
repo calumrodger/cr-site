@@ -15,25 +15,6 @@ const NavbarSubtitle = (props) => {
 
     const subtitle = 'poetry +'
 
- 
-    //choose the screen size 
-    // const handleResize = () => {
-    // if (window.innerWidth < 769) {
-    //     setIsMobile(true)
-    // } else {
-    //     setIsMobile(false)
-    // }
-    // }
-
-    // create an event listener
-    // useEffect(() => {
-    // window.addEventListener("resize", handleResize)
-    // })
-
-   
-    
-    // const heightRef = useRef()
-
     useEffect(() => {
         if (showCatbar && isMobile) {
             setBurgerIcon('▲')

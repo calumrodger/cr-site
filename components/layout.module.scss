@@ -1,8 +1,8 @@
 
 .grid {
     display: grid;
-    grid-template-columns: var(--border-size) auto auto var(--border-size);
-    grid-template-rows: var(--border-size) fit-content(var(--border-size)) auto var(--border-size);
+    grid-template-columns: var(--border-size-mob) auto 1rem var(--border-size-mob);
+    grid-template-rows: var(--border-size-mob) fit-content(var(--border-size-mob)) auto var(--border-size-mob);
     grid-template-areas: ". subtitle title ."
                          ". mobile-catbar mobile-catbar ."
                          ". main-content main-content ."
@@ -51,3 +51,9 @@
     grid-area: footer-buttons;
 }
 
+@media (min-width: 966px) {
+    .grid {
+        grid-template-columns: var(--border-size-desk) auto 1rem var(--border-size-desk);
+        grid-template-rows: var(--border-size-desk) fit-content(var(--border-size-desk)) auto var(--border-size-desk);  
+    }
+}

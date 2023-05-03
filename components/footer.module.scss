@@ -18,6 +18,7 @@
   color: var(--navtext-colour);
   font-size: var(--buttons-text-size-mob);
   cursor: pointer;
+  margin-left: .5rem;
 
   &:hover {
     color: var(--navtext-highlight);
@@ -43,7 +44,7 @@
 }
 
 
-@media (min-width: 769px) {
+@media (min-width: 966px) {
 
   .footerText {
     font-size: var(--footer-text-size-desk);
@@ -54,6 +55,6 @@
   }
 
   .burgerIcon {
-    font-size: var(--buttons-text-size-mob);
+    font-size: var(--buttons-text-size-desk);
   }
 }

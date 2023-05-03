@@ -15,7 +15,7 @@ const Layout = (props) => {
  
 //choose the screen size 
 const handleResize = () => {
-  if (window.innerWidth < 769) {
+  if (window.innerWidth < 966) {
       setIsMobile(true)
   } else {
       setIsMobile(false)

@@ -2,6 +2,7 @@
 .catsContainer {
     display: flex;
     justify-content: stretch;
+    flex-wrap: wrap;
     background-color: var(--border);
 }
   
@@ -34,8 +35,10 @@
     font-size: var(--buttons-text-size-mob);
   }
 
-@media (min-width: 769px) {
-
+@media (min-width: 966px) {
+    .catsContainer {
+      flex-wrap: nowrap;
+    }
   
     .linkText {
       font-size: var(--buttons-text-size-desk);

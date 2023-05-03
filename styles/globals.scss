@@ -2,24 +2,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;500;800&display=swap');
 
 :root {
-  --navtext-colour: pink;
+  --navtext-colour: white;
   --navtext-highlight: yellow;
   --border: black;
-  --border-highlight: orange;
-  --main-bg: green;
-  --highlight-bg: #pink;
+  --border-highlight: gray;
+  --main-bg: white;
+  --highlight-bg: pink;
   --text-colour: #000;
 
-  --border-size: 2.5rem;
+  --border-size-mob: 2rem;
+  --border-size-desk: 3rem;
   --title-text-size-mob: 1.5rem;
   --title-text-size-desk: 1.5rem;
-  --footer-text-size-mob: 1.5rem;
+  --footer-text-size-mob: 1.2rem;
   --footer-text-size-desk: 1.5rem;
-  --buttons-text-size-mob: 1.5rem;
+  --buttons-text-size-mob: 1.2rem;
   --buttons-text-size-desk: 1.5rem;
 
   --body-title-text-size: 1.5rem;
   --body-text-size: 1rem;
+
 }
 
 html {

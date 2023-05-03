@@ -24,7 +24,6 @@
 
 .title {
   font-size: var(--title-text-size-mob);
-  text-align: right;
   white-space: nowrap;
   color: var(--navtext-colour);
   cursor: pointer;
@@ -34,11 +33,15 @@
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 100px) {
 
   .title,
   .subtitle {
     font-size: var(--title-text-size-desk);
+  }
+
+  .subtitle {
+    margin-right: .5rem;
   }
 
   .subtitleIcon {
