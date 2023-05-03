@@ -4,7 +4,6 @@ import { useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 const CatBar = (props) => {
-    const { randomPost } = props
     const { categories } = props
     let { cat } = props
     const { burgerToggle } = props
@@ -38,13 +37,6 @@ const CatBar = (props) => {
         if (cat.slug === 'article') {
             return 'articles'
         }
-    }
-
-    let randomPostSlug
-    if (randomPost ) {
-        randomPostSlug = randomPost.slug
-    } else {
-        randomPostSlug = ''
     }
 
    

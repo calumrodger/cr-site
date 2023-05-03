@@ -32,7 +32,7 @@ const FooterButtons = () => {
                 <div className={`${classes.link} ${urlPath === '/news' ? classes.selectedButton : null}`}><Link href='/news'>news</Link></div>
                 <div className={`${classes.link} ${urlPath === '/bio' ? classes.selectedButton : null}`}><Link href='/bio'>bio</Link></div>
                 <div className={`${classes.link} ${urlPath === '/contact' ? classes.selectedButton : null}`}><Link href='/contact'>contact</Link></div>
-                <div className={`${classes.link} ${urlPath === '/mailing-list' ? classes.selectedButton : null}`}><Link href='/mailing-list'>maillist</Link></div>
+                <div className={`${classes.link} ${urlPath === '/mailing-list' ? classes.selectedButton : null}`}><Link href='/mailing-list'>mailing list</Link></div>
         </div>
         }
         <div className={classes.burgerIcon} onClick={burgerHandler}>{burgerIcon}</div>

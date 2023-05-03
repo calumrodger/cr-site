@@ -1,3 +1,9 @@
 .pageContent {
   background-color: var(--main-bg);
+  font-size: var(--body-text-size);
+  margin: var(--body-margin);
+
+  h2 {
+    font-size: var(--body-title-text-size);
+  }
 }

@@ -48,12 +48,12 @@ useEffect(() => {
             </div>
             }
 
-            <div className={classes.mainContent} setFooterText={setFooterText}>
+            <div className={classes.mainContent}>
                 {props.children}
             </div>
 
             <div className={classes.footerText} >
-                <FooterText footerText={footerText} />
+                <FooterText posts={props.posts} />
             </div>
 
             <div className={classes.footerButtons} >

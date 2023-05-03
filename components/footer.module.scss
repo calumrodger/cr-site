@@ -2,6 +2,7 @@
     border: 1px solid white;
     color: var(--navtext-colour);
     cursor: pointer;
+    white-space: nowrap;
 
     &.selectedButton {
       background-color: var(--border-highlight);
@@ -41,6 +42,8 @@
 .footerText {
     color: var(--navtext-colour);
     font-size: var(--footer-text-size-mob);
+    font-weight: 300;
+    font-style: italic;
 }
 
 
