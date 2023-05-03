@@ -18,7 +18,7 @@ const handler = async (req, res) => {
         let client 
 
         try {
-            client = await MongoClient.connect('mongodb+srv://cal:jMo0AWJ7qzpuMqzu@cluster0.dqknmt3.mongodb.net/cr-site?retryWrites=true&w=majority')
+            client = await MongoClient.connect(MONGODB_URI)
         } catch (error) {
             res.status(500).json({message: 'error!'})
             return
