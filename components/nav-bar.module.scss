@@ -1,63 +1,48 @@
 
+.subtitleContainer {
+  display: flex;
+
+  
+}
+
 .subtitle {
-  color: white;
+  color: var(--navtext-colour);
+  font-size: var(--title-text-size-mob);
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+      color: var(--navtext-highlight);
+  }
+  
 }
 
 .subtitleIcon {
-  color: white;
+  color: var(--navtext-colour);
+  font-size: var(--buttons-text-size-mob);
 }
 
 .title {
+  font-size: var(--title-text-size-mob);
   text-align: right;
+  white-space: nowrap;
   color: var(--navtext-colour);
-  
-  a {
-    cursor: default;
-  }
+  cursor: pointer;
 
   &:hover {
-    background-color: var(--border-highlight);
-
-    .titleMain,
-    .titleSub {
       color: var(--navtext-highlight);
-    }
   }
 }
 
-
-
-// .burgerIcon {
-//   text-align: right;
-// }
-
-// .navbar {
-//   background-color: blue;
-//     grid-area: navbar;
-// }
-
-// .catbarDesktop {
-//   grid-area: desktop-catbar;
-//   background-color: lightblue;
-// }
-
-// .titleGrid {
-//   grid-area: title;
-//   background-color: orange;
-// }
-
-// .catbarMobile {
-//   grid-area: mobile-catbar;
-//   background-color: pink;
-// }
-
 @media (min-width: 769px) {
 
-  .titleSub {
-    font-size: 1.2rem;
+  .title,
+  .subtitle {
+    font-size: var(--title-text-size-desk);
   }
 
-  .titleMain {
-    font-size: 1.2rem;
+  .subtitleIcon {
+    font-size: var(--buttons-text-size-desk);
   }
+
 }

@@ -1,14 +1,41 @@
 import classes from './footer.module.scss'
 import Link from 'next/link'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 const FooterButtons = () => {
+
+    const router = useRouter()
+    const urlPath = router.route
+
+    const [burgerIcon, setBurgerIcon] = useState('▶')
+    const [showLinks, setShowLinks] = useState(true) 
+
+    const burgerHandler = () => {
+        if (showLinks) {
+            setShowLinks(false)
+            setBurgerIcon('◀')
+        }
+        if (!showLinks) {
+            setShowLinks(true)
+            setBurgerIcon('▶')
+        }
+    }
+
+
+
     return (
         <>
+        <div className={classes.footerButtonsContainer}>
+        {showLinks && 
         <div className={classes.footerButtons}>
-                <div className={classes.link}><Link href='/news'>news</Link></div>
-                <div className={classes.link}><Link href='/bio'>bio</Link></div>
-                <div className={classes.link}><Link href='/contact'>contact</Link></div>
-                <div className={classes.link}><Link href='/mailing-list'>maillist</Link></div>
+                <div className={`${classes.link} ${urlPath === '/news' ? classes.selectedButton : null}`}><Link href='/news'>news</Link></div>
+                <div className={`${classes.link} ${urlPath === '/bio' ? classes.selectedButton : null}`}><Link href='/bio'>bio</Link></div>
+                <div className={`${classes.link} ${urlPath === '/contact' ? classes.selectedButton : null}`}><Link href='/contact'>contact</Link></div>
+                <div className={`${classes.link} ${urlPath === '/mailing-list' ? classes.selectedButton : null}`}><Link href='/mailing-list'>maillist</Link></div>
+        </div>
+        }
+        <div className={classes.burgerIcon} onClick={burgerHandler}>{burgerIcon}</div>
         </div>
         </>
     )

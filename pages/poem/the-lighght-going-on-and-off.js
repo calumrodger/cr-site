@@ -1,4 +1,4 @@
-import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
+import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
 import { useState, useEffect } from "react";
 import classes from './the-lighght-going-on-and-off.module.scss'
 

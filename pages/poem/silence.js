@@ -1,4 +1,4 @@
-import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
+import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
 import { useState } from 'react'
 import classes from './silence.module.scss'
 

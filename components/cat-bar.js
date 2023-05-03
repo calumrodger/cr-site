@@ -40,8 +40,6 @@ const CatBar = (props) => {
         }
     }
 
-    const router = useRouter()
-
     let randomPostSlug
     if (randomPost ) {
         randomPostSlug = randomPost.slug
@@ -58,8 +56,6 @@ const CatBar = (props) => {
                 return (
                 <div key={item.id} className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`}><Link className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
             )})}
-                    <div className={`${classes.link} ${router.pathname === '/category/all' ? classes.selectedCat : null}`} key='all'><Link className={classes.linkText} href={`/category/all`}>all</Link>                </div>
-                <div className={classes.link}><Link className={classes.linkText} href={`/${randomPostSlug}`}>random</Link></div>
         </div>
         </>
         

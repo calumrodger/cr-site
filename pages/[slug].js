@@ -47,10 +47,7 @@ export async function getStaticPaths() {
         post.node.slug !== ('news') && 
         post.node.slug !== ('bio') && 
         post.node.slug !== ('contact') &&
-        post.node.slug !== ('mailing-list') &&
-        post.node.slug !== ('spring-poem') &&
-        post.node.slug !== ('silence') &&
-        post.node.slug !== ('the-lighght-going-on-and-off'))
+        post.node.slug !== ('mailing-list'))
     const paths = filteredPosts.map(post => ({ params: { slug: post.node.slug } }))
     return {
       paths: paths,

@@ -1,4 +1,4 @@
-import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
+import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
 import classes from './spring-poem.module.scss'
 
 const SpringPoem = (props) => {

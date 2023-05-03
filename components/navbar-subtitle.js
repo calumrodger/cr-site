@@ -2,6 +2,9 @@ import classes from './nav-bar.module.scss'
 import { useState, useRef, useEffect } from 'react'
 
 const NavbarSubtitle = (props) => {
+
+    const { isMobile } = props
+    let { showCatbar } = props
     const { randomPost } = props
     const { categories } = props
     let { cat } = props
@@ -9,7 +12,9 @@ const NavbarSubtitle = (props) => {
 
     const [burgerToggle, setBurgerToggle] = useState(false)
     const [burgerIcon, setBurgerIcon] = useState('▼')
-    const [isMobile, setIsMobile] = useState(false)
+
+    const subtitle = 'poetry +'
+
  
     //choose the screen size 
     // const handleResize = () => {
@@ -26,22 +31,31 @@ const NavbarSubtitle = (props) => {
     // })
 
    
-
+    
     // const heightRef = useRef()
 
-    // useEffect(() => {
-    //     setHeight(heightRef.current.clientHeight)
-    // }, [burgerToggle])
+    useEffect(() => {
+        if (showCatbar && isMobile) {
+            setBurgerIcon('▲')
+        }
+        if (!showCatbar && isMobile) {
+            setBurgerIcon('▼')
+        }
+        if (showCatbar && !isMobile) {
+            setBurgerIcon('◀')
+        }
+        if (!showCatbar && !isMobile) {
+            setBurgerIcon('▶')
+        }
+    }, [showCatbar, isMobile])
  
 
     const burgerHandler = () => {
-        if (props.showCatbar === true) {
+        if (showCatbar === true) {
             props.setShowCatbar(false)
-            setBurgerIcon('▼')
             // setHeight(heightRef.current.clientHeight)
         } else {
             props.setShowCatbar(true)
-            setBurgerIcon('▲')
             // setHeight(heightRef.current.clientHeight)
         }
     }
@@ -51,9 +65,9 @@ const NavbarSubtitle = (props) => {
     // Return navbar
     return (
         <>
-            <div onClick={burgerHandler} >
-            <span className={classes.subtitle}>poetry +</span><span className={classes.subtitleIcon}>{burgerIcon}</span>  
-            </div>
+        <div className={classes.subtitleContainer}>
+            <div onClick={burgerHandler} className={classes.subtitle}>{subtitle} {burgerIcon}</div>
+        </div>
         </>
         
     )

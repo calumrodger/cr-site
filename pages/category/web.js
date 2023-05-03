@@ -13,13 +13,11 @@ const WebCategory = (props) => {
 
     return (
         <>
-        <div className={classes.pageContainer}>
           <div className={classes.pageContent}>
         <div className={classes.intro} dangerouslySetInnerHTML={{__html: introPost.content}} />
-        <Link href='/spring-poem'>spring poem</Link>
-        <Link href='/silence'>silence</Link>
-        <Link href='/the-lighght-going-on-and-off'>{lighghtTitle}</Link>
-      </div>
+        <Link href='/poem/spring-poem'>spring poem</Link>
+        <Link href='/poem/silence'>silence</Link>
+        <Link href='/poem/the-lighght-going-on-and-off'>{lighghtTitle}</Link>
       </div>
         </>
     )
@@ -34,8 +32,9 @@ export async function getStaticProps(context) {
     const categories = categoryDataSorter(categoryData)
     const introPost = await getCategoryIntroPost('web')
     const randomPost = await getRandomPost(posts)
+    const cat = 'web'
     return {
-        props: { introPost, posts, categories, randomPost },
+        props: { introPost, posts, categories, randomPost, cat },
         revalidate: 600
     }
   }

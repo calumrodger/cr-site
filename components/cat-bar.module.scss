@@ -3,21 +3,17 @@
     display: flex;
     justify-content: stretch;
     background-color: var(--border);
-  }
+}
   
-  
-  .link {
+.link {
     border: 1px solid white;
     flex-grow: 1;
     display: flex;
     justify-content: center;
-
-    a {
-        cursor: default;
-    }
+    cursor: pointer;
   
     &.selectedCat {
-      background-color: white;
+      background-color: var(--border-highlight);
   
       .linkText {
         color: var(--navtext-highlight);
@@ -33,16 +29,16 @@
     }
   }
   
-  .linkText {
+.linkText {
     color: var(--navtext-colour);
-    font-size: .7rem;
+    font-size: var(--buttons-text-size-mob);
   }
 
-  @media (min-width: 768px) {
+@media (min-width: 769px) {
 
   
     .linkText {
-      font-size: 1.2em;
+      font-size: var(--buttons-text-size-desk);
     }
-  }
+}
   

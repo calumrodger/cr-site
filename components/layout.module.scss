@@ -1,82 +1,53 @@
 
-// .globalContainer {
-//     display: flex;
-//     height: 100%;
-//     flex-direction: column;
-//     align-items: center;
-//     font-family: 'Lexend', sans-serif;
-//     overflow: visible;
-//   }
-
-// .mainContainer {
-//   grid-area: main-content;
-//   background-color: yellow;
-// //   margin-bottom: 40px;
-// }
-
-// .navbarContainer {
-//     // display: inline-block;
-//     height: auto;
-//     // height: 1rem;
-// }
-
-
 .grid {
-    // height: 100%;
     display: grid;
-    // grid-auto-flow: row;
-    grid-template-columns: 1rem min-content auto min-content 1rem;
-    grid-template-rows: min-content min-content auto min-content;
+    grid-template-columns: var(--border-size) auto auto var(--border-size);
+    grid-template-rows: var(--border-size) fit-content(var(--border-size)) auto var(--border-size);
+    grid-template-areas: ". subtitle title ."
+                         ". mobile-catbar mobile-catbar ."
+                         ". main-content main-content ."
+                         ". footer-text footer-buttons ."
 }
 
-
-.navbarSubtitle {
-    // grid-area: navbar;
-    grid-column: 2 / 4;
-    grid-row: 1 / 2;
-}
-
-.desktopCatbar {
-    // grid-area: desktop-catbar;
-    grid-column: 3 / 4;
-    grid-row: 1 / 2;
+.navbarSubtitle { 
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    grid-area: subtitle;
 }
 
 .navbarTitle {
-    // grid-area: title;
-    grid-column: 4 / 5;
-    grid-row: 1 / 2;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    grid-area: title;
 }
 
 .mobileCatbar {
-    // background-color: yellow;
-    grid-column: 2 / 5;
-    grid-row: 2 / 3;
+    grid-area: mobile-catbar;
 }
 
 .mainContent {
-    grid-column: 2 / 5;
-    grid-row: 3 / 4;
     overflow-y: auto;
     background-color: var(--main-bg);
-    // grid-area: main-content;
+    grid-area: main-content;
 }
 
 .footerText {
+    display: flex;
+    align-items: center;
+    justify-content: left;
     position: sticky;
     bottom: 0;
-    // background-color: purple;
-    // grid-area: footer-text;
-    grid-column: 2 / 4;
-    grid-row: 4 / 5;
+    grid-area: footer-text;
 }
 
 .footerButtons {
+    display: flex;
+    align-items: center;
+    justify-content: right;
     position: sticky;
     bottom: 0;
-    // grid-area: footer-buttons;
-    grid-column: 4 / 5;
-    grid-row: 4 / 5;
-    // background-color: pink;
+    grid-area: footer-buttons;
 }
 
