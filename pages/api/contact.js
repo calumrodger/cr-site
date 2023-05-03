@@ -18,7 +18,7 @@ const handler = async (req, res) => {
         let client 
 
         try {
-            client = await MongoClient.connect(MONGODB_URI)
+            client = await MongoClient.connect(NEXT_PUBLIC_MONGODB_URI)
         } catch (error) {
             res.status(500).json({message: 'error!'})
             return
