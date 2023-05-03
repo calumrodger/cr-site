@@ -20,7 +20,7 @@ const FooterText = (props) => {
     return (
         <>
         <div className={classes.footerText}>
-            <span>{currentText}</span>
+            <span>hello</span>
         </div>
         </>
     )

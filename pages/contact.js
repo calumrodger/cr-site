@@ -1,5 +1,6 @@
 import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
 import classes from './index.module.scss'
+import ContactForm from "../components/contact-form";
 
 const ContactPage = (props) => {
 
@@ -16,6 +17,7 @@ const ContactPage = (props) => {
     <div className={classes.pageContainer}>
       <div className={classes.pageContent}>
         <div className={classes.content} dangerouslySetInnerHTML={{__html: pageContent.content}}/>
+        <ContactForm />
       </div>
     </div>
     </>
