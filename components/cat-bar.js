@@ -9,7 +9,7 @@ const CatBar = (props) => {
     const { burgerToggle } = props
 
     const realCategories = categories.filter((category) => (category.slug !== 'uncategorized' || 'poetry'))
-    const categoryOrder = ['game', 'film-image', 'book', 'web', 'performance', 'article']
+    const categoryOrder = ['book', 'game', 'film-image', 'performance', 'web', 'article']
     const sortedCategories = []
 
     for (let i = 0; i < categoryOrder.length; i++) {

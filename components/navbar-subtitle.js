@@ -47,7 +47,7 @@ const NavbarSubtitle = (props) => {
     return (
         <>
         <div className={classes.subtitleContainer}>
-            <div onClick={burgerHandler} className={classes.subtitle}>{subtitle} {burgerIcon}</div>
+            <div onClick={burgerHandler} className={classes.subtitle}>{burgerIcon} {subtitle}</div>
         </div>
         </>
         

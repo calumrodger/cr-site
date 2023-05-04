@@ -1,4 +1,5 @@
 import { useState } from "react"
+import classes from './contact-form.module.scss'
 
 const ContactForm = () => {
     const [theEmail, setEmail] = useState('')
@@ -23,7 +24,7 @@ const ContactForm = () => {
 
     return (
         <>
-        <form>
+        <form className={classes.formContainer}>
             <label htmlFor="name">name</label>
             <input type="text" id="name" required value={theName} onChange={e => setName(e.target.value)}/>
             <label htmlFor="email">email - optional</label>
