@@ -7,7 +7,7 @@ const handler = async (req, res) => {
     if (req.method === 'POST') {
         const {email} = req.body
 
-        if (!email || !email.includes('@') ) {
+        if ( !email || !email.includes('@') ) {
             res.status(422).json({message: 'invalid input'})
             return
         }
@@ -27,7 +27,7 @@ const handler = async (req, res) => {
 
         try {
         const result = await db.collection('mailing-list').insertOne(newEmail)
-        newMessage.id = result.insertedId
+        newEmail.id = result.insertedId
         } catch (error) {
             client.close()
             res.status(500).json({message: 'Storing message failed'})

@@ -8,9 +8,7 @@ const NavbarSubtitle = (props) => {
     const { randomPost } = props
     const { categories } = props
     let { cat } = props
-    const { setHeight } = props
-
-    const [burgerToggle, setBurgerToggle] = useState(false)
+    
     const [burgerIcon, setBurgerIcon] = useState('▼')
 
     const subtitle = 'poetry +'
@@ -34,10 +32,8 @@ const NavbarSubtitle = (props) => {
     const burgerHandler = () => {
         if (showCatbar === true) {
             props.setShowCatbar(false)
-            // setHeight(heightRef.current.clientHeight)
         } else {
             props.setShowCatbar(true)
-            // setHeight(heightRef.current.clientHeight)
         }
     }
 

@@ -5,6 +5,9 @@ import { useRouter } from 'next/router'
 import CatBar from './cat-bar'
 
 const NavbarTitle = (props) => {
+
+    const { asPath } = useRouter()
+
     const { randomPost } = props
     const { categories } = props
     let { cat } = props
@@ -17,7 +20,7 @@ const NavbarTitle = (props) => {
     // Return navbar
     return (
         <>
-            <div className={classes.title}><Link href='/'>Calum Rodger</Link></div>
+            <div className={`${classes.title} ${asPath === '/' ? classes.selected : null}`}><Link href='/'>Calum Rodger</Link></div>
         </>
         
     )

@@ -28,6 +28,10 @@
   color: var(--navtext-colour);
   cursor: pointer;
 
+  &.selected {
+    color: var(--navtext-highlight);
+  }
+
   &:hover {
       color: var(--navtext-highlight);
   }

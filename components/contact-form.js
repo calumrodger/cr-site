@@ -1,25 +1,59 @@
 import { useState } from "react"
 import classes from './contact-form.module.scss'
+import Notification from "./notification"
+import { sendContactData } from "../helpers/api-utils"
+
 
 const ContactForm = () => {
+
     const [theEmail, setEmail] = useState('')
     const [theName, setName] = useState('')
     const [theMessage, setMessage] = useState('')
+    const [reqStatus, setReqStatus] = useState('')
+    const [reqError, setReqError] = useState('')
 
-    const sendMessageHandler = (e) => {
+    const sendMessageHandler = async (e) => {
         e.preventDefault()
 
-        fetch('/api/contact', {
-            method: 'POST',
-            body: JSON.stringify({
+        setReqStatus('pending')
+
+        try {
+            await sendContactData('/api/contact', {
                 email: theEmail,
                 name: theName,
                 message: theMessage
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+            })
+            setReqStatus('success')
+        } catch (error) {
+            setReqError(error.message)
+            setReqStatus('error')
+        }
+    }
+
+    let notification
+
+    if (reqStatus === 'pending') {
+        notification = {
+            status: 'pending',
+            title: 'Sending...',
+            message: 'Message being sent.'
+        }
+    }
+
+    if (reqStatus === 'success') {
+        notification = {
+            status: 'success',
+            title: 'Success',
+            message: 'Message sent successfully - thank you!'
+        }
+    }
+
+    if (reqStatus === 'error') {
+        notification = {
+            status: 'error',
+            title: 'Error',
+            message: reqError
+        }
     }
 
     return (
@@ -33,8 +67,8 @@ const ContactForm = () => {
             <textarea id="message" rows="5" required value={theMessage} onChange={e => setMessage(e.target.value)}/>
             <button onClick={sendMessageHandler}>send</button>
         </form>
+        {notification && <Notification status={notification.status} title={notification.title} message={notification.message}/>}
         </>
     )
-}
-
+} 
 export default ContactForm

@@ -8,7 +8,7 @@ const handler = async (req, res) => {
         const {email, name, message} = req.body
 
         if (!name || name.trim() === '' || !message || message.trim() === '') {
-            res.status(422).json({message: 'invalid input'})
+            res.status(422).json({message: 'Invalid input.'})
             return
         }
 
@@ -22,7 +22,6 @@ const handler = async (req, res) => {
 
         try {
             client = await MongoClient.connect(MONGODB_URI)
-            // client = await MongoClient.connect(MONGODB_URI)
         } catch (error) {
             res.status(500).json({message: 'error!'})
             return
