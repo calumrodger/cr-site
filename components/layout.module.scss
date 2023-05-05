@@ -39,9 +39,12 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    position: sticky;
+    position: fixed;
     bottom: 0;
+    left: var(--border-size-mob);
+    height: var(--border-size-mob);
     grid-area: footer-text;
+    width: 100%;
 }
 
 .footerButtons {
@@ -49,7 +52,8 @@
     display: flex;
     align-items: center;
     justify-content: right;
-    position: sticky;
+    position: fixed;
+    right: var(--border-size-mob);
     bottom: 0;
     grid-area: footer-buttons;
 }
@@ -58,5 +62,15 @@
     .grid {
         grid-template-columns: var(--border-size-desk) auto 1rem var(--border-size-desk);
         grid-template-rows: var(--border-size-desk) fit-content(var(--border-size-desk)) auto var(--border-size-desk);  
+    }
+
+    .footerButtons {
+        right: var(--border-size-desk);
+        height: var(--border-size-desk);
+    }
+
+    .footerText {
+        left: var(--border-size-desk);
+        height: var(--border-size-desk);
     }
 }
