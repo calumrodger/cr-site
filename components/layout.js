@@ -24,8 +24,9 @@ const handleResize = () => {
 
 // create an event listener
 useEffect(() => {
-  window.addEventListener("resize", handleResize)
-})
+    handleResize()
+    window.addEventListener("resize", handleResize)
+}, [])
 
     return (
         <>
