@@ -45,9 +45,6 @@ useEffect(() => {
                 <NavbarSubtitle  isMobile={isMobile} showCatbar={showCatbar} setShowCatbar={setShowCatbar}/>
                 {!isMobile && showCatbar && <CatBar cat={props.cat} categories={props.categories} randomPost={props.randomPost} burgerToggle={props.burgerToggle}/>}
             </div>
-            <div className={classes.desktopCatbar}>
-                
-            </div>
             <div className={classes.navbarTitle}>
                 <NavbarTitle />
             </div>

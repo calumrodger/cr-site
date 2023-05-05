@@ -10,17 +10,31 @@
 }
 
 .navbarSubtitle { 
+    background-color: var(--border);
     display: flex;
     align-items: center;
     justify-content: left;
     grid-area: subtitle;
+    position: fixed;
+    top: 0;
+    left: var(--border-size-mob);
+    height: var(--border-size-mob);
+    width: 100%;
+    z-index: 1;
 }
 
 .navbarTitle {
+    background-color: var(--border);
     display: flex;
     align-items: center;
     justify-content: right;
     grid-area: title;
+    position: fixed;
+    top: 0;
+    right: var(--border-size-mob);
+    height: var(--border-size-mob);
+    // width: 100%;
+    z-index: 1;
 }
 
 .mobileCatbar {
@@ -43,8 +57,9 @@
     bottom: 0;
     left: var(--border-size-mob);
     height: var(--border-size-mob);
-    grid-area: footer-text;
     width: 100%;
+    grid-area: footer-text;
+    
 }
 
 .footerButtons {
@@ -71,6 +86,16 @@
 
     .footerText {
         left: var(--border-size-desk);
+        height: var(--border-size-desk);
+    }
+
+    .navbarSubtitle {
+        left: var(--border-size-desk);
+        height: var(--border-size-desk);
+    }
+
+    .navbarTitle {
+        right: var(--border-size-desk);
         height: var(--border-size-desk);
     }
 }
