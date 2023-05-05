@@ -1,6 +1,5 @@
 
 .grid {
-    width: 100%;
     display: grid;
     grid-template-columns: var(--border-size-mob) auto 1rem var(--border-size-mob);
     grid-template-rows: var(--border-size-mob) fit-content(var(--border-size-mob)) min-content var(--border-size-mob);
@@ -31,7 +30,6 @@
 .mainContent {
     overflow-y: auto;
     // overflow-x: hidden;
-    width: 100%;
     background-color: var(--main-bg);
     grid-area: main-content;
 }
