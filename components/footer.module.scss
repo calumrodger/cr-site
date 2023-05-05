@@ -34,12 +34,14 @@
 
 .footerButtons {
   display: flex;
+  background-color: var(--border);
   flex-wrap: nowrap;
   justify-content: right;
   font-size: var(--buttons-text-size-mob);
 }
 
 .footerText {
+  background-color: var(--border);
     color: var(--navtext-colour);
     font-size: var(--footer-text-size-mob);
     font-weight: 300;

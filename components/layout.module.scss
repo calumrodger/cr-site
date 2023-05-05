@@ -28,13 +28,14 @@
 }
 
 .mainContent {
-    overflow-y: auto;
+    // overflow-y: scroll;
     // overflow-x: hidden;
     background-color: var(--main-bg);
     grid-area: main-content;
 }
 
 .footerText {
+    background-color: var(--border);
     display: flex;
     align-items: center;
     justify-content: left;
@@ -44,6 +45,7 @@
 }
 
 .footerButtons {
+    background-color: var(--border);
     display: flex;
     align-items: center;
     justify-content: right;

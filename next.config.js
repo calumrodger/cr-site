@@ -17,4 +17,7 @@ module.exports = {
       'localhost' // Add localhost to allow images from local
     ],
   },
+  experimental: {
+    scrollRestoration: false,
+  },
 }

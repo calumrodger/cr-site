@@ -10,17 +10,17 @@ const FooterText = (props) => {
 
     let currentText = 'Calum Rodger: Poet + Dev'
 
-    for (let i = 0; i < posts.length; i++) {
-        if ( posts[i].slug === slug ) {
-            currentText = posts[i].title
-            break
-        }
-    }
+    // for (let i = 0; i < posts.length; i++) {
+    //     if ( posts[i].slug === slug ) {
+    //         currentText = posts[i].title
+    //         break
+    //     }
+    // }
 
     return (
         <>
         <div className={classes.footerText}>
-            <span>hello</span>
+            <span>{currentText}</span>
         </div>
         </>
     )

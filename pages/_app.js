@@ -1,7 +1,9 @@
 import classes from '../styles/globals.scss'
 import Layout from '../components/layout'
+import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }) {
+
 
   const { posts } = pageProps
   const { randomPost } = pageProps
