@@ -8,7 +8,7 @@ const ContactPage = (props) => {
 
   let pageContent = posts.find(item => item.slug === 'contact')
 
-  if (!pageContent) {
+  if (pageContent === 'No content at this time.') {
     pageContent = ''
   }
 
