@@ -79,7 +79,7 @@
     grid-area: footer-buttons;
 }
 
-@media (min-width: 966px) {
+@media (min-width: 1024px) {
     .grid {
         grid-template-columns: var(--border-size-desk) auto 1rem var(--border-size-desk);
         grid-template-rows: var(--border-size-desk) fit-content(var(--border-size-desk)) auto var(--border-size-desk);  

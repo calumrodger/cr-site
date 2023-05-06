@@ -15,9 +15,17 @@ const WebCategory = (props) => {
         <>
           <div className={classes.pageContent}>
         <div className={classes.intro} dangerouslySetInnerHTML={{__html: introPost.content}} />
-        <Link href='/poem/spring-poem'>spring poem</Link>
-        <Link href='/poem/silence'>silence</Link>
-        <Link href='/poem/the-lighght-going-on-and-off'>{lighghtTitle}</Link>
+        <div className={classes.poemsListContainer}>
+        <h3>Original Poems</h3>
+        <ul className={classes.poemsList}>
+        <li><Link href='/poem/spring-poem'>spring poem</Link></li>
+        </ul>
+        <h3>Cover Versions</h3>
+        <ul className={classes.poemsList}>
+        <li><Link href='/poem/silence'>silence</Link></li>
+        <li><Link href='/poem/the-lighght-going-on-and-off'>{lighghtTitle}</Link></li>
+        </ul>
+        </div>
       </div>
         </>
     )

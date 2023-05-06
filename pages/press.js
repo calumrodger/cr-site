@@ -1,23 +1,21 @@
 import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
 import classes from './index.module.scss'
-import MailingListSignup from "../components/mailing-list-signup";
 
-const MailingListPage = (props) => {
+const PressPage = (props) => {
 
   const { posts } = props
 
-  let pageContent = posts.find(item => item.slug === 'mailing-list')
+  let pressPageContent = posts.find(item => item.slug === 'press')
 
-  if (!pageContent) {
-    pageContent = ''
+  if (!pressPageContent) {
+    pressPageContent = ''
   }
 
   return (
     <>
     <div className={classes.pageContainer}>
       <div className={classes.pageContent}>
-        <div className={classes.contentMailingList} dangerouslySetInnerHTML={{__html: pageContent.content}}/>
-        <MailingListSignup />
+        <div className={classes.content} dangerouslySetInnerHTML={{__html: pressPageContent.content}}/>
       </div>
     </div>
     </>
@@ -39,4 +37,4 @@ export async function getStaticProps() {
 }
 
 
-export default MailingListPage;
+export default PressPage;

@@ -46,7 +46,6 @@ const NavbarSubtitle = (props) => {
             setSelected(false)
         }
     }, [asPath])
-    console.log(asPath)
     
  
 

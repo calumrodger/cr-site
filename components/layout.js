@@ -20,15 +20,15 @@ const Layout = (props) => {
 
 //choose the screen size 
 const handleResize = () => {
-  if (window.innerWidth < 966) {
+  if (window.innerWidth < 1024) {
       setIsMobile(true)
   } else {
       setIsMobile(false)
   }
-  if (window.innerWidth < 966 && showCatbar) {
+  if (window.innerWidth < 1024 && showCatbar) {
     setTopPadding('1.625rem')
   }
-  if (window.innerWidth < 966 && !showCatbar) {
+  if (window.innerWidth < 1024 && !showCatbar) {
     setTopPadding('0')
   }
   if (window.innerWidth < 535 && showCatbar) {
