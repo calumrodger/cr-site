@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Notification from "./notification"
 // import { sendContactData } from "../helpers/api-utils"
+import classes from './mailing-list-signup.module.scss'
 
 export const sendContactData = async (details) => {
 
@@ -70,7 +71,7 @@ const MailingListSignup = () => {
 
     return (
         <>
-        <form>
+        <form className={classes.mailingListForm}>
             <label htmlFor="email">email</label>
             <input type="email" id="email" required value={theEmail} onChange={e => setEmail(e.target.value)}/>
             <button onClick={sendMessageHandler}>sign up</button>

@@ -1,4 +1,15 @@
 .formContainer {
+    // width: 70%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & button {
+        margin-top: 1rem;
+        border: 1px solid var(--text-colour);
+        width: auto;
+        cursor: pointer;
+    }
 }
+
