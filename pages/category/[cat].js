@@ -7,6 +7,8 @@ const AllPostsByCategory = (props) => {
     const posts = props.catPosts
     const cat = props.cat
     const introPost = props.introPost
+    const bgImage = introPost.image
+    console.log(bgImage)
 
     const gamesOrder = ['rabbie-burns-saves-the-world-and-by-extension-book-week-scotland', 'gotta-eat-the-plums-with-william-carlos-williams', 'sisyphus-reacts-only', 'sha-lot']
     const filmsOrder = ['rock-star-north', 'p0etryb1ts', 'whale-tree', 'burns-in-translation']
@@ -54,11 +56,13 @@ const AllPostsByCategory = (props) => {
     if (cat === 'poetry') {
       postDisplayOrder = shuffleArray(posts)
     }
+
+    
     
 
     return (
         <>
-        <div className={classes.pageContainer}>
+        <div className={classes.bgImage} style={{backgroundImage: `url(${bgImage})`}}>
           <div className={classes.pageContent}>
         <div className={classes.intro} dangerouslySetInnerHTML={{__html: introPost.content}} />
         <div className={classes.postsContainer}>

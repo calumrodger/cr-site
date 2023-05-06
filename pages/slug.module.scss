@@ -1,9 +1,31 @@
 .pageContent {
-  background-color: var(--main-bg);
+  // background-color: var(--main-bg);
   font-size: var(--body-text-size);
-  margin: var(--body-margin);
+  padding: 1rem;
 
   h2 {
     font-size: var(--body-title-text-size);
+  }
+}
+
+
+.bgImage {
+  height: 100%;
+  margin: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 10;
+  background-attachment: fixed;
+}
+
+@media (min-width: 768px) {
+  .bgImage {
+    height: 100%;
+    margin: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: 10;
   }
 }

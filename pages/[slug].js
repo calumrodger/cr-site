@@ -5,10 +5,11 @@ import classes from './slug.module.scss'
 const SinglePost = (props) => {
 
     const post = props.post
+    const image = post.image
 
     return (
         <>
-        <div className={classes.pageContainer}>
+        <div className={classes.bgImage} style={{backgroundImage: `url(${image})`}}>
             <div className={classes.pageContent}>
         <PostSingle
         title={post.title}
