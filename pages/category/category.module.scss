@@ -1,7 +1,12 @@
 .pageContent {
+  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--main-bg);
+
+  a {
+    text-decoration: underline;
+  }
 }
 
 .intro {
