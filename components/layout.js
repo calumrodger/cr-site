@@ -62,6 +62,9 @@ useEffect(() => {
                 <NavbarTitle />
             </div>
 
+            <div className={classes.rightMargin} />
+
+
             {isMobile && showCatbar &&
             <div className={classes.mobileCatbar} >
                  <CatBar cat={props.cat} categories={props.categories} randomPost={props.randomPost} burgerToggle={props.burgerToggle}/>

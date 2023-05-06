@@ -7,7 +7,7 @@
     position: fixed;
     left: var(--border-size-mob);
     right: var(--border-size-mob);
-    // width: 100%;
+    width: calc(100% - var(--border-size-mob) - var(--border-size-mob));
     // top: var(--border-size-mob);
 }
   
@@ -46,6 +46,7 @@
       position: static;
       left: auto;
       right: auto;
+      width: auto;
     }
   
     .linkText {
