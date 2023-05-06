@@ -15,6 +15,7 @@ const PressPage = (props) => {
     <>
     <div className={classes.pageContainer}>
       <div className={classes.pageContent}>
+        <h2>Selected Press Snippets</h2>
         <div className={classes.content} dangerouslySetInnerHTML={{__html: pressPageContent.content}}/>
       </div>
     </div>
