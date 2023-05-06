@@ -9,9 +9,9 @@ const MainContentContainer = (props) => {
     // }, [contentRef.current.scrollHeight])
 
     return (
-        <div ref={contentRef}>
+        <>
         {props.children}
-        </div>
+        </>
     )
 }
 

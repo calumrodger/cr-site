@@ -46,6 +46,7 @@
     // overflow-x: hidden;
     background-color: var(--main-bg);
     grid-area: main-content;
+    padding-bottom: var(--border-size-mob);
 }
 
 .footerText {
@@ -63,13 +64,13 @@
 }
 
 .footerButtons {
-    background-color: var(--border);
     display: flex;
     align-items: center;
     justify-content: right;
     position: fixed;
     right: var(--border-size-mob);
     bottom: 0;
+    background-color: var(--border);
     grid-area: footer-buttons;
 }
 
@@ -77,6 +78,10 @@
     .grid {
         grid-template-columns: var(--border-size-desk) auto 1rem var(--border-size-desk);
         grid-template-rows: var(--border-size-desk) fit-content(var(--border-size-desk)) auto var(--border-size-desk);  
+    }
+
+    .mainContent {
+        padding-bottom: var(--border-size-desk);
     }
 
     .footerButtons {

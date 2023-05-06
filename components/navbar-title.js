@@ -20,7 +20,7 @@ const NavbarTitle = (props) => {
     // Return navbar
     return (
         <>
-            <div className={`${classes.title} ${asPath === '/' ? classes.selected : null}`}><Link href='/'>Calum Rodger</Link></div>
+            <div className={`${classes.title} ${asPath === '/' ? classes.selected : null}`}><span className={classes.byText}>by </span><Link href='/'>Calum Rodger</Link></div>
         </>
         
     )

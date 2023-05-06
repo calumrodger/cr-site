@@ -16,6 +16,7 @@ const Layout = (props) => {
 
     const [showCatbar, setShowCatbar] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
+    const [topPadding, setTopPadding] = useState('0')
 
 //choose the screen size 
 const handleResize = () => {
@@ -24,13 +25,25 @@ const handleResize = () => {
   } else {
       setIsMobile(false)
   }
+  if (window.innerWidth < 966 && showCatbar) {
+    setTopPadding('1.625rem')
+  }
+  if (window.innerWidth < 966 && !showCatbar) {
+    setTopPadding('0')
+  }
+  if (window.innerWidth < 535 && showCatbar) {
+    setTopPadding('3.25rem')
+  }
+  if (window.innerWidth < 535 && !showCatbar) {
+    setTopPadding('0')
+  }
 }
 
 // create an event listener
 useEffect(() => {
     handleResize()
     window.addEventListener("resize", handleResize)
-}, [])
+}, [showCatbar])
 
 // useEffect(() => {
 //     console.log(contentRef.current.scrollY)
@@ -55,12 +68,12 @@ useEffect(() => {
             </div>
             }
 
-            <div className={classes.mainContent}>
+            <div className={classes.mainContent} style={{paddingTop: topPadding}}>
                 <MainContentContainer>{props.children}</MainContentContainer>
             </div>
 
             <div className={classes.footerText} >
-                <FooterText posts={props.posts} />
+                {!isMobile && <FooterText posts={props.posts} /> }
             </div>
 
             <div className={classes.footerButtons} >

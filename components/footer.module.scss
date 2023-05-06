@@ -29,7 +29,9 @@
 .footerButtonsContainer {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: right;
+    justify-content: center;
+    align-items: center;
+    height: var(--border-size-mob);
 }
 
 .footerButtons {
@@ -53,6 +55,10 @@
 
   .footerText {
     font-size: var(--footer-text-size-desk);
+}
+
+.footerButtonsContainer {
+  height: var(--border-size-desk);
 }
 
   .footerButtons {

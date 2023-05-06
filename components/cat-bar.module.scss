@@ -4,6 +4,11 @@
     justify-content: stretch;
     flex-wrap: wrap;
     background-color: var(--border);
+    position: fixed;
+    left: var(--border-size-mob);
+    right: var(--border-size-mob);
+    // width: 100%;
+    // top: var(--border-size-mob);
 }
   
 .link {
@@ -38,6 +43,9 @@
 @media (min-width: 966px) {
     .catsContainer {
       flex-wrap: nowrap;
+      position: static;
+      left: auto;
+      right: auto;
     }
   
     .linkText {

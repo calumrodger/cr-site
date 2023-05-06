@@ -11,16 +11,16 @@
   white-space: nowrap;
   cursor: pointer;
 
+  &.selected {
+    color: var(--navtext-highlight);
+  }
+
   &:hover {
       color: var(--navtext-highlight);
   }
   
 }
 
-.subtitleIcon {
-  color: var(--navtext-colour);
-  font-size: var(--buttons-text-size-mob);
-}
 
 .title {
   font-size: var(--title-text-size-mob);
@@ -37,7 +37,11 @@
   }
 }
 
-@media (min-width: 100px) {
+.byText {
+  font-size: 1rem;
+}
+
+@media (min-width: 955px) {
 
   .title,
   .subtitle {
