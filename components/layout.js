@@ -26,15 +26,18 @@ const handleResize = () => {
       setIsMobile(false)
   }
   if (window.innerWidth < 1024 && showCatbar) {
-    setTopPadding('1.625rem')
+    setTopPadding('1.25rem')
   }
   if (window.innerWidth < 1024 && !showCatbar) {
     setTopPadding('0')
   }
-  if (window.innerWidth < 535 && showCatbar) {
-    setTopPadding('3.25rem')
+  if (window.innerWidth < 459 && showCatbar) {
+    setTopPadding('2.75rem')
   }
-  if (window.innerWidth < 535 && !showCatbar) {
+  if (window.innerWidth < 459 && !showCatbar) {
+    setTopPadding('0')
+  }
+  if (window.innerWidth > 1024 ) {
     setTopPadding('0')
   }
 }
@@ -72,7 +75,7 @@ useEffect(() => {
             }
 
             <div className={classes.mainContent} style={{paddingTop: topPadding}}>
-                <MainContentContainer>{props.children}</MainContentContainer>
+                {props.children}
             </div>
 
             <div className={classes.footerText} >

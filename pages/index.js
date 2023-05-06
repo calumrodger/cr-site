@@ -6,6 +6,7 @@ const HomePage = (props) => {
   const { posts } = props
 
   let homePageContent = posts.find(item => item.slug === 'home')
+  let homePageImage = homePageContent.image
 
   if (!homePageContent) {
     homePageContent = ''
@@ -13,9 +14,9 @@ const HomePage = (props) => {
 
   return (
     <>
-    <div className={classes.pageContainer}>
-      <div className={classes.pageContent}>
-        <div className={classes.content} dangerouslySetInnerHTML={{__html: homePageContent.content}}/>
+    <div className={classes.bgImage} style={{backgroundImage: `url(${homePageImage})`}}>
+      <div className={classes.pageContent} >
+        <div className={classes.homeContent} dangerouslySetInnerHTML={{__html: homePageContent.content}}/>
       </div>
     </div>
     </>

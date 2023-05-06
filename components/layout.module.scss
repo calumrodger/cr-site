@@ -4,9 +4,9 @@
     grid-template-columns: var(--border-size-mob) auto 1rem var(--border-size-mob);
     grid-template-rows: var(--border-size-mob) fit-content(var(--border-size-mob)) auto var(--border-size-mob);
     grid-template-areas: ". subtitle title right-margin"
-                         ". mobile-catbar mobile-catbar ."
-                         ". main-content main-content ."
-                         ". footer-text footer-buttons ."
+                         ". mobile-catbar mobile-catbar right-margin"
+                         ". main-content main-content right-margin"
+                         ". footer-text footer-buttons right-margin"
 }
 
 .navbarSubtitle { 
@@ -51,7 +51,7 @@
     // overflow-x: hidden;
     background-color: var(--main-bg);
     grid-area: main-content;
-    padding-bottom: var(--border-size-mob);
+    // padding-bottom: var(--border-size-mob);
 }
 
 .footerText {
@@ -86,7 +86,7 @@
     }
 
     .mainContent {
-        padding-bottom: var(--border-size-desk);
+        // padding-bottom: var(--border-size-desk);
     }
 
     .footerButtons {

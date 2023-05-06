@@ -16,7 +16,6 @@ const ContactPage = (props) => {
     <>
     <div className={classes.pageContainer}>
       <div className={classes.pageContent}>
-        <div className={classes.content} dangerouslySetInnerHTML={{__html: pageContent.content}}/>
         <ContactForm />
       </div>
     </div>
