@@ -45,7 +45,7 @@
 .footerText {
   background-color: var(--border);
     color: var(--navtext-colour);
-    font-size: var(--footer-text-size-mob);
+    font-size: calc(var(--footer-text-size-mob) / 1.5);
     font-weight: 300;
     font-style: italic;
 }
@@ -54,7 +54,7 @@
 @media (min-width: 1024px) {
 
   .footerText {
-    font-size: var(--footer-text-size-desk);
+    font-size: calc(var(--footer-text-size-desk) / 1.5);
 }
 
 .footerButtonsContainer {

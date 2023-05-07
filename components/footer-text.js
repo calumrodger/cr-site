@@ -8,7 +8,7 @@ const FooterText = (props) => {
     const { asPath } = useRouter()
     const slug = asPath.replace('/', '')
 
-    let currentText = 'Calum Rodger: Poet + Dev'
+    let currentText = `at the interface of poetry and tech since '05!`
 
     // for (let i = 0; i < posts.length; i++) {
     //     if ( posts[i].slug === slug ) {
