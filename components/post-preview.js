@@ -7,9 +7,11 @@ const PostPreview = (props) => {
     return (
         <>
         <div className={classes.container}>
-        <Link href={`/${props.slug}`}><h2 className={classes.title}>{props.title}</h2></Link>
         <img className={classes.image} src={props.image} alt={props.altText}/>
+        <div className={classes.textContainer}>
+        <Link href={`/${props.slug}`}><h2 className={classes.title}>{props.title}</h2></Link>
         <div className={classes.blurb} dangerouslySetInnerHTML={{__html: props.blurb}}/>
+        </div>
         </div>
         </>
     )

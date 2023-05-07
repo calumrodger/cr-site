@@ -14,6 +14,8 @@
 .link {
     border: 1px solid white;
     flex-grow: 1;
+    flex-shrink: 1;
+    // flex-basis: 20%;
     display: flex;
     justify-content: center;
     cursor: pointer;

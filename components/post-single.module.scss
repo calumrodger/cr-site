@@ -17,15 +17,24 @@
     border: 2px solid var(--border);
   }
 
+  .itemContainer {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
   p {
     background-color: var(--main-bg);
     color: var(--text-colour);
     font-size: var(--body-text-size);
     font-weight: 300;
+    // flex-grow: 1;
+    flex-shrink: 1;
+    // flex-basis: 40%;
   }
 
   img {
     border: 2px solid #000;
+    float: left;
   }
 
   .content {
