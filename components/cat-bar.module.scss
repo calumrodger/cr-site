@@ -9,8 +9,16 @@
     right: var(--border-size-mob);
     width: calc(100% - var(--border-size-mob) - var(--border-size-mob));
     // top: var(--border-size-mob);
+
+    // hr {
+    //   width: 100%;
+    // }
 }
   
+.catBreak {
+  width: 100%;
+}
+
 .link {
     border: 1px solid white;
     flex-grow: 1;

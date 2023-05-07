@@ -1,6 +1,6 @@
 import classes from './cat-bar.module.scss'
 import Link from 'next/link'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 const CatBar = (props) => {
@@ -39,15 +39,53 @@ const CatBar = (props) => {
         }
     }
 
+    const [narrowToggle, setNarrowToggle] = useState(false)
+
+    const handleResize = () => {
+        // if (window.innerWidth < 1024) {
+        //     setIsMobile(true)
+        // } else {
+        //     setIsMobile(false)
+        // }
+        // if (window.innerWidth < 1024 && showCatbar) {
+        //   setTopPadding('1.25rem')
+        // }
+        // if (window.innerWidth < 1024 && !showCatbar) {
+        //   setTopPadding('0')
+        // }
+        if (window.innerWidth < 459 ) {
+          setNarrowToggle(true)
+        }
+        if (window.innerWidth > 459 ) {
+          setNarrowToggle(false)
+        }
+      }
+      
+      // create an event listener
+      useEffect(() => {
+          handleResize()
+          window.addEventListener("resize", handleResize)
+      }, [])
+
    
     // Return navbar
     return (
         <>
         <div className={`${classes.catsContainer} ${burgerToggle ? classes.show : classes.hidden}`}>
             {finalCategories.map((item) => {
+
+                if (item.slug === 'film-image') {
+                    return (
+                        <>
+                        
+                        <div key={item.id} className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`}><Link className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
+                        <div className={`${narrowToggle ? classes.catBreak : null}`} />
+                        </>
+                    )
+                } else {
                 return (
                 <div key={item.id} className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`}><Link className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
-            )})}
+            )}})}
         </div>
         </>
         

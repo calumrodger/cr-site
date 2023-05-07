@@ -32,7 +32,8 @@
     color: var(--text-colour);
     background-color: var(--main-bg);
     border: 1px solid #000;
-    margin: 1rem;
+    margin: auto;
+    margin-top: calc(var(--border-size-mob) / 2);
 }
 
 .postsContainer {
@@ -53,5 +54,9 @@
   .poemsListContainer {
     margin-left: var(--border-size-desk);
     margin-right: var(--border-size-desk);
+  }
+
+  .intro {
+    margin-top: calc(var(--border-size-desk) / 2);
   }
 }
