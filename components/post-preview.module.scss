@@ -11,6 +11,7 @@
 }
 
 .textContainer {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -27,8 +28,8 @@
   
   .image {
     border: 1px solid #000;
-    height: 6rem;
-    width: 6rem;
+    height: 300px;
+    width: 300px;
     object-fit: cover;
     margin: 1rem;
   }
@@ -48,6 +49,7 @@
     .container {
       flex-wrap: nowrap;
       width: 70%;
+      justify-content: left;
     }
     
     .image {
