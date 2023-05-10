@@ -8,9 +8,6 @@ const NavbarSubtitle = (props) => {
 
     const { isMobile } = props
     let { showCatbar } = props
-    const { randomPost } = props
-    const { categories } = props
-    let { cat } = props
     
     const [burgerIcon, setBurgerIcon] = useState('▼')
     const [selected, setSelected] = useState(false)

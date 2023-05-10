@@ -3,16 +3,11 @@ import CatBar from './cat-bar'
 import classes from './layout.module.scss'
 import FooterText from './footer-text'
 import FooterButtons from './footer-buttons'
-import Router from 'next/router'
-import ScrollRestorationDisabler from './head'
 
 import NavbarSubtitle from './navbar-subtitle'
 import NavbarTitle from './navbar-title'
-import MainContentContainer from './main-content-container'
 
 const Layout = (props) => {
-
-    const contentRef = useRef()
 
     const [showCatbar, setShowCatbar] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
@@ -48,10 +43,6 @@ useEffect(() => {
     window.addEventListener("resize", handleResize)
 }, [showCatbar])
 
-// useEffect(() => {
-//     console.log(contentRef.current.scrollY)
-// }, [])
-
 
     return (
         <>
@@ -59,7 +50,7 @@ useEffect(() => {
 
             <div className={classes.navbarSubtitle}>
                 <NavbarSubtitle  isMobile={isMobile} showCatbar={showCatbar} setShowCatbar={setShowCatbar}/>
-                {!isMobile && showCatbar && <CatBar cat={props.cat} categories={props.categories} randomPost={props.randomPost} burgerToggle={props.burgerToggle}/>}
+                {!isMobile && showCatbar && <CatBar cat={props.cat} categories={props.categories} burgerToggle={props.burgerToggle}/>}
             </div>
             <div className={classes.navbarTitle}>
                 <NavbarTitle />
@@ -70,7 +61,7 @@ useEffect(() => {
 
             {isMobile && showCatbar &&
             <div className={classes.mobileCatbar} >
-                 <CatBar cat={props.cat} categories={props.categories} randomPost={props.randomPost} burgerToggle={props.burgerToggle}/>
+                 <CatBar cat={props.cat} categories={props.categories} burgerToggle={props.burgerToggle}/>
             </div>
             }
 

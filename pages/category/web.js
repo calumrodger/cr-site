@@ -1,12 +1,12 @@
 import PostPreview from '../../components/post-preview'
-import { getCategoryIntroPost, getPostData, postDataSorter, getRandomPost, getPostsByCategory, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
+import { getCategoryIntroPost, getPostData, postDataSorter, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
 import classes from './category.module.scss'
 import Link from 'next/link'
 
 const WebCategory = (props) => {
 
-    const posts = props.catPosts
-    const cat = props.cat
+    // const posts = props.catPosts
+    // const cat = props.cat
     const introPost = props.introPost
 
     const lighghtTitle = `the 'lighght' going on and off`
@@ -39,10 +39,9 @@ export async function getStaticProps(context) {
     const categoryData = await getCategoryData()
     const categories = categoryDataSorter(categoryData)
     const introPost = await getCategoryIntroPost('web')
-    const randomPost = await getRandomPost(posts)
     const cat = 'web'
     return {
-        props: { introPost, posts, categories, randomPost, cat },
+        props: { introPost, posts, categories, cat },
         revalidate: 600
     }
   }

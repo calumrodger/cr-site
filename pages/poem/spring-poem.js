@@ -1,7 +1,7 @@
-import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
+import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
 import classes from './spring-poem.module.scss'
 
-const SpringPoem = (props) => {
+const SpringPoem = () => {
     return (
         <>
         <div className={classes.gridContainer}>
@@ -42,10 +42,9 @@ export async function getStaticProps() {
     const posts = postDataSorter(data)
     const categoryData = await getCategoryData()
     const categories = categoryDataSorter(categoryData)
-    const randomPost = await getRandomPost(posts)
   
     return {
-      props: { posts, randomPost, categories },
+      props: { posts, categories },
       revalidate: 600
     }
   }

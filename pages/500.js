@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getRandomPost } from '../helpers/api-utils'
+import { getPostData, postDataSorter, getCategoryData, categoryDataSorter } from '../helpers/api-utils'
 
 export default function FiveOhOh(props) {
   return <>
@@ -15,10 +15,9 @@ export async function getStaticProps() {
   const posts = postDataSorter(data)
   const categoryData = await getCategoryData()
   const categories = categoryDataSorter(categoryData)
-  const randomPost = await getRandomPost(posts)
 
   return {
-    props: { posts, randomPost, categories },
+    props: { posts, categories },
     revalidate: 600
   }
 }

@@ -21,8 +21,6 @@ const FooterButtons = () => {
         }
     }
 
-
-
     return (
         <>
         <div className={classes.footerButtonsContainer}>

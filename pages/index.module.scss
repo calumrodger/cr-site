@@ -1,82 +1,44 @@
 
 .homeContent {
-  padding: 1rem;
-  // width: 100%;
-  // color: white;
-  
-  
-
-  p {
-    color: var(--main-bg);
-    text-align: justify;
-    // margin-top: 10%;
-  }
- 
+    padding: 1rem;
+    
+    p {
+        color: var(--main-bg);
+        text-align: justify;
+    }
 }
 
 .pageContent {
-
-  a {
-    text-decoration: underline;
-  }
-  // background-color: var(--main-bg);
-  // margin: var(--body-margin);
-  // margin-left: calc(var(--body-margin) * 2);
-  // padding: 1rem;
-  // height: 120%;
-  // position: fixed;
-  // top: 50%;
-  // width: 50%;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
+    a {
+      text-decoration: underline;
+    }
 }
 
 .contentMailingList {
-  text-align: center;
+    text-align: center;
 }
 
 .content {
-  background-color: var(--main-bg);
+    background-color: var(--main-bg);
 }
 
 .bgImage {
-  height: 100%;
-  margin: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  z-index: 10;
-  background-attachment: fixed;
-}
-
-@media (min-width: 768px) {
-  .bgImage {
     height: 100%;
     margin: 0;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     z-index: 10;
-  }
+    background-attachment: fixed;
+}
 
-  // .pageContent {
-  //   // background-color: var(--main-bg);
-  //   // margin: var(--body-margin);
-  //   // margin-left: calc(var(--body-margin) * 2);
-  //   // padding: 1rem;
-  //   // height: 120%;
-  //   position: fixed;
-  //   top: 50%;
-  //   width: 50%;
-  //   display: flex;
-  //   align-items: center;
-  //   // justify-content: center;
-  // }
-
-  // .homeContent {
-  //   padding: 1rem;
-  //   background-color: var(--main-bg);
-  //   margin-left: 10%;
-  // }
+@media (min-width: 768px) {
+    .bgImage {
+        height: 100%;
+        margin: 0;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        z-index: 10;
+    }
 }

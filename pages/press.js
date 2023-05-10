@@ -1,4 +1,4 @@
-import { getPostData, postDataSorter, getRandomPost, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
+import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
 import classes from './index.module.scss'
 
 const PressPage = (props) => {
@@ -29,10 +29,9 @@ export async function getStaticProps() {
   const posts = postDataSorter(data)
   const categoryData = await getCategoryData()
   const categories = categoryDataSorter(categoryData)
-  const randomPost = await getRandomPost(posts)
 
   return {
-    props: { posts, randomPost, categories },
+    props: { posts, categories },
     revalidate: 600
   }
 }

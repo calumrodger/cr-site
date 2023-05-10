@@ -1,5 +1,5 @@
 import PostPreview from '../../components/post-preview'
-import { getCategoryIntroPost, getPostData, postDataSorter, getRandomPost, getPostsByCategory, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
+import { getCategoryIntroPost, getPostData, postDataSorter, getPostsByCategory, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
 import classes from './category.module.scss'
 
 const AllPostsByCategory = (props) => {
@@ -8,7 +8,6 @@ const AllPostsByCategory = (props) => {
     const cat = props.cat
     const introPost = props.introPost
     const bgImage = introPost.image
-    console.log(bgImage)
 
     const gamesOrder = ['rabbie-burns-saves-the-world-and-by-extension-book-week-scotland', 'gotta-eat-the-plums-with-william-carlos-williams', 'sisyphus-reacts-only', 'sha-lot']
     const filmsOrder = ['rock-star-north', 'p0etryb1ts', 'whale-tree', 'burns-in-translation']
@@ -28,16 +27,6 @@ const AllPostsByCategory = (props) => {
     return finalPostSort
     }
 
-    const shuffleArray = array => {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-      }
-      return array
-    }
-
     if (cat === 'game') {
       postDisplayOrder = arraySorter(gamesOrder, posts)
     }
@@ -53,19 +42,14 @@ const AllPostsByCategory = (props) => {
     if (cat === 'article') {
       postDisplayOrder = arraySorter(otherWritingOrder, posts)
     }
-    if (cat === 'poetry') {
-      postDisplayOrder = shuffleArray(posts)
-    }
 
     
-    
-
     return (
         <>
         <div className={classes.bgImage} style={{backgroundImage: `url(${bgImage})`}}>
           <div className={classes.pageContent}>
-        <div className={classes.intro} dangerouslySetInnerHTML={{__html: introPost.content}} />
-        <div className={classes.postsContainer}>
+          <div className={classes.intro} dangerouslySetInnerHTML={{__html: introPost.content}} />
+          <div className={classes.postsContainer}>
             {postDisplayOrder.map((item) => {
             return (
             <PostPreview
@@ -83,9 +67,9 @@ const AllPostsByCategory = (props) => {
             />
             )
           })}
-      </div>
-      </div>
-      </div>
+        </div>
+        </div>
+        </div>
         </>
     )
 }
@@ -101,9 +85,8 @@ export async function getStaticProps(context) {
   const cat = params.cat
   const catPosts = await getPostsByCategory(cat)
   const introPost = await getCategoryIntroPost(cat)
-  const randomPost = await getRandomPost(posts)
   return {
-      props: { posts, cat, catPosts, introPost, categories, randomPost },
+      props: { posts, cat, catPosts, introPost, categories },
       revalidate: 600
   }
 }

@@ -1,6 +1,5 @@
 import { useState } from "react"
 import Notification from "./notification"
-// import { sendContactData } from "../helpers/api-utils"
 import classes from './mailing-list-signup.module.scss'
 
 export const sendContactData = async (details) => {

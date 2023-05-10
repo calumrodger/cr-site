@@ -1,7 +1,6 @@
 import classes from './cat-bar.module.scss'
 import Link from 'next/link'
-import { useRef, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 const CatBar = (props) => {
     const { categories } = props
@@ -42,17 +41,6 @@ const CatBar = (props) => {
     const [narrowToggle, setNarrowToggle] = useState(false)
 
     const handleResize = () => {
-        // if (window.innerWidth < 1024) {
-        //     setIsMobile(true)
-        // } else {
-        //     setIsMobile(false)
-        // }
-        // if (window.innerWidth < 1024 && showCatbar) {
-        //   setTopPadding('1.25rem')
-        // }
-        // if (window.innerWidth < 1024 && !showCatbar) {
-        //   setTopPadding('0')
-        // }
         if (window.innerWidth < 459 ) {
           setNarrowToggle(true)
         }

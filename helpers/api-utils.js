@@ -127,12 +127,6 @@ export async function getCategoryIntroPost(currentCat) {
   return post[0]
 }
 
-export async function getRandomPost(posts) {
-  const indexedPosts = posts.filter((item) => item.indexed === true)
-  const randomPost = indexedPosts[Math.floor(Math.random()*indexedPosts.length)]
-  return randomPost
-}
-
 export const sendContactData = async (path, details) => {
 
   const response = await fetch(path, {

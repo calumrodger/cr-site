@@ -1,19 +1,11 @@
 
 .bgImage {
-  height: 100%;
-  margin: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  // z-index: 10;
-  background-attachment: fixed;
-}
-
-
-.pageContent {
-  // height: 100%;
-  // display: flex;
-  // flex-direction: column;
+    height: 100%;
+    margin: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
 }
 
 .intro {
@@ -33,22 +25,20 @@
     flex-wrap: wrap;
     justify-content: center;
     color: black;
-  //   margin-left: var(--border-size-mob);
-  // margin-right: var(--border-size-mob);
 }
 
 .poemsListContainer {
-  margin-left: var(--border-size-mob);
-  margin-right: var(--border-size-mob);
+    margin-left: var(--border-size-mob);
+    margin-right: var(--border-size-mob);
 }
 
 @media (min-width: 1024px) {
-  .poemsListContainer {
-    margin-left: var(--border-size-desk);
-    margin-right: var(--border-size-desk);
-  }
+    .poemsListContainer {
+        margin-left: var(--border-size-desk);
+        margin-right: var(--border-size-desk);
+    }
 
-  .intro {
-    margin-top: calc(var(--border-size-desk) / 2);
-  }
+    .intro {
+        margin-top: calc(var(--border-size-desk) / 2);
+    }
 }

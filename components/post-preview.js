@@ -1,6 +1,5 @@
 import classes from './post-preview.module.scss'
 import Link from "next/link"
-import Image from 'next/image'
 
 const PostPreview = (props) => {
 

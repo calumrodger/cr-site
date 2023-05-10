@@ -1,5 +1,5 @@
 import PostSingle from '../components/post-single'
-import { getPostBySlug, getPostData, postDataSorter, getRandomPost, getCategoryData, categoryDataSorter } from '../helpers/api-utils'
+import { getPostBySlug, getPostData, postDataSorter, getCategoryData, categoryDataSorter } from '../helpers/api-utils'
 import classes from './slug.module.scss'
 
 const SinglePost = (props) => {
@@ -10,15 +10,15 @@ const SinglePost = (props) => {
     return (
         <>
         <div className={classes.bgImage} style={{backgroundImage: `url(${image})`}}>
-            <div className={classes.pageContent}>
-        <PostSingle
-        title={post.title}
-        author={post.author}
-        image={post.image}
-        content={post.content}
-        tags={post.tags}
-        slug={post.slug}
-        />
+        <div className={classes.pageContent}>
+            <PostSingle
+            title={post.title}
+            author={post.author}
+            image={post.image}
+            content={post.content}
+            tags={post.tags}
+            slug={post.slug}
+            />
         </div>
         </div>
         </>
@@ -32,12 +32,11 @@ export async function getStaticProps(context) {
     const posts = postDataSorter(data)
     const categoryData = await getCategoryData()
     const categories = categoryDataSorter(categoryData)
-    const randomPost = await getRandomPost(posts)
     const { params } = context
     const slug = params.slug
     let post = await getPostBySlug(slug)
     return {
-        props: { posts, post, categories, randomPost },
+        props: { posts, post, categories },
         revalidate: 60
     }
 }

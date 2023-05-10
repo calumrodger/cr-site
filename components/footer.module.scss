@@ -5,25 +5,25 @@
     white-space: nowrap;
 
     &.selectedButton {
-      background-color: var(--border-highlight);
-      color: var(--navtext-highlight);
+        background-color: var(--border-highlight);
+        color: var(--navtext-highlight);
     }
   
     &:hover {
-      background-color: var(--border-highlight);
-      color: var(--navtext-highlight);
+        background-color: var(--border-highlight);
+        color: var(--navtext-highlight);
     }
   }
 
 .burgerIcon {
-  color: var(--navtext-colour);
-  font-size: var(--buttons-text-size-mob);
-  cursor: pointer;
-  margin-left: .5rem;
+    color: var(--navtext-colour);
+    font-size: var(--buttons-text-size-mob);
+    cursor: pointer;
+    margin-left: .5rem;
 
-  &:hover {
-    color: var(--navtext-highlight);
-  }
+    &:hover {
+        color: var(--navtext-highlight);
+    }
 }
 
 .footerButtonsContainer {
@@ -35,15 +35,15 @@
 }
 
 .footerButtons {
-  display: flex;
-  background-color: var(--border);
-  flex-wrap: nowrap;
-  justify-content: right;
-  font-size: var(--buttons-text-size-mob);
+    display: flex;
+    background-color: var(--border);
+    flex-wrap: nowrap;
+    justify-content: right;
+    font-size: var(--buttons-text-size-mob);
 }
 
 .footerText {
-  background-color: var(--border);
+    background-color: var(--border);
     color: var(--navtext-colour);
     font-size: calc(var(--footer-text-size-mob) / 1.5);
     font-weight: 300;
@@ -54,15 +54,15 @@
 @media (min-width: 1024px) {
 
   .footerText {
-    font-size: calc(var(--footer-text-size-desk) / 1.5);
-}
+      font-size: calc(var(--footer-text-size-desk) / 1.5);
+  }
 
-.footerButtonsContainer {
-  height: var(--border-size-desk);
-}
+  .footerButtonsContainer {
+      height: var(--border-size-desk);
+  }
 
   .footerButtons {
-    font-size: var(--buttons-text-size-desk);
+      font-size: var(--buttons-text-size-desk);
   }
 
   .burgerIcon {
