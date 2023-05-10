@@ -6,22 +6,22 @@
     align-items: center;
     justify-content: center;
     border: 2px solid var(--main-bg);
+    width: 70%;
     // width: 70%;
     margin: .5rem;
 }
 
 .textContainer {
-  height: 300px;
-  width: 300px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   flex-direction: column;
-  border: 1px solid #000;
-    background-color: var(--main-bg);
+  // border: 1px solid #000;
+    background-color: transparent;
     // padding: 10px;
     margin: 1rem;
   // max-width: 50%;
+  color: white;
 
   a {
     text-decoration: underline;
@@ -29,23 +29,22 @@
 }
   
   .image {
-    border: 1px solid #000;
-    height: 300px;
-    width: 300px;
-    object-fit: cover;
-    margin: 1rem;
+    height: 100px;
+    max-width: 300px;
+    // object-fit: contain;
+    // margin: 1rem;
   }
   
   .title {
     font-size: 1rem;
-    padding: 1rem;
+    // padding: 1rem;
     padding-bottom: 0;
   }
 
   .blurb {
     display: inline;
     font-size: .8rem;
-    padding: 1rem;
+    // padding: 1rem;
   }
 
   

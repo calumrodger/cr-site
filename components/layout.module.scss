@@ -2,7 +2,7 @@
 .grid {
     display: grid;
     grid-template-columns: var(--border-size-mob) auto 1rem var(--border-size-mob);
-    grid-template-rows: var(--border-size-mob) fit-content(var(--border-size-mob)) auto var(--border-size-mob);
+    grid-template-rows: var(--border-size-mob) min-content auto var(--border-size-mob);
     grid-template-areas: ". subtitle title right-margin"
                          ". mobile-catbar mobile-catbar right-margin"
                          ". main-content main-content right-margin"
@@ -55,7 +55,7 @@
     grid-area: main-content;
     // z-index: 10;
     height: 100%;
-    // padding-bottom: var(--border-size-mob);
+    padding-bottom: var(--border-size-mob);
 }
 
 .footerText {

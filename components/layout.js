@@ -32,7 +32,7 @@ const handleResize = () => {
     setTopPadding('0')
   }
   if (window.innerWidth < 459 && showCatbar) {
-    setTopPadding('2.75rem')
+    setTopPadding('2.667rem')
   }
   if (window.innerWidth < 459 && !showCatbar) {
     setTopPadding('0')

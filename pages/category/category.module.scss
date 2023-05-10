@@ -5,25 +5,15 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  z-index: 10;
+  // z-index: 10;
   background-attachment: fixed;
 }
 
-@media (min-width: 768px) {
-  .bgImage {
-    height: 100%;
-    margin: 0;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    z-index: 10;
-  }
-}
 
 .pageContent {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  // height: 100%;
+  // display: flex;
+  // flex-direction: column;
 }
 
 .intro {
@@ -32,17 +22,19 @@
     color: var(--text-colour);
     background-color: var(--main-bg);
     border: 1px solid #000;
-    margin: auto;
-    margin-top: calc(var(--border-size-mob) / 2);
+    // margin: auto;
+    // margin-top: calc(var(--border-size-mob) / 2);
 }
 
 .postsContainer {
     text-align: left;
-    width: auto;
+    // width: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     color: black;
+  //   margin-left: var(--border-size-mob);
+  // margin-right: var(--border-size-mob);
 }
 
 .poemsListContainer {

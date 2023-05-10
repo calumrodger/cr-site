@@ -54,8 +54,8 @@
     .catsContainer {
       flex-wrap: nowrap;
       position: static;
-      left: auto;
-      right: auto;
+      left: var(--border-size-desk);
+    right: var(--border-size-desk);
       width: auto;
     }
   
