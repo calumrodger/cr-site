@@ -13,10 +13,10 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    flex-direction: column;
+    // flex-direction: column;
     background-color: transparent;
-    margin: 1rem;
-    color: white;
+    width: 100%;
+    color: black;
 
     a {
         text-decoration: underline;
@@ -31,10 +31,18 @@
 .title {
     font-size: 1rem;
     padding-bottom: 0;
+    background-color: var(--main-bg);
+    margin: .5rem;
 }
 
 .blurb {
-    font-size: .8rem;
+    font-size: 1rem;
+    background-color: var(--main-bg);
+    width: 100%;
+    
+    p {
+        margin: .5rem;
+    }
 }
 
   
@@ -56,6 +64,6 @@
     }
 
     .blurb {
-        font-size: .8rem;
+        font-size: 1rem;
     }
   }
