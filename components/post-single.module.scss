@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     width: 90%;
+    height: 100%;
     align-items: center;
     margin: auto;
 
@@ -39,11 +40,13 @@
     }
 
     iframe {
-      display: flex;
-      align-self: center;
-      max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
+    //   display: flex;
+    //   align-self: center;
+    min-height: 400px;
+    height: 100%;
+      width: 100%;
+    //   margin-left: auto;
+    //   margin-right: auto;
     }
 }
 
@@ -51,7 +54,7 @@
     padding: .5rem;
     color: var(--text-colour);
     background-color: var(--main-bg);
-    width: auto;
+    width: 100%;
     height: 100%;
     border: 2px solid var(--border);
 }

@@ -18,12 +18,14 @@ const WebCategory = (props) => {
         <div className={classes.poemsListContainer}>
         <h3>Original Poems</h3>
         <ul className={classes.poemsList}>
-        <li><Link href='/poem/spring-poem'>spring poem</Link></li>
+        <li><Link href='/poem/spring-poem'>early spring poem</Link></li>
         </ul>
         <h3>Cover Versions</h3>
         <ul className={classes.poemsList}>
         <li><Link href='/poem/silence'>silence</Link></li>
+        <p>Interactive version of Eugen Gomringer's classic concrete poem 'silence', 1954. To play: touch the silence.</p>
         <li><Link href='/poem/the-lighght-going-on-and-off'>{lighghtTitle}</Link></li>
+        <p>Animated homage to Aram Saroyan's controversial minimalist poem 'lighght', 1966, and Martin Creed's Turner Prize-winning conceptual artwork 'Work No. 227: The Lights Going On and Off', 2001. </p>
         </ul>
         </div>
       </div>
