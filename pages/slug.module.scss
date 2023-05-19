@@ -17,14 +17,3 @@
     z-index: 10;
     background-attachment: fixed;
 }
-
-@media (min-width: 768px) {
-    .bgImage {
-        height: 100%;
-        margin: 0;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-        z-index: 10;
-    }
-}

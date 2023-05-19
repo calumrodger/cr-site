@@ -2,7 +2,7 @@
     align-self: center;
     display: flex;
     flex-direction: column;
-    width: 90%;
+    max-width: 90%;
     height: 100%;
     align-items: center;
     margin: auto;
@@ -17,6 +17,7 @@
         background-color: var(--main-bg);
         text-align: center;
         border: 2px solid var(--border);
+        
     }
 
     .itemContainer {
@@ -34,9 +35,10 @@
 
     img {
       border: 2px solid #000;
-      float: left;
-      max-height: 300px;
-      max-width: 300px;
+    //   float: left;
+    //   max-height: 100%;
+    height: auto;
+      width: 100%;
     }
 
     iframe {
