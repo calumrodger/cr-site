@@ -21,17 +21,36 @@
     a {
         text-decoration: underline;
     }
+
+    
+}
+
+.fakeSpan {
+    display: inline-block;
+    width: 100%;
+    background-color: var(--main-bg);
 }
   
 .image {
+    margin-top: .83rem;
     max-height: 100%;
     max-width: 100%;
+    border-top: 2px solid var(--main-bg);
+    border-bottom: 2px solid var(--main-bg);
+    cursor: pointer;
 }
   
+// .titleBg {
+//     background-color: var(--main-bg);
+//     width: 100%;
+// }
+
 .title {
     font-size: 1rem;
     padding-bottom: 0;
     background-color: var(--main-bg);
+    // text-align: justify;
+    width: 100%;
 
 }
 
@@ -39,9 +58,10 @@
     font-size: 1rem;
     background-color: var(--main-bg);
     width: 100%;
+    margin-bottom: .5rem;
     
     p {
-        margin: .5rem;
+        margin: .83rem;
     }
 }
 
