@@ -44,7 +44,7 @@
     iframe {
     //   display: flex;
     //   align-self: center;
-    min-height: 400px;
+    // min-height: 400px;
     height: 100%;
       width: 100%;
     //   margin-left: auto;
@@ -62,13 +62,13 @@
     margin: .5rem;
 }
 
-.allContent.poems-in-anthologies {
-    display: flex;
-}
+// .allContent.poems-in-anthologies {
+//     display: flex;
+// }
 
-.poems-in-anthologies {
-    display: flex;
-}
+// .poems-in-anthologies {
+//     display: flex;
+// }
 
 @media (min-width: 1024px) {
     .container {
