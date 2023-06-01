@@ -65,7 +65,7 @@ useEffect(() => {
             </div>
             }
 
-            <div className={classes.mainContent} style={{paddingTop: topPadding}}>
+            <div className={classes.mainContent} style={{marginTop: topPadding}}>
                 {props.children}
             </div>
 

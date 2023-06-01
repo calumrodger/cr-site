@@ -49,8 +49,8 @@
     font-size: 1rem;
     padding-bottom: 0;
     background-color: var(--main-bg);
-    // text-align: justify;
-    width: 100%;
+    text-align: center;
+    width: auto;
 
 }
 
@@ -59,6 +59,7 @@
     background-color: var(--main-bg);
     width: 100%;
     margin-bottom: .5rem;
+    text-align: center;
     
     p {
         margin: .83rem;
@@ -69,7 +70,8 @@
 
 @media (min-width: 1024px) {
     .container {
-        flex-wrap: nowrap
+        flex-wrap: nowrap;
+        background-color: var(--main-bg);
     }
     
     .image {
@@ -86,5 +88,6 @@
 
     .blurb {
         font-size: 1rem;
+        background-color: transparent;
     }
   }
