@@ -4,12 +4,10 @@ import parse from 'html-react-parser';
 const PostSingle = (props) => {
     const { slug } = props
     const parsedContent = parse(props.content)
-    console.log(parsedContent)
     let contentOutput = ''
 
     if (typeof parsedContent !== "string") {
     const filteredContent = parsedContent.filter(item => item !== '\n')
-    console.log(filteredContent)
 
 
     contentOutput = filteredContent.map((item) => {

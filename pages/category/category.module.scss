@@ -35,6 +35,26 @@
     margin-right: var(--border-size-mob);
 }
 
+.poemsList {
+    p {
+        font-size: .8rem;
+    }
+}
+
+.booksButtonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.booksButton {
+    background-color: var(--main-bg);
+    color: var(--text-colour);
+    margin: 1rem;
+    padding: .5rem;
+    cursor: pointer;
+}
+
 @media (min-width: 1024px) {
     .poemsListContainer {
         margin-left: var(--border-size-desk);

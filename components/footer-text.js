@@ -2,7 +2,7 @@ import classes from './footer.module.scss'
 
 const FooterText = () => {
 
-    let currentText = `at the interface of poetry and tech since '05!`
+    let currentText = ''
 
     return (
         <>
