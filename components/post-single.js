@@ -12,7 +12,7 @@ const PostSingle = (props) => {
 
     contentOutput = filteredContent.map((item) => {
         return (
-            <div key={item.key} className={`${classes.content} ${classes[slug]}`}>         
+            <div key={item.key} className={`${classes.content} ${classes['slug']}`}>         
             {item.props.children}
             </div>
         )
