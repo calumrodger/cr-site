@@ -6,7 +6,6 @@ const Bubbles = () => {
   useEffect(() => {
     // Generate bubbles
     const bubbleContainer = document.querySelector('.bubble-container');
-    console.log(bubbleContainer)
     const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
 
     const createBubble = () => {

@@ -35,8 +35,9 @@
     margin-top: .83rem;
     max-height: 100%;
     max-width: 100%;
-    border-top: 2px solid var(--main-bg);
-    border-bottom: 2px solid var(--main-bg);
+    border: 2px solid var(--main-bg);
+    // border-bottom: 2px solid var(--main-bg);
+    
     cursor: pointer;
 }
   
@@ -50,7 +51,8 @@
     padding-bottom: 0;
     background-color: var(--main-bg);
     text-align: center;
-    width: auto;
+    width: 100%;
+    padding: .5rem;
 
 }
 
@@ -62,7 +64,7 @@
     text-align: center;
     
     p {
-        margin: .83rem;
+        margin: .5rem;
     }
 }
 
@@ -71,7 +73,7 @@
 @media (min-width: 1024px) {
     .container {
         flex-wrap: nowrap;
-        background-color: var(--main-bg);
+        // background-color: var(--main-bg);
     }
     
     .image {
@@ -84,10 +86,11 @@
     
     .title {
         font-size: 1rem;
+        width: 100%;
     }
 
     .blurb {
         font-size: 1rem;
-        background-color: transparent;
+        background-color: var(--main-bg);
     }
   }

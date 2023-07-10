@@ -1,4 +1,7 @@
-
+.textContainer {
+    display: flex;
+    flex-direction: column;
+}
 .text1 {
     top: 65%;
     left: 50%;
@@ -8,7 +11,7 @@
     text-align: center;
 }
 .text2 {
-    top: 75%;
+    top: 78%;
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
@@ -18,7 +21,7 @@
 }
 
 .text205 {
-    top: 80%;
+    top: 85%;
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
@@ -27,7 +30,7 @@
 }
 
 .text3 {
-    top: 85%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;

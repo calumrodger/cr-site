@@ -20,6 +20,8 @@ const Silence = () => {
     const [bottomcentre, setBottomCentre] = useState('silence')
     const [bottomright, setBottomRight] = useState('silence')
 
+    const [currentSilence, setCurrentSilence] = useState('centrecentre')
+
     const all = 
     [[topleft, setTopLeft], [topcentre, setTopCentre], [topright, setTopRight],
     [secondleft, setSecondLeft], [secondcentre, setSecondCentre], [secondright, setSecondRight],
@@ -40,22 +42,23 @@ const Silence = () => {
     return (
         <>
        <div className={classes.gridContainer}>
-        <div onClick={change}>{topleft}</div>
-        <div onClick={change}>{topcentre}</div>
-        <div onClick={change}>{topright}</div>
-        <div onClick={change}>{secondleft}</div>
-        <div onClick={change}>{secondcentre}</div>
-        <div onClick={change}>{secondright}</div>
-        <div onClick={change}>{centreleft}</div>
-        <div onClick={change}>{centrecentre}</div>
-        <div onClick={change}>{centreright}</div>
-        <div onClick={change}>{fourthleft}</div>
-        <div onClick={change}>{fourthcentre}</div>
-        <div onClick={change}>{fourthright}</div>
-        <div onClick={change}>{bottomleft}</div>
-        <div onClick={change}>{bottomcentre}</div>
-        <div onClick={change}>{bottomright}</div>
+        <div id="topleft" onClick={change}>{topleft}</div>
+        <div id="topcentre" onClick={change}>{topcentre}</div>
+        <div id="topright" onClick={change}>{topright}</div>
+        <div id="secondleft" onClick={change}>{secondleft}</div>
+        <div id="secondcentre" onClick={change}>{secondcentre}</div>
+        <div id="secondright" onClick={change}>{secondright}</div>
+        <div id="centreleft" onClick={change}>{centreleft}</div>
+        <div id="centrecentre" onClick={change}>{centrecentre}</div>
+        <div id="centreright" onClick={change}>{centreright}</div>
+        <div id="fourthleft" onClick={change}>{fourthleft}</div>
+        <div id="fourthcentre" onClick={change}>{fourthcentre}</div>
+        <div id="fourthright" onClick={change}>{fourthright}</div>
+        <div id="bottomleft" onClick={change}>{bottomleft}</div>
+        <div id="bottomcentre" onClick={change}>{bottomcentre}</div>
+        <div id="bottomright" onClick={change}>{bottomright}</div>
     </div>
+    <div className={classes.textContainer}>
     <span className={classes.text1}>
     <em>silence</em><br/>
     Eugen Gomringer 1954</span>
@@ -63,6 +66,7 @@ const Silence = () => {
     The constellation is ordered by the poet. He determines the play-area, the field or force and suggests its possibilities. The reader, the new reader, grasps the idea of play, and joins in.</span></div>
     <div className={classes.text205}><span>From Line to Constellation 1950</span></div>
     <span className={classes.text3}>play-area remaster Calum Rodger 2022</span>
+    </div>
         </>
     )
 }

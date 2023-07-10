@@ -5,7 +5,6 @@ const PostSingle = (props) => {
     const { slug } = props
     const parsedContent = parse(props.content)
     let contentOutput = ''
-    console.log(parsedContent)
 
     if (typeof parsedContent !== "string") {
     const filteredContent = parsedContent.filter(item => item !== '\n')
@@ -24,10 +23,12 @@ const PostSingle = (props) => {
     }
 
     return (
+        <>
         <div className={`${classes.container} ${classes[slug]}`}>
         <h2 className={classes.title}>{props.title}</h2>
         {contentOutput} 
         </div>
+        </>
     )
 }
 
