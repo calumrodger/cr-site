@@ -38,10 +38,11 @@
 
 
 .imageCredit {
-    color: var(--main-bg);
+    font-size: small;
     position: fixed;
-    top: 92%;
+    top: 90%;
     right: 10%;
+    width: 17rem;
 }
 
 .bgImage {
@@ -58,7 +59,7 @@
     
     .contentBit {
         background-color: var(--main-bg);
-        width: fit-content;
+        // width: fit-content;
         padding: .3rem;
         text-align: left;
     }
@@ -70,6 +71,8 @@
 
     .bioBlurb {
         width: 40%;
+        background-color: transparent;
+        color: var(--main-bg);
 
     }
 
@@ -88,7 +91,7 @@
         background-color: var(--main-bg);
         position: absolute;
         right: 10%;
-        top: 85%;
+        top: 84%;
     }
 }
 
@@ -100,6 +103,10 @@
         background-repeat: no-repeat;
         background-position: center center;
         z-index: 10;
+    }
+
+    .imageCredit {
+        width: 33rem;
     }
 
 }

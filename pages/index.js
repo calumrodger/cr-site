@@ -39,8 +39,9 @@ const HomePage = (props) => {
         <div className={`${classes.contentBit} ${classes.bioBlurb}`}>{bioBlurb}</div>
         <div className={`${classes.contentBit} ${classes.notProf}`}>{notProf}</div>
         <div className={`${classes.contentBit} ${classes.enjoy}`}>{enjoy}</div>
+
+        <div className={`${classes.contentBit} ${classes.imageCredit}`}>Photo by <a href="https://www.katgollock.com">Kat Gollock</a> featuring detail by <a href="https://www.pucaprinthouse.com">Púca Printhouse</a>. Push the Boat Out 2022.</div>
         </div>
-        <div className={classes.imageCredit}>here</div>
       </div>
     </div>
     </>
