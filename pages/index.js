@@ -35,10 +35,10 @@ const HomePage = (props) => {
     <div className={classes.bgImage} style={{backgroundImage: `url(${homePageImage})`}}>
       <div className={classes.pageContent} >
         <div className={classes.mainContent}>
-        <div className={classes.heading}>{heading}</div>
-        <div className={classes.bioBlurb}>{bioBlurb}</div>
-        <div className={classes.notProf}>{notProf}</div>
-        <div className={classes.enjoy}>{enjoy}</div>
+        <div className={`${classes.contentBit} ${classes.heading}`}>{heading}</div>
+        <div className={`${classes.contentBit} ${classes.bioBlurb}`}>{bioBlurb}</div>
+        <div className={`${classes.contentBit} ${classes.notProf}`}>{notProf}</div>
+        <div className={`${classes.contentBit} ${classes.enjoy}`}>{enjoy}</div>
         </div>
         <div className={classes.imageCredit}>here</div>
       </div>

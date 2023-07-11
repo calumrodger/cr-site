@@ -56,23 +56,28 @@
 
 .mainContent {
     
-    .heading {
+    .contentBit {
         background-color: var(--main-bg);
+        width: fit-content;
+        padding: .3rem;
+        text-align: left;
+    }
+    .heading {
         font-size: larger;
-        width: 100%;
+        // width: 100%;
         margin-bottom: 2rem;
     }
 
     .bioBlurb {
-        background-color: var(--main-bg);
-        width: 33%;
+        width: 40%;
+
     }
 
     .notProf {
-        background-color: var(--main-bg);
+
         // width: 33%;
         // text-align: right;
-        position: absolute;
+        position: fixed;
         width: 35%;
         top: 30%;
         right: 10%;
@@ -83,7 +88,7 @@
         background-color: var(--main-bg);
         position: absolute;
         right: 10%;
-        top: 90%;
+        top: 85%;
     }
 }
 
@@ -97,42 +102,4 @@
         z-index: 10;
     }
 
-    
-.mainContent {
-    
-    .heading {
-        background-color: var(--main-bg);
-        font-size: larger;
-        width: 100%;
-        margin-bottom: 2rem;
-    }
-
-    .bioBlurb {
-        background-color: var(--main-bg);
-        width: 33%;
-    }
-
-    .notProf {
-        background-color: var(--main-bg);
-        // width: 33%;
-        // text-align: right;
-        position: absolute;
-        width: 35%;
-        top: 30%;
-        right: 10%;
-        margin-bottom: 1rem;
-    }
-
-    .enjoy {
-        background-color: var(--main-bg);
-        position: absolute;
-        right: 10%;
-        top: 60%;
-    }
 }
-
-
-
-
-}
-
