@@ -4,14 +4,6 @@ import ContactForm from "../components/contact-form";
 
 const ContactPage = (props) => {
 
-  const { posts } = props
-
-  let pageContent = posts.find(item => item.slug === 'contact')
-
-  if (pageContent === 'No content at this time.') {
-    pageContent = ''
-  }
-
   return (
     <>
     <div className={classes.pageContainer}>

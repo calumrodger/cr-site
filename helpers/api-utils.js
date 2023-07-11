@@ -83,7 +83,7 @@ export function postDataSorter(data) {
   const placeholderImage = 'http://cms.calumrodger.com/wp-content/uploads/2023/03/placeholderImage.png'
   const posts = data.map((item) => ({
     title: item.node.title,
-    content: item.node.content ? item.node.content : 'No content at this time.',
+    content: item.node.content ? item.node.content : '',
     image: item.node.featuredImage ? item.node.featuredImage.node.sourceUrl : placeholderImage,
     imageAltText: item.node.featuredImage ? item.node.featuredImage.node.altText : '',
     slug: item.node.slug,

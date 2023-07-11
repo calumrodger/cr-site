@@ -1,5 +1,6 @@
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
 import classes from './index.module.scss'
+import parse from "html-react-parser";
 
 const HomePage = (props) => {
 
@@ -11,17 +12,40 @@ const HomePage = (props) => {
   if (!homePageContent) {
     homePageContent = ''
   }
+  console.log(homePageContent.content)
+
+  const parsedContent = parse(homePageContent.content)
+    let contentOutput = ''
+  console.log(parsedContent)
+
+    if (typeof parsedContent !== "string") {
+    const filteredContent = parsedContent.filter(item => item !== '\n')
+    console.log(filteredContent)
+
+    let heading = filteredContent[0].props.children
+    let bioBlurb = filteredContent[1].props.children
+    let notProf = filteredContent[2].props.children
+    let enjoy = filteredContent[3].props.children
+
+
+
 
   return (
     <>
     <div className={classes.bgImage} style={{backgroundImage: `url(${homePageImage})`}}>
       <div className={classes.pageContent} >
-        <div className={classes.homeContent} dangerouslySetInnerHTML={{__html: homePageContent.content}}/>
+        <div className={classes.mainContent}>
+        <div className={classes.heading}>{heading}</div>
+        <div className={classes.bioBlurb}>{bioBlurb}</div>
+        <div className={classes.notProf}>{notProf}</div>
+        <div className={classes.enjoy}>{enjoy}</div>
+        </div>
+        <div className={classes.imageCredit}>here</div>
       </div>
     </div>
     </>
   )
-}
+}}
 
 
 export async function getStaticProps() {
