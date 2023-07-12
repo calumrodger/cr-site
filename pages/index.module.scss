@@ -39,11 +39,14 @@
     font-size: .6rem;
     border: 1px solid var(--border);
     width: calc(100% - 2 * (var(--border-size-mob)));
+    width: fit-content;
     background-color: var(--main-bg);
     clear: both;
     position: fixed;
     bottom: var(--border-size-mob);
-    left: var(--border-size-mob);
+    right: var(--border-size-mob);
+    left: auto;
+    text-align: justify;
 }
 
 .bgImage {
@@ -129,19 +132,21 @@
 
 
     .imageCredit {
-        width: 33rem;
-        right: 3rem;
-    }
-
-    .imageCredit {
         font-size: small;
-        // width: calc(100% - 2 * (var(--border-size-mob)));
+        width: 23.5rem;
         background-color: var(--main-bg);
         // clear: both;
-        position: fixed;
-        bottom: var(--border-size-desk);
-        right: var(--border-size-desk);
-        left: auto;
+        
     }
 
+}
+
+@media (min-width: 1024px) {
+
+    .imageCredit {
+    position: fixed;
+    bottom: var(--border-size-desk);
+    right: var(--border-size-desk);
+    left: auto;
+    }
 }
