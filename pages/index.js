@@ -12,15 +12,11 @@ const HomePage = (props) => {
   if (!homePageContent) {
     homePageContent = ''
   }
-  console.log(homePageContent.content)
 
   const parsedContent = parse(homePageContent.content)
-    let contentOutput = ''
-  console.log(parsedContent)
 
     if (typeof parsedContent !== "string") {
     const filteredContent = parsedContent.filter(item => item !== '\n')
-    console.log(filteredContent)
 
     let heading = filteredContent[0].props.children
     let bioBlurb = filteredContent[1].props.children

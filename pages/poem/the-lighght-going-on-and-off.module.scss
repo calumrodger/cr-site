@@ -8,11 +8,11 @@
     position: absolute;
     font-weight: bold;
     animation: blinker 5s step-start infinite;
-    opacity: 1;
+    opacity: 0;
 }
 
 @keyframes blinker {
     50% {
-      opacity: 0;
+      opacity: 1;
     }
   }
