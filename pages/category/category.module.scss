@@ -19,7 +19,7 @@
     p {
         background-color: var(--main-bg);
         padding: .5rem;
-        border: 1px solid var(--border);
+        border: 2px solid var(--border);
     }
 }
 
@@ -50,7 +50,7 @@
 }
 
 .booksButton {
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     background-color: var(--main-bg);
     color: var(--text-colour);
     margin: 1rem;
