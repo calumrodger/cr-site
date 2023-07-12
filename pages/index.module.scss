@@ -35,13 +35,9 @@
     background-color: var(--main-bg);
 }
 
-.unfixedContent {
-    // display: grid;
-}
-
 .imageCredit {
     font-size: .6rem;
-
+    border: 1px solid var(--border);
     width: calc(100% - 2 * (var(--border-size-mob)));
     background-color: var(--main-bg);
     clear: both;
@@ -64,6 +60,7 @@
     
     .contentBit {
         background-color: var(--main-bg);
+        border: 1px solid var(--border);
         // width: fit-content;
         padding: .3rem;
         text-align: left;

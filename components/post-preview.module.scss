@@ -25,12 +25,6 @@
     
 }
 
-.fakeSpan {
-    display: inline-block;
-    width: 100%;
-    background-color: var(--main-bg);
-}
-  
 .image {
     margin-top: .83rem;
     max-height: 100%;
@@ -78,7 +72,7 @@
     
     .image {
         border: 1px solid #000;
-        height: 300px;
+        // height: 300px;
         width: 300px;
         object-fit: cover;
         margin-top: 0;
