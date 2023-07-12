@@ -35,14 +35,19 @@
     background-color: var(--main-bg);
 }
 
-
+.unfixedContent {
+    // display: grid;
+}
 
 .imageCredit {
-    font-size: small;
+    font-size: .6rem;
+
+    width: calc(100% - 2 * (var(--border-size-mob)));
+    background-color: var(--main-bg);
+    clear: both;
     position: fixed;
-    top: 90%;
-    right: 10%;
-    width: 17rem;
+    bottom: var(--border-size-mob);
+    left: var(--border-size-mob);
 }
 
 .bgImage {
@@ -51,7 +56,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    z-index: 10;
+    position: relative;
     background-attachment: fixed;
 }
 
@@ -62,6 +67,9 @@
         // width: fit-content;
         padding: .3rem;
         text-align: left;
+        z-index: 100000;
+        color: black;
+        // position: relative;
     }
     .heading {
         font-size: larger;
@@ -71,27 +79,26 @@
 
     .bioBlurb {
         width: 40%;
-        background-color: transparent;
-        color: var(--main-bg);
+        background-color: var(--main-bg);
+        // color: var(--main-bg);
+        float: right;
+        margin-bottom: 2rem;
 
     }
 
     .notProf {
-
+        margin-top: 6rem;
         // width: 33%;
         // text-align: right;
-        position: fixed;
-        width: 35%;
-        top: 30%;
-        right: 10%;
+        float: right;
         margin-bottom: 1rem;
     }
 
     .enjoy {
-        background-color: var(--main-bg);
-        position: absolute;
-        right: 10%;
-        top: 84%;
+        // background-color: var(--main-bg);
+        float: right;
+        // right: 10%;
+        // top: 84%;
     }
 }
 
@@ -102,11 +109,42 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
-        z-index: 10;
     }
+
+    .mainContent {
+
+        .heading {
+            width: fit-content;
+        }
+        .bioBlurb {
+            float: left; 
+            text-align: justify;         
+        }
+
+        .notProf {
+            width: 29rem;
+        }
+
+        .enjoy {
+            clear: right;
+        }
+    }
+
 
     .imageCredit {
         width: 33rem;
+        right: 3rem;
+    }
+
+    .imageCredit {
+        font-size: small;
+        // width: calc(100% - 2 * (var(--border-size-mob)));
+        background-color: var(--main-bg);
+        // clear: both;
+        position: fixed;
+        bottom: var(--border-size-desk);
+        right: var(--border-size-desk);
+        left: auto;
     }
 
 }

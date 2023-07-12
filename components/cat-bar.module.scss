@@ -8,6 +8,7 @@
     left: var(--border-size-mob);
     right: var(--border-size-mob);
     width: calc(100% - var(--border-size-mob) - var(--border-size-mob));
+    z-index: 100;
 }
   
 .catBreak {
