@@ -37,7 +37,7 @@
 
 .imageCredit {
     font-size: .6rem;
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     width: calc(100% - 2 * (var(--border-size-mob)));
     width: fit-content;
     background-color: var(--main-bg);
@@ -63,7 +63,7 @@
     
     .contentBit {
         background-color: var(--main-bg);
-        border: 1px solid var(--border);
+        border: 2px solid var(--border);
         // width: fit-content;
         padding: .3rem;
         text-align: left;
