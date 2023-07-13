@@ -1,9 +1,9 @@
-import classes from '../styles/globals.scss'
 import Layout from '../components/layout'
 import Script from "next/script"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 import * as gtag from "../helpers/gtag"
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
@@ -44,6 +44,7 @@ export default function App({ Component, pageProps }) {
           <Layout posts={posts} categories={categories} cat={cat}>
           <Component {...pageProps} />
           </Layout>
+          <Analytics />
     </>
   )
 }
