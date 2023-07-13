@@ -11,7 +11,6 @@ export default function App({ Component, pageProps }) {
   
   return (
     <>
-  
           <Layout posts={posts} categories={categories} cat={cat}>
           <Component {...pageProps} />
           </Layout>

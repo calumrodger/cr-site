@@ -1,5 +1,78 @@
+.pageContent {
+    height: 100%;
+    background-color: #d4d4d4;
+}
+
+
+.bgImage {
+    height: 100%;
+    margin: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+.intro {
+    padding: .5rem;
+    display: flex;
+    justify-content: center;
+    color: var(--text-colour);
+    
+    
+
+    p {
+        background-color: var(--main-bg);
+        padding: .5rem;
+        border: 2px solid var(--border);
+    }
+}
+
+.postsContainer {
+    text-align: left;
+    // width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: black;
+}
+
+.poemsListContainer {
+    margin-left: var(--border-size-mob);
+    margin-right: var(--border-size-mob);
+}
+
+.poemsList {
+    p {
+        font-size: .8rem;
+    }
+}
+
+.booksButtonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.booksButton {
+    border: 2px solid var(--border);
+    background-color: var(--main-bg);
+    color: var(--text-colour);
+    margin: 1rem;
+    padding: .5rem;
+    cursor: pointer;
+}
+
 .poemsList {
     a {
         text-decoration: underline;
     }
+}
+
+@media (min-width: 1024px) {
+    .poemsListContainer {
+        margin-left: var(--border-size-desk);
+        margin-right: var(--border-size-desk);
+    }
+
 }

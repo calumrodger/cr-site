@@ -55,7 +55,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    position: relative;
+    // position: relative;
     background-attachment: fixed;
 }
 
@@ -78,7 +78,8 @@
     }
 
     .bioBlurb {
-        width: 40%;
+        width: 35%;
+        font-size: .8rem;
         background-color: var(--main-bg);
         // color: var(--main-bg);
         float: right;
@@ -118,7 +119,8 @@
         }
         .bioBlurb {
             float: left; 
-            text-align: justify;         
+            text-align: justify;     
+            width: 25%;    
         }
 
         .notProf {

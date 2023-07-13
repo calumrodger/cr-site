@@ -1,6 +1,6 @@
 import PostPreview from '../../components/post-preview'
 import { getCategoryIntroPost, getPostData, postDataSorter, getCategoryData, categoryDataSorter } from '../../helpers/api-utils'
-import classes from './category.module.scss'
+import classes from './web.module.scss'
 import Link from 'next/link'
 
 const WebCategory = (props) => {
