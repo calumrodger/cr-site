@@ -9,8 +9,10 @@ const Lighght = (props) => {
 
     return (
         <>
+        <div className={classes.pageContent}>
             <div className={classes.lighght}>
                 lighght
+            </div>
             </div>
         </>
     )

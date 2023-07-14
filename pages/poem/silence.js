@@ -45,6 +45,7 @@ const Silence = (props) => {
 
     return (
         <>
+        <div className={classes.pageContent}>
        <div className={classes.gridContainer}>
         <div id="topleft" onClick={change}>{topleft}</div>
         <div id="topcentre" onClick={change}>{topcentre}</div>
@@ -70,6 +71,7 @@ const Silence = (props) => {
     The constellation is ordered by the poet. He determines the play-area, the field or force and suggests its possibilities. The reader, the new reader, grasps the idea of play, and joins in.</span></div>
     <div className={classes.text205}><span>From Line to Constellation 1950</span></div>
     <span className={classes.text3}>play-area remaster Calum Rodger 2022</span>
+    </div>
     </div>
         </>
     )
