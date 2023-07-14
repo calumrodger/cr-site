@@ -8,10 +8,17 @@ import favicon from '../public/favicon.ico';
 export default function App({ Component, pageProps }) {
   
   const [theTitle, setTheTitle] = useState('')
+  // const [onPoem, setOnPoem] = useState(false)
 
   const titleSetter = (title) => {
     setTheTitle(title)
   }
+
+  // const toggleOnPoem = () => {
+  //   setOnPoem(true)
+  // }
+
+  // console.log(onPoem)
 
   const { posts } = pageProps
   const { categories } = pageProps

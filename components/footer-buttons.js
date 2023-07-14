@@ -1,6 +1,6 @@
 import classes from './footer.module.scss'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 const FooterButtons = () => {
@@ -9,6 +9,17 @@ const FooterButtons = () => {
 
     const [burgerIcon, setBurgerIcon] = useState('▶')
     const [showLinks, setShowLinks] = useState(true) 
+    
+    const removeCatBarIfPoem = () => {
+      if ( asPath.includes('/poem/') ) {
+        setShowLinks(false)
+        setBurgerIcon('◀')
+    }
+    }
+
+    useEffect(() => {
+        removeCatBarIfPoem()
+      }, [asPath])
 
     const burgerHandler = () => {
         if (showLinks) {
