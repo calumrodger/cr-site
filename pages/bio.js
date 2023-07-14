@@ -3,6 +3,9 @@ import classes from './index.module.scss'
 
 const BioPage = (props) => {
 
+  const { titleSetter } = props
+  titleSetter('Bio')
+
   const { posts } = props
 
   let bioPageContent = posts.find(item => item.slug === 'bio')

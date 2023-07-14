@@ -3,6 +3,9 @@ import classes from './index.module.scss'
 
 const NewsPage = (props) => {
 
+  const { titleSetter } = props
+  titleSetter('News')
+
   const { posts } = props
 
   let pageContent = posts.find(item => item.slug === 'news')

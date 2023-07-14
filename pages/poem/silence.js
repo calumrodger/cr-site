@@ -2,7 +2,11 @@ import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from
 import { useState } from 'react'
 import classes from './silence.module.scss'
 
-const Silence = () => {
+const Silence = (props) => {
+
+    const { titleSetter } = props
+
+    titleSetter('silence')
 
     const [topleft, setTopLeft] = useState('silence')
     const [topcentre, setTopCentre] = useState('silence')

@@ -4,6 +4,9 @@ import ContactForm from "../components/contact-form";
 
 const ContactPage = (props) => {
 
+  const { titleSetter } = props
+  titleSetter('Contact')
+
   return (
     <>
     <div className={classes.pageContainer}>

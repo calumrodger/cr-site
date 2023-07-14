@@ -4,6 +4,9 @@ import MailingListSignup from "../components/mailing-list-signup";
 
 const MailingListPage = (props) => {
 
+  const { titleSetter } = props
+  titleSetter('Mailing List')
+
   const { posts } = props
 
   let pageContent = posts.find(item => item.slug === 'mailing-list')

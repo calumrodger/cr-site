@@ -1,7 +1,11 @@
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
 import classes from './the-lighght-going-on-and-off.module.scss'
 
-const Lighght = () => {
+const Lighght = (props) => {
+
+    const { titleSetter } = props
+
+    titleSetter(`the 'lighght' going on and off`)
 
     return (
         <>

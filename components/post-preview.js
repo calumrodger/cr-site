@@ -2,7 +2,6 @@ import classes from './post-preview.module.scss'
 import Link from "next/link"
 
 const PostPreview = (props) => {
-
     return (
         <>
         <div className={classes.container}>

@@ -1,7 +1,12 @@
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
 import classes from './spring-poem.module.scss'
 
-const SpringPoem = () => {
+const SpringPoem = (props) => {
+
+    const { titleSetter } = props
+
+    titleSetter('spring poem')
+
     return (
         <>
         <div className={classes.gridContainer}>
