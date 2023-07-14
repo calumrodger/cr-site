@@ -2,17 +2,27 @@ import classes from '../styles/globals.scss'
 import Layout from '../components/layout'
 import { Analytics } from '@vercel/analytics/react';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import favicon from '../public/favicon.ico';
+import { useRouter } from 'next/router';
 
 export default function App({ Component, pageProps }) {
   
   const [theTitle, setTheTitle] = useState('')
   // const [onPoem, setOnPoem] = useState(false)
 
+  const { asPath } = useRouter()
+
   const titleSetter = (title) => {
     setTheTitle(title)
   }
+
+  useEffect(() => {
+    if ( ! asPath.includes('/poem/') ) {
+      setTheTitle('')
+    }
+    
+  }, [asPath])
 
   // const toggleOnPoem = () => {
   //   setOnPoem(true)
