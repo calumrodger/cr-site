@@ -1,5 +1,5 @@
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
-import classes from './index.module.scss'
+import classes from './page.module.scss'
 import MailingListSignup from "../components/mailing-list-signup";
 
 const MailingListPage = (props) => {
@@ -17,12 +17,10 @@ const MailingListPage = (props) => {
 
   return (
     <>
-    <div className={classes.pageContainer}>
       <div className={classes.pageContent}>
         <div className={classes.contentMailingList} dangerouslySetInnerHTML={{__html: pageContent.content}}/>
         <MailingListSignup />
       </div>
-    </div>
     </>
   )
 }

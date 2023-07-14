@@ -64,7 +64,7 @@ const ContactForm = () => {
             <label htmlFor="email">email - optional</label>
             <input type="email" id="email" value={theEmail} onChange={e => setEmail(e.target.value)}/>
             <label htmlFor="message">message</label>
-            <textarea id="message" rows="5" required value={theMessage} onChange={e => setMessage(e.target.value)}/>
+            <textarea id="message" rows="10" required value={theMessage} onChange={e => setMessage(e.target.value)}/>
             <button onClick={sendMessageHandler}>send</button>
         </form>
         {notification && <Notification status={notification.status} title={notification.title} message={notification.message}/>}

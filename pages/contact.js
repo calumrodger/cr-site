@@ -1,5 +1,5 @@
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
-import classes from './index.module.scss'
+import classes from './page.module.scss'
 import ContactForm from "../components/contact-form";
 
 const ContactPage = (props) => {
@@ -9,11 +9,9 @@ const ContactPage = (props) => {
 
   return (
     <>
-    <div className={classes.pageContainer}>
       <div className={classes.pageContent}>
         <ContactForm />
       </div>
-    </div>
     </>
   )
 }

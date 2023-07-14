@@ -6,7 +6,8 @@
     
         & button {
             margin-top: 1rem;
-            border: 1px solid var(--text-colour);
+            padding: .3rem;
+            border: 2px solid var(--text-colour);
             width: auto;
             cursor: pointer;
         }

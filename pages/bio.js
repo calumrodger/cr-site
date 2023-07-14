@@ -1,5 +1,5 @@
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
-import classes from './index.module.scss'
+import classes from './page.module.scss'
 
 const BioPage = (props) => {
 
@@ -16,11 +16,9 @@ const BioPage = (props) => {
 
   return (
     <>
-    <div className={classes.pageContainer}>
       <div className={classes.pageContent}>
         <div className={classes.content} dangerouslySetInnerHTML={{__html: bioPageContent.content}}/>
       </div>
-    </div>
     </>
   )
 }
