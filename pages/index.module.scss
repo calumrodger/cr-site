@@ -91,6 +91,8 @@
 
     .highlights {
         // text-align: center;
+        border: 4px solid var(--border);
+        border-style: dotted;
         margin-top: 6rem;
         font-size: .8rem;
         font-weight: 800;
@@ -100,6 +102,7 @@
         width: 15rem;
         float: left;
         clear: left;
+        rotate: 350deg;
 
         // position: fixed;
         // bottom: 10%;
@@ -161,6 +164,7 @@
             clear: left;
             margin-top: 0;
             margin-left: 2rem;
+            
         }
 
         .notProf {
