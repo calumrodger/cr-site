@@ -10,7 +10,9 @@ const ContactPage = (props) => {
   return (
     <>
       <div className={classes.pageContent}>
+      <div className={classes.contentBit}>
         <ContactForm />
+        </div>
       </div>
     </>
   )

@@ -17,7 +17,10 @@ const BioPage = (props) => {
   return (
     <>
       <div className={classes.pageContent}>
+        <div className={classes.title}>Bio</div>
+        <div className={classes.contentBit}>
         <div className={classes.content} dangerouslySetInnerHTML={{__html: bioPageContent.content}}/>
+        </div>
       </div>
     </>
   )

@@ -16,8 +16,12 @@ const NewsPage = (props) => {
 
   return (
     <>
+
       <div className={classes.pageContent}>
+      <div className={classes.title}>News</div>
+      <div className={classes.contentBit}>
         <div className={classes.content} dangerouslySetInnerHTML={{__html: pageContent.content}}/>
+        </div>
       </div>
     </>
   )

@@ -18,8 +18,10 @@ const MailingListPage = (props) => {
   return (
     <>
       <div className={classes.pageContent}>
+      <div className={classes.contentBit}>
         <div className={classes.contentMailingList} dangerouslySetInnerHTML={{__html: pageContent.content}}/>
         <MailingListSignup />
+        </div>
       </div>
     </>
   )
