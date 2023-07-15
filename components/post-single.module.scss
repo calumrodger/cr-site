@@ -99,11 +99,7 @@
     }
 }
 
-@media (min-width: 1024px) {
-    // .container {
-    //     width: 70%;
-    // }
-}
+
 
 
 .p0etryb1ts {
@@ -120,10 +116,24 @@
         max-width: 400px;
     }
 
+    img {
+        max-width: 100%;
+    }
+
     // .contentContainer {
     //     max-width: 416px;
     // }
 }
+
+@media (min-width: 522px) {
+    .p0etryb1ts {
+        img {
+            max-width: max-content;
+        }
+    }
+}
+
+
 
 .know-yr-stuff-poems-on-hedonism {
     flex-direction: column;
