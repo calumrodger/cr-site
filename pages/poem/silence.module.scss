@@ -3,6 +3,10 @@
     height: 100%;
 }
 
+.selected {
+    cursor: pointer;
+}
+
 .textContainer {
     display: flex;
     flex-direction: column;

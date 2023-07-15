@@ -24,8 +24,6 @@ const Silence = (props) => {
     const [bottomcentre, setBottomCentre] = useState('silence')
     const [bottomright, setBottomRight] = useState('silence')
 
-    const [currentSilence, setCurrentSilence] = useState('centrecentre')
-
     const all = 
     [[topleft, setTopLeft], [topcentre, setTopCentre], [topright, setTopRight],
     [secondleft, setSecondLeft], [secondcentre, setSecondCentre], [secondright, setSecondRight],
@@ -47,21 +45,21 @@ const Silence = (props) => {
         <>
         <div className={classes.pageContent}>
        <div className={classes.gridContainer}>
-        <div id="topleft" onClick={change}>{topleft}</div>
-        <div id="topcentre" onClick={change}>{topcentre}</div>
-        <div id="topright" onClick={change}>{topright}</div>
-        <div id="secondleft" onClick={change}>{secondleft}</div>
-        <div id="secondcentre" onClick={change}>{secondcentre}</div>
-        <div id="secondright" onClick={change}>{secondright}</div>
-        <div id="centreleft" onClick={change}>{centreleft}</div>
-        <div id="centrecentre" onClick={change}>{centrecentre}</div>
-        <div id="centreright" onClick={change}>{centreright}</div>
-        <div id="fourthleft" onClick={change}>{fourthleft}</div>
-        <div id="fourthcentre" onClick={change}>{fourthcentre}</div>
-        <div id="fourthright" onClick={change}>{fourthright}</div>
-        <div id="bottomleft" onClick={change}>{bottomleft}</div>
-        <div id="bottomcentre" onClick={change}>{bottomcentre}</div>
-        <div id="bottomright" onClick={change}>{bottomright}</div>
+        <div id="topleft" onClick={change} className={`${!topleft ? classes.selected : null}`}>{topleft}</div>
+        <div id="topcentre" onClick={change} className={`${!topcentre ? classes.selected : null}`}>{topcentre}</div>
+        <div id="topright" onClick={change} className={`${!topright ? classes.selected : null}`}>{topright}</div>
+        <div id="secondleft" onClick={change} className={`${!secondleft ? classes.selected : null}`}>{secondleft}</div>
+        <div id="secondcentre" onClick={change} className={`${!secondcentre ? classes.selected : null}`}>{secondcentre}</div>
+        <div id="secondright" onClick={change} className={`${!secondright ? classes.selected : null}`}>{secondright}</div>
+        <div id="centreleft" onClick={change} className={`${!centreleft ? classes.selected : null}`}>{centreleft}</div>
+        <div id="centrecentre" onClick={change} className={`${!centrecentre ? classes.selected : null}`}>{centrecentre}</div>
+        <div id="centreright" onClick={change} className={`${!centreright ? classes.selected : null}`}>{centreright}</div>
+        <div id="fourthleft" onClick={change} className={`${!fourthleft ? classes.selected : null}`}>{fourthleft}</div>
+        <div id="fourthcentre" onClick={change} className={`${!fourthcentre ? classes.selected : null}`}>{fourthcentre}</div>
+        <div id="fourthright" onClick={change} className={`${!fourthright ? classes.selected : null}`}>{fourthright}</div>
+        <div id="bottomleft" onClick={change} className={`${!bottomleft ? classes.selected : null}`}>{bottomleft}</div>
+        <div id="bottomcentre" onClick={change} className={`${!bottomcentre ? classes.selected : null}`}>{bottomcentre}</div>
+        <div id="bottomright" onClick={change} className={`${!bottomright ? classes.selected : null}`}>{bottomright}</div>
     </div>
     <div className={classes.textContainer}>
     <span className={classes.text1}>
