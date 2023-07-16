@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }) {
   // const [onPoem, setOnPoem] = useState(false)
 
   const { asPath } = useRouter()
+  console.log(useRouter())
 
   const titleSetter = (title) => {
     setTheTitle(title)
@@ -58,6 +59,9 @@ export default function App({ Component, pageProps }) {
   return (
     <>
     <Head>
+    <meta property="og:url"                content={`https://calumrodger.com${asPath}`} />
+    <meta property="og:title"              content={title} />
+    <meta property="og:image"              content="http://cms.calumrodger.com/wp-content/uploads/ptbo-trimmed.png" />
       <title>{title}</title>
     </Head>
           <Layout titleSetter={titleSetter} posts={posts} categories={categories} cat={cat}>
