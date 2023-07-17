@@ -169,7 +169,7 @@
         }
 
         .notProf {
-            width: 29rem;
+            width: 24rem;
             margin-top: 0;
         }
 
@@ -189,13 +189,13 @@
 
 }
 
-@media (min-width: 1024px) {
-
-    .mainContent {
-        .notProf {
-            margin-top: 10%;
-        }
+@media (min-height: 769px) {
+    .notProf {
+clear: left;
     }
+}
+
+@media (min-width: 1024px) {
 
     .imageCredit {
     position: fixed;
