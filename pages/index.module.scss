@@ -191,6 +191,12 @@
 
 @media (min-width: 1024px) {
 
+    .mainContent {
+        .notProf {
+            margin-top: 10%;
+        }
+    }
+
     .imageCredit {
     position: fixed;
     bottom: var(--border-size-desk);
