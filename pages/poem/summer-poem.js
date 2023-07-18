@@ -1,8 +1,11 @@
 import React from 'react';
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
-import classes from './among.module.scss';
+import classes from './summer-poem.module.scss';
 
-const FoliageComponent = () => {
+const FoliageComponent = (props) => {
+    const { titleSetter } = props
+    
+    titleSetter('summer poem')
   return (
     <div className={classes.pageContent}>
     <div className={classes.foliageContainer}>

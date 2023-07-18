@@ -35,8 +35,7 @@
 
   .foliageText3 {
     animation: flickering-text 3s infinite;
-    animation-direction: alternate;
-    animation-delay: 1s;
+    animation-direction: alternate-reverse;
   }
   
   @keyframes flickering-text {
@@ -61,8 +60,7 @@
 
   @keyframes half-flickering-text {
     0% {
-      
-      color: #c9df8a; /* Flickering shade of yellow */
+      color: #234d20;
     }
     25% {
       color: #36802d; /* Flickering shade of yellow */
@@ -70,8 +68,11 @@
     50% {
       color: #77ab59; /* Final shade of green */
     }
-    100% {
+    75% {
       color: #f0f7da; /* Initial shade of green */
       
+    }
+    100% {
+      color: #c9df8a; /* Flickering shade of yellow */
     }
   }

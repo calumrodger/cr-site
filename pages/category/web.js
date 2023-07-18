@@ -19,6 +19,9 @@ const WebCategory = (props) => {
         <h3>Original Poems</h3>
         <ul className={classes.poemsList}>
         <li><Link href='/poem/spring-poem'>spring poem</Link> (static)</li>
+        <p/>
+        <li><Link href='/poem/summer-poem'>summer poem</Link> (animated)</li>
+        <p>After Aram Saroyan</p>
         </ul>
         <h3>Cover Versions</h3>
         <ul className={classes.poemsList}>
