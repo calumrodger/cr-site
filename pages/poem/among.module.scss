@@ -1,10 +1,10 @@
 .pageContent {
-  background-color: green;
+  background-color: #234d20;
   height: 100%;
 }
 
 .foliageContainer {
-    background-color: green; /* Warm, off-white background color */
+    // background-color: green; /* Warm, off-white background color */
     height: 100%;
     display: flex;
     align-items: center;
@@ -12,28 +12,66 @@
   }
   
   .foliageText {
-    font-size: 16pt;
+    font-size: 1.2rem;
     font-family: monospace; /* Replace with your desired retro-looking monospace font */
     letter-spacing: 3px;
-    animation: flickering-text 5s infinite;
+    
     text-align: center;
+  }
+
+  .foliageText1 {
+    animation: flickering-text 3s infinite;
+    animation-direction: alternate;
+  }
+
+  .foliageText2 {
+    animation: none;
+    letter-spacing: 5px;
+    // font-style: italic;
+    font-size: 1rem;
+    animation: half-flickering-text 3s infinite;
+    animation-direction: alternate;
+  }
+
+  .foliageText3 {
+    animation: flickering-text 3s infinite;
+    animation-direction: alternate;
+    animation-delay: 1s;
   }
   
   @keyframes flickering-text {
     0% {
-      color: blue; /* Initial shade of green */
-      letter-spacing: 2px;
+      
+      color: #f0f7da; /* Initial shade of green */
+      letter-spacing: 1px;
     }
     25% {
-      color: #ccff33; /* Flickering shade of yellow */
-      
+      color: #36802d; /* Flickering shade of yellow */
+      letter-spacing: 3px;
     }
     50% {
-      color: #c8f500; /* Final shade of green */
+      color: #77ab59; /* Final shade of green */
       letter-spacing: 2px;
     }
     100% {
-      color: #ccff33; /* Flickering shade of yellow */
+      color: #c9df8a; /* Flickering shade of yellow */
+      letter-spacing: 3px;
+    }
+  }
+
+  @keyframes half-flickering-text {
+    0% {
+      
+      color: #c9df8a; /* Flickering shade of yellow */
+    }
+    25% {
+      color: #36802d; /* Flickering shade of yellow */
+    }
+    50% {
+      color: #77ab59; /* Final shade of green */
+    }
+    100% {
+      color: #f0f7da; /* Initial shade of green */
       
     }
   }
