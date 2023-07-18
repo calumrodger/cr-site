@@ -1,0 +1,39 @@
+.pageContent {
+  background-color: green;
+  height: 100%;
+}
+
+.foliageContainer {
+    background-color: green; /* Warm, off-white background color */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .foliageText {
+    font-size: 16pt;
+    font-family: monospace; /* Replace with your desired retro-looking monospace font */
+    letter-spacing: 3px;
+    animation: flickering-text 5s infinite;
+    text-align: center;
+  }
+  
+  @keyframes flickering-text {
+    0% {
+      color: blue; /* Initial shade of green */
+      letter-spacing: 2px;
+    }
+    25% {
+      color: #ccff33; /* Flickering shade of yellow */
+      
+    }
+    50% {
+      color: #c8f500; /* Final shade of green */
+      letter-spacing: 2px;
+    }
+    100% {
+      color: #ccff33; /* Flickering shade of yellow */
+      
+    }
+  }
