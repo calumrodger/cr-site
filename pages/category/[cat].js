@@ -12,9 +12,9 @@ const AllPostsByCategory = (props) => {
 
     const gamesOrder = ['rabbie-burns-saves-the-world-and-by-extension-book-week-scotland', 'gotta-eat-the-plums-with-william-carlos-williams', 'sisyphus-reacts-only', 'sha-lot']
     const filmsOrder = ['rock-star-north', 'p0etryb1ts', 'whale-tree', 'burns-in-translation']
-    const booksOrder = ['lumpcuts-ai-poetics', 'ports', 'occasional-poems-2012-2019', 'fiat-ontology', 'makar-unmakar', 'poems-in-anthologies', 'glasgow-flourishes', 'know-yr-stuff-poems-on-hedonism']
+    const booksOrder = ['lumpcuts-ai-poetics', 'ports', 'occasional-poems-2012-2019', 'fiat-ontology', 'makar-unmakar', 'glasgow-flourishes', 'know-yr-stuff-poems-on-hedonism', 'poems-in-anthologies']
     const homemadeBooksOrder = ['lumpcuts-ai-poetics', 'fiat-ontology']
-    const publishedBooksOrder = ['ports', 'occasional-poems-2012-2019', 'makar-unmakar', 'poems-in-anthologies', 'glasgow-flourishes', 'know-yr-stuff-poems-on-hedonism']
+    const publishedBooksOrder = ['ports', 'occasional-poems-2012-2019', 'makar-unmakar', 'glasgow-flourishes', 'know-yr-stuff-poems-on-hedonism', 'poems-in-anthologies']
     const performanceOrder = ['bbc-rappers-vs-poets', 'glasgow-flourishes', 'bright-club-stand-up-comedy', 'poetry-world-cup-paris-2019', 'the-linton-worm-is-eating-the-world', 'kelburn-garden-party']
     const otherWritingOrder = ['zealots-of-ontographic-metagaming-zomg', 'exits-in-videogames-immanence-and-transcendence', 'reading-the-drones', 'ian-hamilton-finlays-topographical-poetics', 'various-reviews']
 
