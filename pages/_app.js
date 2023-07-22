@@ -61,7 +61,7 @@ export default function App({ Component, pageProps }) {
     <Head>
     <meta property="og:url"                content={`https://calumrodger.com${asPath}`} />
     <meta property="og:title"              content={title} />
-    <meta property="og:description"        content='poetry + books|games|film/image|web|performance|articles' />
+    <meta property="og:description"        content='poetry + books | games | film/image | web | performance | articles' />
     <meta property="og:image"              content="http://cms.calumrodger.com/wp-content/uploads/ptbo-trimmed.png" />
     <meta property="og:type" content="website" />
       <title>{title}</title>
