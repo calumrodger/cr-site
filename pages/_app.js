@@ -9,10 +9,8 @@ import { useRouter } from 'next/router';
 export default function App({ Component, pageProps }) {
   
   const [theTitle, setTheTitle] = useState('')
-  // const [onPoem, setOnPoem] = useState(false)
 
   const { asPath } = useRouter()
-  console.log(useRouter())
 
   const titleSetter = (title) => {
     setTheTitle(title)
