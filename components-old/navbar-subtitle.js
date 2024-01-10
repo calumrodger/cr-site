@@ -1,10 +1,10 @@
 import classes from './nav-bar.module.scss'
 import { useState, useRef, useEffect } from 'react'
-import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 const NavbarSubtitle = (props) => {
 
-    const asPath = usePathname()
+    const { asPath } = useRouter()
 
     const { isMobile } = props
     let { showCatbar } = props
@@ -60,7 +60,6 @@ const NavbarSubtitle = (props) => {
     return (
         <>
         <div className={classes.subtitleContainer}>
-            hi
             <div onClick={burgerHandler} className={`${classes.subtitle} ${selected ? classes.selected : null}`}>{burgerIcon} {subtitle}</div>
         </div>
         </>

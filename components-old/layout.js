@@ -1,10 +1,9 @@
-'use client';
 import { useState, useEffect } from 'react'
 import CatBar from './cat-bar'
 import classes from './layout.module.scss'
 import FooterText from './footer-text'
 import FooterButtons from './footer-buttons'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 import NavbarSubtitle from './navbar-subtitle'
 import NavbarTitle from './navbar-title'
@@ -15,13 +14,13 @@ const Layout = (props) => {
     const [isMobile, setIsMobile] = useState(false)
     const [topPadding, setTopPadding] = useState('0')
 
-    // const router = useRouter()
+    const { asPath } = useRouter()
     
-    // const removeCatBarIfPoem = () => {
-    //   if ( asPath.includes('/poem/') ) {
-    //   setShowCatbar(false)
-    // }
-  // }
+    const removeCatBarIfPoem = () => {
+      if ( asPath.includes('/poem/') ) {
+      setShowCatbar(false)
+    }
+  }
 
 //choose the screen size 
 const handleResize = () => {
@@ -47,9 +46,9 @@ const handleResize = () => {
   }
 }
 
-// useEffect(() => {
-//   removeCatBarIfPoem()
-// }, [asPath])
+useEffect(() => {
+  removeCatBarIfPoem()
+}, [asPath])
 
 // create an event listener
 useEffect(() => {

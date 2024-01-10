@@ -1,0 +1,206 @@
+
+.homeContent {
+    padding: 1rem;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: center;
+    // max-width: 100%;
+    align-self: right;
+    
+    p {
+        background-color: var(--main-bg);
+        // text-align: justify;
+        padding: .5rem;
+        // width: 100%;
+    }
+
+
+
+}
+
+.pageContent {
+    padding: 1rem;
+    a {
+      text-decoration: underline;
+    }
+}
+
+.contentMailingList {
+    text-align: center;
+}
+
+.content {
+    background-color: var(--main-bg);
+}
+
+.imageCredit {
+    font-size: .6rem;
+    border: 2px solid var(--border);
+    width: calc(100% - 2 * (var(--border-size-mob)));
+    width: fit-content;
+    background-color: var(--main-bg);
+    clear: both;
+    position: fixed;
+    bottom: var(--border-size-mob);
+    right: var(--border-size-mob);
+    left: auto;
+    text-align: justify;
+}
+
+.bgImage {
+    height: 100%;
+    margin: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    // position: relative;
+    background-attachment: fixed;
+}
+
+.mainContent {
+    
+    .contentBit {
+        background-color: var(--main-bg);
+        border: 2px solid var(--border);
+        // width: fit-content;
+        padding: .3rem;
+        text-align: left;
+        z-index: 100000;
+        color: black;
+        // position: relative;
+    }
+    .heading {
+        font-size: 1.3rem;
+        // width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .bioBlurb {
+        width: 8rem;
+        font-size: .8rem;
+        background-color: var(--main-bg);
+        // color: var(--main-bg);
+        float: right;
+        margin-bottom: 2rem;
+        // word-break: break-all;
+        // hyphenate-character: '-';
+        // hyphens: auto;
+    }
+
+    .highlights {
+        // text-align: center;
+        border: 4px solid var(--border);
+        border-style: dotted;
+        margin-top: 6rem;
+        font-size: .8rem;
+        font-weight: 800;
+        // padding-top: 3rem;
+        // padding-left: 2rem;
+        height: 15rem;
+        width: 15rem;
+        float: left;
+        clear: left;
+        rotate: 350deg;
+
+        // position: fixed;
+        // bottom: 10%;
+        background-color: var(--navtext-highlight);
+        border-radius: 50%;
+
+        p {
+            margin-top: 2.5rem;
+            margin-left: 1.3rem;
+        }
+        span {
+            padding-left: 2rem;
+            margin-top: 2rem;
+        }
+
+    }
+
+    .notProf {
+        margin-top: 20%;
+        font-size: .9rem;
+        // width: 33%;
+        // text-align: right;
+        float: right;
+        clear: all;
+        margin-bottom: 1rem;
+    }
+
+    .enjoy {
+        // background-color: var(--main-bg);
+        font-size: .9rem;
+        float: right;
+        margin-bottom: 1rem;
+        // right: 10%;
+        // top: 84%;
+    }
+}
+
+@media (min-width: 768px) {
+    .bgImage {
+        height: 100%;
+        margin: 0;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .mainContent {
+
+        .heading {
+            width: fit-content;
+        }
+        .bioBlurb {
+            float: left; 
+            text-align: justify;     
+            width: 25%;    
+        }
+
+        .highlights {
+            float: left;
+            clear: left;
+            margin-top: 0;
+            margin-left: 2rem;
+            
+        }
+
+        .notProf {
+            width: 24rem;
+            margin-top: 0;
+        }
+
+        .enjoy {
+            clear: right;
+        }
+    }
+
+
+    .imageCredit {
+        font-size: small;
+        width: 23.5rem;
+        background-color: var(--main-bg);
+        // clear: both;
+        
+    }
+
+}
+
+@media (min-height: 769px) {
+    .notProf {
+clear: left;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .imageCredit {
+    position: fixed;
+    bottom: var(--border-size-desk);
+    right: var(--border-size-desk);
+    left: auto;
+    }
+}

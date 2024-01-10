@@ -1,11 +1,11 @@
 import classes from './footer.module.scss'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 const FooterButtons = () => {
 
-    const asPath = usePathname()
+    const { asPath } = useRouter()
 
     const [burgerIcon, setBurgerIcon] = useState('▶')
     const [showLinks, setShowLinks] = useState(true) 

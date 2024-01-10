@@ -1,0 +1,57 @@
+
+.subtitleContainer {
+  display: flex;
+}
+
+.subtitle {
+    color: var(--navtext-colour);
+    font-size: var(--title-text-size-mob);
+    white-space: nowrap;
+    cursor: pointer;
+
+    &.selected {
+        color: var(--navtext-highlight);
+    }
+
+    &:hover {
+        color: var(--navtext-highlight);
+    }
+  
+}
+
+
+.title {
+    font-size: var(--title-text-size-mob);
+    white-space: nowrap;
+    color: var(--navtext-colour);
+    cursor: pointer;
+
+    &.selected {
+        color: var(--navtext-highlight);
+    }
+
+    &:hover {
+        color: var(--navtext-highlight);
+    }
+}
+
+.byText {
+  font-size: 1rem;
+}
+
+@media (min-width: 1024px) {
+
+  .title,
+  .subtitle {
+    font-size: var(--title-text-size-desk);
+  }
+
+  .subtitle {
+    margin-right: .5rem;
+  }
+
+  .subtitleIcon {
+    font-size: var(--buttons-text-size-desk);
+  }
+
+}

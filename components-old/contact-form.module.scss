@@ -1,0 +1,21 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: .3rem;
+
+    & label {
+        margin-top: .5rem;
+        margin-bottom: .05rem;
+    }
+
+    & button {
+        margin-top: 1rem;
+        padding: .3rem;
+        border: 2px solid var(--text-colour);
+        width: auto;
+        cursor: pointer;
+    }
+}
+
