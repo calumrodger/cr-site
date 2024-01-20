@@ -5,7 +5,7 @@ import Layout from "../components/layout";
 
 const HomePage = async () => {
 
-    const data = await getPostData()
+  const data = await getPostData()
   const posts = postDataSorter(data)
   const categoryData = await getCategoryData()
   const categories = categoryDataSorter(categoryData)

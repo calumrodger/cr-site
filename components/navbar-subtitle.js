@@ -60,7 +60,6 @@ const NavbarSubtitle = (props) => {
     return (
         <>
         <div className={classes.subtitleContainer}>
-            hi
             <div onClick={burgerHandler} className={`${classes.subtitle} ${selected ? classes.selected : null}`}>{burgerIcon} {subtitle}</div>
         </div>
         </>

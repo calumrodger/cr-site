@@ -1,5 +1,5 @@
 import classes from '../styles/globals.scss'
-import Layout from '../components/layout'
+import Layout from '../components-old/layout'
 import { Analytics } from '@vercel/analytics/react';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';

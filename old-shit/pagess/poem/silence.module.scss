@@ -1,0 +1,69 @@
+.pageContent {
+    background-color: white;
+    height: 100%;
+}
+
+.selected {
+    cursor: pointer;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+}
+.text1 {
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 70%;
+    text-align: center;
+}
+.text2 {
+    top: 78%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 60%;
+    text-align: center;
+    text-justify:inter-word;
+}
+
+.text205 {
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 50%;
+    text-align: center;
+}
+
+.text3 {
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    text-align: center;
+    font-size: 60%;
+}
+
+.gridContainer {
+    font-family: sans-serif;
+    white-space: pre;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-column-gap: 1%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    grid-row-gap: 2%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    line-height: 20px;
+}
+.voicedBox {
+    font-size: 150%;
+}
+.silentBox {
+    font-size: 150%;
+}

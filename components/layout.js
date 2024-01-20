@@ -4,7 +4,7 @@ import CatBar from './cat-bar'
 import classes from './layout.module.scss'
 import FooterText from './footer-text'
 import FooterButtons from './footer-buttons'
-import { useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import NavbarSubtitle from './navbar-subtitle'
 import NavbarTitle from './navbar-title'
@@ -14,6 +14,9 @@ const Layout = (props) => {
     const [showCatbar, setShowCatbar] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
     const [topPadding, setTopPadding] = useState('0')
+    const pathname = usePathname()
+    const cat = pathname.split('/').pop();
+    console.log(cat)
 
     // const router = useRouter()
     
@@ -64,7 +67,7 @@ useEffect(() => {
 
             <div className={classes.navbarSubtitle}>
                 <NavbarSubtitle  isMobile={isMobile} showCatbar={showCatbar} setShowCatbar={setShowCatbar}/>
-                {!isMobile && showCatbar && <CatBar cat={props.cat} categories={props.categories} burgerToggle={props.burgerToggle}/>}
+                {!isMobile && showCatbar && <CatBar cat={cat} categories={props.categories} burgerToggle={props.burgerToggle}/>}
             </div>
             <div className={classes.navbarTitle}>
                 <NavbarTitle />
