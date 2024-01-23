@@ -3,6 +3,10 @@ import classes from './index.module.scss'
 import parse from "html-react-parser";
 import Layout from "../components/layout";
 
+export const metadata = {
+  title: 'Calum Rodger'
+}
+
 const HomePage = async () => {
 
   const data = await getPostData()
