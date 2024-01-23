@@ -3,6 +3,10 @@ import Layout from "../../../components/layout";
 import WebCategory from "../../../components/web-component";
 import classes from './web.module.scss';
 
+export const metadata = {
+    title: 'Web'
+  }
+
 export default async function WebPage () {
 
     const data = await getPostData()

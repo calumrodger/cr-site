@@ -1,6 +1,7 @@
 import classes from './cat-bar.module.scss'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { Fragment } from 'react'
 
 const CatBar = (props) => {
     const { categories } = props
@@ -54,7 +55,6 @@ const CatBar = (props) => {
           handleResize()
           window.addEventListener("resize", handleResize)
       }, [])
-
    
     // Return navbar
     return (
@@ -64,15 +64,14 @@ const CatBar = (props) => {
 
                 if (item.slug === 'film-image') {
                     return (
-                        <>
-                        
-                        <div key={item.id} className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`}><Link className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
-                        <div className={`${narrowToggle ? classes.catBreak : null}`} />
-                        </>
+                        <Fragment key={item.key}>
+                            <div className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`}><Link key={item.id} className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
+                            <div className={`${narrowToggle ? classes.catBreak : null}`} />
+                        </Fragment>
                     )
                 } else {
                 return (
-                <div key={item.id} className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`}><Link className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
+                <div key={item.key} className={`${classes.link} ${cat === item.slug ? classes.selectedCat : null}`}><Link key={item.id} className={classes.linkText} href={`/category/${item.slug}`}>{getCategoryDisplayName(item)}</Link></div>
             )}})}
         </div>
         </>

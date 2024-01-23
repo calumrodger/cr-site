@@ -1,10 +1,10 @@
 import Layout from "../../../components/layout"
 import { getPostData, postDataSorter, getCategoryData, categoryDataSorter } from "../../../helpers/api-utils"
 import '../../styles/globals.scss'
-import Silence from "./poem"
+import FoliageComponent from "./summer-poem"
 
 export const metadata = {
-    title: 'silence'
+    title: 'summer poem'
   }
 
 export default async function PoemLayout({ children }) {
@@ -19,7 +19,7 @@ export default async function PoemLayout({ children }) {
     <html lang="en">
       <body>
         <Layout cat={cat} posts={posts} categories={categories} >
-        <Silence />
+        <FoliageComponent/>
         </Layout>
         </body>
     </html>

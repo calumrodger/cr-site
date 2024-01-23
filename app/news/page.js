@@ -2,7 +2,11 @@ import Layout from "../../components/layout";
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
 import classes from '../page.module.scss'
 
-const PressPage = async () => {
+export const metadata = {
+    title: 'News'
+  }
+
+const NewsPage = async () => {
 
     const data = await getPostData()
     const posts = postDataSorter(data)
@@ -31,4 +35,4 @@ const PressPage = async () => {
 
 
 
-export default PressPage;
+export default NewsPage;

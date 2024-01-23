@@ -4,6 +4,15 @@ import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPo
 import classes from './slug.module.scss'
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({ params }) {
+
+    const post = await getPostBySlug(params.slug);
+   
+    return {
+      title: post.title,
+    }
+}
+
 const SinglePost = async ({params} = props) => {
 
     const data = await getPostData()

@@ -3,6 +3,10 @@ import ContactForm from "../../components/contact-form";
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
 import classes from '../page.module.scss'
 
+export const metadata = {
+  title: 'Contact'
+}
+
 const ContactPage = async () => {
 
     const data = await getPostData()
