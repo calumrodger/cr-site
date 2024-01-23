@@ -1,0 +1,22 @@
+.container {
+    height: 100%;
+}
+
+.pageContent {
+    font-size: var(--body-text-size);
+
+    h2 {
+        font-size: var(--body-title-text-size);
+    }
+}
+
+
+.bgImage {
+    height: 100%;
+    margin: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: 10;
+    background-attachment: fixed;
+}

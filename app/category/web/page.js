@@ -1,6 +1,7 @@
 import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPostsByCategory, getCategoryIntroPost } from "../../../helpers/api-utils";
 import Layout from "../../../components/layout";
 import WebCategory from "../../../components/web-component";
+import classes from './web.module.scss';
 
 export default async function WebPage () {
 
@@ -16,7 +17,9 @@ export default async function WebPage () {
     return (
         <>
         <Layout cat={cat} posts={posts} categories={categories}>
-        <WebCategory catPosts={catPosts} introPost={introPost} />
+            <div className={classes.container}>
+                <WebCategory catPosts={catPosts} introPost={introPost} />
+            </div>
         </Layout>
         </>
     )

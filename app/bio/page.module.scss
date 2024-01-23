@@ -1,0 +1,28 @@
+.pageContent {
+    padding: 1rem;
+    background-color: var(--secondary-bg);
+    height: 100%;
+
+    .title {
+        color: var(--text-colour);
+        margin: auto;
+        font-size: var(--body-title-text-size);
+        background-color: var(--main-bg);
+        text-align: center;
+        border: 2px solid var(--border);
+        margin-bottom: 2rem;
+        width: fit-content;
+        
+    }
+
+    .contentBit {
+        background-color: var(--main-bg);
+        border: 2px solid var(--border);
+        padding: 1rem;
+    }
+
+    a {
+        text-decoration: underline;
+      }
+}
+

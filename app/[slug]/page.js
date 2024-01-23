@@ -1,17 +1,40 @@
-import { getPostData, postDataSorter } from "../../helpers/api-utils";
+import PostSingle from "../../components/post-single";
+import Layout from "../../components/layout";
+import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPostBySlug } from "../../helpers/api-utils";
+import classes from './slug.module.scss'
 
-export default async function TestPage () {
+const SinglePost = async ({params} = props) => {
 
-    const stuff = await getPostData('test')
-    const stufff = postDataSorter(stuff)
-    console.log(stufff)
+    const data = await getPostData()
+    const posts = postDataSorter(data)
+    const categoryData = await getCategoryData()
+    const categories = categoryDataSorter(categoryData)
 
+    const post = await getPostBySlug(params.slug);
+    console.log(post)
+
+    const image = post.image
 
     return (
-        <div>
-            <h1>test Page</h1>
-            {stufff[32].title}
-        </div>
+        <>
+         <Layout cat={post.category_slugs[0]} posts={posts} categories={categories}>
+            <div className={classes.container}>
+                <div className={classes.bgImage} style={{backgroundImage: `url(${image})`}}> 
+                    <div className={classes.pageContent}>
+                        <PostSingle
+                        title={post.title}
+                        author={post.author}
+                        image={post.image}
+                        content={post.content}
+                        tags={post.tags}
+                        slug={post.slug}
+                        />
+                    </div> 
+                </div>
+            </div>
+        </Layout>
+        </>
     )
-
 }
+
+export default SinglePost;
