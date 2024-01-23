@@ -1,8 +1,9 @@
 import Layout from "../../components/layout";
+import ContactForm from "../../components/contact-form";
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
 import classes from '../page.module.scss'
 
-const BioPage = async () => {
+const ContactPage = async () => {
 
     const data = await getPostData()
     const posts = postDataSorter(data)
@@ -18,12 +19,11 @@ const BioPage = async () => {
   return (
     <>
     <Layout cat="" posts={posts} categories={categories}>
-      <div className={classes.pageContent}>
-        <div className={classes.title}>Bio</div>
-        <div className={classes.contentBit}>
-        <div className={classes.content} dangerouslySetInnerHTML={{__html: bioPageContent.content}}/>
+        <div className={classes.pageContent}>
+            <div className={classes.contentBit}>
+                <ContactForm />
+            </div>
         </div>
-      </div>
     </Layout>
     </>
   )
@@ -31,4 +31,4 @@ const BioPage = async () => {
 
 
 
-export default BioPage;
+export default ContactPage;

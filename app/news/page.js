@@ -2,28 +2,28 @@ import Layout from "../../components/layout";
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
 import classes from '../page.module.scss'
 
-const BioPage = async () => {
+const PressPage = async () => {
 
     const data = await getPostData()
     const posts = postDataSorter(data)
     const categoryData = await getCategoryData()
     const categories = categoryDataSorter(categoryData)
 
-  let bioPageContent = posts.find(item => item.slug === 'bio')
+  let pageContent = posts.find(item => item.slug === 'news')
 
-  if (!bioPageContent) {
-    bioPageContent = ''
+  if (!pageContent) {
+    pageContent = ''
   }
 
   return (
     <>
     <Layout cat="" posts={posts} categories={categories}>
-      <div className={classes.pageContent}>
-        <div className={classes.title}>Bio</div>
-        <div className={classes.contentBit}>
-        <div className={classes.content} dangerouslySetInnerHTML={{__html: bioPageContent.content}}/>
+        <div className={classes.pageContent}>
+            <div className={classes.title}>News</div>
+            <div className={classes.contentBit}>
+                <div className={classes.content} dangerouslySetInnerHTML={{__html: pageContent.content}}/>
+            </div>
         </div>
-      </div>
     </Layout>
     </>
   )
@@ -31,4 +31,4 @@ const BioPage = async () => {
 
 
 
-export default BioPage;
+export default PressPage;

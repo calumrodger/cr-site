@@ -2,6 +2,7 @@ import PostSingle from "../../components/post-single";
 import Layout from "../../components/layout";
 import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPostBySlug } from "../../helpers/api-utils";
 import classes from './slug.module.scss'
+import { notFound } from "next/navigation";
 
 const SinglePost = async ({params} = props) => {
 
@@ -11,9 +12,14 @@ const SinglePost = async ({params} = props) => {
     const categories = categoryDataSorter(categoryData)
 
     const post = await getPostBySlug(params.slug);
-    console.log(post)
+
+    if ( !post ) {
+        notFound();
+    }
 
     const image = post.image
+
+
 
     return (
         <>
