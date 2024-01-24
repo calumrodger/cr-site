@@ -2,9 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;500;800&display=swap');
 
 :root {
+
+  --poem-border-size-mob: 1rem;
+  --poem-border-size-desk: 1.5rem;
+  --poem-border: green;
+  --poem-text-colour: blue;
+  
   --navtext-colour: #fcfcf5;
   --navtext-highlight: #ebf261;
-  --border: #1a1a19;
+  --border: green;
   --border-highlight: gray;
   --main-bg: #fcfcf5;
   --secondary-bg: #d4d4d4;
@@ -12,7 +18,7 @@
   --text-colour: #1a1a19;
 
   --border-size-mob: 1.65rem;
-  --border-size-desk: 1.7rem;
+  --border-size-desk: .7rem;
   --content-size-mob: calc(100% - var(var(--border-size-mob)) - var(var(--border-size-mob)));
   --title-text-size-mob: 1.3rem;
   --title-text-size-desk: 1.5rem;

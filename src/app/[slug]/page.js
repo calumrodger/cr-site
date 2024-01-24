@@ -6,6 +6,12 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
 
+    const { slug } = params;
+
+    if ( slug === 'book' || slug === 'poem' || slug === 'web' || slug === 'performance' || slug === 'article' || slug === 'film-image' ) {
+        notFound();
+    }
+
     const post = await getPostBySlug(params.slug);
    
     return {
