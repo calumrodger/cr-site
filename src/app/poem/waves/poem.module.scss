@@ -1,0 +1,37 @@
+.pageContainer {
+    margin: 0;
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+.pageContent {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-image: url('/waves.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.waves {
+    // position: fixed;
+    object-fit: fill;
+    object-position: center;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+    // max-height: calc(100vh - (var(--poem-border-size-mob)));
+}
+
+.text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    color: green;
+    z-index: 1000;
+}
