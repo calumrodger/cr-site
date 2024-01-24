@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from "react"
 import Notification from "./notification"
 import classes from './mailing-list-signup.module.scss'

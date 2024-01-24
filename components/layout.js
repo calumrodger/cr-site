@@ -1,26 +1,22 @@
+'use client';
 import { useState, useEffect } from 'react'
 import CatBar from './cat-bar'
 import classes from './layout.module.scss'
 import FooterText from './footer-text'
 import FooterButtons from './footer-buttons'
-import { useRouter } from 'next/router'
-
 import NavbarSubtitle from './navbar-subtitle'
 import NavbarTitle from './navbar-title'
+import { usePathname } from 'next/navigation';
 
 const Layout = (props) => {
 
     const [showCatbar, setShowCatbar] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
     const [topPadding, setTopPadding] = useState('0')
+    const cat = props.cat;
 
-    const { asPath } = useRouter()
-    
-    const removeCatBarIfPoem = () => {
-      if ( asPath.includes('/poem/') ) {
-      setShowCatbar(false)
-    }
-  }
+    // const router = useRouter()
+    const path = usePathname();
 
 //choose the screen size 
 const handleResize = () => {
@@ -47,13 +43,16 @@ const handleResize = () => {
 }
 
 useEffect(() => {
-  removeCatBarIfPoem()
-}, [asPath])
+  if ( path.includes('/poem/') ) {
+    setShowCatbar(false)
+  }
+}, [path])
 
 // create an event listener
 useEffect(() => {
     handleResize()
     window.addEventListener("resize", handleResize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [showCatbar])
 
 
@@ -63,7 +62,7 @@ useEffect(() => {
 
             <div className={classes.navbarSubtitle}>
                 <NavbarSubtitle  isMobile={isMobile} showCatbar={showCatbar} setShowCatbar={setShowCatbar}/>
-                {!isMobile && showCatbar && <CatBar cat={props.cat} categories={props.categories} burgerToggle={props.burgerToggle}/>}
+                {!isMobile && showCatbar && <CatBar cat={cat} categories={props.categories} burgerToggle={props.burgerToggle}/>}
             </div>
             <div className={classes.navbarTitle}>
                 <NavbarTitle />

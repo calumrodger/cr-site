@@ -1,10 +1,10 @@
 import classes from './nav-bar.module.scss'
 import { useState, useRef, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 
 const NavbarSubtitle = (props) => {
 
-    const { asPath } = useRouter()
+    const asPath = usePathname()
 
     const { isMobile } = props
     let { showCatbar } = props
