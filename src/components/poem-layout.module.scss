@@ -1,15 +1,13 @@
 .grid {
-
-    @import '../styles/globals.scss';
-
+    font-size: .6rem;
     height: 100%;
     display: grid;
     grid-template-columns: var(--poem-border-size-mob) auto auto var(--poem-border-size-mob);
     grid-template-rows: var(--poem-border-size-mob) 0 auto var(--poem-border-size-mob);
-    grid-template-areas: ". subtitle title right-margin"
-                         ". mobile-catbar mobile-catbar right-margin"
-                         ". main-content main-content right-margin"
-                         ". footer-text footer-buttons right-margin"
+    grid-template-areas: "left-margin subtitle title right-margin"
+                         "left-margin mobile-catbar mobile-catbar right-margin"
+                         "left-margin main-content main-content right-margin"
+                         "left-margin footer-text footer-buttons right-margin"
 }
 
 .navbarSubtitle { 
@@ -24,6 +22,17 @@
     height: var(--poem-border-size-mob);
     width: 100%;
     z-index: 1;
+}
+
+.backButton {
+    color: var(--poem-text-colour);
+}
+
+.leftMargin {
+    grid-area: left-margin;
+    z-index: 5;
+    background-color: var(--poem-border);
+    height: 100%;
 }
 
 .rightMargin {
@@ -44,6 +53,11 @@
     right: var(--poem-border-size-mob);
     height: var(--poem-border-size-mob);
     z-index: 1;
+    color: var(--poem-text-colour);
+
+    &:hover {
+        color: var(--poem-highlight);
+    }
 }
 
 .mobileCatbar {
@@ -58,6 +72,7 @@
 
 .footerText {
     background-color: var(--poem-border);
+    color: var(--poem-text-colour);
     display: flex;
     align-items: center;
     justify-content: left;
@@ -67,12 +82,11 @@
     height: var(--poem-border-size-mob);
     width: 100%;
     grid-area: footer-text;
-    color: #fff;
     
 }
 
 .footerButtons {
-    color: #fff;
+    color: var(--poem-text-colour);
     display: flex;
     align-items: center;
     justify-content: right;
@@ -81,10 +95,15 @@
     bottom: 0;
     background-color: var(--poem-border);
     grid-area: footer-buttons;
+
+    &:hover {
+        color: var(--poem-highlight);
+    }
 }
 
 @media (min-width: 1024px) {
     .grid {
+        font-size: 1rem;
         grid-template-columns: var(--poem-border-size-desk) auto 1rem var(--poem-border-size-desk);
         grid-template-rows: var(--poem-border-size-desk) fit-content(var(--poem-border-size-desk)) auto var(--poem-border-size-desk);  
     }
