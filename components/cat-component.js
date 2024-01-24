@@ -90,6 +90,8 @@ const AllPostsByCategory = (props) => {
             categories={item.categories}
             indexed={item.indexed}
             altText={item.imageAltText}
+            imageHeight={item.imageHeight}
+            imageWidth={item.imageWidth}
             />
             )
           })}

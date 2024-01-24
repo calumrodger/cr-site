@@ -10,6 +10,7 @@ async function fetchAPI(query) {
       body: JSON.stringify({
         query,
       }),
+      next: {revalidate: 10}
     })
   
     const json = await res.json()
@@ -18,7 +19,7 @@ async function fetchAPI(query) {
       throw new Error('Failed to fetch API')
     }
     return json.data
-  }
+}
 
 export async function getPostData() {
     const query = `
@@ -35,6 +36,10 @@ export async function getPostData() {
               node {
                 sourceUrl
                 altText
+                mediaDetails {
+                  height
+                  width
+                }
               }
             }
             extraPostData {
@@ -85,6 +90,8 @@ export function postDataSorter(data) {
     title: item.node.title,
     content: item.node.content ? item.node.content : '',
     image: item.node.featuredImage ? item.node.featuredImage.node.sourceUrl : placeholderImage,
+    imageHeight: item.node.featuredImage ? item.node.featuredImage.node?.mediaDetails?.height : '',
+    imageWidth: item.node.featuredImage ? item.node.featuredImage.node?.mediaDetails?.width : '',
     imageAltText: item.node.featuredImage ? item.node.featuredImage.node.altText : '',
     slug: item.node.slug,
     key: item.node.id,
