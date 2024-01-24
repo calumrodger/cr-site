@@ -1,0 +1,134 @@
+.grid {
+    font-size: .6rem;
+    height: 100%;
+    display: grid;
+    grid-template-columns: var(--poem-border-size-mob) auto auto var(--poem-border-size-mob);
+    grid-template-rows: var(--poem-border-size-mob) 0 auto var(--poem-border-size-mob);
+    grid-template-areas: "left-margin subtitle title right-margin"
+                         "left-margin mobile-catbar mobile-catbar right-margin"
+                         "left-margin main-content main-content right-margin"
+                         "left-margin footer-text footer-buttons right-margin"
+}
+
+.navbarSubtitle { 
+    background-color: var(--poem-border);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    grid-area: subtitle;
+    position: fixed;
+    top: 0;
+    left: var(--poem-border-size-mob);
+    height: var(--poem-border-size-mob);
+    width: 100%;
+    z-index: 1;
+}
+
+.backButton {
+    color: var(--poem-text-colour);
+}
+
+.leftMargin {
+    grid-area: left-margin;
+    z-index: 5;
+    background-color: var(--poem-border);
+    height: 100%;
+}
+
+.rightMargin {
+    grid-area: right-margin;
+    z-index: 5;
+    background-color: var(--poem-border);
+    height: 100%;
+}
+
+.navbarTitle {
+    background-color: var(--poem-border);
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    grid-area: title;
+    position: fixed;
+    top: 0;
+    right: var(--poem-border-size-mob);
+    height: var(--poem-border-size-mob);
+    z-index: 1;
+    color: var(--poem-text-colour);
+
+    &:hover {
+        color: var(--poem-highlight);
+    }
+}
+
+.mobileCatbar {
+    grid-area: mobile-catbar;
+}
+
+.mainContent {
+    background-color: green;
+    grid-area: main-content;
+    height: 100%;
+}
+
+.footerText {
+    background-color: var(--poem-border);
+    color: var(--poem-text-colour);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    position: fixed;
+    bottom: 0;
+    left: var(--poem-border-size-mob);
+    height: var(--poem-border-size-mob);
+    width: 100%;
+    grid-area: footer-text;
+    
+}
+
+.footerButtons {
+    color: var(--poem-text-colour);
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    position: fixed;
+    right: var(--poem-border-size-mob);
+    bottom: 0;
+    background-color: var(--poem-border);
+    grid-area: footer-buttons;
+
+    &:hover {
+        color: var(--poem-highlight);
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid {
+        font-size: 1rem;
+        grid-template-columns: var(--poem-border-size-desk) auto 1rem var(--poem-border-size-desk);
+        grid-template-rows: var(--poem-border-size-desk) fit-content(var(--poem-border-size-desk)) auto var(--poem-border-size-desk);  
+    }
+
+    .mainContent {
+        height: 100%;
+    }
+
+    .footerButtons {
+        right: var(--poem-border-size-desk);
+        height: var(--poem-border-size-desk);
+    }
+
+    .footerText {
+        left: var(--poem-border-size-desk);
+        height: var(--poem-border-size-desk);
+    }
+
+    .navbarSubtitle {
+        left: var(--poem-border-size-desk);
+        height: var(--poem-border-size-desk);
+    }
+
+    .navbarTitle {
+        right: var(--poem-border-size-desk);
+        height: var(--poem-border-size-desk);
+    }
+}
