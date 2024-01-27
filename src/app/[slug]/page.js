@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
     const post = await getPostBySlug(params.slug);
    
     return {
-      title: post.title,
+      title: post?.title ? post.title : '404'
     }
 }
 

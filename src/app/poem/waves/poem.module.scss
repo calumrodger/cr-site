@@ -1,3 +1,5 @@
+@import url('/LeagueSpartan-Medium.ttf');
+
 .pageContainer {
     margin: 0;
     background-color: #fff;
@@ -32,6 +34,10 @@
     justify-content: center;
     height: 100%;
     width: 100%;
-    color: green;
+    color: #fff;
     z-index: 1000;
+    font-family: 'League Spartan';
+    font-weight: bold;
+    font-size: 5rem;
+    text-align: center;
 }

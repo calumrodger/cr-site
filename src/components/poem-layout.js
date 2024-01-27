@@ -14,7 +14,7 @@ const PoemLayout = (props) => {
             <div className={classes.navbarSubtitle}>
             </div>
             <div className={classes.navbarTitle}>
-            <div className={classes.title}><span className={classes.byText}>by </span><Link href='/'>Calum Rodger</Link></div>
+           
             </div>
 
             <div className={classes.leftMargin} />
