@@ -1,7 +1,7 @@
 import localFont from 'next/font/local'
  
 // Font files can be colocated inside of `app`
-const myFont = localFont({src: '../../public/fonts/LeagueSpartan-VF.ttf', weight: ['100','400','900']})
+const myFont = localFont({src: '../../public/fonts/LeagueSpartan-VF.ttf'})
 
 import '../styles/globals.scss'
 
