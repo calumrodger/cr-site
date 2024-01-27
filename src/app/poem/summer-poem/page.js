@@ -1,5 +1,4 @@
 import PoemLayout from "../../../components/poem-layout"
-import '../../styles/globals.scss'
 import FoliageComponent from "./summer-poem"
 
 export const metadata = {
