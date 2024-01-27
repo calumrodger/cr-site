@@ -1,12 +1,9 @@
-import '../styles/globals.scss'
-
 import localFont from 'next/font/local'
  
 // Font files can be colocated inside of `app`
-const myFont = localFont({
-  src: '../../public/fonts/LeagueSpartan-VF.ttf',
-  display: 'swap',
-})
+const myFont = localFont({src: '../../public/fonts/LeagueSpartan-VF.ttf'})
+
+import '../styles/globals.scss'
 
 export default function RootLayout({ children }) {
   return (
