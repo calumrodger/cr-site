@@ -1,5 +1,3 @@
-'use client';
-
 import classes from './the-lighght-going-on-and-off.module.scss'
 
 const Lighght = () => {

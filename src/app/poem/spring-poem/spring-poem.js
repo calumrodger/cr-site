@@ -1,5 +1,3 @@
-'use client';
-
 import classes from './spring-poem.module.scss'
 
 const SpringPoem = () => {

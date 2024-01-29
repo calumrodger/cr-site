@@ -1,5 +1,3 @@
-'use client';
-
 import classes from './poem.module.scss';
 
 import { leagueSpartan } from '../../fonts';
