@@ -1,14 +1,12 @@
-import localFont from 'next/font/local'
- 
 // Font files can be colocated inside of `app`
-import { Lexend } from 'next/font/google'
+import { lexend } from './fonts.js'
 
-const lexend = Lexend({
-  subsets: ['latin'],
-  display: 'swap',
-})
+// const lexend = Lexend({
+//   subsets: ['latin'],
+//   display: 'swap',
+// })
  
-const myFont = localFont({src: '../../public/fonts/LeagueSpartan-VF.ttf'})
+// const myFont = localFont({src: '../../public/fonts/LeagueSpartan-VF.ttf'})
 
 import '../styles/globals.scss'
 
