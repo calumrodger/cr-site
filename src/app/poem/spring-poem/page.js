@@ -8,12 +8,10 @@ export const metadata = {
 export default async function PoemPage() {
 
   return (
-    <html lang="en">
-      <body>
+<>
         <PoemLayout title="spring poem" >
         <SpringPoem />
         </PoemLayout>
-        </body>
-    </html>
+</>
   )
 }

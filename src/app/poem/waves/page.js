@@ -8,12 +8,10 @@ export const metadata = {
 export default async function PoemPage() {
 
   return (
-    <html lang="en">
-        <body>
-            <PoemLayout title="the waves the waves thank god the waves" borderWidthInRem="" borderColour="" textColour="">
+            <>
+            <PoemLayout title="the waves the waves thank god the waves" borderColour="#000080" textColour="">
                 <Poem />
             </PoemLayout>
-        </body>
-    </html>
+            </>
   )
 }

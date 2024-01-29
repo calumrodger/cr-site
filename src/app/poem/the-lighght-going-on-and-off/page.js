@@ -8,12 +8,10 @@ export const metadata = {
 export default async function PoemPage() {
 
   return (
-    <html lang="en">
-      <body>
+<>
         <PoemLayout title="the 'lighght' going on and off" >
         <Lighght/>
         </PoemLayout>
-        </body>
-    </html>
+</>
   )
 }
