@@ -1,4 +1,4 @@
-import PoemLayout from "../../../components/poem-layout"
+import PoemLayout from "@components/poem-layout"
 import FoliageComponent from "./summer-poem"
 
 export const metadata = {

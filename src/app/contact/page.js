@@ -1,6 +1,6 @@
-import Layout from "../../components/layout";
-import ContactForm from "../../components/contact-form";
-import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
+import Layout from "@components/layout";
+import ContactForm from "@components/contact-form";
+import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "@helpers/api-utils";
 import classes from '../page.module.scss'
 
 export const metadata = {
@@ -14,10 +14,10 @@ const ContactPage = async () => {
     const categoryData = await getCategoryData()
     const categories = categoryDataSorter(categoryData)
 
-  let bioPageContent = posts.find(item => item.slug === 'bio')
+  let pageContent = posts.find(item => item.slug === 'bio')
 
-  if (!bioPageContent) {
-    bioPageContent = ''
+  if (!pageContent) {
+    pageContent = ''
   }
 
   return (

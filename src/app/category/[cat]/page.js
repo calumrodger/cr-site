@@ -1,12 +1,13 @@
-import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPostsByCategory, getCategoryIntroPost } from "../../../helpers/api-utils";
-import Layout from "../../../components/layout";
-import AllPostsByCategory from "../../../components/cat-component";
+import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPostsByCategory, getCategoryIntroPost } from "@helpers/api-utils";
+import Layout from "@components/layout";
+import AllPostsByCategory from "@components/cat-component";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
 
     const cat = params.cat;
     let formattedCat;
+
     switch(cat) {
         case 'book':
             formattedCat = 'Books'
@@ -43,7 +44,6 @@ export default async function CatPage ({params} = props) {
     if ( params.cat !== 'book' && params.cat !== 'film-image' && params.cat !== 'performance' && params.cat !== 'game' && params.cat !== 'article') {
         notFound();
     }
-
 
     return (
         <>

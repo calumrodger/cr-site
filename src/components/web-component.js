@@ -5,8 +5,6 @@ import Link from 'next/link'
 
 const WebCategory = (props) => {
 
-    // const posts = props.catPosts
-    // const cat = props.cat
     const introPost = props.introPost
 
     const lighghtTitle = `the 'lighght' going on and off`

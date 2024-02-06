@@ -23,19 +23,17 @@
     width: 100%;
     overflow: hidden;
     background-color: #fff;
-    // max-height: calc(100vh - (var(--poem-border-size-mob)));
 }
 
 .text {
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: center;
+    flex-direction: column;
     height: 100%;
     width: 100%;
-    color: #fff;
+    color: #000080;
     z-index: 1000;
-    // font-family: 'Lexend';
-    font-weight: 700;
-    font-size: clamp(1rem, 5vw, 5rem);
-    text-align: center;
+    font-weight: 600;
+    font-size: clamp(1rem, 5vw, 3rem);
 }

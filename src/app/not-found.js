@@ -1,4 +1,4 @@
-import Layout from "../components/layout";
+import Layout from "@components/layout";
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
 import classes from './page.module.scss';
 import Link from "next/link";

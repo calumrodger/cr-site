@@ -1,4 +1,4 @@
-import PoemLayout from "../../../components/poem-layout"
+import PoemLayout from "@components/poem-layout"
 import SpringPoem from "./spring-poem"
 
 export const metadata = {

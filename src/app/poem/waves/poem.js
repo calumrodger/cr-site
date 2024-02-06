@@ -8,10 +8,14 @@ const Poem = () => {
     <div className={classes.pageContainer}>
     <div className={classes.pageContent}>
       <div className={`${classes.text} ${leagueSpartan.className}`}>
-      ETERNAL<br/> 
-      RECURRENCE<br/>
-      IS NOT<br/>
-      A JOKE<br/>
+      <div>RIMBAUD CHOSE ABSINTHE AND VERSES</div> 
+      <div>THEN HE CHOSE SILENCE AND GUNS</div>
+      <div>THE WORLD IS PROBABLY REDUCIBLE</div>
+      <div>TO A SERIES OF ZEROS AND ONES</div>
+      <div>SO EXPERIENCE TEACHES US</div>
+      <div>TO LEARN TO BE DOWN ON OUR LUCK</div>
+      <div>THE BEST THING A POET CAN HOPE FOR</div>
+      <div style={{color: "#fff"}}>IS TO ONE DAY SHUT THE FUCK UP</div>
       </div>
     </div>
     </div>

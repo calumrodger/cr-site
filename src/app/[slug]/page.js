@@ -1,6 +1,6 @@
-import PostSingle from "../../components/post-single";
-import Layout from "../../components/layout";
-import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPostBySlug } from "../../helpers/api-utils";
+import PostSingle from "@components/post-single";
+import Layout from "@components/layout";
+import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPostBySlug } from "@helpers/api-utils";
 import classes from './slug.module.scss'
 import { notFound } from "next/navigation";
 
