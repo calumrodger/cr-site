@@ -9,11 +9,11 @@ const Poem = () => {
     <div className={classes.pageContent}>
       <div className={`${classes.text} ${leagueSpartan.className}`}>
       <div>RIMBAUD CHOSE ABSINTHE AND VERSES</div> 
-      <div>THEN HE CHOSE SILENCE AND GUNS</div>
+      <div style={{color: "#fff"}}>THEN HE CHOSE SILENCE AND GUNS</div>
       <div>THE WORLD IS PROBABLY REDUCIBLE</div>
-      <div>TO A SERIES OF ZEROS AND ONES</div>
+      <div style={{color: "#fff"}}>TO A SERIES OF ZEROS AND ONES</div>
       <div>SO EXPERIENCE TEACHES US</div>
-      <div>TO LEARN TO BE DOWN ON OUR LUCK</div>
+      <div style={{color: "#fff"}}>TO LEARN TO BE DOWN ON OUR LUCK</div>
       <div>THE BEST THING A POET CAN HOPE FOR</div>
       <div style={{color: "#fff"}}>IS TO ONE DAY SHUT THE FUCK UP</div>
       </div>
