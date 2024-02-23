@@ -1,0 +1,14 @@
+.container {
+    background: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+.count {
+    max-height: 100%;
+    width: 100%;
+    word-break: break-all;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+}

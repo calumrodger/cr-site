@@ -1,5 +1,3 @@
-'use client';
-
 import classes from './web-component.module.scss'
 import Link from 'next/link'
 
@@ -26,6 +24,8 @@ const WebCategory = (props) => {
         </ul>
         <h3>Cover Versions</h3>
         <ul className={classes.poemsList}>
+        <li><Link href='/poem/opalka-simulator'>Opalka Simulator: 2024 / 1 → ∞</Link> (animated)</li>
+        <p>Automated simulation of Roman Opalka's painting series &apos;1965 / 1 → ∞&apos; (1965-2011/∞)</p>
         <li><Link href='/poem/silence'>silence</Link> (interactive)</li>
         <p>Interactive remake of one of the earliest concrete poems, Eugen Gomringer&apos;s &apos;silence&apos; (1954). To play: touch the silence.</p>
         <li><Link href='/poem/the-lighght-going-on-and-off'>{lighghtTitle}</Link> (animated)</li>
