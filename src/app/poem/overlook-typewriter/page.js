@@ -1,7 +1,7 @@
 import PoemLayout from "@components/poem-layout"
 import Poem from "./poem"
 
-const poemTitle = "poem title here"
+const poemTitle = "Overlook Typewriter"
 
 export const metadata = {
     title: poemTitle

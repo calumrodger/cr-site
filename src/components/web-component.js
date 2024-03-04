@@ -14,6 +14,8 @@ const WebCategory = (props) => {
         <div className={classes.poemsListContainer}>
         <h3>Original Poems</h3>
         <ul className={classes.poemsList}>
+        <li><Link href='/poem/overlook-typewriter'>Overlook Typewriter</Link> (interactive)</li>
+        <p/>
         <li><Link href='/poem/eternal-recurrence-is-not-a-joke'>eternal recurrence is NOT a joke</Link> (animated (gif))</li>
         <p/>
         <li><Link href='/poem/spring-poem'>spring poem</Link> (static)</li>
