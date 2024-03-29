@@ -1,6 +1,7 @@
 .pageContainer {
     margin: 0;
-    background-color: #fff;
+    background-color: var(--main-bg);
+    color: var(--text-colour);
     height: 100%;
     width: 100%;
 }
@@ -22,7 +23,7 @@
     height: 100%;
     width: 100%;
     overflow: hidden;
-    background-color: #fff;
+    background-color: var(--main-bg);
 }
 
 .text {
