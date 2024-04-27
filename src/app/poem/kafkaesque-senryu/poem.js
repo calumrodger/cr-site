@@ -8,7 +8,7 @@ const Poem = () => {
       <div className={classes.poemContainer}>
       <p>spawned the mornin</p>
       <p>couldnae WASD!</p>
-      <p className={classes.italicise}>– sum bug eh</p>
+      <p className={classes.italicise}>sum bug eh</p>
       </div>
     </div>
     </div>
