@@ -1,7 +1,7 @@
 import PoemLayout from "@components/poem-layout"
 import Poem from "./poem"
 
-const poemTitle = "poem title here"
+const poemTitle = "kafkaesque senryu"
 
 export const metadata = {
     title: poemTitle

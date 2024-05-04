@@ -5,9 +5,6 @@ if (!process.env.WORDPRESS_API_URL) {
   `)
 }
 
-const path = require('path')
-
-
 /** @type {import('next').NextConfig} */
 module.exports = {
   images: {
@@ -24,14 +21,8 @@ module.exports = {
   experimental: {
     scrollRestoration: false,
   },
-//   sassOptions: {
-//     additionalData: `@import "styles/globals.scss";`,
-//  },
 }
 
-const withVideos = require('next-videos')
-
-module.exports = withVideos()
 
 
 

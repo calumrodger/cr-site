@@ -1,6 +1,6 @@
-import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPostsByCategory, getCategoryIntroPost } from "../../../helpers/api-utils";
-import Layout from "../../../components/layout";
-import WebCategory from "../../../components/web-component";
+import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getCategoryIntroPost } from "@helpers/api-utils";
+import Layout from "@components/layout";
+import WebCategory from "@components/web-component";
 import classes from './web.module.scss';
 
 export const metadata = {
@@ -14,7 +14,6 @@ export default async function WebPage () {
     const categoryData = await getCategoryData()
     const categories = categoryDataSorter(categoryData)
     const cat = 'web';
-    const catPosts = await getPostsByCategory(cat)
     const introPost = await getCategoryIntroPost(cat)
 
 
@@ -22,7 +21,7 @@ export default async function WebPage () {
         <>
         <Layout cat={cat} posts={posts} categories={categories}>
             <div className={classes.container}>
-                <WebCategory catPosts={catPosts} introPost={introPost} />
+                <WebCategory introPost={introPost} />
             </div>
         </Layout>
         </>

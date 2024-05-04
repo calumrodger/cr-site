@@ -1,17 +1,15 @@
 import PoemLayout from "@components/poem-layout"
 import Poem from "./poem"
 
-const poemTitle = "poem title here"
-
 export const metadata = {
-    title: poemTitle
+    title: 'eternal recurrence is NOT a joke'
   }
 
 export default async function PoemPage() {
 
   return (
             <>
-            <PoemLayout title={poemTitle} borderColour="" textColour="">
+            <PoemLayout title="eternal recurrence is NOT a joke" borderColour="#000080" textColour="">
                 <Poem />
             </PoemLayout>
             </>

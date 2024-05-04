@@ -1,6 +1,7 @@
 .pageContainer {
     margin: 0;
-    background-color: #fff;
+    background-color: var(--main-bg);
+    color: var(--text-colour);
     height: 100%;
     width: 100%;
 }
@@ -22,16 +23,18 @@
     height: 100%;
     width: 100%;
     overflow: hidden;
-    background-color: #fff;
-    // max-height: calc(100vh - (var(--poem-border-size-mob)));
+    background-color: var(--main-bg);
 }
 
 .text {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     height: 100%;
     width: 100%;
-    color: green;
+    color: #000080;
     z-index: 1000;
+    font-weight: 600;
+    font-size: clamp(1rem, 5vw, 3rem);
 }

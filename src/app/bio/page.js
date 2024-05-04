@@ -1,5 +1,5 @@
-import Layout from "../../components/layout";
-import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../../helpers/api-utils";
+import Layout from "@components/layout";
+import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "@helpers/api-utils";
 import classes from '../page.module.scss'
 
 export const metadata = {
@@ -13,10 +13,10 @@ const BioPage = async () => {
     const categoryData = await getCategoryData()
     const categories = categoryDataSorter(categoryData)
 
-  let bioPageContent = posts.find(item => item.slug === 'bio')
+  let pageContent = posts.find(item => item.slug === 'bio')
 
-  if (!bioPageContent) {
-    bioPageContent = ''
+  if (!pageContent) {
+    pageContent = ''
   }
 
   return (
@@ -25,7 +25,7 @@ const BioPage = async () => {
       <div className={classes.pageContent}>
         <div className={classes.title}>Bio</div>
         <div className={classes.contentBit}>
-        <div className={classes.content} dangerouslySetInnerHTML={{__html: bioPageContent.content}}/>
+        <div className={classes.content} dangerouslySetInnerHTML={{__html: pageContent.content}}/>
         </div>
       </div>
     </Layout>

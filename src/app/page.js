@@ -1,7 +1,7 @@
 import { getPostData, postDataSorter, categoryDataSorter, getCategoryData } from "../helpers/api-utils";
 import classes from './index.module.scss'
 import parse from "html-react-parser";
-import Layout from "../components/layout";
+import Layout from "@components/layout";
 
 export const metadata = {
   title: 'Calum Rodger'

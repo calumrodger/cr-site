@@ -1,5 +1,4 @@
-import PoemLayout from "../../../components/poem-layout"
-import '../../styles/globals.scss'
+import PoemLayout from "@components/poem-layout"
 import FoliageComponent from "./summer-poem"
 
 export const metadata = {
@@ -9,12 +8,10 @@ export const metadata = {
 export default async function PoemPage() {
 
   return (
-    <html lang="en">
-      <body>
+        <>
         <PoemLayout title="summer poem" >
         <FoliageComponent/>
         </PoemLayout>
-        </body>
-    </html>
+        </>
   )
 }

@@ -1,17 +1,17 @@
 import PoemLayout from "@components/poem-layout"
 import Poem from "./poem"
 
-const poemTitle = "poem title here"
+const title = "Opalka Simulator: 2024 / 1 → ∞"
 
 export const metadata = {
-    title: poemTitle
+    title: title
   }
 
 export default async function PoemPage() {
 
   return (
             <>
-            <PoemLayout title={poemTitle} borderColour="" textColour="">
+            <PoemLayout title={title} borderColour="" textColour="">
                 <Poem />
             </PoemLayout>
             </>

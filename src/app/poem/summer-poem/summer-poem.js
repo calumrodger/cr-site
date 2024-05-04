@@ -1,5 +1,3 @@
-'use client';
-
 import classes from './summer-poem.module.scss';
 
 const FoliageComponent = () => {

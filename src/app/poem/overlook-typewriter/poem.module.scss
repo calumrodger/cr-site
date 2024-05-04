@@ -1,0 +1,22 @@
+.pageContainer {
+    background-color: var(--main-bg);
+    color: var(--text-colour);
+    height: 100%;
+    width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.pageContent {
+    height: 100%;
+    width: 100%;
+}
+
+.field {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    resize: none;
+}
