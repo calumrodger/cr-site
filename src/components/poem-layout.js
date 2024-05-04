@@ -36,4 +36,4 @@ const PoemLayout = (props) => {
     )
 }
 
-export default PoemLayout
+export default PoemLayout;
