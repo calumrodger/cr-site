@@ -3,7 +3,7 @@ import Poem from "./poem"
 
 const poemTitle = "poem title here"
 
-const key = "AIzaSyAZQfEvZgmkyvB-pvlpqHhlCBEHSYhXyWM";
+const key = "-";
 const videoId = "q86g1aop6a8";
 
 async function getData() {
