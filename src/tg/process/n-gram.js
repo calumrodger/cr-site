@@ -5,8 +5,6 @@ const NGrammer = (props) => {
 
     const { poem, setPoem, setOldPoem } = props;
 
-    console.log(poem)
-
     const nGrammer = () => {
 
         const stringPoem = poem.map((item) => {

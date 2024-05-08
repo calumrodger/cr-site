@@ -16,34 +16,39 @@ const Poem = (props) => {
 
   const { source } = props;
 
-  const sourceArray = source.split(" ");
+  const treatString = (input) => {
+    const sourceArray = input.split(" ");
 
-  const filteredEmpties = sourceArray.filter((item) => item !== "");
-
-  let newSource = [];
-  const lineBreak = '\n';
-
-  for (let i = 0; i < filteredEmpties.length; i++) {
-    if (filteredEmpties[i] === '\n') {
-      newSource.push(lineBreak); 
-    } else if (filteredEmpties[i].includes('\n')) {
-      let newValue = filteredEmpties[i].replace('\n', '');
-      newSource.push(newValue);
-      newSource.push(lineBreak);
-    }  else  {
-      newSource.push(filteredEmpties[i]); 
-    } 
-  }
-
-  const finalList = newSource.map((item, index) => {
-    if (item === '\n') {
-      return { id: index, type: 'break', text: item, selected: false }
-    } else {
-    return { id: index, type: 'text', text: item, selected: false }
+    const filteredEmpties = sourceArray.filter((item) => item !== "");
+  
+    let newSource = [];
+    const lineBreak = '\n';
+  
+    for (let i = 0; i < filteredEmpties.length; i++) {
+      if (filteredEmpties[i] === '\n') {
+        newSource.push(lineBreak); 
+      } else if (filteredEmpties[i].includes('\n')) {
+        let newValue = filteredEmpties[i].replace('\n', '');
+        newSource.push(newValue);
+        newSource.push(lineBreak);
+      }  else  {
+        newSource.push(filteredEmpties[i]); 
+      } 
     }
-  });
+  
+    const finalList = newSource.map((item, index) => {
+      if (item === '\n') {
+        return { id: index, type: 'break', text: item, selected: false }
+      } else {
+      return { id: index, type: 'text', text: item, selected: false }
+      }
+    });
 
-  const [poem, setPoem] = useState(finalList)
+    return finalList;
+  }
+  
+
+  const [poem, setPoem] = useState(treatString(source))
   const [oldPoem, setOldPoem] = useState([])
 
   const onWordClick = (e) => {
@@ -65,7 +70,7 @@ const Poem = (props) => {
       <div className={classes.inputSection}>
         <p>INPUT</p>
         <GenerateFromWiki />
-        <GenerateFromString />
+        <GenerateFromString treatString={treatString} setPoem={setPoem} setOldPoem={setOldPoem} poem={poem}/>
       </div>
       <div className={classes.box}>
         <div className={classes.text}>
