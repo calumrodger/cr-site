@@ -87,13 +87,50 @@ const Genny = (props) => {
 
   const onSaveStanzaToPad = () => {
     const newPoemString = stanza.map((item) => item.text).join(' ');
-    setPoem(poem => [...poem, newPoemString]);
+    const currentPoemLength = poem.length;
+    const newPoemId = currentPoemLength + 1;
+    setPoem(poem => [...poem, {id: newPoemId, text: newPoemString}]);
   }
 
-  useEffect(() => {
-    // setPoem(poem => [...poem, newPoemString]);
-    console.log(poem);
-  }, [poem])
+  function arraymove(arr, fromIndex, toIndex) {
+    let newArray = arr;
+    var element = arr[fromIndex];
+    newArray.splice(fromIndex, 1);
+    newArray.splice(toIndex, 0, element);
+    return newArray;
+  }
+
+  const shiftStanzaUp = (e) => {
+    let stanzaId = parseInt(e.target.id);
+    let stanzaIndex = poem.findIndex((item) => item.id === stanzaId);
+
+    if (stanzaIndex !== 0) {
+      let tempArray = [...poem];
+      arraymove(tempArray, stanzaIndex, stanzaIndex - 1);
+      setPoem(tempArray);
+    }
+  }
+
+  const shiftStanzaDown = (e) => {
+    let stanzaId = parseInt(e.target.id);
+    let stanzaIndex = poem.findIndex((item) => item.id === stanzaId);
+
+    if (stanzaIndex !== poem.length - 1) {
+      let tempArray = [...poem];
+      arraymove(tempArray, stanzaIndex, stanzaIndex + 1);
+      setPoem(tempArray);
+    }
+  }
+
+  const deleteStanza = (e) => {
+    let newObjArray = poem.filter((item) => item.id.toString() !== e.target.id);
+    setPoem(newObjArray);
+  }
+
+  // useEffect(() => {
+  //   // setPoem(poem => [...poem, newPoemString]);
+  //   console.log(poem);
+  // }, [shiftStanzaDown, shiftStanzaUp])
 
 
   return (
@@ -101,12 +138,11 @@ const Genny = (props) => {
     <div className={classes.pageContent}>
       <div className={classes.inputSection}>
         <p>INPUT</p>
-        {/* <GenerateFromWiki /> */}
         <GenerateFromString treatString={treatString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/>
       </div>
       { padToShow === 'stanza' ? 
         <StanzaPad stanza={stanza} onWordClick={onWordClick}/> 
-      : <PoemPad poem={poem} /> 
+      : <PoemPad poem={poem} deleteStanza={deleteStanza} shiftStanzaDown={shiftStanzaDown} shiftStanzaUp={shiftStanzaUp} /> 
       }
       <PadSwitcher onSwitchPad={onSwitchPad} />
       <OnSaveStanzaToPad onSaveStanzaToPad={onSaveStanzaToPad} />
@@ -114,7 +150,6 @@ const Genny = (props) => {
         <p>PROCESS</p>
         <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
         <UndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
-        {/* <NGrammer setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} /> */}
       </div>
       </div>
     </div> 

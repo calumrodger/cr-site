@@ -40,24 +40,29 @@
     width: 40%;
     height: 60%;
     white-space: pre-line;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
-    // .line-break {
-    //     display: block; 
-    //     white-space: pre-line;
-    // }
+    .stanzaContainer {
+        display: flex;
 
-    .stanza {
-        cursor: pointer;
-        width: fit-content;
-        border: 1px solid #000;
-        display: inline-block;
-        margin: .1rem;
-
-        &.selected {
-                color: red;
+        .buttonContainer {
+            display: flex;
+            flex-direction: column;
         }
-    } 
+
+        .stanza {
+            cursor: pointer;
+            width: fit-content;
+            border: 1px solid #000;
+            display: inline-block;
+            margin: .1rem;
+
+            &.selected {
+                    color: red;
+            }
+        } 
+    }
 }
 
 .button {
