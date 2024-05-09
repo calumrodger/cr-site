@@ -130,9 +130,9 @@ import { useState } from 'react';
     return (
         <div className={classes.pageContainer}>
             <form>
-                <label for="article-name">String:</label>
+                <label htmlFor="article-name">String:</label>
                 <textarea type="textarea" id="article-name" name="article-name" value={string} onChange={onChangeString}/>
-                <label for="form">Form:</label>
+                <label htmlFor="form">Form:</label>
                 <input type="text" id="form" name="form" value={form} onChange={onChangeForm}></input>
                 <button type="submit" onClick={onFormSubmit}>show</button>
             </form>

@@ -1,8 +1,7 @@
-import PoemLayout from "@components/poem-layout"
 import Poem from "./poem"
 
 export const metadata = {
-    title: 'poem title here'
+    title: 'stanzafier'
   }
 
 export default async function PoemPage() {
@@ -21,12 +20,9 @@ export default async function PoemPage() {
   chickens`
 
   return (
-    <html lang="en">
-        <body>
-            <PoemLayout title="poem title here" borderWidthInRem="" borderColour="" textColour="">
-                <Poem source={source}/>
-            </PoemLayout>
-        </body>
-    </html>
+        <>
+        <Poem source={source}/>
+        </>
+   
   )
 }

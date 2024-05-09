@@ -1,7 +1,7 @@
 'use client';
 
 import classes from './poem.module.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // INPUT COMPONENTS
 import GenerateFromWiki from '@tg/input/generate-from-wiki';
@@ -63,31 +63,36 @@ const Poem = (props) => {
     setOldPoem(poem);
   };
 
+  const onUpdate = (newPoem) => {
+    setPoem(newPoem);
+    setOldPoem(poem);
+  }
+
 
   return (
     <div className={classes.pageContainer}>
     <div className={classes.pageContent}>
       <div className={classes.inputSection}>
         <p>INPUT</p>
-        <GenerateFromWiki />
+        {/* <GenerateFromWiki /> */}
         <GenerateFromString treatString={treatString} setPoem={setPoem} setOldPoem={setOldPoem} poem={poem}/>
       </div>
       <div className={classes.box}>
         <div className={classes.text}>
-          {poem.map((t) => {
+          {poem.map((t, i) => {
             if (t.text === '\n') {
-              return <br className={classes.lineBreak}/>
+              return <br id={i} key={i} className={classes.lineBreak}/>
             } else {
-              return <div id={t.id} onClick={onWordClick} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{t.text}</div>
+              return <div id={i} key={i} onClick={onWordClick} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{t.text}</div>
             }
           })}
         </div>
       </div>
       <div className={classes.processSection}>
         <p>PROCESS</p>
-        <ReplaceWithHello setPoem={setPoem} setOldPoem={setOldPoem} poem={poem}/> 
+        <ReplaceWithHello onUpdate={onUpdate} poem={poem}/> 
         <UndoRedo setPoem={setPoem} setOldPoem={setOldPoem} poem={poem} oldPoem={oldPoem} />
-        <NGrammer setPoem={setPoem} setOldPoem={setOldPoem} poem={poem} />
+        {/* <NGrammer setPoem={setPoem} setOldPoem={setOldPoem} poem={poem} /> */}
       </div>
       </div>
     </div> 

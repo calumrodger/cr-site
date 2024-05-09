@@ -2,7 +2,7 @@ import classes from '../styles.module.scss';
 
 const ReplaceWithHello = (props) => {
 
-    const { poem, setPoem, setOldPoem } = props;
+    const { poem, onUpdate } = props;
 
     const replaceWithHello = () => {
         let newObjArray = poem.map((item) => {
@@ -12,13 +12,12 @@ const ReplaceWithHello = (props) => {
             return item;
           }
         });
-        setPoem(newObjArray);
-        setOldPoem(poem);
+        onUpdate(newObjArray);
       }
       
     return (
     <div className={classes.pageContainer}>
-    <button onClick={replaceWithHello}>replace selected with "hello"</button>
+    <button onClick={replaceWithHello}>replace selected with hello</button>
     </div>
     )
     }
