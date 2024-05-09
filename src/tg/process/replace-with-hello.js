@@ -2,10 +2,10 @@ import classes from '../styles.module.scss';
 
 const ReplaceWithHello = (props) => {
 
-    const { poem, onUpdate } = props;
+    const { stanza, onUpdate } = props;
 
     const replaceWithHello = () => {
-        let newObjArray = poem.map((item) => {
+        let newObjArray = stanza.map((item) => {
           if (item.selected) {
             return { id: item.id, text: "hello", selected: true }
           } else {

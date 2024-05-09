@@ -1,7 +1,13 @@
 'use client';
 
-import classes from './poem.module.scss';
-import { useState } from 'react';
+import classes from './genny.module.scss';
+import { useState, useEffect } from 'react';
+
+// PAD COMPONENTS
+import StanzaPad from '@tg/pads/stanza-pad';
+import PoemPad from '@tg/pads/poem-pad';
+import PadSwitcher from '@tg/pads/pad-switcher';
+import OnSaveStanzaToPad from '@tg/pads/save-stanza-to-pad';
 
 // INPUT COMPONENTS
 import GenerateFromWiki from '@tg/input/generate-from-wiki';
@@ -12,7 +18,8 @@ import ReplaceWithHello from '@tg/process/replace-with-hello';
 import UndoRedo from '@tg/process/undo-redo';
 import NGrammer from '@tg/process/n-gram';
 
-const Poem = (props) => {
+
+const Genny = (props) => {
 
   const { source } = props;
 
@@ -48,25 +55,45 @@ const Poem = (props) => {
   }
   
 
-  const [poem, setPoem] = useState(treatString(source))
-  const [oldPoem, setOldPoem] = useState([])
+  const [stanza, setStanza] = useState(treatString(source))
+  const [oldStanza, setOldStanza] = useState([])
+  const [padToShow, setPadToShow] = useState('stanza');
+  const [poem, setPoem] = useState([]);
 
   const onWordClick = (e) => {
-    let newObjArray = poem.map((item) => {
+    let newObjArray = stanza.map((item) => {
       if (item.id == e.target.id) {
         return { id: item.id, type: 'text', text: item.text, selected: item.selected ? false : true}
       } else {
         return item;
       }
     });
-    setPoem(newObjArray);
-    setOldPoem(poem);
+    setStanza(newObjArray);
+    setOldStanza(stanza);
   };
 
-  const onUpdate = (newPoem) => {
-    setPoem(newPoem);
-    setOldPoem(poem);
+  const onUpdate = (newstanza) => {
+    setStanza(newstanza);
+    setOldStanza(stanza);
   }
+
+  const onSwitchPad = () => {
+    if (padToShow === 'stanza') {
+      setPadToShow('poem');
+    } else {
+      setPadToShow('stanza');
+    }
+  }
+
+  const onSaveStanzaToPad = () => {
+    const newPoemString = stanza.map((item) => item.text).join(' ');
+    setPoem(poem => [...poem, newPoemString]);
+  }
+
+  useEffect(() => {
+    // setPoem(poem => [...poem, newPoemString]);
+    console.log(poem);
+  }, [poem])
 
 
   return (
@@ -75,28 +102,23 @@ const Poem = (props) => {
       <div className={classes.inputSection}>
         <p>INPUT</p>
         {/* <GenerateFromWiki /> */}
-        <GenerateFromString treatString={treatString} setPoem={setPoem} setOldPoem={setOldPoem} poem={poem}/>
+        <GenerateFromString treatString={treatString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/>
       </div>
-      <div className={classes.box}>
-        <div className={classes.text}>
-          {poem.map((t, i) => {
-            if (t.text === '\n') {
-              return <br id={i} key={i} className={classes.lineBreak}/>
-            } else {
-              return <div id={i} key={i} onClick={onWordClick} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{t.text}</div>
-            }
-          })}
-        </div>
-      </div>
+      { padToShow === 'stanza' ? 
+        <StanzaPad stanza={stanza} onWordClick={onWordClick}/> 
+      : <PoemPad poem={poem} /> 
+      }
+      <PadSwitcher onSwitchPad={onSwitchPad} />
+      <OnSaveStanzaToPad onSaveStanzaToPad={onSaveStanzaToPad} />
       <div className={classes.processSection}>
         <p>PROCESS</p>
-        <ReplaceWithHello onUpdate={onUpdate} poem={poem}/> 
-        <UndoRedo setPoem={setPoem} setOldPoem={setOldPoem} poem={poem} oldPoem={oldPoem} />
-        {/* <NGrammer setPoem={setPoem} setOldPoem={setOldPoem} poem={poem} /> */}
+        <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
+        <UndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
+        {/* <NGrammer setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} /> */}
       </div>
       </div>
     </div> 
   );
 };
 
-export default Poem;
+export default Genny;

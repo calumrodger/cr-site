@@ -2,11 +2,11 @@ import classes from '../styles.module.scss';
 
 const UndoRedo = (props) => {
 
-    const { poem, setPoem, oldPoem, setOldPoem } = props;
+    const { stanza, setStanza, oldStanza, setOldStanza } = props;
 
     const undoRedo = () => {
-        setPoem(oldPoem);
-        setOldPoem(poem);
+        setStanza(oldStanza);
+        setOldStanza(stanza);
     }
 
     return (

@@ -3,22 +3,21 @@ import { nGram } from 'n-gram';
 
 const NGrammer = (props) => {
 
-    const { poem, setPoem, setOldPoem } = props;
+    const { stanza, setStanza, setOldStanza } = props;
 
     const nGrammer = () => {
 
-        const stringPoem = poem.map((item) => {
+        const stringStanza = stanza.map((item) => {
             if (item.type === 'text') {
                 return item.text;
             } else {
                 return;
             }
         }).join('');
-        console.log(stringPoem);
-        const grammedPoem = nGram(10)(stringPoem);
-        console.log(grammedPoem);
 
-        let currentIndex = grammedPoem.length;
+        const grammedStanza = nGram(10)(stringStanza);
+
+        let currentIndex = grammedStanza.length;
 
         while (currentIndex != 0) {
 
@@ -27,18 +26,18 @@ const NGrammer = (props) => {
             currentIndex--;
         
             // And swap it with the current element.
-            [grammedPoem[currentIndex], grammedPoem[randomIndex]] = [
-                grammedPoem[randomIndex], grammedPoem[currentIndex]];
+            [grammedStanza[currentIndex], grammedStanza[randomIndex]] = [
+                grammedStanza[randomIndex], grammedStanza[currentIndex]];
         }
 
-        const stringGram = grammedPoem.join('');
+        const stringGram = grammedStanza.join('');
         console.log(stringGram)
-        console.log(grammedPoem);
-        const mappedGrammedPoem = grammedPoem.map((item, index) => {
+        console.log(grammedStanza);
+        const mappedGrammedStanza = grammedStanza.map((item, index) => {
             return { id: index, type: 'text', text: item, selected: false }
         })
-        setPoem(mappedGrammedPoem);
-        setOldPoem(poem);
+        setStanza(mappedGrammedStanza);
+        setOldStanza(stanza);
       }
       
     return (
