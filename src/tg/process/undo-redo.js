@@ -1,4 +1,4 @@
-import classes from '../styles.module.scss';
+import classes from './process.module.scss';
 
 const UndoRedo = (props) => {
 
@@ -11,7 +11,7 @@ const UndoRedo = (props) => {
 
     return (
         <div className={classes.pageContainer}>
-        <button onClick={undoRedo}>undo/redo</button>
+        <button className={classes.button} onClick={undoRedo}>undo/redo</button>
         </div>
     )
 }

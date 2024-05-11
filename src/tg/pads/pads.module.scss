@@ -68,4 +68,10 @@
 .button {
     border: 1px solid #000;
     cursor: pointer;
+    height: fit-content;
+
+    &:hover {
+        background-color: greenyellow;
+        color: #fff;
+    }
 }

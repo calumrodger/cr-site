@@ -1,4 +1,4 @@
-import classes from '../styles.module.scss';
+import classes from './process.module.scss';
 
 const ReplaceWithHello = (props) => {
 
@@ -7,7 +7,11 @@ const ReplaceWithHello = (props) => {
     const replaceWithHello = () => {
         let newObjArray = stanza.map((item) => {
           if (item.selected) {
-            return { id: item.id, text: "hello", selected: true }
+            if (Math.random() > 0.5) {
+              return { id: item.id, type: "text", text: "hello", selected: true }
+            } else {
+              return { id: item.id, type: "text", text: "world", selected: true }
+            }  
           } else {
             return item;
           }
@@ -17,7 +21,7 @@ const ReplaceWithHello = (props) => {
       
     return (
     <div className={classes.pageContainer}>
-    <button onClick={replaceWithHello}>replace selected with hello</button>
+    <button className={classes.button} onClick={replaceWithHello}>replace selected with 'hello' or 'world'</button>
     </div>
     )
     }

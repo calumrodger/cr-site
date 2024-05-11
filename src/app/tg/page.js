@@ -8,16 +8,7 @@ export default async function PoemPage() {
 
   const source = 
   `so much depends
-  upon
-  
-  a red wheel
-  barrow
-  
-  glazed with rain
-  water
-  
-  beside the white
-  chickens`
+  upon`
 
   return (
         <>

@@ -2,10 +2,10 @@ import classes from './pads.module.scss';
 
 const SaveStanzaToPad = (props) => {
 
-    const { onSaveStanzaToPad } = props;
+    const { onSaveStanzaToPad, onUpdateStanzaToPad, editExistingStanzaMode } = props;
 
     return (
-            <button className={classes.button} onClick={onSaveStanzaToPad}>SAVE STANZA</button>
+            <button className={classes.button} onClick={editExistingStanzaMode ? onUpdateStanzaToPad : onSaveStanzaToPad}>{editExistingStanzaMode ? "UPDATE STANZA" : "SAVE STANZA" }</button>
     )
 }
 

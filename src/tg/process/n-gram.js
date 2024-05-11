@@ -31,8 +31,6 @@ const NGrammer = (props) => {
         }
 
         const stringGram = grammedStanza.join('');
-        console.log(stringGram)
-        console.log(grammedStanza);
         const mappedGrammedStanza = grammedStanza.map((item, index) => {
             return { id: index, type: 'text', text: item, selected: false }
         })

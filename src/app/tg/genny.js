@@ -2,6 +2,7 @@
 
 import classes from './genny.module.scss';
 import { useState, useEffect } from 'react';
+import { syllable } from 'syllable';
 
 // PAD COMPONENTS
 import StanzaPad from '@tg/pads/stanza-pad';
@@ -17,6 +18,10 @@ import GenerateFromString from '@tg/input/generate-from-string';
 import ReplaceWithHello from '@tg/process/replace-with-hello';
 import UndoRedo from '@tg/process/undo-redo';
 import NGrammer from '@tg/process/n-gram';
+
+// OUTPUT COMPONENTS
+import ShowAsLines from '@tg/output/show-as-lines';
+import SaveOutputToTxt from '@tg/output/save-to-txt';
 
 
 const Genny = (props) => {
@@ -55,10 +60,42 @@ const Genny = (props) => {
   }
   
 
-  const [stanza, setStanza] = useState(treatString(source))
-  const [oldStanza, setOldStanza] = useState([])
-  const [padToShow, setPadToShow] = useState('stanza');
+  const [stanza, setStanza] = useState(treatString(source));
+  const [oldStanza, setOldStanza] = useState([]);
+
+  
+  const detectForm = (stanza) => {
+    let form = '';
+    let syllableCounter = 0;
+    for (let i = 0; i < stanza.length; i++) {
+
+      if (stanza[i].text !== '\n') {
+        syllableCounter = syllableCounter + syllable(stanza[i].text);
+      }
+      if (stanza[i].text === '\n') {
+        form = form + syllableCounter.toString() + '/';
+        syllableCounter = 0;
+      }
+    }
+    form = form.slice(0, -1)
+    return form;
+  }
+
+  const [form, setForm] = useState('5/5/5');
+
   const [poem, setPoem] = useState([]);
+
+  const [padToShow, setPadToShow] = useState('stanza');
+  const [editExistingStanzaMode, setEditExistingStanzaMode] = useState(false);
+  const [editStanzaIndex, setEditStanzaIndex] = useState(null);
+
+  // Output on/off states
+  const [outputMode, setOutputMode] = useState(false);
+  const [showAsLines, setShowAsLines] = useState(false);
+
+  useEffect(() => {
+    setForm(detectForm(stanza));
+  }, [stanza])
 
   const onWordClick = (e) => {
     let newObjArray = stanza.map((item) => {
@@ -92,6 +129,17 @@ const Genny = (props) => {
     setPoem(poem => [...poem, {id: newPoemId, text: newPoemString}]);
   }
 
+  const onUpdateStanzaToPad = () => {
+    const newPoemString = stanza.map((item) => item.text).join(' ');
+    const currentPoemLength = poem.length;
+    const newPoemId = currentPoemLength + 1;
+    let newOrder = [...poem];
+    newOrder[editStanzaIndex] = {id: newPoemId, text: newPoemString};
+    setPoem(newOrder);
+    setEditExistingStanzaMode(false);
+    setPadToShow('poem');
+  }
+
   function arraymove(arr, fromIndex, toIndex) {
     let newArray = arr;
     var element = arr[fromIndex];
@@ -122,38 +170,79 @@ const Genny = (props) => {
     }
   }
 
+  const editStanza = (e) => {
+    let stanza = poem.filter((item) => item.id.toString() === e.target.id);
+    let stanzaId = parseInt(e.target.id);
+    let stanzaIndex = poem.findIndex((item) => item.id === stanzaId);
+    setEditStanzaIndex(stanzaIndex);
+    setStanza(treatString(stanza[0].text));
+    setEditExistingStanzaMode(true);
+    setPadToShow('stanza');
+  }
+
   const deleteStanza = (e) => {
     let newObjArray = poem.filter((item) => item.id.toString() !== e.target.id);
     setPoem(newObjArray);
   }
 
-  // useEffect(() => {
-  //   // setPoem(poem => [...poem, newPoemString]);
-  //   console.log(poem);
-  // }, [shiftStanzaDown, shiftStanzaUp])
+  const onLeaveOutputMode = () => {
+    setOutputMode(false);
+    setShowAsLines(false);
+  }
 
+  const onClickShowAsLines = () => {
+    setOutputMode(true);
+    setShowAsLines(true);
+  }
 
+  if (!outputMode) {
   return (
     <div className={classes.pageContainer}>
-    <div className={classes.pageContent}>
-      <div className={classes.inputSection}>
-        <p>INPUT</p>
-        <GenerateFromString treatString={treatString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/>
-      </div>
-      { padToShow === 'stanza' ? 
-        <StanzaPad stanza={stanza} onWordClick={onWordClick}/> 
-      : <PoemPad poem={poem} deleteStanza={deleteStanza} shiftStanzaDown={shiftStanzaDown} shiftStanzaUp={shiftStanzaUp} /> 
-      }
-      <PadSwitcher onSwitchPad={onSwitchPad} />
-      <OnSaveStanzaToPad onSaveStanzaToPad={onSaveStanzaToPad} />
-      <div className={classes.processSection}>
-        <p>PROCESS</p>
-        <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
-        <UndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
-      </div>
-      </div>
-    </div> 
+      <div className={classes.pageContent}> 
+        { padToShow === 'stanza' && 
+        <div className={classes.inputSection}>
+          <p>INPUT</p>
+          <GenerateFromString form={form} treatString={treatString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/> 
+        </div>
+        }
+        { padToShow === 'stanza' ? 
+          <>
+          <span>Current Form: {form}</span>
+          <StanzaPad stanza={stanza} onWordClick={onWordClick}/> 
+          </>
+        : <PoemPad poem={poem} editStanza={editStanza} deleteStanza={deleteStanza} shiftStanzaDown={shiftStanzaDown} shiftStanzaUp={shiftStanzaUp} /> 
+        }
+        { padToShow === 'stanza' && 
+          <div className={classes.toolsSection}>
+          <UndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
+          <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
+          </div>
+        }
+        <PadSwitcher onSwitchPad={onSwitchPad} />
+        { padToShow === 'stanza' && 
+          <div className={classes.processSection}>
+            <p>PROCESS</p>
+            <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
+          </div>
+        }
+        <div className={classes.outputSection}>
+          <p>OUTPUT</p>
+          <button className={classes.button} onClick={onClickShowAsLines}>OUTPUT AS LINES</button>
+          <SaveOutputToTxt poem={poem} />
+        </div>
+      </div> 
+    </div>
   );
+  } else {
+    return (
+      <div className={classes.pageContainer}>
+        <div className={classes.pageContent}>
+        { showAsLines && <ShowAsLines poem={poem}/> }
+        <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
+        </div>
+      </div>
+    )
+  }
 };
 
 export default Genny;

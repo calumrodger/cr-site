@@ -1,0 +1,11 @@
+.button {
+    border: 1px solid #000;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto auto 1rem auto;
+
+    &:hover {
+        background-color: greenyellow;
+        color: #fff;
+    }
+}

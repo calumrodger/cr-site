@@ -2,7 +2,7 @@ import classes from './pads.module.scss';
 
 const PoemPad = (props) => {
 
-    const { poem, shiftStanzaUp, shiftStanzaDown, deleteStanza } = props;
+    const { poem, editStanza, shiftStanzaUp, shiftStanzaDown, deleteStanza } = props;
 
     return (
         <div className={classes.poemBox}>
@@ -12,6 +12,7 @@ const PoemPad = (props) => {
                 <div className={classes.buttonContainer}>
                     <button id={t.id} className={classes.button} onClick={shiftStanzaUp}>UP</button>
                     <button id={t.id} className={classes.button} onClick={shiftStanzaDown}>DOWN</button>
+                    <button id={t.id} className={classes.button} onClick={editStanza}>EDIT</button>
                     <button id={t.id} className={classes.button} onClick={deleteStanza}>DEL</button>
                 </div>
                 <p id={i} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>{t.text}</p>
