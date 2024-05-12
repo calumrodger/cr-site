@@ -40,7 +40,7 @@ const PopulateFromYouTubeComments = (props) => {
     useEffect(() => {
         setFinalString(treatData(commentsData));
         onPopulateWithYouTubeComments(finalString);
-    }, [onClickButton])
+    }, [onClickButton, commentsData, finalString, onPopulateWithYouTubeComments])
 
     return (
         <>
