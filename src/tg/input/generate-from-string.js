@@ -85,7 +85,7 @@ import { useState, useEffect } from 'react';
         for (let i = 0; i < form.length; i++) {
             if (globalCount > 10000) {
                 alert("no poem found - try a bigger string or a different form");
-                return;
+                return [];
             }
         let line = getOriginalLineWithIndex(text, form[i], currentIndex);
         if (line[0] === null) {
