@@ -59,7 +59,6 @@ const Genny = (props) => {
     return finalList;
   }
   
-
   const [stanza, setStanza] = useState(treatString(source));
   const [oldStanza, setOldStanza] = useState([]);
 

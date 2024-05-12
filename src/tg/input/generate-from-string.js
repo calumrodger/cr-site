@@ -1,6 +1,7 @@
 'use client';
 
 import classes from './input.module.scss';
+import PopulateFromYouTubeComments from '@tg/input/populate-from-yt-comments';
 
 import { syllable } from 'syllable';
 
@@ -172,6 +173,10 @@ import { useState, useEffect } from 'react';
         setGenType(e.target.value);
     }
 
+    const onPopulateWithYouTubeComments = (comments) => {
+        setString(comments);
+    }
+
     // useEffect(() => {
     //     console.log(genType)
     // }, [genType])
@@ -187,6 +192,7 @@ import { useState, useEffect } from 'react';
                     <button className={`${classes.button} ${genType === 'random-line' ? classes.selected : null}`} value="random-line" onClick={onSetGenType}>Random by line</button>
                     <button className={`${classes.button} ${genType === 'random-word' ? classes.selected : null}`} value="random-word" onClick={onSetGenType}>Random by word</button>
             </div>
+            <PopulateFromYouTubeComments onPopulateWithYouTubeComments={onPopulateWithYouTubeComments}/>
             <button className={classes.button} type="submit" onClick={onFormSubmit}>GENERATE!</button>
         </div>
         )

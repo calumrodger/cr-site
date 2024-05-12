@@ -4,6 +4,8 @@ const ReplaceWithHello = (props) => {
 
     const { stanza, onUpdate } = props;
 
+    const buttonText = "replace selected with 'hello' or 'world'"
+
     const replaceWithHello = () => {
         let newObjArray = stanza.map((item) => {
           if (item.selected) {
@@ -21,7 +23,7 @@ const ReplaceWithHello = (props) => {
       
     return (
     <div className={classes.pageContainer}>
-    <button className={classes.button} onClick={replaceWithHello}>replace selected with 'hello' or 'world'</button>
+    <button className={classes.button} onClick={replaceWithHello}>{buttonText}</button>
     </div>
     )
     }
