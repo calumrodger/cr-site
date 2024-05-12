@@ -6,9 +6,7 @@ export const metadata = {
 
 export default async function PoemPage() {
 
-  const source = 
-  `so much depends
-  upon`
+  const source = "so much depends \n upon \n";
 
   return (
         <>

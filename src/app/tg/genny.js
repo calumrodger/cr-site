@@ -27,16 +27,12 @@ import SaveOutputToTxt from '@tg/output/save-to-txt';
 const Genny = (props) => {
 
   const { source } = props;
-
-  const treatString = (input) => {
-    
-    const sourceArray = input.split(" ");
-
-    const filteredEmpties = sourceArray.filter((item) => item !== "");
   
+  const treatString = (input) => {
+    const sourceArray = input.split(" ");
+    const filteredEmpties = sourceArray.filter((item) => item !== "");
     let newSource = [];
     const lineBreak = '\n';
-  
     for (let i = 0; i < filteredEmpties.length; i++) {
       if (filteredEmpties[i] === '\n') {
         newSource.push(lineBreak); 
@@ -48,7 +44,6 @@ const Genny = (props) => {
         newSource.push(filteredEmpties[i]); 
       } 
     }
-  
     const finalList = newSource.map((item, index) => {
       if (item === '\n') {
         return { id: index, type: 'break', text: item, selected: false }
@@ -56,15 +51,16 @@ const Genny = (props) => {
       return { id: index, type: 'text', text: item, selected: false }
       }
     });
-
     return finalList;
   }
   
   const [stanza, setStanza] = useState(treatString(source));
   const [oldStanza, setOldStanza] = useState([]);
+  const [inputString, setInputString] = useState('');
 
   
   const detectForm = (stanza) => {
+    console.log(stanza)
     let form = '';
     let syllableCounter = 0;
     for (let i = 0; i < stanza.length; i++) {
@@ -81,7 +77,7 @@ const Genny = (props) => {
     return form;
   }
 
-  const [form, setForm] = useState('5/5/5');
+  const [form, setForm] = useState('');
 
   const [poem, setPoem] = useState([]);
 
@@ -202,7 +198,7 @@ const Genny = (props) => {
         { padToShow === 'stanza' && 
         <div className={classes.inputSection}>
           <p>INPUT</p>
-          <GenerateFromString form={form} treatString={treatString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/> 
+          <GenerateFromString form={form} treatString={treatString} setInputString={setInputString} inputString={inputString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/> 
         </div>
         }
         { padToShow === 'stanza' ? 
