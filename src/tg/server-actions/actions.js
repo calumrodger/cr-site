@@ -1,7 +1,6 @@
 'use server';
 
 export async function getYouTubeComments(videoId) {
-    console.log('https://youtube.googleapis.com/youtube/v3/commentThreads?maxResults=5000&part=snippet&part=replies&videoId=' + videoId + '&key=' + process.env.NEXT_PUBLIC_YOUTUBE_API_KEY);
         const res = await fetch('https://youtube.googleapis.com/youtube/v3/commentThreads?maxResults=5000&part=snippet&part=replies&videoId=' + videoId + '&key=' + process.env.NEXT_PUBLIC_YOUTUBE_API_KEY)
         // The return value is *not* serialized
         // You can return Date, Map, Set, etc.

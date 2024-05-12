@@ -2,13 +2,14 @@ import classes from './input.module.scss';
 
 import { getYouTubeComments } from '@tg/server-actions/actions';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 
 const PopulateFromYouTubeComments = (props) => {
 
     const { onPopulateWithYouTubeComments } = props;
     const [YTUrl, setYTUrl] = useState('sUmiLwfBNaU');
-    const [commentsData, setCommentsData] = useState('');
+    const [commentsData, setCommentsData] = useState({items: []});
+    const [oldCommentsData, setOldCommentsData] = useState({items: []});
     const [finalString, setFinalString] = useState('');
 
     const onChangeUrlField = (e) => {
@@ -18,6 +19,7 @@ const PopulateFromYouTubeComments = (props) => {
     const onFetchYTComments = async () => {
         const videoId = YTUrl;
         const comments = await getYouTubeComments(videoId);
+        setOldCommentsData(commentsData);
         setCommentsData(comments);
     }
 
@@ -31,21 +33,14 @@ const PopulateFromYouTubeComments = (props) => {
     }
 
     const onClickButton = async () => {
+        setFinalString('');
         await onFetchYTComments();
-        setFinalString(treatData(commentsData));
     }
 
     useEffect(() => {
+        setFinalString(treatData(commentsData));
         onPopulateWithYouTubeComments(finalString);
-    }, [finalString, onPopulateWithYouTubeComments])
-
-    useEffect(() => {
-        if (commentsData) {
-            setFinalString(treatData(commentsData));
-        } else {
-            return;
-        }
-    }, [commentsData])
+    }, [onClickButton])
 
     return (
         <>

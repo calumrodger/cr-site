@@ -29,6 +29,7 @@ const Genny = (props) => {
   const { source } = props;
 
   const treatString = (input) => {
+    
     const sourceArray = input.split(" ");
 
     const filteredEmpties = sourceArray.filter((item) => item !== "");

@@ -23,11 +23,6 @@ async function getData(article) {
     const onFormSubmit = (e) => {
         e.preventDefault();
         setArticleName(articleName);
-        // let articleAPITerm = articleName.split(' ').join('_');
-        // getData(articleAPITerm).then((data) => {
-        //     setArticle(data.parse.text['*']);
-        // });
-        // console.log(article);
     }
 
     const onChange = (e) => {
