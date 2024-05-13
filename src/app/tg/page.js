@@ -1,4 +1,5 @@
 import Genny from "./genny"
+import classes from './page.module.scss';
 
 export const metadata = {
     title: 'stanzafier'
@@ -10,7 +11,7 @@ export default async function PoemPage() {
 
   return (
         <>
-        <Genny source={source}/>
+          <Genny source={source}/>
         </>
    
   )

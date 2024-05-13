@@ -22,13 +22,15 @@ const OpalkaSimulator = () => {
         return () => {
             clearInterval(intervalId);
         };
-  }, [count]);
+  }, [count, stringCount]);
+
+  const heightOrNothing = ref?.current?.clientHeight || 0;
 
   
     useEffect(() => {
         clear();
   
-    },[ref?.current?.clientHeight || 0]);
+    },[heightOrNothing]);
 
   return (
     <div ref={ref} className={classes.container}>

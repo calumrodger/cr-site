@@ -1,20 +1,27 @@
 .poemContainer {
-    margin-bottom: 2rem;
-    .poem {
-        white-space: pre;
-        // margin-bottom: 2rem;
-    }
+    // overflow-x: hidden;
+    // overflow-y: scroll;
 }
 
 .button {
     border: 1px solid #000;
     cursor: pointer;
     width: fit-content;
-    margin: auto auto 1rem auto;
+    margin: auto;
 
     &:hover {
         background-color: greenyellow;
         color: #fff;
     }
+}
+
+.poemTitle {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.mainText {
+    margin-bottom: 4rem;
 }
 

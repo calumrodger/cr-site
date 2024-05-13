@@ -12,8 +12,7 @@ import OnSaveStanzaToPad from '@tg/pads/save-stanza-to-pad';
 import StanzaPadButtons from '@tg/pads/stanza-pad-buttons';
 
 // INPUT COMPONENTS
-import GenerateFromWiki from '@tg/input/generate-from-wiki';
-import GenerateFromString from '@tg/input/generate-from-string';
+import GenerateSection from '@tg/input/generate-section';
 
 // PROCESS COMPONENTS
 import ReplaceWithHello from '@tg/process/replace-with-hello';
@@ -23,6 +22,7 @@ import NGrammer from '@tg/process/n-gram';
 // OUTPUT COMPONENTS
 import ShowAsLines from '@tg/output/show-as-lines';
 import SaveOutputToTxt from '@tg/output/save-to-txt';
+import GiveTitle from '@tg/output/give-title';
 
 
 const Genny = (props) => {
@@ -59,6 +59,11 @@ const Genny = (props) => {
   const [oldStanza, setOldStanza] = useState([]);
   const [inputString, setInputString] = useState('I am a happy person who likes eating chips.');
 
+  const [poemTitle, setPoemTitle] = useState('');
+
+  const onSetPoemTitle = (e) => {
+    setPoemTitle(e.target.value);
+  }
   
   const detectForm = (stanza) => {
     let form = '';
@@ -196,45 +201,61 @@ const Genny = (props) => {
     <div className={classes.pageContainer}>
       <div className={classes.pageContent}> 
         { padToShow === 'stanza' && 
+        <>
         <div className={classes.inputSection}>
-          <p>INPUT</p>
-          <GenerateFromString form={form} treatString={treatString} setInputString={setInputString} inputString={inputString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/> 
+          <span>INPUT</span>
+          <GenerateSection form={form} treatString={treatString} setInputString={setInputString} inputString={inputString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/> 
         </div>
+        <div className={classes.globalSection}>
+          <span>SLo-FiLM</span>
+          <span>Current Form: {form}</span>
+        </div>
+        </>
         }
         { padToShow === 'stanza' ? 
-          <>
-          <span>Current Form: {form}</span>
-          <StanzaPad stanza={stanza} onWordClick={onWordClick}/> 
-          </>
-        : <PoemPad poem={poem} onEditStanza={onEditStanza} /> 
-        }
-        { padToShow === 'stanza' && 
-          <div className={classes.toolsSection}>
-          <UndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
-          <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
-          <StanzaPadButtons onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
+          <div className={classes.stanzaPadSection}>
+            <StanzaPad stanza={stanza} onWordClick={onWordClick}/>
+            <div className={classes.toolsContainer}>
+              <UndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
+              <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
+              <StanzaPadButtons onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
+            </div>
+          </div>
+        :  
+          <div className={classes.poemPadSection}>
+            <PoemPad poem={poem} onEditStanza={onEditStanza} /> 
           </div>
         }
-        <PadSwitcher onSwitchPad={onSwitchPad} />
+        
         { padToShow === 'stanza' && 
+          <>
           <div className={classes.processSection}>
-            <p>PROCESS</p>
+            <span>PROCESS</span>
             <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
           </div>
+          <div className={classes.composeSection}>
+            <span>COMPOSE</span>
+          </div>
+          </>
         }
         <div className={classes.outputSection}>
-          <p>OUTPUT</p>
+          <span>OUTPUT</span>
           <button className={classes.button} onClick={onClickShowAsLines}>OUTPUT AS LINES</button>
           <SaveOutputToTxt poem={poem} />
+          <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
+        </div>
+        <div className={classes.switcherSection}>
+          <span>SWITCHER</span>
+          <PadSwitcher onSwitchPad={onSwitchPad} />
         </div>
       </div> 
     </div>
   );
   } else {
     return (
-      <div className={classes.pageContainer}>
-        <div className={classes.pageContent}>
-        { showAsLines && <ShowAsLines poem={poem}/> }
+      <div className={classes.pageContainerOutput}>
+        <div className={classes.poemContent}>
+        { showAsLines && <ShowAsLines poem={poem} poemTitle={poemTitle}/> }
         <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
         </div>
       </div>

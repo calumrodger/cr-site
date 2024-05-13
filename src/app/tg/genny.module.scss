@@ -1,32 +1,114 @@
 .pageContainer {
+    // margin: auto;
+    background-color: #fff;
+    // padding: 1rem;
+    // height: 100%;
+    // width: 100%;
+    // overflow: scroll;
+}
+
+.pageContainerOutput {
     margin: auto;
     background-color: #fff;
-    height: 100%;
-    width: 100%;
-    overflow: scroll;
+    display: flex;
+    padding: 1rem 0;
+    // overflow: scroll;
 }
 
 .pageContent {
     height: 100%;
-    width: 100%;
-    display: flex;
-    margin: auto;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 12.5%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "composeSection globalSection inputSection inputSection fxSection"
+                         "composeSection padSection padSection padSection fxSection"
+                         "composeSection padSection padSection padSection fxSection"
+                         "composeSection outputSection outputSection switcherSection fxSection";
 
-    .button {
-        border: 1px solid #000;
-        cursor: pointer;
 
-        &:hover {
-            background-color: greenyellow;
-            color: #fff;
-        }
-    }
 
 }
 
-.toolsSection {
+.button {
+    border: 1px solid #000;
+    cursor: pointer;
+
+    &:hover {
+        background-color: greenyellow;
+        color: #fff;
+    }
+}
+
+.inputSection {
+    border: 1px solid #000;
+    padding: .5rem;
+    grid-area: inputSection;
+}
+
+.globalSection {
+    border: 1px solid #000;
+    padding: .5rem;
+    grid-area: globalSection;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.stanzaPadSection {
+    border: 1px solid #000;
+    grid-area: padSection;
+    padding: .5rem .5rem 0 .5rem;
+
+    .toolsContainer {
+        display: flex;
+    }
+}
+
+.poemPadSection {
+    border: 1px solid #000;
+    grid-area: 1 / 2 / 4 / 5;
+    padding: .5rem;
+}
+
+.composeSection {
+    border: 1px solid #000;
+    grid-area: composeSection;
+    padding: .5rem;
+}
+
+.processSection {
+    border: 1px solid #000;
+    grid-area: fxSection;
+    padding: .5rem;
+}
+
+.outputSection {
+    border: 1px solid #000;
+    grid-area: outputSection;
+    padding: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.switcherSection {
+    border: 1px solid #000;
+    grid-area: switcherSection;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.poemContent {
+    margin: auto;
+    padding: 1rem;
+    // width: 100%;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
 }

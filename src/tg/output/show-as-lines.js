@@ -1,7 +1,7 @@
 import classes from './output.module.scss';
 
 const ShowAsLines = (props) => {
-    const { poem } = props;
+    const { poem, poemTitle } = props;
 
     let formattedPoem = [];
 
@@ -13,6 +13,8 @@ const ShowAsLines = (props) => {
     return (
         <>
         <div className={classes.poemContainer}>
+            <div className={classes.poemTitle}>{poemTitle}</div>
+            <div className={classes.mainText}>
             {formattedPoem.map((item) => {
                 return (
                     <div className={classes.poem} key={item.id}>
@@ -21,6 +23,7 @@ const ShowAsLines = (props) => {
                     </div>
                 )
             })}
+            </div>
         </div>
         </>
     )

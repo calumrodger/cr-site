@@ -60,6 +60,8 @@ useEffect(() => {
         <>
         <div className={classes.grid}>
 
+        <div className={classes.leftMargin} />
+
             <div className={classes.navbarSubtitle}>
                 <NavbarSubtitle  isMobile={isMobile} showCatbar={showCatbar} setShowCatbar={setShowCatbar}/>
                 {!isMobile && showCatbar && <CatBar cat={cat} categories={props.categories} burgerToggle={props.burgerToggle}/>}

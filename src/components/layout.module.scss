@@ -4,10 +4,10 @@
     display: grid;
     grid-template-columns: var(--border-size-mob) auto 1rem var(--border-size-mob);
     grid-template-rows: var(--border-size-mob) fit-content(var(--border-size-mob)) auto var(--border-size-mob);
-    grid-template-areas: ". subtitle title right-margin"
-                         ". mobile-catbar mobile-catbar right-margin"
-                         ". main-content main-content right-margin"
-                         ". footer-text footer-buttons right-margin"
+    grid-template-areas: "left-margin subtitle title right-margin"
+                         "left-margin mobile-catbar mobile-catbar right-margin"
+                         "left-margin main-content main-content right-margin"
+                         "left-margin footer-text footer-buttons right-margin"
 }
 
 .navbarSubtitle { 
@@ -26,6 +26,13 @@
 
 .rightMargin {
     grid-area: right-margin;
+    z-index: 5;
+    background-color: var(--border);
+    height: 100%;
+}
+
+.leftMargin {
+    grid-area: left-margin;
     z-index: 5;
     background-color: var(--border);
     height: 100%;

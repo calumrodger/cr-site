@@ -8,7 +8,7 @@ import { syllable } from 'syllable';
 import { useState, useEffect } from 'react';
 import LoadFromTxt from './load-from-txt';
 
-  const GenerateFromString = (props) => {
+  const GenerateSection = (props) => {
 
     const { treatString, setStanza, form, inputString, setInputString } = props;
 
@@ -17,7 +17,7 @@ import LoadFromTxt from './load-from-txt';
     const [string, setString] = useState(inputString);
     const [youTubeString, setYouTubeString] = useState('');
     const [txtString, setTxtString] = useState('');
-    const [currentForm, setCurrentForm] = useState('4/2');
+    const [currentForm, setCurrentForm] = useState(form);
     const [genType, setGenType] = useState('original');
 
     const getFormArray = (form) => {
@@ -218,4 +218,4 @@ import LoadFromTxt from './load-from-txt';
         )
   }
   
-export default GenerateFromString;
+export default GenerateSection;

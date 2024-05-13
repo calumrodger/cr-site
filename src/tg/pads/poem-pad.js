@@ -40,8 +40,10 @@ const PoemPad = (props) => {
     }
 
     useEffect(() => {
-      setNoneSelected(areZeroStanzasSelected());
-      setMoreThanOneSelected(isMoreThanOneStanzaSelected());
+      const zero = areZeroStanzasSelected();
+      const moreThanOne = isMoreThanOneStanzaSelected();
+      setNoneSelected(zero);
+      setMoreThanOneSelected(moreThanOne);
     }, [stanzaArray])
 
     
@@ -135,7 +137,7 @@ const PoemPad = (props) => {
 
 
     return (
-      <div className={classes.poemPadContainer}>
+      <>
         <div className={classes.poemBox}>
           {stanzaArray.map((t, i) => {
               return (
@@ -155,7 +157,7 @@ const PoemPad = (props) => {
           <button className={`${classes.button}`} onClick={selectAll}>SELECT ALL</button>
           <button className={`${classes.button}`} onClick={unselectAll}>UNSELECT ALL</button>
         </div>
-      </div>
+        </>
     )
 }
 
