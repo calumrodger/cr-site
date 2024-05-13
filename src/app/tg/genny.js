@@ -9,6 +9,7 @@ import StanzaPad from '@tg/pads/stanza-pad';
 import PoemPad from '@tg/pads/poem-pad';
 import PadSwitcher from '@tg/pads/pad-switcher';
 import OnSaveStanzaToPad from '@tg/pads/save-stanza-to-pad';
+import StanzaPadButtons from '@tg/pads/stanza-pad-buttons';
 
 // INPUT COMPONENTS
 import GenerateFromWiki from '@tg/input/generate-from-wiki';
@@ -56,11 +57,10 @@ const Genny = (props) => {
   
   const [stanza, setStanza] = useState(treatString(source));
   const [oldStanza, setOldStanza] = useState([]);
-  const [inputString, setInputString] = useState('');
+  const [inputString, setInputString] = useState('I am a happy person who likes eating chips.');
 
   
   const detectForm = (stanza) => {
-    console.log(stanza)
     let form = '';
     let syllableCounter = 0;
     for (let i = 0; i < stanza.length; i++) {
@@ -77,7 +77,7 @@ const Genny = (props) => {
     return form;
   }
 
-  const [form, setForm] = useState('');
+  const [form, setForm] = useState('1/2');
 
   const [poem, setPoem] = useState([]);
 
@@ -94,8 +94,8 @@ const Genny = (props) => {
   }, [stanza])
 
   const onWordClick = (e) => {
-    let newObjArray = stanza.map((item) => {
-      if (item.id == e.target.id) {
+    let newObjArray = stanza.map((item, index) => {
+      if (index == e.target.id) {
         return { id: item.id, type: 'text', text: item.text, selected: item.selected ? false : true}
       } else {
         return item;
@@ -131,54 +131,10 @@ const Genny = (props) => {
     const newPoemId = currentPoemLength + 1;
     let newOrder = [...poem];
     newOrder[editStanzaIndex] = {id: newPoemId, text: newPoemString};
+    console.log(newOrder);
     setPoem(newOrder);
     setEditExistingStanzaMode(false);
     setPadToShow('poem');
-  }
-
-  function arraymove(arr, fromIndex, toIndex) {
-    let newArray = arr;
-    var element = arr[fromIndex];
-    newArray.splice(fromIndex, 1);
-    newArray.splice(toIndex, 0, element);
-    return newArray;
-  }
-
-  const shiftStanzaUp = (e) => {
-    let stanzaId = parseInt(e.target.id);
-    let stanzaIndex = poem.findIndex((item) => item.id === stanzaId);
-
-    if (stanzaIndex !== 0) {
-      let tempArray = [...poem];
-      arraymove(tempArray, stanzaIndex, stanzaIndex - 1);
-      setPoem(tempArray);
-    }
-  }
-
-  const shiftStanzaDown = (e) => {
-    let stanzaId = parseInt(e.target.id);
-    let stanzaIndex = poem.findIndex((item) => item.id === stanzaId);
-
-    if (stanzaIndex !== poem.length - 1) {
-      let tempArray = [...poem];
-      arraymove(tempArray, stanzaIndex, stanzaIndex + 1);
-      setPoem(tempArray);
-    }
-  }
-
-  const editStanza = (e) => {
-    let stanza = poem.filter((item) => item.id.toString() === e.target.id);
-    let stanzaId = parseInt(e.target.id);
-    let stanzaIndex = poem.findIndex((item) => item.id === stanzaId);
-    setEditStanzaIndex(stanzaIndex);
-    setStanza(treatString(stanza[0].text));
-    setEditExistingStanzaMode(true);
-    setPadToShow('stanza');
-  }
-
-  const deleteStanza = (e) => {
-    let newObjArray = poem.filter((item) => item.id.toString() !== e.target.id);
-    setPoem(newObjArray);
   }
 
   const onLeaveOutputMode = () => {
@@ -189,6 +145,50 @@ const Genny = (props) => {
   const onClickShowAsLines = () => {
     setOutputMode(true);
     setShowAsLines(true);
+  }
+
+  const onEditStanza = (stanza, stanzaIndex) => {
+    setEditStanzaIndex(stanzaIndex);
+    setStanza(treatString(stanza.text));
+    setEditExistingStanzaMode(true);
+    setPadToShow('stanza');
+  }
+
+  const onSelectAllWords = () => {
+    let newObjArray = stanza.map((item) => {
+      return { id: item.id, type: 'text', text: item.text, selected: true }
+    });
+    setStanza(newObjArray);
+  }
+
+  const onUnselectAllWords = () => { 
+    let newObjArray = stanza.map((item) => {
+      return { id: item.id, type: 'text', text: item.text, selected: false }
+    });
+    setStanza(newObjArray);
+  }
+
+  const onDeleteSelectedWords = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (!stanza[i].selected) {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
+  const onDuplicateSelectedWords = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push(stanza[i]);
+        newObjArray.push({ id: stanza.length + 1, text: stanza[i].text, selected: false })
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
   }
 
   if (!outputMode) {
@@ -206,12 +206,13 @@ const Genny = (props) => {
           <span>Current Form: {form}</span>
           <StanzaPad stanza={stanza} onWordClick={onWordClick}/> 
           </>
-        : <PoemPad poem={poem} editStanza={editStanza} deleteStanza={deleteStanza} shiftStanzaDown={shiftStanzaDown} shiftStanzaUp={shiftStanzaUp} /> 
+        : <PoemPad poem={poem} onEditStanza={onEditStanza} /> 
         }
         { padToShow === 'stanza' && 
           <div className={classes.toolsSection}>
           <UndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
           <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
+          <StanzaPadButtons onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
           </div>
         }
         <PadSwitcher onSwitchPad={onSwitchPad} />

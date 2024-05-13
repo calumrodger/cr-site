@@ -43,7 +43,8 @@
     overflow-x: hidden;
     overflow-y: scroll;
 
-    .stanzaContainer {
+    .stanzaContainer,
+    .poemContainer {
         display: flex;
 
         .buttonContainer {
@@ -74,4 +75,13 @@
         background-color: greenyellow;
         color: #fff;
     }
+}
+
+.disabled {
+    background-color: #ccc;
+    color: blue;
+} 
+
+.poemPadContainer {
+    height: 70%;
 }

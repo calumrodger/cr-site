@@ -6,6 +6,7 @@ import PopulateFromYouTubeComments from '@tg/input/populate-from-yt-comments';
 import { syllable } from 'syllable';
 
 import { useState, useEffect } from 'react';
+import LoadFromTxt from './load-from-txt';
 
   const GenerateFromString = (props) => {
 
@@ -15,7 +16,8 @@ import { useState, useEffect } from 'react';
 
     const [string, setString] = useState(inputString);
     const [youTubeString, setYouTubeString] = useState('');
-    const [currentForm, setCurrentForm] = useState(form);
+    const [txtString, setTxtString] = useState('');
+    const [currentForm, setCurrentForm] = useState('4/2');
     const [genType, setGenType] = useState('original');
 
     const getFormArray = (form) => {
@@ -179,8 +181,11 @@ import { useState, useEffect } from 'react';
     }
 
     const onPopulateWithYouTubeComments = (comments) => {
-        console.log('fire')
         setYouTubeString(comments);
+    }
+
+    const onPopulateWithTxt = (txt) => {
+        setTxtString(txt);
     }
 
     useEffect(() => {
@@ -188,6 +193,12 @@ import { useState, useEffect } from 'react';
         onChangeString({target: {value: youTubeString}})
         }
     }, [youTubeString])
+
+    useEffect(() => {
+        if (txtString !== '') {
+        onChangeString({target: {value: txtString}})
+        }
+    }, [txtString])
    
     return (
         <div className={classes.pageContainer}>
@@ -201,6 +212,7 @@ import { useState, useEffect } from 'react';
                     <button className={`${classes.button} ${genType === 'random-word' ? classes.selected : null}`} value="random-word" onClick={onSetGenType}>Random by word</button>
             </div>
             <PopulateFromYouTubeComments onPopulateWithYouTubeComments={onPopulateWithYouTubeComments}/>
+            <LoadFromTxt onPopulateWithTxt={onPopulateWithTxt}/>
             <button className={classes.button} type="submit" onClick={onFormSubmit}>GENERATE!</button>
         </div>
         )

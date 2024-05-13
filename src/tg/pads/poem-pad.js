@@ -1,24 +1,160 @@
 import classes from './pads.module.scss';
 
+import { useState, useEffect } from 'react';
+
 const PoemPad = (props) => {
 
-    const { poem, editStanza, shiftStanzaUp, shiftStanzaDown, deleteStanza } = props;
+    const { poem, onEditStanza } = props;
+
+    const [stanzaArray, setStanzaArray] = useState(poem.map((t, i) => {
+        return { id: i, text: t.text, selected: false }
+    }));
+
+    const [noneSelected, setNoneSelected] = useState(true);
+    const [moreThanOneSelected, setMoreThanOneSelected] = useState(false);
+
+    const onSelectStanza = (e) => {
+      let newArray = stanzaArray.map((item, index) => {
+        if (index == e.target.id) {
+          return { id: item.id, text: item.text, selected: item.selected ? false : true}
+        } else {
+          return item;
+        }
+      });
+      console.log(newArray)
+      setStanzaArray(newArray);
+    }
+
+    const isMoreThanOneStanzaSelected = () => {
+      const quantity = stanzaArray.filter((item) => item.selected).length;
+      if (quantity > 1) {
+        return true;
+      }
+    }
+
+    const areZeroStanzasSelected = () => {
+      const quantity = stanzaArray.filter((item) => item.selected).length;
+      if (quantity === 0) {
+        return true;
+      }
+    }
+
+    useEffect(() => {
+      setNoneSelected(areZeroStanzasSelected());
+      setMoreThanOneSelected(isMoreThanOneStanzaSelected());
+    }, [stanzaArray])
+
+    
+    
+    function arraymove(arr, fromIndex, toIndex) {
+      const newArray = [...arr];
+      var element = arr[fromIndex];
+      newArray.splice(fromIndex, 1);
+      newArray.splice(toIndex, 0, element);
+      return newArray;
+    }
+
+    const shiftStanzaUp = () => {
+      let tempArray = [...stanzaArray];
+      let endCondition = tempArray.length;
+      for (let i = 0; i < endCondition; i++) {
+        if (tempArray[i].selected) {
+          if (i === 0) {
+            tempArray = arraymove(tempArray, tempArray.length - 1, 1);
+            tempArray = arraymove(tempArray, 0, tempArray.length - 1);
+            endCondition = -1;
+          } else {
+            tempArray = arraymove(tempArray, i, i - 1);
+          }
+        }
+      }
+      setStanzaArray(tempArray);
+    }
+
+    const shiftStanzaDown = () => {
+      let tempArray = [...stanzaArray];
+      let endCondition = tempArray.length;
+      for (let i = 0; i < endCondition; i++) {
+        if (tempArray[i].selected) {
+          if (i === endCondition - 1) {
+            tempArray = arraymove(tempArray, tempArray.length - 1, 1);
+            tempArray = arraymove(tempArray, 0, tempArray.length + 1);
+            endCondition = -1;
+          } else {
+            tempArray = arraymove(tempArray, i, i + 1);
+          }
+        }
+      }
+      setStanzaArray(tempArray);
+    }
+
+    const editStanza = (e) => {
+      let stanzaIndex = stanzaArray.findIndex((item) => item.selected === true);
+      let stanza = stanzaArray[stanzaIndex];
+      console.log(stanza)
+      console.log(stanzaIndex)
+      onEditStanza(stanza, stanzaIndex);
+    }
+
+    const deleteStanza = () => {
+      let newObjArray = [];
+      for (let i = 0; i < stanzaArray.length; i++) {
+        if (!stanzaArray[i].selected) {
+          newObjArray.push(stanzaArray[i]);
+        }
+      }
+      setStanzaArray(newObjArray);
+    }
+
+    const duplicateStanza = () => {
+      let newObjArray = [];
+      for (let i = 0; i < stanzaArray.length; i++) {
+        if (stanzaArray[i].selected) {
+          newObjArray.push(stanzaArray[i]);
+          newObjArray.push({ id: stanzaArray.length + 1, text: stanzaArray[i].text, selected: false })
+        } else {
+          newObjArray.push(stanzaArray[i]);
+        }
+      }
+      setStanzaArray(newObjArray);
+    }
+
+    const selectAll = () => {
+      let newObjArray = stanzaArray.map((item) => {
+        return { id: item.id, text: item.text, selected: true }
+      });
+      setStanzaArray(newObjArray);
+    }
+
+    const unselectAll = () => {
+      let newObjArray = stanzaArray.map((item) => {
+        return { id: item.id, text: item.text, selected: false }
+      });
+      setStanzaArray(newObjArray);
+    }
+
 
     return (
+      <div className={classes.poemPadContainer}>
         <div className={classes.poemBox}>
-          {poem.map((t, i) => {
+          {stanzaArray.map((t, i) => {
               return (
-              <div key={i} className={classes.stanzaContainer}>
-                <div className={classes.buttonContainer}>
-                    <button id={t.id} className={classes.button} onClick={shiftStanzaUp}>UP</button>
-                    <button id={t.id} className={classes.button} onClick={shiftStanzaDown}>DOWN</button>
-                    <button id={t.id} className={classes.button} onClick={editStanza}>EDIT</button>
-                    <button id={t.id} className={classes.button} onClick={deleteStanza}>DEL</button>
-                </div>
-                <p id={i} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>{t.text}</p>
+              <div key={i} className={classes.poemContainer}>
+                <span>{i + 1}</span>
+                <p id={i} onClick={onSelectStanza} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>{t.text}</p>
               </div>
           )}
           )}
+        </div>
+        <div className={classes.buttonContainer}>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzaUp}>UP</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzaDown}>DOWN</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={duplicateStanza}>DUPE</button>
+          <button className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`} onClick={editStanza}>EDIT</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={deleteStanza}>DEL</button>
+          <button className={`${classes.button}`} onClick={selectAll}>SELECT ALL</button>
+          <button className={`${classes.button}`} onClick={unselectAll}>UNSELECT ALL</button>
+        </div>
       </div>
     )
 }
