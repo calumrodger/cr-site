@@ -10,6 +10,7 @@
     width: 95%;
     height: 79%;
     white-space: pre-line;
+    overflow-y: scroll;
 
     .line-break {
         display: block; 
@@ -88,3 +89,53 @@
 .poemPadContainer {
     height: 70%;
 }
+
+.switcherContainer {
+    height: 100%;
+    width: 100%;
+
+    .button {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.wordBankSection {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    padding: 1rem;
+
+    .buttonContainer {
+        display: flex;
+        width: 100%;
+        margin: auto;
+        // flex-direction: column;
+    }
+}
+
+    .wordBank {
+        overflow-y: scroll;
+        display: flex;
+        background-color: rgba(196, 161, 205, 0.491);
+        border: 2px solid #000;
+        // margin: auto;
+        width: 90%;
+        height: 50%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .word {
+            cursor: pointer;
+            border: 1px solid #000;
+            margin: .1rem;
+            width: fit-content;
+            height: fit-content;
+    
+            &.selected {
+                    color: red;
+            }
+        } 
+    }
+
+ 

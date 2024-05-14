@@ -14,6 +14,10 @@ import StanzaPadButtons from '@tg/pads/stanza-pad-buttons';
 // INPUT COMPONENTS
 import GenerateSection from '@tg/input/generate-section';
 
+// COMPOSE COMPONENTS
+import PopulateWordBank from '@tg/pads/populate-word-bank';
+import WordBank from '@tg/pads/word-bank';
+
 // PROCESS COMPONENTS
 import ReplaceWithHello from '@tg/process/replace-with-hello';
 import UndoRedo from '@tg/process/undo-redo';
@@ -23,6 +27,7 @@ import NGrammer from '@tg/process/n-gram';
 import ShowAsLines from '@tg/output/show-as-lines';
 import SaveOutputToTxt from '@tg/output/save-to-txt';
 import GiveTitle from '@tg/output/give-title';
+
 
 
 const Genny = (props) => {
@@ -60,6 +65,7 @@ const Genny = (props) => {
   const [inputString, setInputString] = useState('I am a happy person who likes eating chips.');
 
   const [poemTitle, setPoemTitle] = useState('');
+  const [wordBank, setWordBank] = useState([{text: 'hello', selected: false}, {text: 'world', selected: false}]);
 
   const onSetPoemTitle = (e) => {
     setPoemTitle(e.target.value);
@@ -108,7 +114,18 @@ const Genny = (props) => {
     });
     setStanza(newObjArray);
     setOldStanza(stanza);
-  };
+  }
+
+  const onWordBankClick = (e) => {
+    let newObjArray = wordBank.map((item, index) => {
+      if (index == e.target.id) {
+        return { text: item.text, selected: item.selected ? false : true}
+      } else {
+        return item;
+      }
+    });
+    setWordBank(newObjArray);
+  }
 
   const onUpdate = (newstanza) => {
     setStanza(newstanza);
@@ -196,6 +213,56 @@ const Genny = (props) => {
     setStanza(newObjArray);
   }
 
+  const deleteSelectedWordBank = () => {
+    let newObjArray = [];
+    for (let i = 0; i < wordBank.length; i++) {
+      if (!wordBank[i].selected) {
+        newObjArray.push(wordBank[i]);
+      }
+    }
+    setWordBank(newObjArray);
+  }
+
+  const selectAllWordBank = () => {
+    let newObjArray = wordBank.map((item) => {
+      return { text: item.text, selected: true }
+    }
+    );
+    setWordBank(newObjArray);
+  }
+
+  const unselectAllWordBank = () => {
+    let newObjArray = wordBank.map((item) => {
+      return { text: item.text, selected: false }
+    }
+    );
+    setWordBank(newObjArray);
+  }
+
+  const onPopulateWordBank = (words, quant) => {
+
+    let finalArray = [];
+    let currentWordBank = wordBank.map(item => item.text);
+    if (words.length < quant) {
+      let checkIfAlreadyThere = words.filter(element => currentWordBank.includes(element));
+      quant = words.length - checkIfAlreadyThere.length;
+      console.log('quant ' + quant)
+    }
+
+      let newArray =  words.sort(() => 0.5 - Math.random());
+      let selected = newArray.slice(0, quant);
+      let intersection = newArray.filter(element => currentWordBank.includes(element));
+      let filteredArray = selected.filter(element => !intersection.includes(element));
+      finalArray = [...finalArray, ...filteredArray];
+
+    let formattedArray = finalArray.map((item) => {
+      return { text: item, selected: false }
+    });
+
+    let newWordBank = [...formattedArray, ...wordBank];
+    setWordBank(newWordBank);
+  }
+
   if (!outputMode) {
   return (
     <div className={classes.pageContainer}>
@@ -235,6 +302,8 @@ const Genny = (props) => {
           </div>
           <div className={classes.composeSection}>
             <span>COMPOSE</span>
+            <PopulateWordBank onPopulateWordBank={onPopulateWordBank}/>
+            <WordBank deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
           </div>
           </>
         }
@@ -245,7 +314,6 @@ const Genny = (props) => {
           <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
         </div>
         <div className={classes.switcherSection}>
-          <span>SWITCHER</span>
           <PadSwitcher onSwitchPad={onSwitchPad} />
         </div>
       </div> 

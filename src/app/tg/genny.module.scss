@@ -18,15 +18,12 @@
 .pageContent {
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 12.5%;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 25% 37.5% 25% 12.5%;
+    grid-template-columns: 20% 15% 35% 10% 20%;
     grid-template-areas: "composeSection globalSection inputSection inputSection fxSection"
                          "composeSection padSection padSection padSection fxSection"
                          "composeSection padSection padSection padSection fxSection"
                          "composeSection outputSection outputSection switcherSection fxSection";
-
-
-
 }
 
 .button {
