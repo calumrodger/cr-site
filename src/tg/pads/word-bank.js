@@ -12,13 +12,11 @@ const WordBank = (props) => {
                 <button className={`${classes.button}`} onClick={unselectAllWordBank}>UNSELECT ALL</button>
             </div>
             <div className={classes.wordBank}>
-                <div className={classes.wordsContainer}>
             {wordBank.map((word, i) => {
                 return (
                     <span key={i} id={i} onClick={onWordBankClick} className={`${classes.word} ${word.selected ? classes.selected : null}`}>{word.text}</span>
                 )
             })}
-            </div>
             </div>
         </div>
     )

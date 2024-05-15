@@ -13,6 +13,8 @@ import StanzaPadButtons from '@tg/pads/stanza-pad-buttons';
 
 // INPUT COMPONENTS
 import GenerateSection from '@tg/input/generate-section';
+import GenerateControls from '@tg/input/generate-controls';
+import FormStyleSwitch from '@tg/input/form-style-switch';
 
 // COMPOSE COMPONENTS
 import PopulateWordBank from '@tg/pads/populate-word-bank';
@@ -27,12 +29,53 @@ import NGrammer from '@tg/process/n-gram';
 import ShowAsLines from '@tg/output/show-as-lines';
 import SaveOutputToTxt from '@tg/output/save-to-txt';
 import GiveTitle from '@tg/output/give-title';
+import InjectControls from '@tg/pads/inject-buttons';
+
+import { dictionary } from 'cmu-pronouncing-dictionary'
 
 
 
 const Genny = (props) => {
 
   const { source } = props;
+
+  const [formStyle, setFormStyle] = useState('syllable');
+
+  const onSetFormStyle = () => {
+    if (formStyle === 'syllable') {
+      setFormStyle('stress');
+    } else {
+      setFormStyle('syllable');
+    }
+  }
+
+  const getStress = (theString) => {
+    if (theString === '' || theString === undefined) {
+      return 0;
+    }
+    let wordsArray = theString.split(" ");
+    for (let i = 0; i < wordsArray.length; i++) {
+      wordsArray[i].trim;
+      wordsArray[i].replace(/[^\w\s\']|_/g, "")
+      wordsArray[i].replace(/\s+/g, " ")
+    }
+
+    let stressArray = [];
+    for (let i = 0; i < wordsArray.length; i++) {
+      if (dictionary[wordsArray[i]] !== undefined) {
+        stressArray.push(dictionary[wordsArray[i]]);
+      } else {
+        stressArray.push('1');
+      }
+    }
+    let stressCount = 0;
+    for (let i = 0; i < stressArray.length; i++) {
+      let itemStress = (((stressArray[i].match(/2/g)||[].length).toString()) * 1) + (((stressArray[i].match(/1/g)||[].length).toString()) * 1);
+      stressCount = stressCount + itemStress;
+    }
+
+    return stressCount;
+  }
   
   const treatString = (input) => {
     const sourceArray = input.split(" ");
@@ -71,7 +114,7 @@ const Genny = (props) => {
     setPoemTitle(e.target.value);
   }
   
-  const detectForm = (stanza) => {
+  const detectFormSyllable = (stanza) => {
     let form = '';
     let syllableCounter = 0;
     for (let i = 0; i < stanza.length; i++) {
@@ -88,7 +131,25 @@ const Genny = (props) => {
     return form;
   }
 
-  const [form, setForm] = useState('1/2');
+  const detectFormStress = (stanza) => {
+    let form = '';
+    let syllableCounter = 0;
+    for (let i = 0; i < stanza.length; i++) {
+
+      if (stanza[i].text !== '\n') {
+        syllableCounter = syllableCounter + getStress(stanza[i].text);
+      }
+      if (stanza[i].text === '\n') {
+        form = form + syllableCounter.toString() + '/';
+        syllableCounter = 0;
+      }
+    }
+    form = form.slice(0, -1)
+    console.log(form);
+    return form;
+  }
+
+  const [form, setForm] = useState('');
 
   const [poem, setPoem] = useState([]);
 
@@ -101,8 +162,12 @@ const Genny = (props) => {
   const [showAsLines, setShowAsLines] = useState(false);
 
   useEffect(() => {
-    setForm(detectForm(stanza));
-  }, [stanza])
+    if (formStyle === 'syllable') {
+      setForm(detectFormSyllable(stanza));
+    } else {
+      setForm(detectFormStress(stanza));
+    }
+  }, [stanza, formStyle])
 
   const onWordClick = (e) => {
     let newObjArray = stanza.map((item, index) => {
@@ -249,11 +314,11 @@ const Genny = (props) => {
       console.log('quant ' + quant)
     }
 
-      let newArray =  words.sort(() => 0.5 - Math.random());
-      let selected = newArray.slice(0, quant);
-      let intersection = newArray.filter(element => currentWordBank.includes(element));
-      let filteredArray = selected.filter(element => !intersection.includes(element));
-      finalArray = [...finalArray, ...filteredArray];
+    let newArray =  words.sort(() => 0.5 - Math.random());
+    let selected = newArray.slice(0, quant);
+    let intersection = newArray.filter(element => currentWordBank.includes(element));
+    let filteredArray = selected.filter(element => !intersection.includes(element));
+    finalArray = [...finalArray, ...filteredArray];
 
     let formattedArray = finalArray.map((item) => {
       return { text: item, selected: false }
@@ -263,23 +328,82 @@ const Genny = (props) => {
     setWordBank(newWordBank);
   }
 
+  
+  const [injectSetting, setInjectSetting] = useState('replace');
+
+  const onChangeInjectSetting = (e) => {
+      setInjectSetting(e.target.id);
+  }
+
+  const onClickInject = () => {
+    let newObjArray = [];
+    let selectedWords = wordBank.filter((item) => item.selected === true);
+    for (let i = 0; i < stanza.length; i++) {
+      let randomIndex = Math.floor(Math.random() * selectedWords.length);
+      if (stanza[i].selected) {
+        if (injectSetting === 'replace') {
+          newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[randomIndex].text, selected: true });
+        } else if (injectSetting === 'add-before') {
+          newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[randomIndex].text, selected: false });
+          newObjArray.push(stanza[i]);
+        } else if (injectSetting === 'add-after') {
+          newObjArray.push(stanza[i]);
+          newObjArray.push({ id: stanza[i].id + 1, type: 'text', text: selectedWords[randomIndex].text, selected: false });
+        }
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
+  const onClickShowSrc = () => {
+    if (padToShow !== 'input') {
+      setPadToShow('input');
+    } else {
+      setPadToShow('stanza');
+    }
+  }
+
+  const [genType, setGenType] = useState('original');
+
+  
+  const onSetGenType = (e) => {
+    setGenType(e.target.value);
+  }
+
+  const [string, setString] = useState(inputString);
+
+    
+  const onChangeString = (e) => {
+    setString(e.target.value)
+    setInputString(e.target.value)
+  }
+
+  const onClickImportAsStanza = () => {
+    setStanza(treatString(string));
+    setPadToShow('stanza');
+  }
+
+
   if (!outputMode) {
   return (
     <div className={classes.pageContainer}>
       <div className={classes.pageContent}> 
-        { padToShow === 'stanza' && 
+        { padToShow !== 'poem' && 
         <>
-        <div className={classes.inputSection}>
-          <span>INPUT</span>
-          <GenerateSection form={form} treatString={treatString} setInputString={setInputString} inputString={inputString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/> 
-        </div>
         <div className={classes.globalSection}>
           <span>SLo-FiLM</span>
+          <FormStyleSwitch formStyle={formStyle} onSetFormStyle={onSetFormStyle}/>
           <span>Current Form: {form}</span>
+        </div>
+        <div className={classes.inputSection}>
+          <span>INPUT</span>
+          <GenerateControls getStress={getStress} formStyle={formStyle} padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} string={string} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType}/>
         </div>
         </>
         }
-        { padToShow === 'stanza' ? 
+        { padToShow === 'stanza' && 
           <div className={classes.stanzaPadSection}>
             <StanzaPad stanza={stanza} onWordClick={onWordClick}/>
             <div className={classes.toolsContainer}>
@@ -288,10 +412,17 @@ const Genny = (props) => {
               <StanzaPadButtons onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
             </div>
           </div>
-        :  
+        }
+        { padToShow === 'poem' &&
           <div className={classes.poemPadSection}>
             <PoemPad poem={poem} onEditStanza={onEditStanza} /> 
           </div>
+        }
+
+        { padToShow === 'input' &&
+        <div className={classes.inputPadSection}>
+          <GenerateSection onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeString={onChangeString} string={string} form={form} treatString={treatString} setInputString={setInputString} inputString={inputString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/> 
+        </div>
         }
         
         { padToShow === 'stanza' && 
@@ -304,18 +435,24 @@ const Genny = (props) => {
             <span>COMPOSE</span>
             <PopulateWordBank onPopulateWordBank={onPopulateWordBank}/>
             <WordBank deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
+            <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
           </div>
           </>
         }
-        <div className={classes.outputSection}>
-          <span>OUTPUT</span>
-          <button className={classes.button} onClick={onClickShowAsLines}>OUTPUT AS LINES</button>
-          <SaveOutputToTxt poem={poem} />
-          <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
-        </div>
-        <div className={classes.switcherSection}>
-          <PadSwitcher onSwitchPad={onSwitchPad} />
-        </div>
+        { padToShow !== 'input' &&
+        <>
+          <div className={classes.outputSection}>
+            <span>OUTPUT</span>
+            <button className={classes.button} onClick={onClickShowAsLines}>OUTPUT AS LINES</button>
+            <SaveOutputToTxt poem={poem} />
+            <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
+          </div>
+          <div className={classes.switcherSection}>
+            <PadSwitcher onSwitchPad={onSwitchPad} />
+          </div>
+        </>
+        }
+
       </div> 
     </div>
   );
