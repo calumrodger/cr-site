@@ -11,7 +11,7 @@ const StanzaPad = (props) => {
             if (t.text === '\n') {
               return <br id={i} key={i} className={classes.lineBreak}/>
             } else {
-              return <div id={i} key={i} onClick={onWordClick} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{t.text}</div>
+              return <span id={i} key={i} onClick={onWordClick} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{t.text}</span>
             }
           })}
         </div>

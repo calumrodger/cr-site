@@ -81,6 +81,18 @@
     }
 }
 
+.saveButton {
+    border: 1px solid #000;
+    cursor: pointer;
+    height: fit-content;
+    font-size: 1.2rem;
+
+    &:hover {
+        background-color: greenyellow;
+        color: #fff;
+    }
+}
+
 .disabled {
     background-color: #ccc;
     color: blue;

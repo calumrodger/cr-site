@@ -56,22 +56,26 @@ const PoemPad = (props) => {
       return newArray;
     }
 
-    const shiftStanzaUp = () => {
-      let tempArray = [...stanzaArray];
-      let endCondition = tempArray.length;
-      for (let i = 0; i < endCondition; i++) {
-        if (tempArray[i].selected) {
-          if (i === 0) {
-            tempArray = arraymove(tempArray, tempArray.length - 1, 1);
-            tempArray = arraymove(tempArray, 0, tempArray.length - 1);
-            endCondition = -1;
-          } else {
-            tempArray = arraymove(tempArray, i, i - 1);
+    function shiftStanzaUp() {
+      // copy stanzaArray and replace unselected stanzas with null
+      const newArray = stanzaArray.map(stanza => stanza.selected ? stanza : null);
+  
+      // rotate left to place selected stanzas in correct position
+      newArray.push(newArray.shift());
+  
+      // etc...
+      stanzaArray.forEach((stanza, index) => {
+          if (!stanza.selected) {
+              const offsetIndex = newArray.indexOf(null, index);
+              const newIndex = offsetIndex !== -1
+                  ? offsetIndex
+                  : newArray.indexOf(null);
+              newArray[newIndex] = stanza;
           }
-        }
-      }
-      setStanzaArray(tempArray);
-    }
+      });
+  
+      setStanzaArray(newArray);
+  }
 
     const shiftStanzaDown = () => {
       let tempArray = [...stanzaArray];

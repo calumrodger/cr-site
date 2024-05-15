@@ -257,11 +257,19 @@ const Genny = (props) => {
 
   const onDeleteSelectedWords = () => {
     let newObjArray = [];
-    for (let i = 0; i < stanza.length; i++) {
-      if (!stanza[i].selected) {
-        newObjArray.push(stanza[i]);
+    let numberOfSelected = stanza.filter((item) => item.selected === true).length;
+    console.log(numberOfSelected);
+    console.log(stanza.length);
+    if (numberOfSelected === stanza.length) {
+      newObjArray.push({id: stanza[0].id, type: 'text', text: stanza[0].text, selected: false});
+    } else {
+      for (let i = 0; i < stanza.length; i++) {
+        if (!stanza[i].selected) {
+          newObjArray.push(stanza[i]);
+        }
       }
     }
+    console.log(newObjArray);
     setStanza(newObjArray);
   }
 
@@ -394,12 +402,11 @@ const Genny = (props) => {
         <>
         <div className={classes.globalSection}>
           <span>SLo-FiLM</span>
-          <FormStyleSwitch formStyle={formStyle} onSetFormStyle={onSetFormStyle}/>
           <span>Current Form: {form}</span>
         </div>
         <div className={classes.inputSection}>
-          <span>INPUT</span>
           <GenerateControls getStress={getStress} formStyle={formStyle} padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} string={string} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType}/>
+          <FormStyleSwitch formStyle={formStyle} onSetFormStyle={onSetFormStyle}/>
         </div>
         </>
         }
@@ -407,9 +414,9 @@ const Genny = (props) => {
           <div className={classes.stanzaPadSection}>
             <StanzaPad stanza={stanza} onWordClick={onWordClick}/>
             <div className={classes.toolsContainer}>
+              <StanzaPadButtons onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
               <UndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
               <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
-              <StanzaPadButtons onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
             </div>
           </div>
         }
