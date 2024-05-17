@@ -1,6 +1,7 @@
 import classes from './pads.module.scss';
 
 import { useState, useEffect } from 'react';
+import { checkStyles } from '@tg/utils/utils';
 
 const PoemPad = (props) => {
 
@@ -21,7 +22,6 @@ const PoemPad = (props) => {
           return item;
         }
       });
-      console.log(newArray)
       setStanzaArray(newArray);
     }
 
@@ -97,8 +97,6 @@ const PoemPad = (props) => {
     const editStanza = (e) => {
       let stanzaIndex = stanzaArray.findIndex((item) => item.selected === true);
       let stanza = stanzaArray[stanzaIndex];
-      console.log(stanza)
-      console.log(stanzaIndex)
       onEditStanza(stanza, stanzaIndex);
     }
 
@@ -143,11 +141,19 @@ const PoemPad = (props) => {
     return (
       <>
         <div className={classes.poemBox}>
-          {stanzaArray.map((t, i) => {
+          {poem.map((t, i) => {
               return (
               <div key={i} className={classes.poemContainer}>
                 <span>{i + 1}</span>
-                <p id={i} onClick={onSelectStanza} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>{t.text}</p>
+                <div id={i} onClick={onSelectStanza} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+                {t.stanza.map((j, i) => {
+                  if (j.text === '\n') {
+                    return <br id={i} key={i} className={classes.lineBreak}/>
+                  } else {
+                    return <span id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </span>
+                  }
+                })}
+                </div>
               </div>
           )}
           )}

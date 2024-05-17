@@ -4,6 +4,9 @@ import classes from './genny.module.scss';
 import { useState, useEffect } from 'react';
 import { syllable } from 'syllable';
 
+// GLOBAL COMPONENTS
+import SaveLoad from '@tg/global/save-load';
+
 // PAD COMPONENTS
 import StanzaPad from '@tg/pads/stanza-pad';
 import PoemPad from '@tg/pads/poem-pad';
@@ -19,11 +22,12 @@ import FormStyleSwitch from '@tg/input/form-style-switch';
 // COMPOSE COMPONENTS
 import PopulateWordBank from '@tg/pads/populate-word-bank';
 import WordBank from '@tg/pads/word-bank';
+import WordBankEdit from '@tg/pads/word-bank-edit';
 
 // PROCESS COMPONENTS
-import ReplaceWithHello from '@tg/process/replace-with-hello';
-import UndoRedo from '@tg/process/undo-redo';
-import NGrammer from '@tg/process/n-gram';
+import ReplaceWithHello from '@tg/fx/replace-with-hello';
+import UndoRedo from '@tg/fx/undo-redo';
+import NGrammer from '@tg/fx/n-gram';
 
 // OUTPUT COMPONENTS
 import ShowAsLines from '@tg/output/show-as-lines';
@@ -31,7 +35,11 @@ import SaveOutputToTxt from '@tg/output/save-to-txt';
 import GiveTitle from '@tg/output/give-title';
 import InjectControls from '@tg/pads/inject-buttons';
 
-import { dictionary } from 'cmu-pronouncing-dictionary'
+import { dictionary } from 'cmu-pronouncing-dictionary';
+import markov from 'markov';
+import ResizeText from '@tg/fx/form/text-size';
+import ColourText from '@tg/fx/form/text-colour';
+import WordBankAdd from '@tg/pads/word-bank-add';
 
 
 
@@ -145,7 +153,6 @@ const Genny = (props) => {
       }
     }
     form = form.slice(0, -1)
-    console.log(form);
     return form;
   }
 
@@ -169,10 +176,15 @@ const Genny = (props) => {
     }
   }, [stanza, formStyle])
 
+  // useEffect(() => {
+  //   console.log(poem)
+  // }, [poem])
+
+
   const onWordClick = (e) => {
     let newObjArray = stanza.map((item, index) => {
       if (index == e.target.id) {
-        return { id: item.id, type: 'text', text: item.text, selected: item.selected ? false : true}
+        return { id: item.id, type: 'text', text: item.text, style: item?.style, selected: item.selected ? false : true}
       } else {
         return item;
       }
@@ -208,8 +220,8 @@ const Genny = (props) => {
   const onSaveStanzaToPad = () => {
     const newPoemString = stanza.map((item) => item.text).join(' ');
     const currentPoemLength = poem.length;
-    const newPoemId = currentPoemLength + 1;
-    setPoem(poem => [...poem, {id: newPoemId, text: newPoemString}]);
+    const newStanzaId = currentPoemLength + 1;
+    setPoem(poem => [...poem, {id: newStanzaId, stanza: stanza}]);
   }
 
   const onUpdateStanzaToPad = () => {
@@ -218,7 +230,6 @@ const Genny = (props) => {
     const newPoemId = currentPoemLength + 1;
     let newOrder = [...poem];
     newOrder[editStanzaIndex] = {id: newPoemId, text: newPoemString};
-    console.log(newOrder);
     setPoem(newOrder);
     setEditExistingStanzaMode(false);
     setPadToShow('poem');
@@ -258,8 +269,6 @@ const Genny = (props) => {
   const onDeleteSelectedWords = () => {
     let newObjArray = [];
     let numberOfSelected = stanza.filter((item) => item.selected === true).length;
-    console.log(numberOfSelected);
-    console.log(stanza.length);
     if (numberOfSelected === stanza.length) {
       newObjArray.push({id: stanza[0].id, type: 'text', text: stanza[0].text, selected: false});
     } else {
@@ -269,7 +278,6 @@ const Genny = (props) => {
         }
       }
     }
-    console.log(newObjArray);
     setStanza(newObjArray);
   }
 
@@ -319,7 +327,6 @@ const Genny = (props) => {
     if (words.length < quant) {
       let checkIfAlreadyThere = words.filter(element => currentWordBank.includes(element));
       quant = words.length - checkIfAlreadyThere.length;
-      console.log('quant ' + quant)
     }
 
     let newArray =  words.sort(() => 0.5 - Math.random());
@@ -393,15 +400,114 @@ const Genny = (props) => {
     setPadToShow('stanza');
   }
 
+  const onSaveToWordBank = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ text: stanza[i].text, selected: false });
+      }
+    }
+    let newWordBank = [...wordBank, ...newObjArray];
+    let jsonObject = newWordBank.map(JSON.stringify);
+    let uniqueSet = new Set(jsonObject);
+    let uniqueWordBank = Array.from(uniqueSet).map(JSON.parse);
+    setWordBank(uniqueWordBank);
+  }
+
+  const onResizeText = (value) => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {fontSize: value} });
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
+  const onChangeTextColour = (value) => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {colour: value} });
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
+  // useEffect(() => {
+  //   let m = markov(1);
+  //   m.seed(source, console.log(m.pick()));
+  //   // console.log(seededM)
+  // }, [inputString])
+
+  const [showEditWordBank, setShowEditWordBank] = useState(false);
+  const [showAddWordBank, setShowAddWordBank] = useState(false);
+
+  const gptBirdArray = 
+  {name: 'gpt bird words', words: ["Feather", "Beak", "Wing", "Flight", "Nest", "Avian", "Plumage", "Song", "Talon", "Perch", 
+  "Flock", "Migration", "Preen", "Roost", "Hatchling", "Predator", "Prey", "Ornithology", 
+  "Birdwatching", "Chirp", "Peck", "Raptor", "Migrate", "Caw", "Quill", "Migration", "Molt", 
+  "Parrot", "Owl", "Hawk", "Eagle", "Sparrow", "Swallow", "Hummingbird", "Penguin", "Pelican", 
+  "Seagull", "Duck", "Goose", "Heron", "Crane", "Pigeon", "Flamingo", "Robin", "Bluejay", 
+  "Cardinal", "Finch", "Toucan", "Woodpecker", "Crow", "Nightingale", "Canary", "Wren", "Magpie", 
+  "Kingfisher", "Vulture", "Albatross", "Ostrich", "Emu", "Kiwi", "Cassowary", "Roadrunner", "Dodo", 
+  "Condor", "Puffin", "Raven", "Starling", "Stork", "Swift", "Tern", "Titmouse", "Warbler", 
+  "Whip-poor-will", "Plover", "Grebe", "Egret", "Jay", "Blackbird", "Gull", "Lark", "Nuthatch", 
+  "Osprey", "Peafowl", "Rail", "Sandpiper", "Shrike", "Skua", "Siskin", "Spoonbill", "Swiftlet", 
+  "Tanager", "Tern", "Thrasher", "Thrush", "Tropicbird", "Turaco", "Turnstone", "Veery", "Vireo", "Weka"]};
+
+  const demoArrayOfArrays = [gptBirdArray, {name: 'basically-empty', words: ['only']}, {name: 'basic1', words: ['hello', 'world', 'hi', 'bye', 'eat', 'fish', 'go', 'bum', 'deal', 'gimp', 'legend', 'fruit', 'potion', 'belt', 'mane', 'transcend', 'glimpse', 'fisherman', 'spoke', 'gun', 'easy', 'fourteen', 'blend']}];
+
+  const [allWordLists, setAllWordLists] = useState(demoArrayOfArrays);
+  const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
+
+  const onSetSelectedWordList = (list) => {
+    setSelectedWordList(list);
+  }
+
+  const onOpenWordBankEdit = () => {
+    if (showEditWordBank) {
+      setShowEditWordBank(false);
+    } else {
+      setShowEditWordBank(true);
+  }
+  }
+
+  const onOpenWordBankAdd = () => {
+    if (showAddWordBank) {
+      setShowAddWordBank(false);
+    } else {
+      setShowAddWordBank(true);
+  }
+  }
+
+  const onUpdateWordBankEdit = (name, words) => {
+    let newWordsArray = words;
+    let newWordList = {name: name, words: newWordsArray};
+    setSelectedWordList(newWordList);
+  }
+
+  const onAddWordBankEdit = (name, words) => {
+    let newWordsArray = words;
+    let newWordList = {name: name, words: newWordsArray};
+    setSelectedWordList(newWordList);
+    setAllWordLists([...allWordLists, newWordList]);
+  }
+
 
   if (!outputMode) {
   return (
     <div className={classes.pageContainer}>
       <div className={classes.pageContent}> 
-        { padToShow !== 'poem' && 
+        { padToShow === 'stanza' && 
         <>
         <div className={classes.globalSection}>
           <span>SLo-FiLM</span>
+          <SaveLoad poem={poem} poemTitle={poemTitle}/>
           <span>Current Form: {form}</span>
         </div>
         <div className={classes.inputSection}>
@@ -414,7 +520,7 @@ const Genny = (props) => {
           <div className={classes.stanzaPadSection}>
             <StanzaPad stanza={stanza} onWordClick={onWordClick}/>
             <div className={classes.toolsContainer}>
-              <StanzaPadButtons onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
+              <StanzaPadButtons onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
               <UndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
               <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
             </div>
@@ -437,19 +543,30 @@ const Genny = (props) => {
           <div className={classes.processSection}>
             <span>PROCESS</span>
             <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
+            <ResizeText onResizeText={onResizeText}/>
+            <ColourText onChangeTextColour={onChangeTextColour}/>
           </div>
           <div className={classes.composeSection}>
             <span>COMPOSE</span>
-            <PopulateWordBank onPopulateWordBank={onPopulateWordBank}/>
+            { (!showEditWordBank && !showAddWordBank) &&
+            <>
+            <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
             <WordBank deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
             <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
+            </>
+            }
+            { showEditWordBank &&
+            <WordBankEdit onUpdateWordBankEdit={onUpdateWordBankEdit} onOpenWordBankEdit={onOpenWordBankEdit} selectedWordList={selectedWordList}/>
+            }
+            { showAddWordBank &&
+            <WordBankAdd onAddWordBankEdit={onAddWordBankEdit} onOpenWordBankAdd={onOpenWordBankAdd}/>
+            }
           </div>
           </>
         }
         { padToShow !== 'input' &&
         <>
           <div className={classes.outputSection}>
-            <span>OUTPUT</span>
             <button className={classes.button} onClick={onClickShowAsLines}>OUTPUT AS LINES</button>
             <SaveOutputToTxt poem={poem} />
             <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>

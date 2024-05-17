@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const PopulateWordBank = (props) => {
 
-    const {onPopulateWordBank} = props;
+    const {onPopulateWordBank, onOpenWordBankEdit, onOpenWordBankAdd, allWordLists, selectedWordList, onSetSelectedWordList} = props;
 
     const [quant, setQuant] = useState(10);
 
@@ -11,19 +11,21 @@ const PopulateWordBank = (props) => {
         setQuant(e.target.value);
     }
 
-    const demoArrayOfArrays = [{name: 'basically-empty', words: ['only']}, {name: 'basic1', words: ['hello', 'world', 'hi', 'bye', 'eat', 'fish', 'go', 'bum', 'deal', 'gimp', 'legend', 'fruit', 'potion', 'belt', 'mane', 'transcend', 'glimpse', 'fisherman', 'spoke', 'gun', 'easy', 'fourteen', 'blend']}];
-
-    const [allWordLists, setAllWordLists] = useState(demoArrayOfArrays);
-    const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-
     const onClickPopulate = () => {
         onPopulateWordBank(selectedWordList.words, quant);
     }
 
     const handleSelectChange = (e) => {
-        console.log(e.target.value);
         const selectedList = allWordLists.find(list => list.name === e.target.value);
-        setSelectedWordList(selectedList);
+        onSetSelectedWordList(selectedList);
+    }
+
+    const onClickAddWordBank = () => {
+        onOpenWordBankAdd();
+    }
+
+    const onClickEditWordBank = () => {
+        onOpenWordBankEdit();
     }
 
     return (
@@ -38,6 +40,8 @@ const PopulateWordBank = (props) => {
                     )
                 })}
             </select>
+            <button className={`${classes.button}`} onClick={onClickAddWordBank}>ADD</button>
+            <button className={`${classes.button}`} onClick={onClickEditWordBank}>EDIT</button>
             <button className={`${classes.button}`} onClick={onClickPopulate}>POPULATE</button>
         </div>
     )

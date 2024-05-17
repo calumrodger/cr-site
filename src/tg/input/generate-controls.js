@@ -92,7 +92,6 @@ const GenerateControls = (props) => {
         let line = startPosition;
         let newIndex = index + 1;
         while (getStress(line) < form) {
-            console.log(line)
             line = line + ' ' + stringArray[newIndex];
             newIndex++;
         }
@@ -259,7 +258,6 @@ const GenerateControls = (props) => {
             }
         }
         if (formStyle === 'stress') {
-            console.log('fire')
             if (genType === 'original') {
                 onUpdate(formatPoem(getOriginalPoemStress(string, getFormArraySansBreaks(currentForm)), currentForm));
             }
@@ -267,7 +265,6 @@ const GenerateControls = (props) => {
                 onUpdate(formatPoem(getRandomLinePoemStress(string, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (genType === 'random-word') {
-                console.log(getRandomWordPoemStress(string, getFormArraySansBreaks(currentForm)))
                 onUpdate(formatPoem(getRandomWordPoemStress(string, getFormArraySansBreaks(currentForm)), currentForm));
             }
         }

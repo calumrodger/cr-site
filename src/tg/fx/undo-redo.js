@@ -1,4 +1,4 @@
-import classes from './process.module.scss';
+import classes from './fx.module.scss';
 
 const UndoRedo = (props) => {
 

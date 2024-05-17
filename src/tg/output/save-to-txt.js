@@ -7,13 +7,15 @@ const SaveOutputToTxt = (props) => {
     let formattedPoem = [];
 
     for (let i = 0; i < poem.length; i++) {
-        let trailingSpacesRemoved = poem[i].text.replaceAll('\n ', '\n');
+        let stanzaString = poem[i].stanza.map((item) => item.text).join(' ');
+        let trailingSpacesRemoved = stanzaString.replaceAll('\n ', '\n');
         formattedPoem.push({id: poem[i].id, text: trailingSpacesRemoved});
     }
 
     const saveToTxt = () => {
 
-        const blob = new Blob([formattedPoem[0].text], { type: "text/plain;charset=utf-8" })
+        const theText = formattedPoem.map((item) => item.text).join('\n');
+        const blob = new Blob([theText], { type: "text/plain;charset=utf-8" })
         const fileName = 'output.txt'
         let newLink = document.createElement('a')
         newLink.download = fileName
