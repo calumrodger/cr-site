@@ -137,7 +137,7 @@ const PoemPad = (props) => {
       for (let i = 0; i < stanzaArray.length; i++) {
         if (stanzaArray[i].selected) {
           newObjArray.push(stanzaArray[i]);
-          newObjArray.push({ id: stanzaArray.length + 1, text: stanzaArray[i].text, selected: false })
+          newObjArray.push({ id: stanzaArray.length + 1, stanza: stanzaArray[i].stanza, selected: false })
         } else {
           newObjArray.push(stanzaArray[i]);
         }
@@ -148,14 +148,14 @@ const PoemPad = (props) => {
 
     const selectAll = () => {
       let newObjArray = stanzaArray.map((item) => {
-        return { id: item.id, text: item.text, selected: true }
+        return { id: item.id, stanza: item.stanza, selected: true }
       });
       setStanzaArray(newObjArray);
     }
 
     const unselectAll = () => {
       let newObjArray = stanzaArray.map((item) => {
-        return { id: item.id, text: item.text, selected: false }
+        return { id: item.id, stanza: item.stanza, selected: false }
       });
       setStanzaArray(newObjArray);
     }
@@ -171,7 +171,7 @@ const PoemPad = (props) => {
               <div key={t.id} className={classes.poemContainer}>
                 <span>{i + 1}</span>
                 <button id={i} onClick={onSelectStanza}>select</button>
-                <div id={i} onClick={onSelectStanza} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+                <div id={i} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                 {t.stanza.map((j, f) => {
                   if (j.text === '\n') {
                     return <br key={j.id} className={classes.lineBreak}/>
