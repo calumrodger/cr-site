@@ -26,7 +26,6 @@ const ShowAsSlides = (props) => {
         })}
       </div>
     )})
-    console.log(thePoemJSX)
 
     const onClickLeft = () => {
       if (slideIndex > 0) {
