@@ -19,16 +19,24 @@
         background-color: greenyellow;
         color: #fff;
     }
+
+    &.greyed {
+        background-color: #ccc;
+        color: blue;
+    }
 }
 
 .poemTitle {
     font-size: 1.3rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .mainText {
     margin-bottom: 4rem;
+
+    .stanza {
+    }
 
     .poem {
         white-space: pre;

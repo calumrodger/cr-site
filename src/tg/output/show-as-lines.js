@@ -9,9 +9,7 @@ const ShowAsLines = (props) => {
     const [colour, setColour] = useState('#000000');
 
     const onChangeColour = (e) => {
-      console.log(e.target.value)
         setColour(e.target.value);
-        console.log(colour)
         onChangeOutputBgColour(colour);
     }
 
@@ -35,7 +33,7 @@ const ShowAsLines = (props) => {
                     }
                   })}
                   <br/>
-                  </div>
+                </div>
             )}
             )}
               </div>
@@ -43,7 +41,7 @@ const ShowAsLines = (props) => {
           <div className={classes.showAsLinesPanel}>
           <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
           <input type="range" min="0" max="9" step="1" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="myRange"/>
-
+          <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
           </div>
           </div>
     )
