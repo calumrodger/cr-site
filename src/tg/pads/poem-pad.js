@@ -5,11 +5,9 @@ import { checkStyles } from '@tg/utils/utils';
 
 const PoemPad = (props) => {
 
-    const { poem, onEditStanza } = props;
+    const { poem, onEditStanza, onUpdatePoem } = props;
 
-    const [stanzaArray, setStanzaArray] = useState(poem.map((t, i) => {
-        return { id: i, text: t.text, selected: false }
-    }));
+    const [stanzaArray, setStanzaArray] = useState(poem);
 
     const [noneSelected, setNoneSelected] = useState(true);
     const [moreThanOneSelected, setMoreThanOneSelected] = useState(false);
@@ -17,12 +15,14 @@ const PoemPad = (props) => {
     const onSelectStanza = (e) => {
       let newArray = stanzaArray.map((item, index) => {
         if (index == e.target.id) {
-          return { id: item.id, text: item.text, selected: item.selected ? false : true}
+          console.log(index, e.target.id)
+          return { id: item.id, stanza: item.stanza, selected: item.selected ? false : true}
         } else {
           return item;
         }
       });
       setStanzaArray(newArray);
+      // onUpdatePoem(newArray);
     }
 
     const isMoreThanOneStanzaSelected = () => {
@@ -75,6 +75,7 @@ const PoemPad = (props) => {
       });
   
       setStanzaArray(newArray);
+      onUpdatePoem(newArray);
   }
 
     const shiftStanzaDown = () => {
@@ -92,11 +93,31 @@ const PoemPad = (props) => {
         }
       }
       setStanzaArray(tempArray);
+      onUpdatePoem(tempArray);
     }
+
+    function shiftStanzas(up = true) {
+      const newArray = stanzaArray.map(stanza => stanza.selected && stanza);
+      const indexOfFalse = offset => up
+          ? newArray.indexOf(false, offset)
+          : newArray.lastIndexOf(false, offset ?? newArray.length);
+      if (up) {
+          newArray.push(newArray.shift());
+      } else {
+          newArray.unshift(newArray.pop());
+      }
+      stanzaArray.forEach((stanza, index) => {
+          if (!stanza.selected) {
+              const offsetIndex = indexOfFalse(index);
+              newArray[offsetIndex !== -1 ? offsetIndex : indexOfFalse()] = stanza;
+          }
+      });
+      setStanzaArray(newArray);
+  }
 
     const editStanza = (e) => {
       let stanzaIndex = stanzaArray.findIndex((item) => item.selected === true);
-      let stanza = stanzaArray[stanzaIndex];
+      let stanza = stanzaArray[stanzaIndex].stanza;
       onEditStanza(stanza, stanzaIndex);
     }
 
@@ -108,6 +129,7 @@ const PoemPad = (props) => {
         }
       }
       setStanzaArray(newObjArray);
+      onUpdatePoem(newObjArray);
     }
 
     const duplicateStanza = () => {
@@ -121,6 +143,7 @@ const PoemPad = (props) => {
         }
       }
       setStanzaArray(newObjArray);
+      onUpdatePoem(newObjArray);
     }
 
     const selectAll = () => {
@@ -141,16 +164,19 @@ const PoemPad = (props) => {
     return (
       <>
         <div className={classes.poemBox}>
-          {poem.map((t, i) => {
+          {stanzaArray.map((t, i) => {
+            console.log(t.selected);
+            console.log(t.id)
               return (
-              <div key={i} className={classes.poemContainer}>
+              <div key={t.id} className={classes.poemContainer}>
                 <span>{i + 1}</span>
+                <button id={i} onClick={onSelectStanza}>select</button>
                 <div id={i} onClick={onSelectStanza} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
-                {t.stanza.map((j, i) => {
+                {t.stanza.map((j, f) => {
                   if (j.text === '\n') {
-                    return <br id={i} key={i} className={classes.lineBreak}/>
+                    return <br key={j.id} className={classes.lineBreak}/>
                   } else {
-                    return <span id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </span>
+                    return <span key={j.id} style={checkStyles(j)} className={`${classes.word}`}>{j.text} </span>
                   }
                 })}
                 </div>

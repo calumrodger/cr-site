@@ -43,9 +43,6 @@ import LoadFromTxt from './load-from-txt';
    
     return (
             <div className={classes.inputPadSectionContainer}>
-                
-               
- 
             <PopulateFromYouTubeComments onPopulateWithYouTubeComments={onPopulateWithYouTubeComments}/>
             <LoadFromTxt onPopulateWithTxt={onPopulateWithTxt}/>
             <textarea className={classes.inputPad} type="textarea" id="article-name" name="article-name" value={string} onChange={onChangeString}/>

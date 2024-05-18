@@ -11,7 +11,7 @@ const PoemLayout = (props) => {
     const borderWidthIs = props.borderWidth ? props.borderWidth : '10rem'
 
     return (
-        <>
+        <div className={classes.masterDiv}>
         <div className={classes.grid} style={{borderWidth: borderWidthIs}} >
 
             <div className={classes.navbarSubtitle} style={{backgroundColor: borderColour, color: textColour}}>
@@ -35,7 +35,7 @@ const PoemLayout = (props) => {
                 <div><Link href='/category/web'>◀ back</Link></div>
             </div>
         </div>
-        </>
+        </div>
     )
 }
 

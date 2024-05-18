@@ -19,13 +19,13 @@ const WordBankEdit = (props) => {
     }
 
     const onChangeWords = (e) => {
-        setWords(e.target.value.split(', '));
+        setWords(e.target.value.split(','));
     }
 
     return (
         <>
         <input type="text" value={name} onChange={onChangeName}/>
-        <textarea value={words.map((word, i) => i === 0 ? word : ' ' + word)} onChange={onChangeWords}/>
+        <textarea className={classes.editField} value={words.map((word, i) => i === 0 ? word : ' ' + word)} onChange={onChangeWords}/>
         <button className={classes.button} onClick={onSaveWordBankEdit}>SAVE</button>
         </>
     )

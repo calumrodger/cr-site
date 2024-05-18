@@ -3,45 +3,44 @@
 import classes from './genny.module.scss';
 import { useState, useEffect } from 'react';
 import { syllable } from 'syllable';
+import { dictionary } from 'cmu-pronouncing-dictionary';
 
 // GLOBAL COMPONENTS
 import SaveLoad from '@tg/global/save-load';
-
-// PAD COMPONENTS
-import StanzaPad from '@tg/pads/stanza-pad';
-import PoemPad from '@tg/pads/poem-pad';
 import PadSwitcher from '@tg/pads/pad-switcher';
-import OnSaveStanzaToPad from '@tg/pads/save-stanza-to-pad';
-import StanzaPadButtons from '@tg/pads/stanza-pad-buttons';
 
-// INPUT COMPONENTS
-import GenerateSection from '@tg/input/generate-section';
+// GENERATE COMPONENTS
 import GenerateControls from '@tg/input/generate-controls';
 import FormStyleSwitch from '@tg/input/form-style-switch';
 
-// COMPOSE COMPONENTS
+// SOURCE PAD COMPONENTS
+import SourcePad from '@tg/input/source-pad';
+
+// STANZA PAD COMPONENTS
+import StanzaPad from '@tg/pads/stanza-pad';
+import OnSaveStanzaToPad from '@tg/pads/save-stanza-to-pad';
+import StanzaPadButtons from '@tg/pads/stanza-pad-buttons';
+import StanzaUndoRedo from '@tg/fx/undo-redo-stanza';
+
+// POEM PAD COMPONENTS
+import PoemPad from '@tg/pads/poem-pad';
+
+// WORD BANK COMPONENTS
 import PopulateWordBank from '@tg/pads/populate-word-bank';
 import WordBank from '@tg/pads/word-bank';
-import WordBankEdit from '@tg/pads/word-bank-edit';
-
-// PROCESS COMPONENTS
-import ReplaceWithHello from '@tg/fx/replace-with-hello';
-import UndoRedo from '@tg/fx/undo-redo';
-import NGrammer from '@tg/fx/n-gram';
-
-// OUTPUT COMPONENTS
-import ShowAsLines from '@tg/output/show-as-lines';
-import SaveOutputToTxt from '@tg/output/save-to-txt';
-import GiveTitle from '@tg/output/give-title';
 import InjectControls from '@tg/pads/inject-buttons';
-
-import { dictionary } from 'cmu-pronouncing-dictionary';
-import markov from 'markov';
-import ResizeText from '@tg/fx/form/text-size';
-import ColourText from '@tg/fx/form/text-colour';
+import WordBankEdit from '@tg/pads/word-bank-edit';
 import WordBankAdd from '@tg/pads/word-bank-add';
 
+// FX COMPONENTS
+import ReplaceWithHello from '@tg/fx/replace-with-hello';
+import ResizeText from '@tg/fx/form/text-size';
+import ColourText from '@tg/fx/form/text-colour';
 
+// OUTPUT COMPONENTS
+import GiveTitle from '@tg/output/give-title';
+import ShowAsLines from '@tg/output/show-as-lines';
+import SaveOutputToTxt from '@tg/output/save-to-txt';
 
 const Genny = (props) => {
 
@@ -190,7 +189,6 @@ const Genny = (props) => {
       }
     });
     setStanza(newObjArray);
-    setOldStanza(stanza);
   }
 
   const onWordBankClick = (e) => {
@@ -221,7 +219,11 @@ const Genny = (props) => {
     const newPoemString = stanza.map((item) => item.text).join(' ');
     const currentPoemLength = poem.length;
     const newStanzaId = currentPoemLength + 1;
-    setPoem(poem => [...poem, {id: newStanzaId, stanza: stanza}]);
+    setPoem(poem => [...poem, {id: newStanzaId, stanza: stanza, selected: false}]);
+  }
+
+  const onUpdatePoem = (newPoem) => {
+    setPoem(newPoem);
   }
 
   const onUpdateStanzaToPad = () => {
@@ -229,7 +231,7 @@ const Genny = (props) => {
     const currentPoemLength = poem.length;
     const newPoemId = currentPoemLength + 1;
     let newOrder = [...poem];
-    newOrder[editStanzaIndex] = {id: newPoemId, text: newPoemString};
+    newOrder[editStanzaIndex] = {id: newPoemId, stanza: stanza, selected: false};
     setPoem(newOrder);
     setEditExistingStanzaMode(false);
     setPadToShow('poem');
@@ -247,7 +249,7 @@ const Genny = (props) => {
 
   const onEditStanza = (stanza, stanzaIndex) => {
     setEditStanzaIndex(stanzaIndex);
-    setStanza(treatString(stanza.text));
+    setStanza(stanza);
     setEditExistingStanzaMode(true);
     setPadToShow('stanza');
   }
@@ -498,9 +500,17 @@ const Genny = (props) => {
     setAllWordLists([...allWordLists, newWordList]);
   }
 
+  const [outputBgColour, setOutputBgColour] = useState('#fff');
+
+  const onChangeOutputBgColour = (hex) => {
+    setOutputBgColour(hex);
+  }
+
 
   if (!outputMode) {
   return (
+    <div className={classes.background}>
+      <div className={classes.bigContainer}>
     <div className={classes.pageContainer}>
       <div className={classes.pageContent}> 
         { padToShow === 'stanza' && 
@@ -521,20 +531,20 @@ const Genny = (props) => {
             <StanzaPad stanza={stanza} onWordClick={onWordClick}/>
             <div className={classes.toolsContainer}>
               <StanzaPadButtons onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
-              <UndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
+              <StanzaUndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
               <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
             </div>
           </div>
         }
         { padToShow === 'poem' &&
           <div className={classes.poemPadSection}>
-            <PoemPad poem={poem} onEditStanza={onEditStanza} /> 
+            <PoemPad onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} /> 
           </div>
         }
 
         { padToShow === 'input' &&
         <div className={classes.inputPadSection}>
-          <GenerateSection onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeString={onChangeString} string={string} form={form} treatString={treatString} setInputString={setInputString} inputString={inputString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/> 
+          <SourcePad onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeString={onChangeString} string={string} form={form} treatString={treatString} setInputString={setInputString} inputString={inputString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/> 
         </div>
         }
         
@@ -579,13 +589,18 @@ const Genny = (props) => {
 
       </div> 
     </div>
+    </div>
+    </div>
   );
   } else {
     return (
-      <div className={classes.pageContainerOutput}>
+      <div style={{background: outputBgColour}} className={classes.pageContainerOutput}>
         <div className={classes.poemContent}>
-        { showAsLines && <ShowAsLines poem={poem} poemTitle={poemTitle}/> }
-        <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
+        { showAsLines && 
+        <>
+        <ShowAsLines onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
+        </>
+        }
         </div>
       </div>
     )
