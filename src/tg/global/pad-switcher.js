@@ -1,4 +1,4 @@
-import classes from './pads.module.scss';
+import classes from '../pads.module.scss';
 
 const PadSwitcher = (props) => {
 

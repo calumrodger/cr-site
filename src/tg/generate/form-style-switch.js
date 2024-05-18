@@ -1,4 +1,4 @@
-import classes from './input.module.scss';
+import classes from '../input.module.scss';
 
 const FormStyleSwitch = (props) => {
 

@@ -1,7 +1,7 @@
 'use client';
 
-import classes from './input.module.scss';
-import PopulateFromYouTubeComments from '@tg/input/populate-from-yt-comments';
+import classes from '../input.module.scss';
+import PopulateFromYouTubeComments from '@tg/source-pad/populate-from-yt-comments';
 
 import { syllable } from 'syllable';
 

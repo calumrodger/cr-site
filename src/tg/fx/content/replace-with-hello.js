@@ -1,4 +1,4 @@
-import classes from './fx.module.scss';
+import classes from '../../fx.module.scss';
 
 const ReplaceWithHello = (props) => {
 

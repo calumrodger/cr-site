@@ -7,33 +7,33 @@ import { dictionary } from 'cmu-pronouncing-dictionary';
 
 // GLOBAL COMPONENTS
 import SaveLoad from '@tg/global/save-load';
-import PadSwitcher from '@tg/pads/pad-switcher';
+import PadSwitcher from '@tg/global/pad-switcher';
 
 // GENERATE COMPONENTS
-import GenerateControls from '@tg/input/generate-controls';
-import FormStyleSwitch from '@tg/input/form-style-switch';
+import GenerateControls from '@tg/generate/generate-controls';
+import FormStyleSwitch from '@tg/generate/form-style-switch';
 
 // SOURCE PAD COMPONENTS
-import SourcePad from '@tg/input/source-pad';
+import SourcePad from '@tg/source-pad/source-pad';
 
 // STANZA PAD COMPONENTS
-import StanzaPad from '@tg/pads/stanza-pad';
-import OnSaveStanzaToPad from '@tg/pads/save-stanza-to-pad';
-import StanzaPadButtons from '@tg/pads/stanza-pad-buttons';
-import StanzaUndoRedo from '@tg/fx/undo-redo-stanza';
+import StanzaPad from '@tg/stanza-pad/stanza-pad';
+import OnSaveStanzaToPad from '@tg/stanza-pad/save-stanza-to-pad';
+import StanzaPadButtons from '@tg/stanza-pad/stanza-pad-buttons';
+import StanzaUndoRedo from '@tg/stanza-pad/undo-redo-stanza';
 
 // POEM PAD COMPONENTS
-import PoemPad from '@tg/pads/poem-pad';
+import PoemPad from '@tg/poem-pad/poem-pad';
 
 // WORD BANK COMPONENTS
-import PopulateWordBank from '@tg/pads/populate-word-bank';
-import WordBank from '@tg/pads/word-bank';
-import InjectControls from '@tg/pads/inject-buttons';
-import WordBankEdit from '@tg/pads/word-bank-edit';
-import WordBankAdd from '@tg/pads/word-bank-add';
+import PopulateWordBank from '@tg/word-bank/populate-word-bank';
+import WordBank from '@tg/word-bank/word-bank';
+import InjectControls from '@tg/word-bank/inject-buttons';
+import WordBankEdit from '@tg/word-bank/word-bank-edit';
+import WordBankAdd from '@tg/word-bank/word-bank-add';
 
 // FX COMPONENTS
-import ReplaceWithHello from '@tg/fx/replace-with-hello';
+import ReplaceWithHello from '@tg/fx/content/replace-with-hello';
 import ResizeText from '@tg/fx/form/text-size';
 import ColourText from '@tg/fx/form/text-colour';
 
@@ -46,7 +46,35 @@ const Genny = (props) => {
 
   const { source } = props;
 
+  const treatString = (input) => {
+    const sourceArray = input.split(" ");
+    const filteredEmpties = sourceArray.filter((item) => item !== "");
+    let newSource = [];
+    const lineBreak = '\n';
+    for (let i = 0; i < filteredEmpties.length; i++) {
+      if (filteredEmpties[i] === '\n') {
+        newSource.push(lineBreak); 
+      } else if (filteredEmpties[i].includes('\n')) {
+        let newValue = filteredEmpties[i].replace('\n', '');
+        newSource.push(newValue);
+        newSource.push(lineBreak);
+      }  else  {
+        newSource.push(filteredEmpties[i]); 
+      } 
+    }
+    const finalList = newSource.map((item, index) => {
+      if (item === '\n') {
+        return { id: index, type: 'break', text: item, selected: false }
+      } else {
+      return { id: index, type: 'text', text: item, selected: false }
+      }
+    });
+    return finalList;
+  }
+  
+
   const [formStyle, setFormStyle] = useState('syllable');
+  const [stanza, setStanza] = useState(treatString(source));
 
   const onSetFormStyle = () => {
     if (formStyle === 'syllable') {
@@ -84,33 +112,8 @@ const Genny = (props) => {
     return stressCount;
   }
   
-  const treatString = (input) => {
-    const sourceArray = input.split(" ");
-    const filteredEmpties = sourceArray.filter((item) => item !== "");
-    let newSource = [];
-    const lineBreak = '\n';
-    for (let i = 0; i < filteredEmpties.length; i++) {
-      if (filteredEmpties[i] === '\n') {
-        newSource.push(lineBreak); 
-      } else if (filteredEmpties[i].includes('\n')) {
-        let newValue = filteredEmpties[i].replace('\n', '');
-        newSource.push(newValue);
-        newSource.push(lineBreak);
-      }  else  {
-        newSource.push(filteredEmpties[i]); 
-      } 
-    }
-    const finalList = newSource.map((item, index) => {
-      if (item === '\n') {
-        return { id: index, type: 'break', text: item, selected: false }
-      } else {
-      return { id: index, type: 'text', text: item, selected: false }
-      }
-    });
-    return finalList;
-  }
   
-  const [stanza, setStanza] = useState(treatString(source));
+  
   const [oldStanza, setOldStanza] = useState([]);
   const [inputString, setInputString] = useState('I am a happy person who likes eating chips.');
 

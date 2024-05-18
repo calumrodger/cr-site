@@ -1,4 +1,4 @@
-import classes from './pads.module.scss';
+import classes from '../pads.module.scss';
 import { useEffect } from 'react';
 import { checkStyles } from '@tg/utils/utils';
 

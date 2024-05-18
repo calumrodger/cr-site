@@ -1,4 +1,4 @@
-import classes from './output.module.scss';
+import classes from '../output.module.scss';
 
 const SaveOutputToTxt = (props) => {
 
