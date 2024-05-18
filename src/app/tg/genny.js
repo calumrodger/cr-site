@@ -39,10 +39,30 @@ import ColourText from '@tg/fx/form/text-colour';
 
 // OUTPUT COMPONENTS
 import GiveTitle from '@tg/output/give-title';
-import ShowAsLines from '@tg/output/show-as-lines';
 import SaveOutputToTxt from '@tg/output/save-to-txt';
+import OutputAs from '@tg/output/output-as';
+import ShowAsLines from '@tg/output/show-as-lines';
+import ShowAsGrid from '@tg/output/show-as-grid';
+import ShowAsSlides from '@tg/output/show-as-slides';
+import ShowAsLoop from '@tg/output/show-as-loop';
+
 
 const Genny = (props) => {
+
+  const gptBirdArray = 
+  {name: 'gpt bird words', words: ["Feather", "Beak", "Wing", "Flight", "Nest", "Avian", "Plumage", "Song", "Talon", "Perch", 
+  "Flock", "Migration", "Preen", "Roost", "Hatchling", "Predator", "Prey", "Ornithology", 
+  "Birdwatching", "Chirp", "Peck", "Raptor", "Migrate", "Caw", "Quill", "Migration", "Molt", 
+  "Parrot", "Owl", "Hawk", "Eagle", "Sparrow", "Swallow", "Hummingbird", "Penguin", "Pelican", 
+  "Seagull", "Duck", "Goose", "Heron", "Crane", "Pigeon", "Flamingo", "Robin", "Bluejay", 
+  "Cardinal", "Finch", "Toucan", "Woodpecker", "Crow", "Nightingale", "Canary", "Wren", "Magpie", 
+  "Kingfisher", "Vulture", "Albatross", "Ostrich", "Emu", "Kiwi", "Cassowary", "Roadrunner", "Dodo", 
+  "Condor", "Puffin", "Raven", "Starling", "Stork", "Swift", "Tern", "Titmouse", "Warbler", 
+  "Whip-poor-will", "Plover", "Grebe", "Egret", "Jay", "Blackbird", "Gull", "Lark", "Nuthatch", 
+  "Osprey", "Peafowl", "Rail", "Sandpiper", "Shrike", "Skua", "Siskin", "Spoonbill", "Swiftlet", 
+  "Tanager", "Tern", "Thrasher", "Thrush", "Tropicbird", "Turaco", "Turnstone", "Veery", "Vireo", "Weka"]};
+
+  const demoArrayOfArrays = [gptBirdArray, {name: 'basically-empty', words: ['only']}, {name: 'basic1', words: ['hello', 'world', 'hi', 'bye', 'eat', 'fish', 'go', 'bum', 'deal', 'gimp', 'legend', 'fruit', 'potion', 'belt', 'mane', 'transcend', 'glimpse', 'fisherman', 'spoke', 'gun', 'easy', 'fourteen', 'blend']}];
 
   const { source } = props;
 
@@ -72,9 +92,30 @@ const Genny = (props) => {
     return finalList;
   }
   
-
-  const [formStyle, setFormStyle] = useState('syllable');
+  // Words
+  const [string, setString] = useState('I am a happy person who likes eating chips.');
   const [stanza, setStanza] = useState(treatString(source));
+  const [oldStanza, setOldStanza] = useState([]);
+  const [poem, setPoem] = useState([]);
+  const [poemTitle, setPoemTitle] = useState('');
+  const [wordBank, setWordBank] = useState([{text: 'hello', selected: false}, {text: 'world', selected: false}]);
+  const [allWordLists, setAllWordLists] = useState(demoArrayOfArrays);
+  const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
+
+  // Settings
+  const [form, setForm] = useState('');
+  const [formStyle, setFormStyle] = useState('syllable');
+  const [genType, setGenType] = useState('original');
+  const [outputMode, setOutputMode] = useState('none');
+  const [outputCheckbox, setOutputCheckbox] = useState('lines');  
+
+  // Switches
+  const [padToShow, setPadToShow] = useState('stanza');
+  const [editExistingStanzaMode, setEditExistingStanzaMode] = useState(false);
+  const [editStanzaIndex, setEditStanzaIndex] = useState(null);
+  const [injectSetting, setInjectSetting] = useState('replace');
+  const [showEditWordBank, setShowEditWordBank] = useState(false);
+  const [showAddWordBank, setShowAddWordBank] = useState(false);
 
   const onSetFormStyle = () => {
     if (formStyle === 'syllable') {
@@ -94,7 +135,6 @@ const Genny = (props) => {
       wordsArray[i].replace(/[^\w\s\']|_/g, "")
       wordsArray[i].replace(/\s+/g, " ")
     }
-
     let stressArray = [];
     for (let i = 0; i < wordsArray.length; i++) {
       if (dictionary[wordsArray[i]] !== undefined) {
@@ -108,18 +148,9 @@ const Genny = (props) => {
       let itemStress = (((stressArray[i].match(/2/g)||[].length).toString()) * 1) + (((stressArray[i].match(/1/g)||[].length).toString()) * 1);
       stressCount = stressCount + itemStress;
     }
-
     return stressCount;
   }
   
-  
-  
-  const [oldStanza, setOldStanza] = useState([]);
-  const [inputString, setInputString] = useState('I am a happy person who likes eating chips.');
-
-  const [poemTitle, setPoemTitle] = useState('');
-  const [wordBank, setWordBank] = useState([{text: 'hello', selected: false}, {text: 'world', selected: false}]);
-
   const onSetPoemTitle = (e) => {
     setPoemTitle(e.target.value);
   }
@@ -128,7 +159,6 @@ const Genny = (props) => {
     let form = '';
     let syllableCounter = 0;
     for (let i = 0; i < stanza.length; i++) {
-
       if (stanza[i].text !== '\n') {
         syllableCounter = syllableCounter + syllable(stanza[i].text);
       }
@@ -145,7 +175,6 @@ const Genny = (props) => {
     let form = '';
     let syllableCounter = 0;
     for (let i = 0; i < stanza.length; i++) {
-
       if (stanza[i].text !== '\n') {
         syllableCounter = syllableCounter + getStress(stanza[i].text);
       }
@@ -158,18 +187,6 @@ const Genny = (props) => {
     return form;
   }
 
-  const [form, setForm] = useState('');
-
-  const [poem, setPoem] = useState([]);
-
-  const [padToShow, setPadToShow] = useState('stanza');
-  const [editExistingStanzaMode, setEditExistingStanzaMode] = useState(false);
-  const [editStanzaIndex, setEditStanzaIndex] = useState(null);
-
-  // Output on/off states
-  const [outputMode, setOutputMode] = useState(false);
-  const [showAsLines, setShowAsLines] = useState(false);
-
   useEffect(() => {
     if (formStyle === 'syllable') {
       setForm(detectFormSyllable(stanza));
@@ -177,10 +194,6 @@ const Genny = (props) => {
       setForm(detectFormStress(stanza));
     }
   }, [stanza, formStyle])
-
-  // useEffect(() => {
-  //   console.log(poem)
-  // }, [poem])
 
 
   const onWordClick = (e) => {
@@ -219,7 +232,6 @@ const Genny = (props) => {
   }
 
   const onSaveStanzaToPad = () => {
-    const newPoemString = stanza.map((item) => item.text).join(' ');
     const currentPoemLength = poem.length;
     const newStanzaId = currentPoemLength + 1;
     setPoem(poem => [...poem, {id: newStanzaId, stanza: stanza, selected: false}]);
@@ -230,7 +242,6 @@ const Genny = (props) => {
   }
 
   const onUpdateStanzaToPad = () => {
-    const newPoemString = stanza.map((item) => item.text).join(' ');
     const currentPoemLength = poem.length;
     const newPoemId = currentPoemLength + 1;
     let newOrder = [...poem];
@@ -241,13 +252,11 @@ const Genny = (props) => {
   }
 
   const onLeaveOutputMode = () => {
-    setOutputMode(false);
-    setShowAsLines(false);
+    setOutputMode('none');
   }
 
-  const onClickShowAsLines = () => {
-    setOutputMode(true);
-    setShowAsLines(true);
+  const onClickOutput = (type) => {
+    setOutputMode(type);
   }
 
   const onEditStanza = (stanza, stanzaIndex) => {
@@ -348,9 +357,6 @@ const Genny = (props) => {
     setWordBank(newWordBank);
   }
 
-  
-  const [injectSetting, setInjectSetting] = useState('replace');
-
   const onChangeInjectSetting = (e) => {
       setInjectSetting(e.target.id);
   }
@@ -385,19 +391,12 @@ const Genny = (props) => {
     }
   }
 
-  const [genType, setGenType] = useState('original');
-
-  
   const onSetGenType = (e) => {
     setGenType(e.target.value);
   }
-
-  const [string, setString] = useState(inputString);
-
-    
+  
   const onChangeString = (e) => {
     setString(e.target.value)
-    setInputString(e.target.value)
   }
 
   const onClickImportAsStanza = () => {
@@ -443,33 +442,6 @@ const Genny = (props) => {
     setStanza(newObjArray);
   }
 
-  // useEffect(() => {
-  //   let m = markov(1);
-  //   m.seed(source, console.log(m.pick()));
-  //   // console.log(seededM)
-  // }, [inputString])
-
-  const [showEditWordBank, setShowEditWordBank] = useState(false);
-  const [showAddWordBank, setShowAddWordBank] = useState(false);
-
-  const gptBirdArray = 
-  {name: 'gpt bird words', words: ["Feather", "Beak", "Wing", "Flight", "Nest", "Avian", "Plumage", "Song", "Talon", "Perch", 
-  "Flock", "Migration", "Preen", "Roost", "Hatchling", "Predator", "Prey", "Ornithology", 
-  "Birdwatching", "Chirp", "Peck", "Raptor", "Migrate", "Caw", "Quill", "Migration", "Molt", 
-  "Parrot", "Owl", "Hawk", "Eagle", "Sparrow", "Swallow", "Hummingbird", "Penguin", "Pelican", 
-  "Seagull", "Duck", "Goose", "Heron", "Crane", "Pigeon", "Flamingo", "Robin", "Bluejay", 
-  "Cardinal", "Finch", "Toucan", "Woodpecker", "Crow", "Nightingale", "Canary", "Wren", "Magpie", 
-  "Kingfisher", "Vulture", "Albatross", "Ostrich", "Emu", "Kiwi", "Cassowary", "Roadrunner", "Dodo", 
-  "Condor", "Puffin", "Raven", "Starling", "Stork", "Swift", "Tern", "Titmouse", "Warbler", 
-  "Whip-poor-will", "Plover", "Grebe", "Egret", "Jay", "Blackbird", "Gull", "Lark", "Nuthatch", 
-  "Osprey", "Peafowl", "Rail", "Sandpiper", "Shrike", "Skua", "Siskin", "Spoonbill", "Swiftlet", 
-  "Tanager", "Tern", "Thrasher", "Thrush", "Tropicbird", "Turaco", "Turnstone", "Veery", "Vireo", "Weka"]};
-
-  const demoArrayOfArrays = [gptBirdArray, {name: 'basically-empty', words: ['only']}, {name: 'basic1', words: ['hello', 'world', 'hi', 'bye', 'eat', 'fish', 'go', 'bum', 'deal', 'gimp', 'legend', 'fruit', 'potion', 'belt', 'mane', 'transcend', 'glimpse', 'fisherman', 'spoke', 'gun', 'easy', 'fourteen', 'blend']}];
-
-  const [allWordLists, setAllWordLists] = useState(demoArrayOfArrays);
-  const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-
   const onSetSelectedWordList = (list) => {
     setSelectedWordList(list);
   }
@@ -509,8 +481,11 @@ const Genny = (props) => {
     setOutputBgColour(hex);
   }
 
+  const onChangeOutputCheckbox = (outputType) => {
+    setOutputCheckbox(outputType);
+  }
 
-  if (!outputMode) {
+  if (outputMode === 'none') {
   return (
     <div className={classes.background}>
       <div className={classes.bigContainer}>
@@ -547,7 +522,7 @@ const Genny = (props) => {
 
         { padToShow === 'input' &&
         <div className={classes.inputPadSection}>
-          <SourcePad onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeString={onChangeString} string={string} form={form} treatString={treatString} setInputString={setInputString} inputString={inputString} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza}/> 
+          <SourcePad onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeString={onChangeString} string={string} /> 
         </div>
         }
         
@@ -580,7 +555,7 @@ const Genny = (props) => {
         { padToShow !== 'input' &&
         <>
           <div className={classes.outputSection}>
-            <button className={classes.button} onClick={onClickShowAsLines}>OUTPUT AS LINES</button>
+            <OutputAs onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
             <SaveOutputToTxt poem={poem} />
             <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
           </div>
@@ -599,10 +574,17 @@ const Genny = (props) => {
     return (
       <div style={{background: outputBgColour}} className={classes.pageContainerOutput}>
         <div className={classes.poemContent}>
-        { showAsLines && 
-        <>
+        { outputMode === 'lines' && 
         <ShowAsLines onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
-        </>
+        }
+        { outputMode === 'grid' &&
+        <ShowAsGrid onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+        }
+        { outputMode === 'slides' &&
+        <ShowAsSlides onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+        }
+        { outputMode === 'loop' &&
+        <ShowAsLoop onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
         }
         </div>
       </div>

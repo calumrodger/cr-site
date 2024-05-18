@@ -1,4 +1,4 @@
-import classes from '../output.module.scss';
+import classes from './show-as-lines.module.scss';
 import { checkStyles } from '@tg/utils/utils';
 import { useState } from 'react';
 
@@ -43,7 +43,7 @@ const ShowAsLines = (props) => {
           <div className={classes.showAsLinesPanel}>
           <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
           <input type="range" min="0" max="9" step="1" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="myRange"/>
-          <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
+
           </div>
           </div>
     )
