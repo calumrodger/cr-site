@@ -1,0 +1,65 @@
+.button {
+    border: 1px solid #000;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+
+    &:hover {
+        background-color: greenyellow;
+        color: #fff;
+    }
+}
+
+.generatorGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "show-src n-slider n-slider gen-buttons"
+                         "show-src form-style reseed gen-buttons"
+                        "form-input form-style reseed gen-buttons";
+    gap: .5rem; 
+}
+
+.showSrcButton {
+    grid-area: show-src;
+
+    .button {
+        width: 10rem;
+        height: 5rem;
+    }
+}
+
+.nLevelSlider {
+    grid-area: n-slider;
+}
+
+.genButtons {
+    grid-area: gen-buttons;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.formInput {
+    grid-area: form-input;
+    display: flex;
+    gap: .3rem;
+    height: 1.2rem;
+    font-size: .8rem;
+    
+    input {
+        width: 7rem;
+    }
+}
+
+.formStyleToggle {
+    grid-area: form-style;
+    font-size: .7rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.reseedToggle {
+    grid-area: reseed;
+    font-size: .7rem;
+}

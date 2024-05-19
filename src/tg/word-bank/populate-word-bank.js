@@ -30,19 +30,27 @@ const PopulateWordBank = (props) => {
 
     return (
         <div className={classes.populateContainer}>
-            <label htmlFor="populate-quant">#:</label>
-            <input type="number" id="populate-quant" name="populate-quant" onChange={onChangeQuant} value={quant}/>
-            <label htmlFor="populate-source">src:</label>
-            <select name="populate-source" id="populate-source" onChange={handleSelectChange}>
-                {allWordLists.map((list, i) => {
-                    return (
-                        <option key={i} value={list.name}>{list.name}</option>
-                    )
-                })}
-            </select>
-            <button className={`${classes.button}`} onClick={onClickAddWordBank}>ADD</button>
-            <button className={`${classes.button}`} onClick={onClickEditWordBank}>EDIT</button>
-            <button className={`${classes.button}`} onClick={onClickPopulate}>POPULATE</button>
+            <button className={`${classes.button} ${classes.populateButton}`} onClick={onClickPopulate}>POPULATE</button>
+            <div className={classes.settingsContainer}>
+            <div className={classes.srcInput}>
+                <label htmlFor="populate-source">src:</label>
+                <select name="populate-source" id="populate-source" onChange={handleSelectChange}>
+                    {allWordLists.map((list, i) => {
+                        return (
+                            <option key={i} value={list.name}>{list.name}</option>
+                        )
+                    })}
+                </select>
+            </div>
+            <div className={classes.extraSettingsContainer}>
+                <div className={classes.numberInput}>
+                    <label htmlFor="populate-quant">#:</label>
+                    <input type="number" id="populate-quant" name="populate-quant" onChange={onChangeQuant} value={quant}/>
+                </div>
+                <button className={`${classes.button}`} onClick={onClickAddWordBank}>new</button>
+                <button className={`${classes.button}`} onClick={onClickEditWordBank}>edit</button>
+                </div>
+            </div>
         </div>
     )
 }

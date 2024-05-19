@@ -44,12 +44,14 @@ html {
   body > div:first-child,
   div#__next,
   div#__next > div {
-    height: 100%;
-    width: 100%;
+    min-height: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    min-width: 100%;
   }
 
 body {
-    background-color: #fff;
+    // background-color: #fff;
     margin: 0;
     // font-family: 'Lexend', sans-serif;
   }

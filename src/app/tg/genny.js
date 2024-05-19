@@ -11,7 +11,6 @@ import PadSwitcher from '@tg/global/pad-switcher';
 
 // GENERATE COMPONENTS
 import GenerateControls from '@tg/generate/generate-controls';
-import FormStyleSwitch from '@tg/generate/form-style-switch';
 
 // SOURCE PAD COMPONENTS
 import SourcePad from '@tg/source-pad/source-pad';
@@ -36,6 +35,7 @@ import WordBankAdd from '@tg/word-bank/word-bank-add';
 import ReplaceWithHello from '@tg/fx/content/replace-with-hello';
 import ResizeText from '@tg/fx/form/text-size';
 import ColourText from '@tg/fx/form/text-colour';
+import ReweightText from '@tg/fx/form/text-weight';
 
 // OUTPUT COMPONENTS
 import GiveTitle from '@tg/output/give-title';
@@ -105,7 +105,8 @@ const Genny = (props) => {
   // Settings
   const [form, setForm] = useState('');
   const [formStyle, setFormStyle] = useState('syllable');
-  const [genType, setGenType] = useState('original');
+  const [genType, setGenType] = useState('stanza');
+  const [nLevel, setNLevel] = useState("-1");
   const [outputMode, setOutputMode] = useState('none');
   const [outputCheckbox, setOutputCheckbox] = useState('lines');  
 
@@ -392,7 +393,7 @@ const Genny = (props) => {
   }
 
   const onSetGenType = (e) => {
-    setGenType(e.target.value);
+    setGenType(e);
   }
   
   const onChangeString = (e) => {
@@ -422,7 +423,19 @@ const Genny = (props) => {
     let newObjArray = [];
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {fontSize: value} });
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontSize: value} });
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
+  const onReweightText = (value) => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontWeight: value} });
       } else {
         newObjArray.push(stanza[i]);
       }
@@ -434,7 +447,7 @@ const Genny = (props) => {
     let newObjArray = [];
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {colour: value} });
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, colour: value} });
       } else {
         newObjArray.push(stanza[i]);
       }
@@ -485,6 +498,10 @@ const Genny = (props) => {
     setOutputCheckbox(outputType);
   }
 
+  const onSetNLevel = (e) => {
+    setNLevel(e);
+  }
+
   if (outputMode === 'none') {
   return (
     <div className={classes.background}>
@@ -499,8 +516,7 @@ const Genny = (props) => {
           <span>Current Form: {form}</span>
         </div>
         <div className={classes.inputSection}>
-          <GenerateControls getStress={getStress} formStyle={formStyle} padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} string={string} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType}/>
-          <FormStyleSwitch formStyle={formStyle} onSetFormStyle={onSetFormStyle}/>
+          <GenerateControls nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} string={string} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType}/>
         </div>
         </>
         }
@@ -529,18 +545,18 @@ const Genny = (props) => {
         { padToShow === 'stanza' && 
           <>
           <div className={classes.processSection}>
-            <span>PROCESS</span>
-            <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
             <ResizeText onResizeText={onResizeText}/>
+            <ReweightText onReweightText={onReweightText}/>
             <ColourText onChangeTextColour={onChangeTextColour}/>
+            < hr/>
+            <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
           </div>
           <div className={classes.composeSection}>
-            <span>COMPOSE</span>
             { (!showEditWordBank && !showAddWordBank) &&
             <>
-            <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
             <WordBank deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
             <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
+            <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
             </>
             }
             { showEditWordBank &&
@@ -555,9 +571,9 @@ const Genny = (props) => {
         { padToShow !== 'input' &&
         <>
           <div className={classes.outputSection}>
-            <OutputAs onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
             <SaveOutputToTxt poem={poem} />
             <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
+            <OutputAs onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
           </div>
           <div className={classes.switcherSection}>
             <PadSwitcher onSwitchPad={onSwitchPad} />

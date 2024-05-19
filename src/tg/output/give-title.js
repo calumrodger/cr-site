@@ -6,7 +6,7 @@ const GiveTitle = (props) => {
 
     return (
         <div>
-            <span>title:</span>
+            <span>Title:</span>
             <input type="text" value={poemTitle} onChange={onSetPoemTitle}/>
         </div>
     );

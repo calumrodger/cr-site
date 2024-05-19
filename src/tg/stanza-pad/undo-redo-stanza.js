@@ -19,9 +19,7 @@ const StanzaUndoRedo = (props) => {
     }
 
     return (
-        <div className={classes.pageContainer}>
         <button className={classes.button} onClick={undoRedo}>undo/redo</button>
-        </div>
     )
 }
 

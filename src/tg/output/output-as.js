@@ -10,7 +10,8 @@ const OutputAs = (props) => {
     
         return (
             <>
-            <button className={classes.button} onClick={onClickOutputButton}>OUTPUT</button>
+            <button className={`${classes.button} ${classes.outputButton}`} onClick={onClickOutputButton}>OUTPUT</button>
+                <span>as</span>
                 <input type="radio" id="lines" name="output" value="lines" checked={outputCheckbox === 'lines'} onChange={() => onChangeOutputCheckbox('lines')} />
                 <label htmlFor="lines">lines</label>
                 <input type="radio" id="grid" name="output" value="grid" checked={outputCheckbox === 'grid'} onChange={() => onChangeOutputCheckbox('grid')} />

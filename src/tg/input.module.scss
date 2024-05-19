@@ -35,10 +35,23 @@
     width: 100%;
 }
 
-// .fileLoad {
-//     input[type="file"] {
-//         display: none;
-//     }
-//     appearance: none;
-//     background: green;
-// }
+.fileLoad {
+    input[type="file"] {
+        display: none;
+    }
+    appearance: none;
+    border: 1px solid #000;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+
+    &:hover {
+        background-color: greenyellow;
+        color: #fff;
+    }
+}
+
+.saveLoadContainer {
+    display: flex;
+    gap: .2rem;
+}

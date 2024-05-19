@@ -21,13 +21,13 @@ const SaveLoad = (props) => {
     }
     
         return (
-            <>
+            <div className={classes.saveLoadContainer}>
                 <button onClick={onSavePoem} className={classes.button}>SAVE</button>
-                <label htmlFor="txt-src">Txt file:
+                <label className={classes.fileLoad} htmlFor="txt-src">LOAD
                 <input className={classes.fileLoad} type="file" accept=".json" id="txt-src" name="txt-src" onChange={onChangeHandler}  />
                 </label>
                 
-            </>
+            </div>
         )
 }
 

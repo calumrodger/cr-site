@@ -1,11 +1,10 @@
-import classes from '../input.module.scss'
-
+import classes from './generate-controls.module.scss';
 import { useState } from 'react';
 import { syllable } from 'syllable';
 
 const GenerateControls = (props) => {
 
-    const { formStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, string, padToShow, getStress } = props;
+    const { nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, string, padToShow, getStress } = props;
     const [currentForm, setCurrentForm] = useState(form);
     
     const getFormArray = (form) => {
@@ -247,24 +246,24 @@ const GenerateControls = (props) => {
     
     const onFormSubmit = () => {
         if (formStyle === 'syllable') {
-            if (genType === 'original') {
+            if (genType === 'stanza' && nLevel === "-1") {
                 onUpdate(formatPoem(getOriginalPoemSyllable(string, getFormArraySansBreaks(currentForm)), currentForm));
             }
-            if (genType === 'random-line') {
+            if (genType === 'line' && nLevel === "-1") {
                 onUpdate(formatPoem(getRandomLinePoemSyllable(string, getFormArraySansBreaks(currentForm)), currentForm));
             }
-            if (genType === 'random-word') {
+            if (nLevel === "0") {
                 onUpdate(formatPoem(getRandomWordPoemSyllable(string, getFormArraySansBreaks(currentForm)), currentForm));
             }
         }
         if (formStyle === 'stress') {
-            if (genType === 'original') {
+            if (genType === 'stanza' && nLevel === "-1") {
                 onUpdate(formatPoem(getOriginalPoemStress(string, getFormArraySansBreaks(currentForm)), currentForm));
             }
-            if (genType === 'random-line') {
+            if (genType === 'line' && nLevel === "-1") {
                 onUpdate(formatPoem(getRandomLinePoemStress(string, getFormArraySansBreaks(currentForm)), currentForm));
             }
-            if (genType === 'random-word') {
+            if (nLevel === "0") {
                 onUpdate(formatPoem(getRandomWordPoemStress(string, getFormArraySansBreaks(currentForm)), currentForm));
             }
         }
@@ -277,19 +276,65 @@ const GenerateControls = (props) => {
     }
 
     const srcText = padToShow !== 'input' ? 'SHOW SRC' : 'HIDE SRC';
+    const buttonText = formStyle === 'syllable' ? 'Switch to Stress' : 'Switch to Syllable';
+
+    const [reseedCheckbox, setReseedCheckbox] = useState('stanza');
+    const [formStyleCheckbox, setFormStyleCheckbox] = useState('syllable');
+
+    const onChangeReseedCheckbox = (e) => {
+        setReseedCheckbox(e);
+        onSetGenType(e);
+    }
+
+    const onChangeFormStyleCheckbox = (e) => {
+        setFormStyleCheckbox(e);
+        onSetFormStyle();
+    }
+
+    const onChangeNLevelSlider = (e) => {
+        onSetNLevel(e.target.value);
+    }
 
     return (
-        <>
-        <div className={classes.checkboxContainer}>
-            <button className={`${classes.button} ${genType === 'original' ? classes.selected : null}`} value="original" onClick={onSetGenType}>Original Sequence</button>
-            <button className={`${classes.button} ${genType === 'random-line' ? classes.selected : null}`} value="random-line" onClick={onSetGenType}>Random by line</button>
-            <button className={`${classes.button} ${genType === 'random-word' ? classes.selected : null}`} value="random-word" onClick={onSetGenType}>Random by word</button>
+        <div className={classes.generatorGrid}>
+            <div className={classes.showSrcButton}>
+                <button onClick={onClickShowSrc} className={classes.button}>{srcText}</button>
+            </div>
+            <div className={classes.nLevelSlider}>
+                <label htmlFor="n-level-slider">n-level: {nLevel === "-1" ? 'OFF' : nLevel}</label>
+                <input type="range" id="n-level-slider" name="n-level-slider" min="-1" max="0" step="1" value={nLevel} onChange={onChangeNLevelSlider}></input>
+            </div>
+            <div className={classes.genButtons}>
+                <button className={classes.button} onClick={onFormSubmit}>GENERATE NEW</button>
+                <button className={classes.button} onClick={onFormSubmit}>GENERATE SELECTED</button>
+            </div>
+            <div className={classes.formInput}>
+                <label htmlFor="form">Form:</label>
+                <input type="text" id="form" name="form" value={currentForm} onChange={onChangeForm}></input>
+            </div>
+            <div className={classes.formStyleToggle}>
+                <span>Measure:</span>
+                <div>
+                <input type="radio" id="form-style" name="form-style" value="syllable" checked={formStyleCheckbox === 'syllable'} onChange={() => onChangeFormStyleCheckbox('syllable')} />
+                <label htmlFor="syllable">syllable</label>
+                </div>
+                <div>
+                <input type="radio" id="form-style" name="form-style" value="stress" checked={formStyleCheckbox === 'stress'} onChange={() => onChangeFormStyleCheckbox('stress')} />
+                <label htmlFor="stress">stress</label>
+                </div>
+            </div>
+            <div className={classes.reseedToggle}>
+                <span>Reseed by:</span>
+                <div>
+                    <input type="radio" id="reseed" name="reseed" value="stanza" checked={reseedCheckbox === 'stanza'} onChange={() => onChangeReseedCheckbox('stanza')} />
+                    <label htmlFor="stanza">stanza</label>
+                </div>
+                <div>
+                    <input type="radio" id="reseed" name="reseed" value="line" checked={reseedCheckbox === 'line'} onChange={() => onChangeReseedCheckbox('line')} />
+                    <label htmlFor="line">line</label>
+                </div>
+            </div>
         </div>
-        <label htmlFor="form">Form:</label>
-        <input type="text" id="form" name="form" value={currentForm} onChange={onChangeForm}></input>
-        <button onClick={onClickShowSrc} className={classes.button}>{srcText}</button>
-        <button className={classes.button} onClick={onFormSubmit}>GENERATE!</button>
-        </>
     )
 
 }
