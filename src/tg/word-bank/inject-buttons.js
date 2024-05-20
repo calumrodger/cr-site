@@ -10,15 +10,15 @@ const InjectControls = (props) => {
             <div className={classes.injectContainer}>
                 <div className={classes.injectControlsContainer}>
                     <div className={classes.field}>
-                        <input type="radio" id="inject-setting" name="inject-setting" value="replace" checked={injectSetting === 'replace'} onChange={() => onChangeInjectSetting} />
+                        <input type="radio" id="replace" name="inject-setting" value="replace" checked={injectSetting === 'replace'} onChange={onChangeInjectSetting} />
                         <label htmlFor="replace">replace</label>
                     </div>
                     <div className={classes.field}>
-                        <input type="radio" id="inject-setting" name="inject-setting" value="add-after" checked={injectSetting === 'add-after'} onChange={() => onChangeInjectSetting} />
+                        <input type="radio" id="add-after" name="inject-setting" value="add-after" checked={injectSetting === 'add-after'} onChange={onChangeInjectSetting} />
                         <label htmlFor="add-after">add after</label>
                     </div>
                     <div className={classes.field}>
-                        <input type="radio" id="inject-setting" name="inject-setting" value="add-before" checked={injectSetting === 'add-before'} onChange={() => onChangeInjectSetting} />
+                        <input type="radio" id="add-before" name="inject-setting" value="add-before" checked={injectSetting === 'add-before'} onChange={onChangeInjectSetting} />
                         <label htmlFor="add-before">add before</label>
                     </div>
                 </div>

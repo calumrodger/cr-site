@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(161, 205, 164, 0.491);
+    background-color: rgba(231, 237, 231, 0.906);
     border: 2px solid #000;
     // margin: auto;
     padding: 1rem;
@@ -22,6 +22,7 @@
         border: 1px solid transparent;
         display: inline-block;
         margin: .1rem;
+        color: #000;
 
         &.selected {
             border: 1px solid #000;
@@ -70,26 +71,30 @@
 }
 
 .button {
-    border: 1px solid #000;
+    border: 1px solid #fff;
     cursor: pointer;
     height: fit-content;
-    font-size: .825rem;
+    font-size: .7rem;
+    padding: .02rem;
+    color: #fff;
 
     &:hover {
         background-color: greenyellow;
-        color: #fff;
+        color: #000;
     }
 }
 
 .saveButton {
-    border: 1px solid #000;
+    border: 1px solid #fff;
+    margin-right: .2rem;
     cursor: pointer;
     height: 2rem;
     font-size: 1.2rem;
+    color: #fff;
 
     &:hover {
         background-color: greenyellow;
-        color: #fff;
+        color: #000;
     }
 }
 
@@ -127,12 +132,13 @@
 .wordBank {
     overflow-y: scroll;
     display: flex;
-    background-color: rgba(196, 161, 205, 0.491);
+    background-color: rgba(243, 237, 245, 0.822);
     border: 2px solid #000;
     height: 90%;
     display: flex;
     flex-wrap: wrap;
     align-content: baseline;
+
 
     .word {
         cursor: pointer;
@@ -140,6 +146,7 @@
         margin: .1rem;
         width: fit-content;
         height: fit-content;
+        color: #000;
 
         &.selected {
             border: 1px solid #000;
@@ -178,9 +185,10 @@
 }
  
 .stanzaPadButtonsContainer {
-    font-size: .7rem;
+    // font-size: .7rem;
     display: flex;
-    gap: .3rem;
+    justify-content: space-between;
+    gap: .42rem;
     padding: .2rem;
 }
 
@@ -210,4 +218,19 @@
         }
         // width: 2rem;
     }
+}
+
+.wordBankButtons {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    margin: auto;
+    // gap: 5rem;
+}
+
+.poemPadButtonContainer {
+    display: flex;
+    // justify-content: center;
+    gap: .3rem;
+    padding-top: .2rem;
 }

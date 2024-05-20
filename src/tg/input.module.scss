@@ -11,10 +11,11 @@
 }
 
 .button {
-    border: 1px solid #000;
+    border: 1px solid #fff;
     cursor: pointer;
     width: fit-content;
     margin: auto;
+    color: #fff;
 
     &:hover {
         background-color: greenyellow;
@@ -29,6 +30,9 @@
 .inputPadSectionContainer {
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
 }
 .inputPad {
     height: 85%;
@@ -40,18 +44,40 @@
         display: none;
     }
     appearance: none;
-    border: 1px solid #000;
+    border: 1px solid #fff;
     cursor: pointer;
     width: fit-content;
     margin: auto;
+    color: #fff;
 
     &:hover {
         background-color: greenyellow;
-        color: #fff;
+        color: #000;
     }
 }
 
 .saveLoadContainer {
     display: flex;
     gap: .2rem;
+}
+
+.urlFormContainer {
+    // display: flex;
+    // justify-content: space-between;
+    gap: .2rem;
+    width: 60%;
+    
+    label {
+        margin-left: 1rem;
+    }
+
+    input {
+        margin-right: 1rem;
+    }
+}
+
+.formInput {
+    input {
+        width: 2rem;
+    }
 }

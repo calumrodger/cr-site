@@ -14,12 +14,13 @@
 .background {
     // height: 100%;
     // width: 100%;
-    background-color: pink;
+    background-color: rgb(211, 201, 215);
 }
 
 .pageContainer {
     // margin: auto;
-    background-color: #797765bf;
+    background-color: #1a1a19;
+    color: #fcfcf5;
     // padding: 1rem;
     height: 100%;
     width: 100%;
@@ -28,7 +29,6 @@
 
 .pageContainerOutput {
     margin: auto;
-    // background-color: #fff;
     display: flex;
     padding: 1rem 0;
     height: 100%;
@@ -38,6 +38,7 @@
 .pageContent {
     height: 100%;
     display: grid;
+    // gap: .1rem;
     grid-template-rows: 25% 37.5% 25% 12.5%;
     grid-template-columns: 20% 25% 25% 10% 20%;
     grid-template-areas: "composeSection globalSection inputSection inputSection fxSection"
@@ -102,10 +103,17 @@
     // align-items: baseline;
 }
 
-.processSection {
+.fxSection {
     // border: 1px solid #000;
     grid-area: fxSection;
     padding: .5rem;
+
+    .fxTypographyGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: .2rem;
+    }
 }
 
 .outputSection {

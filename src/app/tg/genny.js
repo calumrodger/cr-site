@@ -36,6 +36,9 @@ import ReplaceWithHello from '@tg/fx/content/replace-with-hello';
 import ResizeText from '@tg/fx/form/text-size';
 import ColourText from '@tg/fx/form/text-colour';
 import ReweightText from '@tg/fx/form/text-weight';
+import FontStyle from '@tg/fx/form/text-style';
+import FontText from '@tg/fx/form/text-font';
+import FormResetButton from '@tg/fx/form/reset-button';
 
 // OUTPUT COMPONENTS
 import GiveTitle from '@tg/output/give-title';
@@ -50,17 +53,33 @@ import ShowAsLoop from '@tg/output/show-as-loop';
 const Genny = (props) => {
 
   const gptBirdArray = 
-  {name: 'gpt bird words', words: ["Feather", "Beak", "Wing", "Flight", "Nest", "Avian", "Plumage", "Song", "Talon", "Perch", 
-  "Flock", "Migration", "Preen", "Roost", "Hatchling", "Predator", "Prey", "Ornithology", 
-  "Birdwatching", "Chirp", "Peck", "Raptor", "Migrate", "Caw", "Quill", "Migration", "Molt", 
-  "Parrot", "Owl", "Hawk", "Eagle", "Sparrow", "Swallow", "Hummingbird", "Penguin", "Pelican", 
-  "Seagull", "Duck", "Goose", "Heron", "Crane", "Pigeon", "Flamingo", "Robin", "Bluejay", 
-  "Cardinal", "Finch", "Toucan", "Woodpecker", "Crow", "Nightingale", "Canary", "Wren", "Magpie", 
-  "Kingfisher", "Vulture", "Albatross", "Ostrich", "Emu", "Kiwi", "Cassowary", "Roadrunner", "Dodo", 
-  "Condor", "Puffin", "Raven", "Starling", "Stork", "Swift", "Tern", "Titmouse", "Warbler", 
-  "Whip-poor-will", "Plover", "Grebe", "Egret", "Jay", "Blackbird", "Gull", "Lark", "Nuthatch", 
-  "Osprey", "Peafowl", "Rail", "Sandpiper", "Shrike", "Skua", "Siskin", "Spoonbill", "Swiftlet", 
-  "Tanager", "Tern", "Thrasher", "Thrush", "Tropicbird", "Turaco", "Turnstone", "Veery", "Vireo", "Weka"]};
+  {name: 'gpt bird words', words: [ 'feather',        'beak',        'wing',         'flight',
+  'nest',           'avian',       'plumage',      'song',
+  'talon',          'perch',       'flock',        'migration',
+  'preen',          'roost',       'hatchling',    'predator',
+  'prey',           'ornithology', 'birdwatching', 'chirp',
+  'peck',           'raptor',      'migrate',      'caw',
+  'quill',          'migration',   'molt',         'parrot',
+  'owl',            'hawk',        'eagle',        'sparrow',
+  'swallow',        'hummingbird', 'penguin',      'pelican',
+  'seagull',        'duck',        'goose',        'heron',
+  'crane',          'pigeon',      'flamingo',     'robin',
+  'bluejay',        'cardinal',    'finch',        'toucan',
+  'woodpecker',     'crow',        'nightingale',  'canary',
+  'wren',           'magpie',      'kingfisher',   'vulture',
+  'albatross',      'ostrich',     'emu',          'kiwi',
+  'cassowary',      'roadrunner',  'dodo',         'condor',
+  'puffin',         'raven',       'starling',     'stork',
+  'swift',          'tern',        'titmouse',     'warbler',
+  'whip-poor-will', 'plover',      'grebe',        'egret',
+  'jay',            'blackbird',   'gull',         'lark',
+  'nuthatch',       'osprey',      'peafowl',      'rail',
+  'sandpiper',      'shrike',      'skua',         'siskin',
+  'spoonbill',      'swiftlet',    'tanager',      'tern',
+  'thrasher',       'thrush',      'tropicbird',   'turaco',
+  'turnstone',      'veery',       'vireo',        'weka']};
+
+  console.log(gptBirdArray.words.map((item) => item.toLowerCase()))
 
   const demoArrayOfArrays = [gptBirdArray, {name: 'basically-empty', words: ['only']}, {name: 'basic1', words: ['hello', 'world', 'hi', 'bye', 'eat', 'fish', 'go', 'bum', 'deal', 'gimp', 'legend', 'fruit', 'potion', 'belt', 'mane', 'transcend', 'glimpse', 'fisherman', 'spoke', 'gun', 'easy', 'fourteen', 'blend']}];
 
@@ -359,7 +378,8 @@ const Genny = (props) => {
   }
 
   const onChangeInjectSetting = (e) => {
-      setInjectSetting(e.target.id);
+    console.log(e);
+      setInjectSetting(e.target.value);
   }
 
   const onClickInject = () => {
@@ -502,6 +522,18 @@ const Genny = (props) => {
     setNLevel(e);
   }
 
+  const onChangeFont = (value) => {
+    console.log(value);
+  }
+
+  const onChangeTextStyle = (value) => {
+    console.log(value);
+  }
+
+  const handleResetClick = () => {
+    console.log('reset clicked');
+  }
+
   if (outputMode === 'none') {
   return (
     <div className={classes.background}>
@@ -511,7 +543,7 @@ const Genny = (props) => {
         { padToShow === 'stanza' && 
         <>
         <div className={classes.globalSection}>
-          <span>SLo-FiLM</span>
+          <span>appendChilde(Roland);</span>
           <SaveLoad poem={poem} poemTitle={poemTitle}/>
           <span>Current Form: {form}</span>
         </div>
@@ -524,8 +556,7 @@ const Genny = (props) => {
           <div className={classes.stanzaPadSection}>
             <StanzaPad stanza={stanza} onWordClick={onWordClick}/>
             <div className={classes.toolsContainer}>
-              <StanzaPadButtons onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
-              <StanzaUndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />
+              <StanzaPadButtons setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
               <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
             </div>
           </div>
@@ -544,10 +575,15 @@ const Genny = (props) => {
         
         { padToShow === 'stanza' && 
           <>
-          <div className={classes.processSection}>
-            <ResizeText onResizeText={onResizeText}/>
-            <ReweightText onReweightText={onReweightText}/>
-            <ColourText onChangeTextColour={onChangeTextColour}/>
+          <div className={classes.fxSection}>
+            <div className={classes.fxTypographyGrid}>
+              <ResizeText onResizeText={onResizeText}/>
+              <ReweightText onReweightText={onReweightText}/>
+              <FontText onChangeFont={onChangeFont} />
+              <FontStyle onChangeTextStyle={onChangeTextStyle} />
+              <ColourText onChangeTextColour={onChangeTextColour}/>
+              <FormResetButton handleResetClick={handleResetClick} />
+            </div>
             < hr/>
             <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
           </div>
@@ -576,7 +612,7 @@ const Genny = (props) => {
             <OutputAs onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
           </div>
           <div className={classes.switcherSection}>
-            <PadSwitcher onSwitchPad={onSwitchPad} />
+            <PadSwitcher onSwitchPad={onSwitchPad} padToShow={padToShow}/>
           </div>
         </>
         }

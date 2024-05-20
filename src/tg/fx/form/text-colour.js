@@ -13,10 +13,10 @@ const ColourText = (props) => {
     }
 
     return (
-    <>
+    <div className={classes.colourContainer}>
     <label htmlFor="colour">colour:</label>
     <input type="color" id="colour" name="colour" onChange={onChangeQuant} value={quant}/>
-    </>
+    </div>
  )
 }
 

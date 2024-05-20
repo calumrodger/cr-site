@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 const PopulateFromYouTubeComments = (props) => {
 
-    const { onPopulateWithYouTubeComments } = props;
+    const { onPopulateWithYouTubeComments, onCloseYouTubeSearch } = props;
     const [YTUrl, setYTUrl] = useState('');
     const [commentsData, setCommentsData] = useState({items: []});
     const [finalString, setFinalString] = useState('');
@@ -45,11 +45,12 @@ const PopulateFromYouTubeComments = (props) => {
     }, [commentsData, finalString, onPopulateWithYouTubeComments])
 
     return (
-        <>
-        <label htmlFor="yt-url">YouTube URL:</label>
-        <input type="text" id="yt-url" name="yt-url" value={YTUrl} onChange={onChangeUrlField} className={classes.input} placeholder="YT URL" />
-        <button className={classes.button} onClick={onClickButton}>Save to String</button>
-        </>
+        <div className={classes.urlFormContainer}>
+            <button className={classes.button} onClick={onCloseYouTubeSearch}>x</button>
+            <label className={classes.inputLabel} htmlFor="yt-url">YouTube URL: </label>
+            <input type="text" id="yt-url" name="yt-url" value={YTUrl} onChange={onChangeUrlField} className={classes.input} placeholder="YT URL" />
+            <button className={classes.button} onClick={onClickButton}>GO</button>
+        </div>
     )
 }
 

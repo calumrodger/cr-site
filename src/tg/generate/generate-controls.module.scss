@@ -1,12 +1,13 @@
 .button {
-    border: 1px solid #000;
+    border: 1px solid #fff;
     cursor: pointer;
     width: fit-content;
     margin: auto;
+    color: #fff;
 
     &:hover {
         background-color: greenyellow;
-        color: #fff;
+        color: #000;
     }
 }
 
@@ -48,7 +49,7 @@
     font-size: .8rem;
     
     input {
-        width: 7rem;
+        width: 5.3rem;
     }
 }
 

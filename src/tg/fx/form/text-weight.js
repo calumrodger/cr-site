@@ -13,10 +13,10 @@ const ReweightText = (props) => {
     }
 
     return (
-    <>
+        <div className={classes.formSliderContainer}>
     <label htmlFor="reweight-quant">weight:</label>
     <input className={classes.slider} type="range" min="1" max="10" id="reweight-quant" name="reweight-quant" onChange={onChangeQuant} value={quant}/>
-    </>
+    </div>
  )
 }
 

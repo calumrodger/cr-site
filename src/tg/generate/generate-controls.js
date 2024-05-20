@@ -275,7 +275,7 @@ const GenerateControls = (props) => {
         setCurrentForm(e.target.value)
     }
 
-    const srcText = padToShow !== 'input' ? 'SHOW SRC' : 'HIDE SRC';
+    // const srcText = padToShow !== 'input' ? 'SHOW SRC' : 'HIDE SRC';
     const buttonText = formStyle === 'syllable' ? 'Switch to Stress' : 'Switch to Syllable';
 
     const [reseedCheckbox, setReseedCheckbox] = useState('stanza');
@@ -298,7 +298,7 @@ const GenerateControls = (props) => {
     return (
         <div className={classes.generatorGrid}>
             <div className={classes.showSrcButton}>
-                <button onClick={onClickShowSrc} className={classes.button}>{srcText}</button>
+                <button onClick={onClickShowSrc} className={classes.button}>SELECT/EDIT TEXT SOURCE</button>
             </div>
             <div className={classes.nLevelSlider}>
                 <label htmlFor="n-level-slider">n-level: {nLevel === "-1" ? 'OFF' : nLevel}</label>
@@ -309,7 +309,7 @@ const GenerateControls = (props) => {
                 <button className={classes.button} onClick={onFormSubmit}>GENERATE SELECTED</button>
             </div>
             <div className={classes.formInput}>
-                <label htmlFor="form">Form:</label>
+                <label htmlFor="form">new form:</label>
                 <input type="text" id="form" name="form" value={currentForm} onChange={onChangeForm}></input>
             </div>
             <div className={classes.formStyleToggle}>

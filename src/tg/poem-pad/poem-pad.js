@@ -184,14 +184,15 @@ const PoemPad = (props) => {
           )}
           )}
         </div>
-        <div className={classes.buttonContainer}>
-          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzaUp}>UP</button>
-          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzaDown}>DOWN</button>
-          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={duplicateStanza}>DUPE</button>
-          <button className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`} onClick={editStanza}>EDIT</button>
-          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={deleteStanza}>DEL</button>
-          <button className={`${classes.button}`} onClick={selectAll}>SELECT ALL</button>
-          <button className={`${classes.button}`} onClick={unselectAll}>UNSELECT ALL</button>
+        <div className={classes.poemPadButtonContainer}>
+          <button className={`${classes.button}`} onClick={selectAll}>select all</button>
+          <button className={`${classes.button}`} onClick={unselectAll}>unselect all</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzaUp}>up</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzaDown}>down</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={duplicateStanza}>dupe</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={deleteStanza}>delete</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} >shuffle</button>
+          <button className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`} onClick={editStanza}>edit</button>
         </div>
         </>
     )
