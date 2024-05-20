@@ -9,6 +9,7 @@
     // height: 100%;
     // width: 100%;
     transform: translate(-50%,-50%);
+    font-family: var(--lexend);
 }
 
 .background {
@@ -18,7 +19,8 @@
 }
 
 .pageContainer {
-    // margin: auto;
+    border-radius: .5rem;
+    box-shadow: .5rem .3rem .3rem green;
     background-color: #1a1a19;
     color: #fcfcf5;
     // padding: 1rem;
@@ -111,8 +113,13 @@
     .fxTypographyGrid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
         gap: .2rem;
+    }
+
+    .fxTypographyFlex {
+        display: flex;
+        gap: .5rem;
     }
 }
 

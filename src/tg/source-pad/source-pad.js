@@ -10,11 +10,13 @@ import LoadFromTxt from './load-from-txt';
 
   const SourcePad = (props) => {
 
-    const { onChangeString, string, onClickShowSrc, onClickImportAsStanza } = props;
+    const { onSelectPreset, presetArray, onSavePreset, onChangeString, string, onClickShowSrc, onClickImportAsStanza } = props;
 
     const [youTubeString, setYouTubeString] = useState('');
     const [txtString, setTxtString] = useState('');
     const [youTubeActive, setYouTubeActive] = useState(false);
+    const [sourceName, setSourceName] = useState('');
+    const [selectedPreset, setSelectedPreset] = useState('');
 
     const onPopulateWithYouTubeComments = (comments) => {
         setYouTubeString(comments);
@@ -36,7 +38,13 @@ import LoadFromTxt from './load-from-txt';
         }
     }, [txtString])
 
+    // useEffect(() => {
+    //     onSelectPreset(selectedPreset);
+    //     console.log(selectedPreset)
+    // }, [selectedPreset])
+
     const onClickSaveAsPreset = () => {
+        onSavePreset(sourceName);
     }
 
     const onCloseYouTubeSearch = () => {
@@ -50,10 +58,17 @@ import LoadFromTxt from './load-from-txt';
                 <button className={classes.button} onClick={() => setYouTubeActive(!youTubeActive)}>get from YouTube</button>
                 <span> , </span>
                 <LoadFromTxt onPopulateWithTxt={onPopulateWithTxt}/>
+                <span>. Or select a preset:</span>
+                <select name="presets" id="presets" onChange={(e) => onSavePreset(presets.value)} placeholder="Select a preset...">
+                     { presetArray.map((p, i) => {
+                        return <option key={i} onClick={() => setSelectedPreset(p)}>{p.name}</option>
+                    })}
+                </select>
                 
                 
             </div>
                 { youTubeActive && <PopulateFromYouTubeComments onCloseYouTubeSearch={onCloseYouTubeSearch} onPopulateWithYouTubeComments={onPopulateWithYouTubeComments}/> }
+                <input type="text" placeholder="Name your source here..." value={sourceName} onChange={(e) => setSourceName(e.target.value)}/>
                 <textarea className={classes.inputPad} type="textarea" id="article-name" name="article-name" value={string} onChange={onChangeString}/>
             <div className={classes.bottomButtons}>
                 <button onClick={onClickSaveAsPreset} className={classes.button}>SAVE AS PRESET</button>

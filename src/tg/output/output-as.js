@@ -17,7 +17,7 @@ const OutputAs = (props) => {
                 <input type="radio" id="grid" name="output" value="grid" checked={outputCheckbox === 'grid'} onChange={() => onChangeOutputCheckbox('grid')} />
                 <label htmlFor="grid">grid</label>
                 <input type="radio" id="slides" name="output" value="slides" checked={outputCheckbox === 'slides'} onChange={() => onChangeOutputCheckbox('slides')} />
-                <label htmlFor="slides">slides</label>
+                <label htmlFor="slides">pages</label>
                 <input type="radio" id="loop" name="output" value="loop" checked={outputCheckbox === 'loop'} onChange={() => onChangeOutputCheckbox('loop')} />
                 <label htmlFor="loop">loop</label>
             </>

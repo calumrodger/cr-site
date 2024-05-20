@@ -17,6 +17,9 @@
         white-space: pre-line;
     }
 
+    // .wordContainer {
+    //     border: 
+    // }
     .word {
         cursor: pointer;
         border: 1px solid transparent;
@@ -121,6 +124,8 @@
     height: 350px;
     width: 100%;
     margin: auto;
+    display: flex;
+    flex-direction: column;
 
     .buttonContainer {
         display: flex;
@@ -222,9 +227,16 @@
 
 .wordBankButtons {
     display: flex;
-    flex-wrap: nowrap;
-    flex-grow: 1;
+    // flex-wrap: nowrap;
+    // flex-grow: 1;
     margin: auto;
+    align-items: stretch;
+    justify-content: stretch;
+    flex-basis: max-content;
+
+    .wordBankButton {
+        height: 100%;
+    }
     // gap: 5rem;
 }
 

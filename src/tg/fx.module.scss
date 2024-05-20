@@ -27,10 +27,26 @@
 
 .colourContainer {
     display: flex;
-    // flex-direction: column;
+    flex-direction: column;
     gap: .3rem;
     justify-content: center;
     align-items: center;
     font-size: .7rem;
 }
+
+// .weeButtons {
+    // display: flex;
+    // gap: .5rem;
+    .italic {
+        font-style: italic;
+        padding: 0 .2rem;
+        font-size: .8rem;
+    }
+
+    .mirror {
+        transform: scaleX(-1);
+        font-size: .8rem;
+        padding: 0 .2rem;
+    }
+// }
 

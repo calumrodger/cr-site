@@ -5,7 +5,7 @@ const FontText = (props) => {
 
     const { onChangeFont } = props;
 
-    const [quant, setQuant] = useState(0);
+    const [quant, setQuant] = useState(2);
 
     const onChangeQuant = (e) => {
         setQuant(e.target.value);
@@ -15,7 +15,7 @@ const FontText = (props) => {
     return (
     <div className={classes.formSliderContainer}>
     <label htmlFor="font-quant">font:</label>
-    <input className={classes.slider} type="range" min="-9" max="9" id="font-quant" name="font-quant" onChange={onChangeQuant} value={quant}/>
+    <input className={classes.slider} type="range" min="1" max="3" id="font-quant" name="font-quant" onChange={onChangeQuant} value={quant}/>
     </div>
  )
 }

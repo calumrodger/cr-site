@@ -11,6 +11,19 @@ export const checkStyles = (word) => {
       if (word?.style?.fontWeight) {
         thisStyle = {...thisStyle, fontWeight: word.style.fontWeight + "00"}
       }
+      if (word?.style?.fontFamily) {
+        thisStyle = {...thisStyle, fontFamily: word.style.fontFamily}
+      }
+      if (word?.style?.opacity) {
+        thisStyle = {...thisStyle, rotate: word.style.opacity * 10 + 'deg'}
+      }
+      if (word?.style?.transform) {
+        thisStyle = {...thisStyle, transform: word.style.transform}
+      }
+      if (word?.style?.fontStyle) {
+        thisStyle = {...thisStyle, fontStyle: word.style.fontStyle}
+      }
+
     } else {
       return null;
     }

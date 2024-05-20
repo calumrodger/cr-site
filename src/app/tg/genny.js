@@ -39,6 +39,7 @@ import ReweightText from '@tg/fx/form/text-weight';
 import FontStyle from '@tg/fx/form/text-style';
 import FontText from '@tg/fx/form/text-font';
 import FormResetButton from '@tg/fx/form/reset-button';
+import TypographyButtons from '@tg/fx/form/wee-buttons';
 
 // OUTPUT COMPONENTS
 import GiveTitle from '@tg/output/give-title';
@@ -120,6 +121,7 @@ const Genny = (props) => {
   const [wordBank, setWordBank] = useState([{text: 'hello', selected: false}, {text: 'world', selected: false}]);
   const [allWordLists, setAllWordLists] = useState(demoArrayOfArrays);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
+  const [presetArray, setPresetArray] = useState([{name: 'preset1', text: 'hello world'}, {name: 'preset2', text: 'goodbye world'}, {name: 'preset3', text: 'hello goodbye world'}])
 
   // Settings
   const [form, setForm] = useState('');
@@ -523,15 +525,80 @@ const Genny = (props) => {
   }
 
   const onChangeFont = (value) => {
-    console.log(value);
+    let newObjArray = [];
+    let font = '';
+    switch (value) {
+      case '1':
+        font = 'var(--league-spartan)';
+        break;
+      case '2':
+        font = 'var(--lexend)';
+        break;
+      case '3':
+        font = 'var(--league-script)';
+        break;
+      default:
+        font = 'var(--lexend)';
+        break;
+    }
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontFamily: font} });
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
   }
 
-  const onChangeTextStyle = (value) => {
-    console.log(value);
+  const onChangeTextOpacity = (value) => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, opacity: value} });
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
   }
 
   const handleResetClick = () => {
     console.log('reset clicked');
+  }
+
+  const onSavePreset = (presetName) => {
+    const newArray = [...presetArray, {name: presetName, text: string}];
+    setPresetArray(newArray);
+  }
+
+  const onSelectPreset = (presetName) => {
+    const preset = presetArray.find((item) => item.name === presetName);
+    setString(preset.text);
+  }
+
+  const onSetItalic = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontStyle: "italic"} });
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
+  const onSetMirror = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, transform: "scaleX(-1)"} });
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
   }
 
   if (outputMode === 'none') {
@@ -569,7 +636,7 @@ const Genny = (props) => {
 
         { padToShow === 'input' &&
         <div className={classes.inputPadSection}>
-          <SourcePad onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeString={onChangeString} string={string} /> 
+          <SourcePad onSelectPreset={onSelectPreset} presetArray={presetArray} onSavePreset={onSavePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeString={onChangeString} string={string} /> 
         </div>
         }
         
@@ -580,10 +647,14 @@ const Genny = (props) => {
               <ResizeText onResizeText={onResizeText}/>
               <ReweightText onReweightText={onReweightText}/>
               <FontText onChangeFont={onChangeFont} />
-              <FontStyle onChangeTextStyle={onChangeTextStyle} />
-              <ColourText onChangeTextColour={onChangeTextColour}/>
-              <FormResetButton handleResetClick={handleResetClick} />
+              <FontStyle onChangeTextOpacity={onChangeTextOpacity} />
+       
             </div>
+            <div className={classes.fxTypographyFlex}>
+            <ColourText onChangeTextColour={onChangeTextColour}/>
+              <TypographyButtons onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
+              <FormResetButton handleResetClick={handleResetClick} />
+              </div>
             < hr/>
             <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
           </div>
