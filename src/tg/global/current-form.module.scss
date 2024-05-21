@@ -1,0 +1,18 @@
+.formBar {
+    // height: 4rem;
+    // width: 6rem;
+    
+
+    .bar {
+        border: green 1px solid;
+        width: 4rem;
+        height: 2.4rem;
+        font-family: var(--league-spartan);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+        color: green;
+    }
+
+}

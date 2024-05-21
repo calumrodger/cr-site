@@ -69,13 +69,47 @@
 
 .globalSection {
     // border: 1px solid #000;
-    padding: .3rem;
+    padding: .3rem 1rem .3rem .3rem;
     grid-area: globalSection;
-    display: flex;
-    gap: .2rem;
-    // flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: "saveButtonsSection titleSection titleSection titleSection"
+                         "saveButtonsSection statusMessageSection statusMessageSection formSection"
+                         "saveButtonsSection statusMessageSection statusMessageSection formSection";
+    gap: .3rem;
+
+    .saveButtonsSection {
+        grid-area: saveButtonsSection;
+        display: flex;
+        flex-direction: column;
+        gap: .1rem;
+        justify-content: flex-end;
+    }
+
+    .titleSection {
+        grid-area: titleSection;
+        // display: flex;
+        // gap: .2rem;
+        // justify-content: space-around;
+        height: 2.5rem;
+    }
+
+    .statusMessageSection {
+        grid-area: statusMessageSection;
+        // display: flex;
+        // gap: .2rem;
+        // justify-content: space-around;
+    }
+
+    .formSection {
+        grid-area: formSection;
+        // display: flex;
+        // gap: .2rem;
+        // justify-content: space-around;
+    }
+
+
 }
 
 

@@ -1,0 +1,21 @@
+.container {
+    width: 16rem;
+    // height: 6rem;
+    text-align: right;
+    margin-top: .3rem;
+    padding: .1rem;
+    background-color: azure;
+    color: #000;
+
+    .topLine {
+        font-family: var(--league-spartan);
+        font-weight: 800;
+        font-size: 1.3rem;
+    }
+
+    .bottomLine {
+        font-weight: 400;
+        font-size: .7rem;
+        text-align: right;
+    }
+}

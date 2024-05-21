@@ -8,6 +8,9 @@ import { dictionary } from 'cmu-pronouncing-dictionary';
 // GLOBAL COMPONENTS
 import SaveLoad from '@tg/global/save-load';
 import PadSwitcher from '@tg/global/pad-switcher';
+import StatusBar from '@tg/global/status-bar';
+import CurrentForm from '@tg/global/current-form';
+import Title from '@tg/global/title';
 
 // GENERATE COMPONENTS
 import GenerateControls from '@tg/generate/generate-controls';
@@ -121,6 +124,7 @@ const Genny = (props) => {
   const [presetArray, setPresetArray] = useState([{id: 0, name: 'preset1', text: 'hello world'}, {id: 1, name: 'preset2', text: 'goodbye world'}, {id: 2, name: 'preset3', text: 'hello goodbye world'}])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
+  const [statusMessage, setStatusMessage] = useState('Welcome to Genny0.9!')
 
   // Settings
   const [form, setForm] = useState('');
@@ -652,6 +656,10 @@ const Genny = (props) => {
     setAllWordLists([...allWordLists, {id: id, name: 'new list', words: words}]);
   }
 
+  const onSetStatusMessage = (message) => {
+    setStatusMessage(message);
+  }
+
 
 
   if (outputMode === 'none') {
@@ -663,9 +671,18 @@ const Genny = (props) => {
         { padToShow === 'stanza' && 
         <>
         <div className={classes.globalSection}>
-          <SaveLoad poem={poem} poemTitle={poemTitle}/>
-          <span>appendChilde(Roland);</span>
-          <span>Current Form: {form}</span>
+          <div className={classes.saveButtonsSection}>
+            <SaveLoad poem={poem} poemTitle={poemTitle}/>
+          </div>
+          <div className={classes.titleSection}>
+            <Title />
+          </div>
+          <div className={classes.statusSection}>
+            <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
+          </div>
+          <div className={classes.formSection}>
+            <CurrentForm form={form} />
+          </div>
         </div>
         <div className={classes.inputSection}>
           <GenerateControls onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType}/>

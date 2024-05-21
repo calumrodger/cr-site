@@ -16,8 +16,7 @@
     width: fit-content;
     margin: auto;
     color: #fff;
-    border-radius: .5rem;
-    padding: .2rem;
+    padding: .1rem;
 
     &:hover {
         background-color: greenyellow;
@@ -51,8 +50,7 @@
     width: fit-content;
     margin: auto;
     color: #fff;
-    border-radius: .5rem;
-    padding: .2rem;
+    padding: .1rem;
 
     &:hover {
         background-color: greenyellow;
@@ -61,6 +59,7 @@
 }
 
 .saveLoadContainer {
+    font-size: .8rem;
     display: flex;
     flex-direction: column;
     gap: .1rem;
