@@ -124,7 +124,7 @@ const Genny = (props) => {
   const [presetArray, setPresetArray] = useState([{id: 0, name: 'preset1', text: 'hello world'}, {id: 1, name: 'preset2', text: 'goodbye world'}, {id: 2, name: 'preset3', text: 'hello goodbye world'}])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
-  const [statusMessage, setStatusMessage] = useState('Welcome to Genny0.9!')
+  const [statusMessage, setStatusMessage] = useState('welcome in genny')
 
   // Settings
   const [form, setForm] = useState('');
@@ -700,7 +700,7 @@ const Genny = (props) => {
         }
         { padToShow === 'poem' &&
           <div className={classes.poemPadSection}>
-            <PoemPad onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} /> 
+            <PoemPad onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
           </div>
         }
 
@@ -755,7 +755,6 @@ const Genny = (props) => {
         { padToShow !== 'input' &&
         <>
           <div className={classes.outputSection}>
-            <SaveOutputToTxt poem={poem} />
             <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
             <OutputAs onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
           </div>

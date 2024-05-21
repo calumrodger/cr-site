@@ -2,6 +2,7 @@ import classes from '../pads.module.scss';
 
 import { useState, useEffect } from 'react';
 import { checkStyles } from '@tg/utils/utils';
+import SaveOutputToTxt from '@tg/output/save-to-txt';
 
 const PoemPad = (props) => {
 
@@ -179,6 +180,7 @@ const PoemPad = (props) => {
           )}
           )}
         </div>
+        <div className={classes.poemPadButtonOuterContainer}>
         <div className={classes.poemPadButtonContainer}>
           <button className={`${classes.button}`} onClick={selectAll}>select all</button>
           <button className={`${classes.button}`} onClick={unselectAll}>unselect all</button>
@@ -188,6 +190,8 @@ const PoemPad = (props) => {
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={deleteStanza}>delete</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} >shuffle</button>
           <button className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`} onClick={editStanza}>edit</button>
+        </div>
+        <SaveOutputToTxt poem={poem} /> 
         </div>
         </>
     )
