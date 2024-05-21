@@ -72,4 +72,17 @@
     width: 6rem;
   }
 
+.titleContainer {
+    input[type="text"] {
+        appearance: none;
+        background: gray;
+        border: none;
+        color: #fff;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
 

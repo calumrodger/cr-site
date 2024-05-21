@@ -3,6 +3,7 @@
     height: 100%;
     width: 100%;
     background: transparent;
+    font-family: var(--lexend);
 }
 .poemContainer {
     height: 100%;
@@ -29,6 +30,12 @@
 
 .mainText {
     margin-bottom: 4rem;
+
+    .word {
+        display: inline-block;
+        white-space: pre;
+        // margin: 0 .2rem;
+    }
 
     .poem {
         white-space: pre;

@@ -54,7 +54,7 @@ import ShowAsLoop from '@tg/output/show-as-loop';
 const Genny = (props) => {
 
   const gptBirdArray = 
-  {name: 'gpt bird words', words: [ 'feather',        'beak',        'wing',         'flight',
+  {id: 0, name: 'gpt bird words', words: [ 'feather',        'beak',        'wing',         'flight',
   'nest',           'avian',       'plumage',      'song',
   'talon',          'perch',       'flock',        'migration',
   'preen',          'roost',       'hatchling',    'predator',
@@ -80,9 +80,7 @@ const Genny = (props) => {
   'thrasher',       'thrush',      'tropicbird',   'turaco',
   'turnstone',      'veery',       'vireo',        'weka']};
 
-  console.log(gptBirdArray.words.map((item) => item.toLowerCase()))
-
-  const demoArrayOfArrays = [gptBirdArray, {name: 'basically-empty', words: ['only']}, {name: 'basic1', words: ['hello', 'world', 'hi', 'bye', 'eat', 'fish', 'go', 'bum', 'deal', 'gimp', 'legend', 'fruit', 'potion', 'belt', 'mane', 'transcend', 'glimpse', 'fisherman', 'spoke', 'gun', 'easy', 'fourteen', 'blend']}];
+  const demoArrayOfArrays = [gptBirdArray, {id: 1, name: 'basically-empty', words: ['only']}, {id: 2, name: 'basic1', words: ['hello', 'world', 'hi', 'bye', 'eat', 'fish', 'go', 'bum', 'deal', 'gimp', 'legend', 'fruit', 'potion', 'belt', 'mane', 'transcend', 'glimpse', 'fisherman', 'spoke', 'gun', 'easy', 'fourteen', 'blend']}];
 
   const { source } = props;
 
@@ -113,15 +111,16 @@ const Genny = (props) => {
   }
   
   // Words
-  const [string, setString] = useState('I am a happy person who likes eating chips.');
-  const [stanza, setStanza] = useState(treatString(source));
+  // const [string, setString] = useState('I am a happy person who likes eating chips.');
   const [oldStanza, setOldStanza] = useState([]);
   const [poem, setPoem] = useState([]);
   const [poemTitle, setPoemTitle] = useState('');
-  const [wordBank, setWordBank] = useState([{text: 'hello', selected: false}, {text: 'world', selected: false}]);
+  const [wordBank, setWordBank] = useState([{id: 0, text: 'hello', selected: false}, {id: 1, text: 'world', selected: false}]);
   const [allWordLists, setAllWordLists] = useState(demoArrayOfArrays);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([{name: 'preset1', text: 'hello world'}, {name: 'preset2', text: 'goodbye world'}, {name: 'preset3', text: 'hello goodbye world'}])
+  const [presetArray, setPresetArray] = useState([{id: 0, name: 'preset1', text: 'hello world'}, {id: 1, name: 'preset2', text: 'goodbye world'}, {id: 2, name: 'preset3', text: 'hello goodbye world'}])
+  const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
+  const [stanza, setStanza] = useState(treatString(source));
 
   // Settings
   const [form, setForm] = useState('');
@@ -232,7 +231,7 @@ const Genny = (props) => {
   const onWordBankClick = (e) => {
     let newObjArray = wordBank.map((item, index) => {
       if (index == e.target.id) {
-        return { text: item.text, selected: item.selected ? false : true}
+        return { id: item.id, text: item.text, selected: item.selected ? false : true}
       } else {
         return item;
       }
@@ -342,7 +341,7 @@ const Genny = (props) => {
 
   const selectAllWordBank = () => {
     let newObjArray = wordBank.map((item) => {
-      return { text: item.text, selected: true }
+      return { id: item.id, text: item.text, selected: true }
     }
     );
     setWordBank(newObjArray);
@@ -350,7 +349,7 @@ const Genny = (props) => {
 
   const unselectAllWordBank = () => {
     let newObjArray = wordBank.map((item) => {
-      return { text: item.text, selected: false }
+      return { id: item.id, text: item.text, selected: false }
     }
     );
     setWordBank(newObjArray);
@@ -371,8 +370,8 @@ const Genny = (props) => {
     let filteredArray = selected.filter(element => !intersection.includes(element));
     finalArray = [...finalArray, ...filteredArray];
 
-    let formattedArray = finalArray.map((item) => {
-      return { text: item, selected: false }
+    let formattedArray = finalArray.map((item, i) => {
+      return { id: i, text: item, selected: false }
     });
 
     let newWordBank = [...formattedArray, ...wordBank];
@@ -380,7 +379,6 @@ const Genny = (props) => {
   }
 
   const onChangeInjectSetting = (e) => {
-    console.log(e);
       setInjectSetting(e.target.value);
   }
 
@@ -406,7 +404,7 @@ const Genny = (props) => {
     setStanza(newObjArray);
   }
 
-  const onClickShowSrc = () => {
+  const onClickShowSrc = (preset) => {
     if (padToShow !== 'input') {
       setPadToShow('input');
     } else {
@@ -418,12 +416,18 @@ const Genny = (props) => {
     setGenType(e);
   }
   
-  const onChangeString = (e) => {
-    setString(e.target.value)
+  // const onChangeString = (e) => {
+  //   setString(e.target.value)
+  // }
+
+  const onChangeCurrentPreset = (e) => {
+    let newPreset = presetArray.find((item) => item.name === e.target.value);
+    setCurrentPreset(newPreset);
   }
 
   const onClickImportAsStanza = () => {
-    setStanza(treatString(string));
+    const formattedString = currentPreset.text.replace('\n', ' \n ')
+    setStanza(treatString(formattedString));
     setPadToShow('stanza');
   }
 
@@ -431,7 +435,7 @@ const Genny = (props) => {
     let newObjArray = [];
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        newObjArray.push({ text: stanza[i].text, selected: false });
+        newObjArray.push({ id: stanza[i].id, text: stanza[i].text, selected: false });
       }
     }
     let newWordBank = [...wordBank, ...newObjArray];
@@ -446,6 +450,18 @@ const Genny = (props) => {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontSize: value} });
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
+  const onResetTypography = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {} });
       } else {
         newObjArray.push(stanza[i]);
       }
@@ -477,7 +493,8 @@ const Genny = (props) => {
     setStanza(newObjArray);
   }
 
-  const onSetSelectedWordList = (list) => {
+  const onSetSelectedWordList = (listName) => {
+    let list = allWordLists.find((item) => item.name === listName);
     setSelectedWordList(list);
   }
 
@@ -505,7 +522,8 @@ const Genny = (props) => {
 
   const onAddWordBankEdit = (name, words) => {
     let newWordsArray = words;
-    let newWordList = {name: name, words: newWordsArray};
+    const id = allWordLists.length - 1;
+    let newWordList = {id: id, name: name, words: newWordsArray};
     setSelectedWordList(newWordList);
     setAllWordLists([...allWordLists, newWordList]);
   }
@@ -563,18 +581,39 @@ const Genny = (props) => {
     setStanza(newObjArray);
   }
 
-  const handleResetClick = () => {
-    console.log('reset clicked');
+  const onSaveNewPreset = (presetName, text) => {
+    const id = presetArray.length - 1;
+    const newArray = [...presetArray, {id: id, name: presetName, text: text}];
+    setPresetArray(newArray);
+    setCurrentPreset({id: id, name: presetName, text: text});
   }
 
-  const onSavePreset = (presetName) => {
-    const newArray = [...presetArray, {name: presetName, text: string}];
+  const onOverwritePreset = (presetName, text) => {
+    const id = currentPreset.id;
+    const presetInArray = presetArray.find((item) => item.id === id);
+    let newArray = []
+    for (let i = 0; i < presetArray.length; i++) {
+      if (presetArray[i].id === id) {
+        newArray.push({id: id, name: presetName, text: text});
+      } else {
+        newArray.push(presetArray[i]);
+      }
+    }
     setPresetArray(newArray);
+    setCurrentPreset({id: id, name: presetName, text: text});
   }
 
   const onSelectPreset = (presetName) => {
     const preset = presetArray.find((item) => item.name === presetName);
-    setString(preset.text);
+    setCurrentPreset(preset)
+  }
+
+  const onSetCurrentPresetName = (name) => {
+    setCurrentPreset({...currentPreset, name: name});
+  }
+
+  const onSetCurrentPresetText = (text) => {
+    setCurrentPreset({...currentPreset, text: text});
   }
 
   const onSetItalic = () => {
@@ -601,6 +640,20 @@ const Genny = (props) => {
     setStanza(newObjArray);
   }
 
+  const onSaveWordBankAsList = () => {
+    const id = allWordLists.length - 1;
+    let words = [];
+    for (let i = 0; i < wordBank.length; i++) {
+      if (wordBank[i].selected === true) {
+        words.push(wordBank[i].text);
+      }
+    }
+    const wordsString = words.join(', ');
+    setAllWordLists([...allWordLists, {id: id, name: 'new list', words: words}]);
+  }
+
+
+
   if (outputMode === 'none') {
   return (
     <div className={classes.background}>
@@ -610,12 +663,12 @@ const Genny = (props) => {
         { padToShow === 'stanza' && 
         <>
         <div className={classes.globalSection}>
-          <span>appendChilde(Roland);</span>
           <SaveLoad poem={poem} poemTitle={poemTitle}/>
+          <span>appendChilde(Roland);</span>
           <span>Current Form: {form}</span>
         </div>
         <div className={classes.inputSection}>
-          <GenerateControls nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} string={string} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType}/>
+          <GenerateControls onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType}/>
         </div>
         </>
         }
@@ -636,13 +689,14 @@ const Genny = (props) => {
 
         { padToShow === 'input' &&
         <div className={classes.inputPadSection}>
-          <SourcePad onSelectPreset={onSelectPreset} presetArray={presetArray} onSavePreset={onSavePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeString={onChangeString} string={string} /> 
+          <SourcePad onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset}/> 
         </div>
         }
         
         { padToShow === 'stanza' && 
           <>
           <div className={classes.fxSection}>
+          <span>TYPOGRAPHY</span>
             <div className={classes.fxTypographyGrid}>
               <ResizeText onResizeText={onResizeText}/>
               <ReweightText onReweightText={onReweightText}/>
@@ -653,15 +707,21 @@ const Genny = (props) => {
             <div className={classes.fxTypographyFlex}>
             <ColourText onChangeTextColour={onChangeTextColour}/>
               <TypographyButtons onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
-              <FormResetButton handleResetClick={handleResetClick} />
+              <FormResetButton onResetTypography={onResetTypography} />
               </div>
             < hr/>
+            <span>N + X</span>
             <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
+            <hr />
+            <span>API</span>
+            <hr />
+            <span>LLM</span>
+            <hr />
           </div>
           <div className={classes.composeSection}>
             { (!showEditWordBank && !showAddWordBank) &&
             <>
-            <WordBank deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
+            <WordBank onSaveWordBankAsList={onSaveWordBankAsList} deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
             <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
             <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
             </>

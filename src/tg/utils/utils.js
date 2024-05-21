@@ -6,7 +6,6 @@ export const checkStyles = (word) => {
       } 
       if (word?.style?.colour) {
         thisStyle = {...thisStyle, color: word.style.colour}
-        console.log(thisStyle)
       }
       if (word?.style?.fontWeight) {
         thisStyle = {...thisStyle, fontWeight: word.style.fontWeight + "00"}

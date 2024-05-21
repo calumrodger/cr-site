@@ -5,9 +5,11 @@ const LoadFromTxt = (props) => {
 
     const { onPopulateWithTxt } = props;
     const [finalString, setFinalString] = useState('');
+    const [fileName, setFileName] = useState('');
     
     const onChangeHandler = (e) => {
         const file = e.target.files[0];
+        setFileName(file.name);
         let reader = new FileReader();
         if (!file) {
             return;
@@ -19,8 +21,8 @@ const LoadFromTxt = (props) => {
     }
 
     useEffect(() => {
-        onPopulateWithTxt(finalString);
-    }, [finalString, onPopulateWithTxt])
+        onPopulateWithTxt(fileName, finalString);
+    }, [finalString])
 
     return (
         <>

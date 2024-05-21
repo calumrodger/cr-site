@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import classes from '../input.module.scss';
 
 const SaveLoad = (props) => {
@@ -26,7 +27,7 @@ const SaveLoad = (props) => {
                 <label className={classes.fileLoad} htmlFor="txt-src">LOAD
                 <input className={classes.fileLoad} type="file" accept=".json" id="txt-src" name="txt-src" onChange={onChangeHandler}  />
                 </label>
-                
+                <Link className={classes.button} href="/docs">HELP</Link>
             </div>
         )
 }

@@ -2,10 +2,10 @@ import classes from '../../fx.module.scss';
 
 const FormResetButton = (props) => {
 
-    const { handleResetClick } = props;
+    const { onResetTypography } = props;
 
     return (
-        <button className={classes.button} onClick={props.onReset}>RESET</button>
+        <button className={classes.button} onClick={onResetTypography}>RESET</button>
     )
 }
 

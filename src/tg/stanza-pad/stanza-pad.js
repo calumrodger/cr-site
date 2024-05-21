@@ -6,12 +6,6 @@ const StanzaPad = (props) => {
 
     const { stanza, onWordClick } = props;
 
-    // useEffect(() => {
-    //   console.log(stanza)
-    // }, [stanza])
-
-
-
     return (
         <div className={classes.stanzaBox}>
         <div className={classes.text}>

@@ -36,11 +36,9 @@ const ShowAsGrid = (props) => {
 
     const onChangeGridCoOrds = (e) => {
       if (renderMode) {
-        // console.log(e.target.value)
         setGridY(e.target.value);
         setGridX(1);
       } else {
-        console.log(e.target.value)
         setGridX(e.target.value);
         setGridY(1);
       }
@@ -62,7 +60,7 @@ const ShowAsGrid = (props) => {
                     if (j.text === '\n') {
                       return <br id={i} key={i} className={classes.lineBreak}/>
                     } else {
-                      return <span id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </span>
+                      return <div id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </div>
                     }
                   })}
                   <br/>

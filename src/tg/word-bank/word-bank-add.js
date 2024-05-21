@@ -7,7 +7,7 @@ const WordBankAdd = (props) => {
 
     const [name, setName] = useState('');
     const [words, setWords] = useState([]);
-    console.log(words)
+    const [initialValue, setInitialValue] = useState('');
 
     const onSaveWordBankEdit = () => {
         onAddWordBankEdit(name, words);
@@ -19,13 +19,14 @@ const WordBankAdd = (props) => {
     }
 
     const onChangeWords = (e) => {
-        setWords(e.target.value.split(', '));
+        setInitialValue(e.target.value);
+        setWords(e.target.value.split(','))
     }
 
     return (
         <>
         <input type="text" value={name} onChange={onChangeName}/>
-        <textarea value={words.map((word, i) => i === 0 ? word : ' ' + word)} onChange={onChangeWords}/>
+        <textarea value={initialValue} onChange={onChangeWords}/>
         <button className={classes.button} onClick={onSaveWordBankEdit}>SAVE</button>
         </>
     )

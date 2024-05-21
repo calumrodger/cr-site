@@ -4,7 +4,7 @@ import { syllable } from 'syllable';
 
 const GenerateControls = (props) => {
 
-    const { nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, string, padToShow, getStress } = props;
+    const { onSelectPreset, assignCurrentPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
     const [currentForm, setCurrentForm] = useState(form);
     
     const getFormArray = (form) => {
@@ -247,24 +247,24 @@ const GenerateControls = (props) => {
     const onFormSubmit = () => {
         if (formStyle === 'syllable') {
             if (genType === 'stanza' && nLevel === "-1") {
-                onUpdate(formatPoem(getOriginalPoemSyllable(string, getFormArraySansBreaks(currentForm)), currentForm));
+                onUpdate(formatPoem(getOriginalPoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (genType === 'line' && nLevel === "-1") {
-                onUpdate(formatPoem(getRandomLinePoemSyllable(string, getFormArraySansBreaks(currentForm)), currentForm));
+                onUpdate(formatPoem(getRandomLinePoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (nLevel === "0") {
-                onUpdate(formatPoem(getRandomWordPoemSyllable(string, getFormArraySansBreaks(currentForm)), currentForm));
+                onUpdate(formatPoem(getRandomWordPoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
         }
         if (formStyle === 'stress') {
             if (genType === 'stanza' && nLevel === "-1") {
-                onUpdate(formatPoem(getOriginalPoemStress(string, getFormArraySansBreaks(currentForm)), currentForm));
+                onUpdate(formatPoem(getOriginalPoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (genType === 'line' && nLevel === "-1") {
-                onUpdate(formatPoem(getRandomLinePoemStress(string, getFormArraySansBreaks(currentForm)), currentForm));
+                onUpdate(formatPoem(getRandomLinePoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (nLevel === "0") {
-                onUpdate(formatPoem(getRandomWordPoemStress(string, getFormArraySansBreaks(currentForm)), currentForm));
+                onUpdate(formatPoem(getRandomWordPoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
         }
  
@@ -298,6 +298,12 @@ const GenerateControls = (props) => {
     return (
         <div className={classes.generatorGrid}>
             <div className={classes.showSrcButton}>
+            <span>Preset: </span>
+                <select name="presets" id="presets" defaultValue={currentPreset.name} onChange={(e) => onSelectPreset(presets.value)} placeholder="Select a preset...">
+                     { presetArray.map((p, i) => {
+                        return <option key={i} onClick={() => setSelectedPreset(p)}>{p.name}</option>
+                    })}
+                </select>
                 <button onClick={onClickShowSrc} className={classes.button}>SELECT/EDIT TEXT SOURCE</button>
             </div>
             <div className={classes.nLevelSlider}>
@@ -305,8 +311,7 @@ const GenerateControls = (props) => {
                 <input type="range" id="n-level-slider" name="n-level-slider" min="-1" max="0" step="1" value={nLevel} onChange={onChangeNLevelSlider}></input>
             </div>
             <div className={classes.genButtons}>
-                <button className={classes.button} onClick={onFormSubmit}>GENERATE NEW</button>
-                <button className={classes.button} onClick={onFormSubmit}>GENERATE SELECTED</button>
+                <button className={classes.button} onClick={onFormSubmit}>GENERATE</button>
             </div>
             <div className={classes.formInput}>
                 <label htmlFor="form">new form:</label>

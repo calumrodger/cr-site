@@ -6,6 +6,7 @@ const PopulateWordBank = (props) => {
     const {onPopulateWordBank, onOpenWordBankEdit, onOpenWordBankAdd, allWordLists, selectedWordList, onSetSelectedWordList} = props;
 
     const [quant, setQuant] = useState(10);
+    const [currentWordList, setCurrentWordList] = useState(selectedWordList.name);
 
     const onChangeQuant = (e) => {
         setQuant(e.target.value);
@@ -16,8 +17,8 @@ const PopulateWordBank = (props) => {
     }
 
     const handleSelectChange = (e) => {
-        const selectedList = allWordLists.find(list => list.name === e.target.value);
-        onSetSelectedWordList(selectedList);
+        setCurrentWordList(e.target.value);
+        onSetSelectedWordList(e.target.value)
     }
 
     const onClickAddWordBank = () => {
@@ -34,7 +35,7 @@ const PopulateWordBank = (props) => {
             <div className={classes.settingsContainer}>
             <div className={classes.srcInput}>
                 <label htmlFor="populate-source">src:</label>
-                <select name="populate-source" id="populate-source" onChange={handleSelectChange}>
+                <select value={currentWordList} name="populate-source" id="populate-source" onChange={handleSelectChange}>
                     {allWordLists.map((list, i) => {
                         return (
                             <option key={i} value={list.name}>{list.name}</option>

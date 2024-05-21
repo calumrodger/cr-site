@@ -21,7 +21,7 @@ const ShowAsLoop = (props) => {
           if (j.text === '\n') {
             return <br id={i} key={i} className={classes.lineBreak}/>
           } else {
-            return <span id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </span>
+            return <div id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </div>
           }
         })}
       </div>
@@ -35,7 +35,6 @@ const ShowAsLoop = (props) => {
           setSlideIndex(0);
         }
       }, sliderValue);
-      console.log(slideIndex)
       return () => clearInterval(interval);
     }, [slideIndex, sliderValue]);
 

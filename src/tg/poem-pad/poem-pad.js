@@ -15,7 +15,6 @@ const PoemPad = (props) => {
     const onSelectStanza = (e) => {
       let newArray = stanzaArray.map((item, index) => {
         if (index == e.target.id) {
-          console.log(index, e.target.id)
           return { id: item.id, stanza: item.stanza, selected: item.selected ? false : true}
         } else {
           return item;
@@ -56,7 +55,7 @@ const PoemPad = (props) => {
       return newArray;
     }
 
-    function shiftStanzaUp() {
+    function shiftStanzasUp() {
       // copy stanzaArray and replace unselected stanzas with null
       const newArray = stanzaArray.map(stanza => stanza.selected ? stanza : null);
   
@@ -78,38 +77,34 @@ const PoemPad = (props) => {
       onUpdatePoem(newArray);
   }
 
-    const shiftStanzaDown = () => {
-      let tempArray = [...stanzaArray];
-      let endCondition = tempArray.length;
-      for (let i = 0; i < endCondition; i++) {
-        if (tempArray[i].selected) {
-          if (i === endCondition - 1) {
-            tempArray = arraymove(tempArray, tempArray.length - 1, 1);
-            tempArray = arraymove(tempArray, 0, tempArray.length + 1);
-            endCondition = -1;
-          } else {
-            tempArray = arraymove(tempArray, i, i + 1);
-          }
-        }
-      }
-      setStanzaArray(tempArray);
-      onUpdatePoem(tempArray);
-    }
+    // const shiftStanzaDown = () => {
+    //   let tempArray = [...stanzaArray];
+    //   let endCondition = tempArray.length;
+    //   for (let i = 0; i < endCondition; i++) {
+    //     if (tempArray[i].selected) {
+    //       if (i === endCondition - 1) {
+    //         tempArray = arraymove(tempArray, tempArray.length - 1, 1);
+    //         tempArray = arraymove(tempArray, 0, tempArray.length + 1);
+    //         endCondition = -1;
+    //       } else {
+    //         tempArray = arraymove(tempArray, i, i + 1);
+    //       }
+    //     }
+    //   }
+    //   setStanzaArray(tempArray);
+    //   onUpdatePoem(tempArray);
+    // }
 
-    function shiftStanzas(up = true) {
-      const newArray = stanzaArray.map(stanza => stanza.selected && stanza);
-      const indexOfFalse = offset => up
-          ? newArray.indexOf(false, offset)
-          : newArray.lastIndexOf(false, offset ?? newArray.length);
-      if (up) {
-          newArray.push(newArray.shift());
-      } else {
-          newArray.unshift(newArray.pop());
-      }
+    function shiftStanzasDown() {
+      const newArray = stanzaArray.map(stanza => stanza.selected ? stanza : null);
+      newArray.unshift(newArray.pop());
       stanzaArray.forEach((stanza, index) => {
           if (!stanza.selected) {
-              const offsetIndex = indexOfFalse(index);
-              newArray[offsetIndex !== -1 ? offsetIndex : indexOfFalse()] = stanza;
+              const offsetIndex = newArray.lastIndexOf(null, index);
+              const newIndex = offsetIndex !== -1
+                  ? offsetIndex
+                  : newArray.lastIndexOf(null);
+              newArray[newIndex] = stanza;
           }
       });
       setStanzaArray(newArray);
@@ -165,18 +160,18 @@ const PoemPad = (props) => {
       <>
         <div className={classes.poemBox}>
           {stanzaArray.map((t, i) => {
-            console.log(t.selected);
-            console.log(t.id)
               return (
               <div key={t.id} className={classes.poemContainer}>
+                <div className={classes.controlsContainer}>
                 <span>{i + 1}</span>
-                <button id={i} onClick={onSelectStanza}>select</button>
+                <button id={i} className={classes.button} onClick={onSelectStanza}>select</button>
+                </div>
                 <div id={i} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                 {t.stanza.map((j, f) => {
                   if (j.text === '\n') {
                     return <br key={j.id} className={classes.lineBreak}/>
                   } else {
-                    return <span key={j.id} style={checkStyles(j)} className={`${classes.word}`}>{j.text} </span>
+                    return <div key={j.id} style={checkStyles(j)} className={`${classes.word}`}>{j.text} </div>
                   }
                 })}
                 </div>
@@ -187,8 +182,8 @@ const PoemPad = (props) => {
         <div className={classes.poemPadButtonContainer}>
           <button className={`${classes.button}`} onClick={selectAll}>select all</button>
           <button className={`${classes.button}`} onClick={unselectAll}>unselect all</button>
-          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzaUp}>up</button>
-          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzaDown}>down</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzasUp}>up</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzasDown}>down</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={duplicateStanza}>dupe</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={deleteStanza}>delete</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} >shuffle</button>

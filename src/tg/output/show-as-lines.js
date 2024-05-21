@@ -29,7 +29,8 @@ const ShowAsLines = (props) => {
                     if (j.text === '\n') {
                       return <br id={i} key={i} className={classes.lineBreak}/>
                     } else {
-                      return <span id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </span>
+                      const theText = j.text + " ";
+                      return <div id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{theText}</div>
                     }
                   })}
                   <br/>

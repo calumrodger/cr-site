@@ -10,6 +10,7 @@ const PopulateFromYouTubeComments = (props) => {
     const [YTUrl, setYTUrl] = useState('');
     const [commentsData, setCommentsData] = useState({items: []});
     const [finalString, setFinalString] = useState('');
+    const [finalName, setFinalName] = useState('video');
 
     const onChangeUrlField = (e) => {
         setYTUrl(e.target.value);
@@ -31,6 +32,7 @@ const PopulateFromYouTubeComments = (props) => {
             return item.snippet.topLevelComment.snippet.textOriginal
           })
         const justTheTextString = justTheText.join(" ").replace(/(?:\r\n|\r|\n)/g, ' ');
+        // const theTitle = items[0].snippet.videoTitle;
         return justTheTextString;
     }
 
@@ -41,8 +43,8 @@ const PopulateFromYouTubeComments = (props) => {
 
     useEffect(() => {
         setFinalString(treatData(commentsData));
-        onPopulateWithYouTubeComments(finalString);
-    }, [commentsData, finalString, onPopulateWithYouTubeComments])
+        onPopulateWithYouTubeComments(finalName, finalString);
+    }, [commentsData, finalString])
 
     return (
         <div className={classes.urlFormContainer}>

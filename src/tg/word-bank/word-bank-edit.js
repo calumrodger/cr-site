@@ -7,7 +7,7 @@ const WordBankEdit = (props) => {
 
     const [name, setName] = useState(selectedWordList.name);
     const [words, setWords] = useState(selectedWordList.words);
-    console.log(words)
+    const [initialValue, setInitialValue] = useState(selectedWordList.words.join(', '));
 
     const onSaveWordBankEdit = () => {
         onUpdateWordBankEdit(name, words);
@@ -19,13 +19,14 @@ const WordBankEdit = (props) => {
     }
 
     const onChangeWords = (e) => {
-        setWords(e.target.value.split(','));
+        setInitialValue(e.target.value);
+        setWords(e.target.value.split(','))
     }
 
     return (
         <>
         <input type="text" value={name} onChange={onChangeName}/>
-        <textarea className={classes.editField} value={words.map((word, i) => i === 0 ? word : ' ' + word)} onChange={onChangeWords}/>
+        <textarea className={classes.editField} value={initialValue} onChange={onChangeWords}/>
         <button className={classes.button} onClick={onSaveWordBankEdit}>SAVE</button>
         </>
     )

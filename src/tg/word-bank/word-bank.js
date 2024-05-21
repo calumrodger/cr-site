@@ -2,7 +2,7 @@ import classes from '../pads.module.scss';
 
 const WordBank = (props) => {
 
-    const { wordBank, onWordBankClick, deleteSelectedWordBank, selectAllWordBank, unselectAllWordBank } = props;
+    const { onSaveWordBankAsList, wordBank, onWordBankClick, deleteSelectedWordBank, selectAllWordBank, unselectAllWordBank } = props;
 
     return (
         <div className={classes.wordBankSection}>
@@ -17,7 +17,7 @@ const WordBank = (props) => {
                 <button className={`${classes.button} ${classes.wordBankButton}`} onClick={selectAllWordBank}>select all</button>
                 <button className={`${classes.button} ${classes.wordBankButton}`} onClick={unselectAllWordBank}>unselect all</button>
                 <button className={`${classes.button} ${classes.wordBankButton}`} >shuffle</button>
-                <button className={`${classes.button} ${classes.wordBankButton}`} >save as list</button>
+                <button className={`${classes.button} ${classes.wordBankButton}`} onClick={onSaveWordBankAsList}>save as list</button>
                 <button className={`${classes.button} ${classes.wordBankButton}`} onClick={deleteSelectedWordBank}>delete</button>
             </div>
         </div>
