@@ -767,9 +767,8 @@ const Genny = (props) => {
             </div>
             <div className={classes.fxTypographyFlex}>
             <ColourText onChangeTextColour={onChangeTextColour}/>
+            <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
             <FormResetButton onResetTypography={onResetTypography} />
-              <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
-      
             </div>
             < hr/>
             <span>N + X</span>

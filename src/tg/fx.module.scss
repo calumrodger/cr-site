@@ -26,8 +26,11 @@
 }
 
 .weeButtons {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     flex-direction: column;
+    margin-top: .3rem;
 }
 
 .colourContainer {
@@ -44,20 +47,33 @@
     // gap: .5rem;
     .italic {
         font-style: italic;
-        padding: 0 .2rem;
+        padding: 0 .1rem;
         font-size: .8rem;
+        width: 100%;
+        height: 100%;
     }
 
     .mirror {
         transform: scaleX(-1);
         font-size: .8rem;
-        padding: 0 .2rem;
+        padding: 0 .1rem;
+        width: 100%;
+        height: 100%;
     }
     
     .caps {
         text-transform: uppercase;
-        font-size: .8rem;
-        padding: 0 .2rem;
+        font-size: .7rem;
+        padding: 0 .1rem;
+        width: 100%;
+        height: 100%;
+    }
+
+    .erasure {
+        font-size: .7rem;
+        padding: 0 .1rem;
+        width: 100%;
+        height: 100%;
     }
 // }
 

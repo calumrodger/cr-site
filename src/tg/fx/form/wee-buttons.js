@@ -10,7 +10,7 @@ const TypographyButtons = (props) => {
         <button onClick={onSetItalic} className={`${classes.button} ${classes.italic}`}>italic</button>
         <button onClick={onSetCaps} className={`${classes.button} ${classes.caps}`}>caps</button>
         <button onClick={onSetMirror} className={`${classes.button} ${classes.mirror}`}>mirror</button>
-        <button onClick={onSetErasure} className={`${classes.button} ${classes.mirror}`}>erase</button>
+        <button onClick={onSetErasure} className={`${classes.button} ${classes.erasure}`}>erase</button>
         </div>
     );
     }
