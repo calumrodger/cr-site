@@ -21,6 +21,7 @@
     "next-videos": "1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "replicate": "^0.29.4",
     "syllable": "^5.0.1"
   },
   "devDependencies": {

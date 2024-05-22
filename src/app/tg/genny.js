@@ -284,7 +284,11 @@ const Genny = (props) => {
   }
 
   const onClickOutput = (type) => {
-    setOutputMode(type);
+    if (padToShow === 'stanza') {
+      setOutputMode('lines');
+    } else {
+      setOutputMode(type);
+    }
   }
 
   const onEditStanza = (stanza, stanzaIndex) => {
@@ -454,6 +458,7 @@ const Genny = (props) => {
 
   const onResizeText = (value) => {
     let newObjArray = [];
+    if (padToShow === 'stanza') {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontSize: value} });
@@ -462,10 +467,22 @@ const Genny = (props) => {
       }
     }
     setStanza(newObjArray);
+    }
+    if (padToShow === 'poem') {
+      for (let i = 0; i < poem.length; i++) {
+        if (poem[i].selected) {
+          newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, fontSize: value} });
+        } else {
+          newObjArray.push(poem[i]);
+        }
+      }
+      setPoem(newObjArray);
+    }
   }
 
   const onResetTypography = () => {
     let newObjArray = [];
+    if (padToShow === 'stanza') {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {} });
@@ -474,10 +491,22 @@ const Genny = (props) => {
       }
     }
     setStanza(newObjArray);
+    }
+    if (padToShow === 'poem') {
+      for (let i = 0; i < poem.length; i++) {
+        if (poem[i].selected) {
+          newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {} });
+        } else {
+          newObjArray.push(poem[i]);
+        }
+      }
+      setPoem(newObjArray);
+    }
   }
 
   const onReweightText = (value) => {
     let newObjArray = [];
+    if (padToShow === 'stanza') {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontWeight: value} });
@@ -486,18 +515,44 @@ const Genny = (props) => {
       }
     }
     setStanza(newObjArray);
+    }
+    if (padToShow === 'poem') {
+      for (let i = 0; i < poem.length; i++) {
+        if (poem[i].selected) {
+          newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, fontWeight: value} });
+        } else {
+          newObjArray.push(poem[i]);
+        }
+      }
+      setPoem(newObjArray);
+    }
   }
 
   const onChangeTextColour = (value) => {
+
+    if (padToShow === 'stanza') {
     let newObjArray = [];
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, colour: value} });
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, color: value} });
       } else {
         newObjArray.push(stanza[i]);
       }
     }
     setStanza(newObjArray);
+    }
+    if (padToShow === 'poem') {
+      let newObjArray = [];
+      for (let i = 0; i < poem.length; i++) {
+        if (poem[i].selected) {
+          newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, color: value} });
+        } else {
+          newObjArray.push(poem[i]);
+        }
+      }
+      console.log(newObjArray)
+      setPoem(newObjArray);
+    }
   }
 
   const onSetSelectedWordList = (listName) => {
@@ -566,6 +621,8 @@ const Genny = (props) => {
         font = 'var(--lexend)';
         break;
     }
+
+    if (padToShow === 'stanza') {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontFamily: font} });
@@ -574,10 +631,22 @@ const Genny = (props) => {
       }
     }
     setStanza(newObjArray);
+    }
+    if (padToShow === 'poem') {
+      for (let i = 0; i < poem.length; i++) {
+        if (poem[i].selected) {
+          newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, fontFamily: font} });
+        } else {
+          newObjArray.push(poem[i]);
+        }
+      }
+      setPoem(newObjArray);
+    }
   }
 
-  const onChangeTextOpacity = (value) => {
+  const onChangeTextRotation = (value) => {
     let newObjArray = [];
+    if (padToShow === 'stanza') {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, opacity: value} });
@@ -586,6 +655,17 @@ const Genny = (props) => {
       }
     }
     setStanza(newObjArray);
+    }
+    if (padToShow === 'poem') {
+      for (let i = 0; i < poem.length; i++) {
+        if (poem[i].selected) {
+          newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, opacity: value} });
+        } else {
+          newObjArray.push(poem[i]);
+        }
+      }
+      setPoem(newObjArray);
+    }
   }
 
   const onSaveNewPreset = (presetName, text) => {
@@ -625,6 +705,7 @@ const Genny = (props) => {
 
   const onSetItalic = () => {
     let newObjArray = [];
+    if (padToShow === 'stanza') {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         if (stanza[i]?.style?.fontStyle === "italic") {
@@ -637,10 +718,26 @@ const Genny = (props) => {
       }
     }
     setStanza(newObjArray);
+    }
+    if (padToShow === 'poem') {
+      for (let i = 0; i < poem.length; i++) {
+        if (poem[i].selected) {
+          if (poem[i]?.style?.fontStyle === "italic") {
+            newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, fontStyle: "normal"} });
+          } else {
+            newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, fontStyle: "italic"} });
+          }
+        } else {
+          newObjArray.push(poem[i]);
+        }
+      }
+      setPoem(newObjArray);
+    }
   }
 
   const onSetMirror = () => {
     let newObjArray = [];
+    if (padToShow === 'stanza') {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         if (stanza[i]?.style?.transform === "scaleX(-1)") {
@@ -653,14 +750,30 @@ const Genny = (props) => {
       }
     }
     setStanza(newObjArray);
+    }
+    if (padToShow === 'poem') {
+      for (let i = 0; i < poem.length; i++) {
+        if (poem[i].selected) {
+          if (poem[i]?.style?.transform === "scaleX(-1)") {
+            newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, transform: "none"} });
+          } else {
+          newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, transform: "scaleX(-1)"} });
+          }
+        } else {
+          newObjArray.push(poem[i]);
+        }
+      }
+      setPoem(newObjArray);
+    }
   }
 
   const onSetCaps = () => {
     let newObjArray = [];
+    if (padToShow === 'stanza') {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         if (stanza[i]?.style?.textTransform === "uppercase") {
-          newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, textTransform: "none"} });
+          newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, textTransform: null} });
         } else {
         newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, textTransform: "uppercase"} });
         }
@@ -669,14 +782,30 @@ const Genny = (props) => {
       }
     }
     setStanza(newObjArray);
+    }
+    if (padToShow === 'poem') {
+      for (let i = 0; i < poem.length; i++) {
+        if (poem[i].selected) {
+          if (poem[i]?.style?.textTransform === "uppercase") {
+            newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, textTransform: null} });
+          } else {
+          newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, textTransform: "uppercase"} });
+          }
+        } else {
+          newObjArray.push(poem[i]);
+        }
+      }
+      setPoem(newObjArray);
+    }
   }
 
   const onSetErasure = () => {
     let newObjArray = [];
+    if (padToShow === 'stanza') {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         if (stanza[i]?.style?.visibility === "hidden") {
-          newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, visibility: "visible"} });
+          newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, visibility: null} });
         } else {
         newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, visibility: "hidden"} });
         }
@@ -685,6 +814,21 @@ const Genny = (props) => {
       }
     }
     setStanza(newObjArray);
+    }
+    if (padToShow === 'poem') {
+      for (let i = 0; i < poem.length; i++) {
+        if (poem[i].selected) {
+          if (poem[i]?.style?.visibility === "hidden") {
+            newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, visibility: null} });
+          } else {
+          newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, visibility: "hidden"} });
+          }
+        } else {
+          newObjArray.push(poem[i]);
+        }
+      }
+      setPoem(newObjArray);
+    }
   }
 
   const onSaveWordBankAsList = () => {
@@ -762,7 +906,7 @@ const Genny = (props) => {
               <ResizeText onResizeText={onResizeText}/>
               <ReweightText onReweightText={onReweightText}/>
               <FontText onChangeFont={onChangeFont} />
-              <FontStyle onChangeTextOpacity={onChangeTextOpacity} />
+              <FontStyle onChangeTextRotation={onChangeTextRotation} />
        
             </div>
             <div className={classes.fxTypographyFlex}>
@@ -775,10 +919,10 @@ const Genny = (props) => {
             <NPlusX onUpdate={onUpdate} stanza={stanza}/> 
             <hr />
 
-            <span>API</span>
+            <span>API INJECTION</span>
             <APIFX onUpdate={onUpdate} stanza={stanza}/>
             <hr />
-            <span>LLM</span>
+            <span>LLM </span>
             <LLMFX onUpdate={onUpdate} stanza={stanza}/>
             <hr />
           </div>
@@ -799,11 +943,31 @@ const Genny = (props) => {
           </div>
           </>
         }
+        { padToShow === 'poem' && 
+          <>
+          <div className={classes.fxSection}>
+          <span>TYPOGRAPHY</span>
+            <div className={classes.fxTypographyGrid}>
+              <ResizeText onResizeText={onResizeText}/>
+              <ReweightText onReweightText={onReweightText}/>
+              <FontText onChangeFont={onChangeFont} />
+              <FontStyle onChangeTextRotation={onChangeTextRotation} />
+       
+            </div>
+            <div className={classes.fxTypographyFlex}>
+            <ColourText onChangeTextColour={onChangeTextColour}/>
+            <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
+            <FormResetButton onResetTypography={onResetTypography} />
+            </div>
+            < hr/>
+          </div>
+          </>
+        }
         { padToShow !== 'input' &&
         <>
           <div className={classes.outputSection}>
             <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
-            <OutputAs onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
+            <OutputAs padToShow={padToShow} onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
           </div>
           <div className={classes.switcherSection}>
             <PadSwitcher onSwitchPad={onSwitchPad} padToShow={padToShow}/>
@@ -821,7 +985,7 @@ const Genny = (props) => {
       <div style={{background: outputBgColour}} className={classes.pageContainerOutput}>
         <div className={classes.poemContent}>
         { outputMode === 'lines' && 
-        <ShowAsLines onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
+        <ShowAsLines stanza={stanza} padToShow={padToShow} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
         }
         { outputMode === 'grid' &&
         <ShowAsGrid onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>

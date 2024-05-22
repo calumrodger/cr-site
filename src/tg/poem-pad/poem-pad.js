@@ -1,7 +1,7 @@
 import classes from '../pads.module.scss';
 
 import { useState, useEffect } from 'react';
-import { checkStyles } from '@tg/utils/utils';
+import { checkStyles, checkPoemStyles } from '@tg/utils/utils';
 import SaveOutputToTxt from '@tg/output/save-to-txt';
 
 const PoemPad = (props) => {
@@ -22,7 +22,7 @@ const PoemPad = (props) => {
         }
       });
       setStanzaArray(newArray);
-      // onUpdatePoem(newArray);
+      onUpdatePoem(newArray);
     }
 
     const isMoreThanOneStanzaSelected = () => {
@@ -91,6 +91,7 @@ const PoemPad = (props) => {
           }
       });
       setStanzaArray(newArray);
+      onUpdatePoem(newArray);
   }
 
     const editStanza = (e) => {
@@ -129,6 +130,7 @@ const PoemPad = (props) => {
         return { id: item.id, stanza: item.stanza, selected: true }
       });
       setStanzaArray(newObjArray);
+      onUpdatePoem(newObjArray);
     }
 
     const unselectAll = () => {
@@ -136,20 +138,22 @@ const PoemPad = (props) => {
         return { id: item.id, stanza: item.stanza, selected: false }
       });
       setStanzaArray(newObjArray);
+      onUpdatePoem(newObjArray);
     }
 
 
     return (
       <>
         <div className={classes.poemBox}>
-          {stanzaArray.map((t, i) => {
+          {poem.map((t, i) => {
+            console.log(t)
               return (
               <div key={t.id} className={classes.poemContainer}>
                 <div className={classes.controlsContainer}>
                 <span>{i + 1}</span>
                 <button id={i} className={classes.button} onClick={onSelectStanza}>select</button>
                 </div>
-                <div id={i} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+                <div id={i} style={checkPoemStyles(t)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                 {t.stanza.map((j, f) => {
                   if (j.text === '\n') {
                     return <br key={j.id} className={classes.lineBreak}/>

@@ -4,8 +4,8 @@ export const checkStyles = (word) => {
       if (word?.style?.fontSize) {
         thisStyle = {...thisStyle, fontSize: Math.sign(word.style.fontSize) !== -1 ? '1.' + word.style.fontSize.toString() + 'rem' : `${1 - (( word.style.fontSize / 10) * -1)}rem`}
       } 
-      if (word?.style?.colour) {
-        thisStyle = {...thisStyle, color: word.style.colour}
+      if (word?.style?.color) {
+        thisStyle = {...thisStyle, color: word.style.color}
       }
       if (word?.style?.fontWeight) {
         thisStyle = {...thisStyle, fontWeight: word.style.fontWeight + "00"}
@@ -32,5 +32,44 @@ export const checkStyles = (word) => {
     } else {
       return null;
     }
+    return thisStyle;
+  }
+
+  export const checkPoemStyles = (stanza) => {
+    let thisStyle = {};
+    console.log(stanza)
+    if (stanza?.style) {
+      if (stanza?.style?.fontSize) {
+        thisStyle = {...thisStyle, fontSize: Math.sign(stanza.style.fontSize) !== -1 ? '1.' + stanza.style.fontSize.toString() + 'rem' : `${1 - (( stanza.style.fontSize / 10) * -1)}rem`}
+      } 
+      if (stanza?.style?.color) {
+        thisStyle = {...thisStyle, color: stanza.style.color}
+      }
+      if (stanza?.style?.fontWeight) {
+        thisStyle = {...thisStyle, fontWeight: stanza.style.fontWeight + "00"}
+      }
+      if (stanza?.style?.fontFamily) {
+        thisStyle = {...thisStyle, fontFamily: stanza.style.fontFamily}
+      }
+      if (stanza?.style?.opacity) {
+        thisStyle = {...thisStyle, rotate: stanza.style.opacity * 10 + 'deg'}
+      }
+      if (stanza?.style?.transform) {
+        thisStyle = {...thisStyle, transform: stanza.style.transform}
+      }
+      if (stanza?.style?.fontStyle) {
+        thisStyle = {...thisStyle, fontStyle: stanza.style.fontStyle}
+      }
+      if (stanza?.style?.textTransform) {
+        thisStyle = {...thisStyle, textTransform: stanza.style.textTransform}
+      }
+      if (stanza?.style?.visibility) {
+        thisStyle = {...thisStyle, visibility: stanza.style.visibility}
+      }
+
+    } else {
+      return null;
+    }
+    console.log(thisStyle)
     return thisStyle;
   }

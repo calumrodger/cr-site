@@ -39,10 +39,18 @@ $bg-img: url('../../../public/tg/down-arrow.png');
 
 .showSrcButton {
     grid-area: show-src;
+    margin-left: .5rem;
+    display: flex;
+    flex-direction: column;
+
+    .preset {
+        font-size: .8rem;
+    }
 
     .button {
-        width: 10rem;
-        height: 5rem;
+        font-size: .8rem;
+        width: 6rem;
+        height: 4rem;
     }
 }
 

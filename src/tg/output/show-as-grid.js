@@ -1,5 +1,5 @@
 import classes from './show-as-grid.module.scss';
-import { checkStyles } from '@tg/utils/utils';
+import { checkStyles, checkPoemStyles } from '@tg/utils/utils';
 import { useState } from 'react';
 
 const ShowAsGrid = (props) => {
@@ -54,8 +54,9 @@ const ShowAsGrid = (props) => {
               <div className={classes.poemTitle}>{poemTitle}</div>
               <div style={{...yValue, ...xValue, ...renderSetting}} className={classes.mainText}>
               {poem.map((t, i) => {
+                const styleObject = {...checkPoemStyles(t), ...paddingValue};
                 return (
-                  <div key={i} id={i} style={paddingValue} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+                  <div key={i} id={i} style={styleObject} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                   {t.stanza.map((j, i) => {
                     if (j.text === '\n') {
                       return <br id={i} key={i} className={classes.lineBreak}/>
@@ -72,7 +73,7 @@ const ShowAsGrid = (props) => {
           <div className={classes.panel}>
             <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
             <input type="range" id="grid-x" name="grid-x" min="1" max="10" step="1" onChange={onChangeGridCoOrds} value={renderMode ? gridY : gridX}/>
-            <input type="range" id="padding" name="padding" min="-10" max="10" step="1" onChange={onChangePadding} value={padding}/>
+            <input type="range" id="padding" name="padding" min="-9" max="9" step="1" onChange={onChangePadding} value={padding}/>
             <button onClick={switchRenderMode} className={classes.button}>{renderModeButtonText}</button>
             <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
           </div>

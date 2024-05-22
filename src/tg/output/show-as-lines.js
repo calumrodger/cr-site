@@ -1,12 +1,19 @@
 import classes from './show-as-lines.module.scss';
-import { checkStyles } from '@tg/utils/utils';
+import { checkStyles, checkPoemStyles } from '@tg/utils/utils';
 import { useState } from 'react';
 
 const ShowAsLines = (props) => {
-    const { poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
+    const { stanza, padToShow, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
 
     const [sliderValue, setSliderValue] = useState(0);
     const [colour, setColour] = useState('#000000');
+    const [poemToShow, setPoemToShow] = useState([]);
+
+    console.log(poem)
+    console.log(stanza)
+    console.log(poemToShow)
+
+    const thePoem = padToShow === 'stanza' ? [{id: 0, stanza: stanza, selected: false}] : poem;
 
     const onChangeColour = (e) => {
         setColour(e.target.value);
@@ -22,9 +29,10 @@ const ShowAsLines = (props) => {
           <div className={classes.poemContainer} >
               <div className={classes.poemTitle}>{poemTitle}</div>
               <div className={classes.mainText}>
-              {poem.map((t, i) => {
+              {thePoem.map((t, i) => {
+                const styleObject = {...checkPoemStyles(t), ...{lineHeight: "1." + sliderValue + "rem"}};
                 return (
-                  <div key={i} id={i} style={{lineHeight: "1." + sliderValue + "rem"}} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+                  <div key={i} id={i} style={styleObject} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                   {t.stanza.map((j, i) => {
                     if (j.text === '\n') {
                       return <br id={i} key={i} className={classes.lineBreak}/>

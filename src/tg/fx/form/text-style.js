@@ -3,13 +3,13 @@ import { useState } from 'react';
 
 const FontStyle = (props) => {
 
-    const { onChangeTextOpacity } = props;
+    const {  onChangeTextRotation } = props;
 
     const [quant, setQuant] = useState(0);
 
     const onChangeQuant = (e) => {
         setQuant(e.target.value);
-        onChangeTextOpacity(e.target.value);
+        onChangeTextRotation (e.target.value);
     }
 
     return (

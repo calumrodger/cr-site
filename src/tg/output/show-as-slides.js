@@ -1,5 +1,5 @@
 import classes from './show-as-slides.module.scss';
-import { checkStyles } from '@tg/utils/utils';
+import { checkPoemStyles, checkStyles } from '@tg/utils/utils';
 import { useState } from 'react';
 
 const ShowAsSlides = (props) => {
@@ -16,7 +16,7 @@ const ShowAsSlides = (props) => {
 
     const thePoemJSX = poem.map((t, i) => {
       return (
-        <div key={i} id={i} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+        <div key={i} id={i} style={checkPoemStyles(t)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
         {t.stanza.map((j, i) => {
           if (j.text === '\n') {
             return <br id={i} key={i} className={classes.lineBreak}/>

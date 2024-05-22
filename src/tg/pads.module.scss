@@ -43,12 +43,7 @@
         &.selected {
 
             &::before {
-                visibility: visible;
-                content: "";
-                position: absolute;
                 border: 1px solid #000;
-                width: 100%;
-                height: 100%;
             }
         }
     } 
@@ -84,10 +79,6 @@
     .controlsContainer {
         display: flex;
         flex-direction: column;
-        gap: .2rem;
-        align-items: flex-end;
-        justify-content: center;
-        padding-right: .2rem;
     }
 
     .stanzaContainer,
@@ -106,19 +97,29 @@
         .stanza {
             cursor: pointer;
             width: fit-content;
-            
-            display: inline-block;
+            height: fit-content;
             margin: .1rem;
             padding: .5rem;
             color: #000;
+            position: relative;
 
+        &::before {
+            visibility: visible;
+            content: "";
+            position: absolute;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        &.selected {
+            &::before {
+                border: 1px solid #000;
+            }
+        }
             .word {
                 display: inline-block;
                 white-space: pre;
-            }
-
-            &.selected {
-                border: 1px solid #000;
             }
         } 
     }

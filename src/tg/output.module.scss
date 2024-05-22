@@ -85,4 +85,17 @@
     }
 }
 
+.settingsContainer {
+
+    &.disabled {
+        color: gray;
+        cursor: none;
+
+        input[type="radio"] {
+            // appearance: none;
+            background: gray;
+        }
+    }
+}
+
 
