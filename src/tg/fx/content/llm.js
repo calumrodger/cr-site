@@ -1,22 +1,29 @@
 import classes from './llm.module.scss';
 import { useState } from 'react';
-import Replicate from 'replicate';
 
 const LLMFX = (props) => {
 
-    const replicate = new Replicate({
-        auth: process.env.REPLICATE_API_TOKEN,
+    const [inputValue, setInputValue] = useState("");
+    const [image, setImage] = useState("");
+    const [loading, setLoading] = useState(false);
+   
+    const handleChange = (e) => {
+      setInputValue(e.target.value);
+    };
+   
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      const response = await fetch("/api/ai", {
+        method: "POST",
+        body: JSON.stringify({
+          prompt: inputValue,
+        }),
       });
-
-    const input = {
-    top_p: 0.9,
-    prompt: "Story title: 3 llamas go for a walk\nSummary: The 3 llamas crossed a bridge and something unexpected happened\n\nOnce upon a time",
-    max_tokens: 512,
-    min_tokens: 0,
-    temperature: 0.6,
-    prompt_template: "{prompt}",
-    presence_penalty: 1.15,
-    frequency_penalty: 0.2
+      const data = await response.json();
+      console.log(data.join(""));
+      setImage(data);
+      setLoading(false);
     };
 
     
@@ -41,6 +48,24 @@ const LLMFX = (props) => {
                 <input className={classes.prompt} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} type="text" placeholder="enter text here" />
                 <button className={classes.button} onClick={handlePromptClick}>GO</button>
             </div>
+            <div>
+          <form onSubmit={handleSubmit} >
+            <label >
+              Enter your prompt
+            </label>
+            <input
+              type="text"
+              value={inputValue}
+              onChange={handleChange}
+            />
+            <button
+              disabled={loading}
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
         </div>
     )
 }

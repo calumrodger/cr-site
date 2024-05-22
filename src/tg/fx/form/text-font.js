@@ -15,7 +15,7 @@ const FontText = (props) => {
     return (
     <div className={classes.formSliderContainer}>
     <label htmlFor="font-quant">font:</label>
-    <input className={classes.slider} type="range" min="1" max="3" id="font-quant" name="font-quant" onChange={onChangeQuant} value={quant}/>
+    <input className={classes.slider} type="range" min="1" max="4" id="font-quant" name="font-quant" onChange={onChangeQuant} value={quant}/>
     </div>
  )
 }

@@ -59,6 +59,8 @@ import ShowAsLoop from '@tg/output/show-as-loop';
 
 const Genny = (props) => {
 
+  
+
   const gptBirdArray = 
   {id: 0, name: 'gpt bird words', words: [ 'feather',        'beak',        'wing',         'flight',
   'nest',           'avian',       'plumage',      'song',
@@ -616,6 +618,9 @@ const Genny = (props) => {
         break;
       case '3':
         font = 'var(--league-script)';
+        break;
+      case '4':
+        font = 'var(--teachers)';
         break;
       default:
         font = 'var(--lexend)';
