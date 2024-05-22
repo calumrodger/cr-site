@@ -22,6 +22,12 @@ export const checkStyles = (word) => {
       if (word?.style?.fontStyle) {
         thisStyle = {...thisStyle, fontStyle: word.style.fontStyle}
       }
+      if (word?.style?.textTransform) {
+        thisStyle = {...thisStyle, textTransform: word.style.textTransform}
+      }
+      if (word?.style?.visibility) {
+        thisStyle = {...thisStyle, visibility: word.style.visibility}
+      }
 
     } else {
       return null;

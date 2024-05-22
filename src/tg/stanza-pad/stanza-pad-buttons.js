@@ -14,6 +14,7 @@ const StanzaPadButtons = (props) => {
             <button className={classes.button} onClick={onSaveToWordBank}>save to bank</button>
             <button className={classes.button}>strip punct</button>
             <button className={classes.button}>add punct</button>
+            <button className={classes.button}>add space</button>
             <button className={classes.button}>shuffle</button>
             <button className={classes.button}>edit word</button>
             <StanzaUndoRedo setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} />

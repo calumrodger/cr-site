@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    gap: .2rem;
+    // grid-template-columns: 1fr;
+    // grid-template-rows: 1fr 1fr;
+    font-size: .8rem;
+    margin-top: .2rem;
+
+    .buttonContainer {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: .3rem;
+        font-size: .8rem;
+
+        .param {
+            display: flex;
+            gap: .2rem;
+            align-items: center;
+    
+        }
+
+        input {
+            width: 2.5rem;
+            appearance: none;
+        }
+    }
+
+    .promptContainer {
+        margin-top: .2rem;
+        display: flex;
+        gap: .2rem;
+        input {
+            width: 3rem;
+        }
+    }
+
+    .button {
+        border: 1px solid #fff;
+        color: #fff;
+        cursor: pointer;
+
+        &:hover {
+            background-color: greenyellow;
+            color: #000;
+        }
+    }
+}

@@ -1,10 +1,11 @@
 import classes from './generate-controls.module.scss';
 import { useState } from 'react';
 import { syllable } from 'syllable';
+import OnSaveStanzaToPad from '@tg/stanza-pad/save-stanza-to-pad';
 
 const GenerateControls = (props) => {
 
-    const { onSelectPreset, assignCurrentPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
+    const { editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, assignCurrentPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
     const [currentForm, setCurrentForm] = useState(form);
     
     const getFormArray = (form) => {
@@ -312,6 +313,7 @@ const GenerateControls = (props) => {
             </div>
             <div className={classes.genButtons}>
                 <button className={classes.button} onClick={onFormSubmit}>GENERATE</button>
+                <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
             </div>
             <div className={classes.formInput}>
                 <label htmlFor="form">new form:</label>

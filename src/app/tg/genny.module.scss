@@ -146,6 +146,7 @@
     padding: .5rem;
 
     .fxTypographyGrid {
+        margin-top: .4rem;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
@@ -154,7 +155,7 @@
 
     .fxTypographyFlex {
         display: flex;
-        gap: .5rem;
+        gap: .2rem;
     }
 }
 

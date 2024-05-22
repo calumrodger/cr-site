@@ -35,7 +35,6 @@ import WordBankEdit from '@tg/word-bank/word-bank-edit';
 import WordBankAdd from '@tg/word-bank/word-bank-add';
 
 // FX COMPONENTS
-import ReplaceWithHello from '@tg/fx/content/replace-with-hello';
 import ResizeText from '@tg/fx/form/text-size';
 import ColourText from '@tg/fx/form/text-colour';
 import ReweightText from '@tg/fx/form/text-weight';
@@ -43,6 +42,10 @@ import FontStyle from '@tg/fx/form/text-style';
 import FontText from '@tg/fx/form/text-font';
 import FormResetButton from '@tg/fx/form/reset-button';
 import TypographyButtons from '@tg/fx/form/wee-buttons';
+
+import NPlusX from '@tg/fx/content/n-plus-x';
+import APIFX from '@tg/fx/content/api';
+import LLMFX from '@tg/fx/content/llm';
 
 // OUTPUT COMPONENTS
 import GiveTitle from '@tg/output/give-title';
@@ -624,7 +627,11 @@ const Genny = (props) => {
     let newObjArray = [];
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontStyle: "italic"} });
+        if (stanza[i]?.style?.fontStyle === "italic") {
+          newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontStyle: "normal"} });
+        } else {
+          newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, fontStyle: "italic"} });
+        }
       } else {
         newObjArray.push(stanza[i]);
       }
@@ -636,7 +643,43 @@ const Genny = (props) => {
     let newObjArray = [];
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
+        if (stanza[i]?.style?.transform === "scaleX(-1)") {
+          newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, transform: "none"} });
+        } else {
         newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, transform: "scaleX(-1)"} });
+        }
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
+  const onSetCaps = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        if (stanza[i]?.style?.textTransform === "uppercase") {
+          newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, textTransform: "none"} });
+        } else {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, textTransform: "uppercase"} });
+        }
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
+  const onSetErasure = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        if (stanza[i]?.style?.visibility === "hidden") {
+          newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, visibility: "visible"} });
+        } else {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: stanza[i].selected, style: {...stanza[i]?.style, visibility: "hidden"} });
+        }
       } else {
         newObjArray.push(stanza[i]);
       }
@@ -685,7 +728,8 @@ const Genny = (props) => {
           </div>
         </div>
         <div className={classes.inputSection}>
-          <GenerateControls onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType}/>
+          <GenerateControls editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType}/>
+          
         </div>
         </>
         }
@@ -694,7 +738,7 @@ const Genny = (props) => {
             <StanzaPad stanza={stanza} onWordClick={onWordClick}/>
             <div className={classes.toolsContainer}>
               <StanzaPadButtons setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
-              <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
+              
             </div>
           </div>
         }
@@ -723,16 +767,20 @@ const Genny = (props) => {
             </div>
             <div className={classes.fxTypographyFlex}>
             <ColourText onChangeTextColour={onChangeTextColour}/>
-              <TypographyButtons onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
-              <FormResetButton onResetTypography={onResetTypography} />
-              </div>
+            <FormResetButton onResetTypography={onResetTypography} />
+              <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
+      
+            </div>
             < hr/>
             <span>N + X</span>
-            <ReplaceWithHello onUpdate={onUpdate} stanza={stanza}/> 
+            <NPlusX onUpdate={onUpdate} stanza={stanza}/> 
             <hr />
+
             <span>API</span>
+            <APIFX onUpdate={onUpdate} stanza={stanza}/>
             <hr />
             <span>LLM</span>
+            <LLMFX onUpdate={onUpdate} stanza={stanza}/>
             <hr />
           </div>
           <div className={classes.composeSection}>

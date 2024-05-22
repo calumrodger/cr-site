@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    font-size: .8rem;
+    display: grid;
+    gap: .3rem;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+
+    .radioButtons {
+        margin-left: 3rem;
+    }
+
+    .buttonsContainer {
+        border: 1px solid #fff;
+        background: gray;
+        padding: .3rem;
+    }
+
+    .buttonContainer {
+        font-size: .7rem;
+        display: flex;
+        align-items: center;
+    }
+
+
+    .button {
+        border: 1px solid #fff;
+        color: #fff;
+        cursor: pointer;
+
+        &:hover {
+            background-color: greenyellow;
+            color: #000;
+        }
+    }
+}

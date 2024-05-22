@@ -78,24 +78,6 @@ const PoemPad = (props) => {
       onUpdatePoem(newArray);
   }
 
-    // const shiftStanzaDown = () => {
-    //   let tempArray = [...stanzaArray];
-    //   let endCondition = tempArray.length;
-    //   for (let i = 0; i < endCondition; i++) {
-    //     if (tempArray[i].selected) {
-    //       if (i === endCondition - 1) {
-    //         tempArray = arraymove(tempArray, tempArray.length - 1, 1);
-    //         tempArray = arraymove(tempArray, 0, tempArray.length + 1);
-    //         endCondition = -1;
-    //       } else {
-    //         tempArray = arraymove(tempArray, i, i + 1);
-    //       }
-    //     }
-    //   }
-    //   setStanzaArray(tempArray);
-    //   onUpdatePoem(tempArray);
-    // }
-
     function shiftStanzasDown() {
       const newArray = stanzaArray.map(stanza => stanza.selected ? stanza : null);
       newArray.unshift(newArray.pop());
@@ -182,6 +164,7 @@ const PoemPad = (props) => {
         </div>
         <div className={classes.poemPadButtonOuterContainer}>
         <div className={classes.poemPadButtonContainer}>
+        <SaveOutputToTxt poem={poem} /> 
           <button className={`${classes.button}`} onClick={selectAll}>select all</button>
           <button className={`${classes.button}`} onClick={unselectAll}>unselect all</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzasUp}>up</button>
@@ -191,7 +174,6 @@ const PoemPad = (props) => {
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} >shuffle</button>
           <button className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`} onClick={editStanza}>edit</button>
         </div>
-        <SaveOutputToTxt poem={poem} /> 
         </div>
         </>
     )

@@ -22,13 +22,34 @@
     // }
     .word {
         cursor: pointer;
-        border: 1px solid transparent;
+        // border: 1px solid transparent;
         display: inline-block;
         margin: .1rem;
         color: #000;
+        // padding: 1px;
+        position: relative;
+        // opacity: 0;
+        // visibility: hidden;
+
+        &::before {
+            visibility: visible;
+            content: "";
+            position: absolute;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
 
         &.selected {
-            border: 1px solid #000;
+
+            &::before {
+                visibility: visible;
+                content: "";
+                position: absolute;
+                border: 1px solid #000;
+                width: 100%;
+                height: 100%;
+            }
         }
     } 
 }
@@ -36,6 +57,12 @@
 .poemPadButtonOuterContainer {
     display: flex;
     justify-content: flex-start;
+}
+
+.poemPadButtonRightContainer {
+    // display: flex;
+    // justify-content: flex-start;
+    // flex-direction: row-reverse;
 }
 .poemBox {
     display: flex;
@@ -79,7 +106,7 @@
         .stanza {
             cursor: pointer;
             width: fit-content;
-            border: 1px solid #000;
+            
             display: inline-block;
             margin: .1rem;
             padding: .5rem;
@@ -91,7 +118,7 @@
             }
 
             &.selected {
-                    color: red;
+                border: 1px solid #000;
             }
         } 
     }
@@ -113,10 +140,11 @@
 
 .saveButton {
     border: 1px solid #fff;
-    margin-right: .2rem;
+    // margin-right: .2rem;
     cursor: pointer;
-    height: 2rem;
-    font-size: 1.2rem;
+    height: 2.5rem;
+    width: 7rem;
+    font-size: 1rem;
     color: #fff;
 
     &:hover {
