@@ -138,6 +138,7 @@ const Genny = (props) => {
   const [nLevel, setNLevel] = useState("-1");
   const [outputMode, setOutputMode] = useState('none');
   const [outputCheckbox, setOutputCheckbox] = useState('lines');  
+  const [updateStazaStyles, setUpdateStanzaStyles] = useState(null);
 
   // Switches
   const [padToShow, setPadToShow] = useState('stanza');
@@ -293,16 +294,21 @@ const Genny = (props) => {
     }
   }
 
-  const onEditStanza = (stanza, stanzaIndex) => {
+  const onEditStanza = (stanza, stanzaIndex, stanzaStyle) => {
     setEditStanzaIndex(stanzaIndex);
     setStanza(stanza);
     setEditExistingStanzaMode(true);
     setPadToShow('stanza');
+    setUpdateStanzaStyles(stanzaStyle);
   }
 
   const onSelectAllWords = () => {
     let newObjArray = stanza.map((item) => {
-      return { id: item.id, type: 'text', text: item.text, selected: true }
+      if (item.type === 'text') {
+        return { id: item.id, type: 'text', text: item.text, selected: true }
+      } else {
+        return item;
+      }
     });
     setStanza(newObjArray);
   }
@@ -884,7 +890,7 @@ const Genny = (props) => {
         }
         { padToShow === 'stanza' && 
           <div className={classes.stanzaPadSection}>
-            <StanzaPad stanza={stanza} onWordClick={onWordClick}/>
+            <StanzaPad updateStazaStyles={updateStazaStyles} stanza={stanza} onWordClick={onWordClick}/>
             <div className={classes.toolsContainer}>
               <StanzaPadButtons setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
               

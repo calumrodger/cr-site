@@ -4,7 +4,12 @@ import { checkStyles } from '@tg/utils/utils';
 
 const StanzaPad = (props) => {
 
-    const { stanza, onWordClick } = props;
+    const { stanza, onWordClick, updateStanzaStyles } = props;
+
+    let styles = {};
+    if (updateStanzaStyles !== null) {
+      styles = updateStanzaStyles;
+    }
 
     return (
         <div className={classes.stanzaBox}>

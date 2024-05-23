@@ -1,4 +1,4 @@
-import classes from './n-plus-x.module.scss';
+import classes from '../../tg-styles.module.scss';
 import { useState } from 'react';
 
 const NPlusX = (props) => {
@@ -12,7 +12,7 @@ const NPlusX = (props) => {
     }
 
     return (
-        <div className={classes.container}>
+        <div className={classes.nplusxContainer}>
         <div className={classes.radioButtons}>
             <span>PRESERVE:</span>
             <div className={classes.buttonsContainer}>

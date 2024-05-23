@@ -97,7 +97,8 @@ const PoemPad = (props) => {
     const editStanza = (e) => {
       let stanzaIndex = stanzaArray.findIndex((item) => item.selected === true);
       let stanza = stanzaArray[stanzaIndex].stanza;
-      onEditStanza(stanza, stanzaIndex);
+      let stanzaStyles = stanzaArray[stanzaIndex]?.style ? stanzaArray[stanzaIndex].style : null;
+      onEditStanza(stanza, stanzaIndex, stanzaStyles);
     }
 
     const deleteStanza = () => {

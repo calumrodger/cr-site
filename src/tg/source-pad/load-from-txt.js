@@ -26,7 +26,7 @@ const LoadFromTxt = (props) => {
 
     return (
         <>
-        <label className={classes.fileLoad} htmlFor="txt-src">load a .txt file
+        <label className={`${classes.fileLoad} ${classes.button}`} htmlFor="txt-src">load a .txt file
         <input className={classes.fileLoad} type="file" accept=".txt" id="txt-src" name="txt-src" onChange={onChangeHandler}  />
         </label>
         </>

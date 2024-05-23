@@ -1,4 +1,4 @@
-import classes from './api.module.scss';
+import classes from '../../tg-styles.module.scss';
 import { useState } from 'react';
 
 const APIFX = (props) => {
@@ -25,7 +25,7 @@ const APIFX = (props) => {
     }
 
     return (
-        <div className={classes.container}>
+        <div className={classes.apiContainer}>
             <div className={classes.buttonContainer}>
                 <button className={classes.button} onClick={handleNewsClick}>NEWS</button>
                 <div className={classes.paramContainer}>
