@@ -1,4 +1,4 @@
-import classes from '../output.module.scss';
+import classes from '../tg-styles.module.scss';
 
 const GiveTitle = (props) => {
 

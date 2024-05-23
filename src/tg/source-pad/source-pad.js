@@ -1,6 +1,6 @@
 'use client';
 
-import classes from '../input.module.scss';
+import classes from '../tg-styles.module.scss';
 import PopulateFromYouTubeComments from '@tg/source-pad/populate-from-yt-comments';
 
 import { useState, useEffect } from 'react';

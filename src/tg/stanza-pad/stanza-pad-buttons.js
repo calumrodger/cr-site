@@ -1,4 +1,4 @@
-import classes from '../pads.module.scss';
+import classes from '../tg-styles.module.scss';
 import StanzaUndoRedo from './undo-redo-stanza';
 
 const StanzaPadButtons = (props) => {

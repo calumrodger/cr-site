@@ -1,4 +1,4 @@
-import classes from '../../fx.module.scss';
+import classes from '../../tg-styles.module.scss';
 
 const TypographyButtons = (props) => {
 

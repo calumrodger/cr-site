@@ -1,4 +1,4 @@
-import classes from '../pads.module.scss';
+import classes from '../tg-styles.module.scss';
 
 import { useState, useEffect } from 'react';
 import { checkStyles, checkPoemStyles } from '@tg/utils/utils';

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import classes from '../input.module.scss';
+import classes from '../tg-styles.module.scss';
 
 const SaveLoad = (props) => {
 
