@@ -1,14 +1,25 @@
+$bgColour: #131b23;
+$outlinesColour: #e9f1f7;
+$fillColourLight: #e7dfc6;
+$highlightColour: #517b1d;
+$highlightExtra: #2274A5;
+$screenColour: #002400;
+
 .statusBar {
+    font-size: .8rem;
+    margin-top: 4px;
+    // background-color: $highlightExtra;
+    width: 11rem;
     
     .bar {
         display: flex;
         justify-content: center;
         align-items: center;
-
-        border: green 1px solid;
-        width: 12rem;
+        background: $screenColour;
+        border: $outlinesColour 1px solid;
+        width: 10rem;
         height: 2.4rem;
-        color: green;
+        color: $fillColourLight;
     }
 
 }

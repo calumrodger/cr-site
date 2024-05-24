@@ -1,10 +1,16 @@
+$bgColour: #131b23;
+$outlinesColour: #e9f1f7;
+$fillColourLight: #e7dfc6;
+$highlightColour: #517b1d;
+$highlightExtra: #2274A5;
+
 .container {
     width: 16rem;
     text-align: right;
     margin-top: .2rem;
     padding: .1rem;
-    background-color: azure;
-    color: #000;
+    // background-color: $highlightExtra;
+    color: $fillColourLight;
     display: flex;
 
     .textContainer {

@@ -1,15 +1,26 @@
+$bgColour: #131b23;
+$outlinesColour: #e9f1f7;
+$fillColourLight: #e7dfc6;
+$highlightColour: #517b1d;
+$highlightExtra: #2274A5;
+$screenColour: #002400;
+
 .formBar {
+    // background-color: $highlightExtra;
+    font-size: .8rem;
+    margin-top: 4px;
 
     .bar {
-        border: green 1px solid;
-        width: 4rem;
+        border: $fillColourLight 1px solid;
+        width: 4.5rem;
         height: 2.4rem;
         font-family: var(--league-spartan);
         display: flex;
         justify-content: center;
         align-items: center;
         font-weight: 700;
-        color: green;
+        background-color: $screenColour;
+        color: $fillColourLight;
         font-size: .8rem;
     }
 

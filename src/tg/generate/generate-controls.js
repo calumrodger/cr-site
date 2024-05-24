@@ -311,15 +311,17 @@ const GenerateControls = (props) => {
             </div>
             <div className={classes.nLevelSlider}>
                 <label htmlFor="n-level-slider">n-level: {nLevel === "-1" ? 'OFF' : nLevel}</label>
-                <input type="range" id="n-level-slider" name="n-level-slider" min="-1" max="0" step="1" value={nLevel} onChange={onChangeNLevelSlider}></input>
+                <input className={classes.slider} type="range" id="n-level-slider" name="n-level-slider" min="-1" max="0" step="1" value={nLevel} onChange={onChangeNLevelSlider}></input>
             </div>
             <div className={classes.genButtons}>
-                <button className={classes.button} onClick={onFormSubmit}>GENERATE</button>
-                <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
+                <button className={classes.button} onClick={onFormSubmit}>GENERATE!</button>
             </div>
             <div className={classes.formInput}>
-                <label htmlFor="form">new form:</label>
+                <label htmlFor="form">form:</label>
                 <input type="text" id="form" name="form" value={currentForm} onChange={onChangeForm}></input>
+            </div>
+            <div className={classes.saveStanzaButton}>
+                <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
             </div>
             <div className={classes.formStyleToggle}>
                 <span>Measure:</span>

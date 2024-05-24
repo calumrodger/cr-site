@@ -1,12 +1,16 @@
 import classes from './show-as-lines.module.scss';
 import { checkStyles, checkPoemStyles } from '@tg/utils/utils';
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
+import { toPng } from 'html-to-image';
 
 const ShowAsLines = (props) => {
+
+    const refer = useRef(null);
+
     const { stanza, padToShow, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
 
     const [sliderValue, setSliderValue] = useState(0);
-    const [colour, setColour] = useState('#000000');
+    const [colour, setColour] = useState('#fff');
     const [poemToShow, setPoemToShow] = useState([]);
 
     console.log(poem)
@@ -24,9 +28,25 @@ const ShowAsLines = (props) => {
         setSliderValue(e.target.value);
     }
 
+    const exportAsImage = useCallback(() => {
+      if (refer.current === null) {
+        return
+      }
+      toPng(refer.current, { cacheBust: true})
+      .then((dataUrl) => {
+        const link = document.createElement('a');
+        link.download = `${poemTitle}.png`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((error) => {
+        console.error('oops, something went wrong!', error);
+      })
+    }, [refer])
+
     return (
-        <div className={classes.pageContainer}>
-          <div className={classes.poemContainer} >
+        <div className={classes.pageContainer} >
+          <div className={classes.poemContainer} ref={refer}>
               <div className={classes.poemTitle}>{poemTitle}</div>
               <div className={classes.mainText}>
               {thePoem.map((t, i) => {
@@ -49,6 +69,7 @@ const ShowAsLines = (props) => {
           </div>
           <div className={classes.showAsLinesPanel}>
           <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
+          <button onClick={exportAsImage} className={classes.button}>EXPORT</button>
           <input type="range" min="0" max="9" step="1" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="myRange"/>
           <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
           </div>

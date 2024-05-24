@@ -1,8 +1,14 @@
+$bgColour: #131b23;
+$outlinesColour: #e9f1f7;
+$fillColourLight: #e7dfc6;
+$highlightColour: #517b1d;
+$highlightExtra: #2274A5;
+
 .bigContainer {
     margin: auto;
     height: 500px !important;
     width: 1250px !important;
-    background-color: pink;
+    background-color: #6582a5;
     position: absolute;
     top:  50%;
     left: 50%;
@@ -15,14 +21,14 @@
 .background {
     // height: 100%;
     // width: 100%;
-    background-color: rgb(211, 201, 215);
+    background-color: #6582a5;
 }
 
 .pageContainer {
     border-radius: .5rem;
-    box-shadow: .5rem .3rem .3rem green;
-    background-color: #1a1a19;
-    color: #fcfcf5;
+    box-shadow: .5rem .3rem .3rem #84732b;
+    background-color: $bgColour;
+    color: $fillColourLight;
     // padding: 1rem;
     height: 100%;
     width: 100%;
@@ -50,17 +56,17 @@
 }
 
 .button {
-    border: 1px solid #000;
+    border: 1px solid $bgColour;
     cursor: pointer;
 
     &:hover {
         background-color: greenyellow;
-        color: #fff;
+        color: $fillColourLight;
     }
 }
 
 .inputSection {
-    // border: 1px solid #000;
+    // border: 1px solid $bgColour;
     padding: .5rem;
     grid-area: inputSection;
     display: flex;
@@ -68,7 +74,7 @@
 }
 
 .globalSection {
-    // border: 1px solid #000;
+    // border: 1px solid $bgColour;
     padding: .3rem 1rem .3rem .3rem;
     grid-area: globalSection;
     display: grid;
@@ -80,11 +86,13 @@
     gap: .3rem;
 
     .saveButtonsSection {
+        margin-top: 4px;
+        margin-right: 5px;
         grid-area: saveButtonsSection;
         display: flex;
         flex-direction: column;
         gap: .1rem;
-        justify-content: flex-end;
+        // justify-content: flex-end;
     }
 
     .titleSection {
@@ -114,7 +122,7 @@
 
 
 .stanzaPadSection {
-    // border: 1px solid #000;
+    // border: 1px solid $bgColour;
     grid-area: padSection;
     padding: 0;
 
@@ -126,13 +134,13 @@
 }
 
 .poemPadSection {
-    // border: 1px solid #000;
+    // border: 1px solid $bgColour;
     grid-area: 1 / 2 / 4 / 5;
     padding: .5rem;
 }
 
 .composeSection {
-    // border: 1px solid #000;
+    // border: 1px solid $bgColour;
     grid-area: composeSection;
     padding: .5rem;
     // display: flex;
@@ -141,7 +149,7 @@
 }
 
 .fxSection {
-    // border: 1px solid #000;
+    // border: 1px solid $bgColour;
     grid-area: fxSection;
     padding: .5rem;
 
@@ -160,7 +168,7 @@
 }
 
 .outputSection {
-    // border: 1px solid #000;
+    // border: 1px solid $bgColour;
     grid-area: outputSection;
     padding: .5rem;
     display: flex;
@@ -171,7 +179,7 @@
 }
 
 .switcherSection {
-    // border: 1px solid #000;
+    // border: 1px solid $bgColour;
     grid-area: switcherSection;
     padding: .5rem;
     display: flex;
@@ -190,7 +198,7 @@
 }
 
 .inputPadSection {
-    // border: 1px solid #000;
+    // border: 1px solid $bgColour;
     grid-area: 1 / 2 / 5 / 5;
     padding: .5rem;
 }

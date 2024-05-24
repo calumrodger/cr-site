@@ -5,6 +5,10 @@ import { useState, useEffect } from 'react';
 import { syllable } from 'syllable';
 import { dictionary } from 'cmu-pronouncing-dictionary';
 
+// PRESETS
+import { emily } from '../../../public/tg/presets/emily';
+import { flatland } from '../../../public/tg/presets/flatland';
+
 // GLOBAL COMPONENTS
 import SaveLoad from '@tg/global/save-load';
 import PadSwitcher from '@tg/global/pad-switcher';
@@ -126,7 +130,7 @@ const Genny = (props) => {
   const [wordBank, setWordBank] = useState([{id: 0, text: 'hello', selected: false}, {id: 1, text: 'world', selected: false}]);
   const [allWordLists, setAllWordLists] = useState(demoArrayOfArrays);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([{id: 0, name: 'preset1', text: 'hello world'}, {id: 1, name: 'preset2', text: 'goodbye world'}, {id: 2, name: 'preset3', text: 'hello goodbye world'}])
+  const [presetArray, setPresetArray] = useState([emily, flatland])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
   const [statusMessage, setStatusMessage] = useState('welcome in genny')
@@ -858,6 +862,43 @@ const Genny = (props) => {
     setStatusMessage(message);
   }
 
+  function shuffle(array) {
+    let currentIndex = array.length;
+  
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element...
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  }
+
+  const onShuffleStanza = () => {
+    let selectedWords = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        selectedWords.push(stanza[i].text);
+      }
+    }
+    shuffle(selectedWords);
+    let newObjArray = [];
+    let shuffledWordsCount = 0;
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[shuffledWordsCount], selected: true });
+        shuffledWordsCount++;
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
 
 
   if (outputMode === 'none') {
@@ -892,7 +933,7 @@ const Genny = (props) => {
           <div className={classes.stanzaPadSection}>
             <StanzaPad updateStazaStyles={updateStazaStyles} stanza={stanza} onWordClick={onWordClick}/>
             <div className={classes.toolsContainer}>
-              <StanzaPadButtons setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
+              <StanzaPadButtons onShuffleStanza={onShuffleStanza} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
               
             </div>
           </div>
@@ -927,19 +968,19 @@ const Genny = (props) => {
             </div>
             < hr/>
             <span>N + X</span>
-            <NPlusX onUpdate={onUpdate} stanza={stanza}/> 
+            <NPlusX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
             <hr />
-
             <span>API INJECTION</span>
-            <APIFX onUpdate={onUpdate} stanza={stanza}/>
+            <APIFX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/>
             <hr />
             <span>LLM </span>
-            <LLMFX onUpdate={onUpdate} stanza={stanza}/>
+            <LLMFX onSetStatusMessage={onSetStatusMessage} onUpdate={onUpdate} stanza={stanza}/>
             <hr />
           </div>
           <div className={classes.composeSection}>
             { (!showEditWordBank && !showAddWordBank) &&
             <>
+            <span>WORD BANK</span>
             <WordBank onSaveWordBankAsList={onSaveWordBankAsList} deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
             <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
             <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>

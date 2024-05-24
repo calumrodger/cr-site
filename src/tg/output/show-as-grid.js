@@ -1,11 +1,13 @@
 import classes from './show-as-grid.module.scss';
 import { checkStyles, checkPoemStyles } from '@tg/utils/utils';
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
+import { toPng } from 'html-to-image';
 
 const ShowAsGrid = (props) => {
+    const refer = useRef(null);
     const { poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
 
-    const [colour, setColour] = useState('#000000');
+    const [colour, setColour] = useState('#fff');
     const [gridX, setGridX] = useState(1);
     const [gridY, setGridY] = useState(4);
     const [renderMode, setRenderMode] = useState(true);
@@ -48,9 +50,25 @@ const ShowAsGrid = (props) => {
         setPadding(e.target.value);
     }
 
+    const exportAsImage = useCallback(() => {
+      if (refer.current === null) {
+        return
+      }
+      toPng(refer.current, { cacheBust: true})
+      .then((dataUrl) => {
+        const link = document.createElement('a');
+        link.download = `${poemTitle}.png`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((error) => {
+        console.error('oops, something went wrong!', error);
+      })
+    }, [refer])
+
     return (
         <div className={classes.pageContainer}>
-          <div className={classes.poemContainer} >
+          <div className={classes.poemContainer} style={{backgroundColor: colour, padding: "1rem"}} ref={refer}>
               <div className={classes.poemTitle}>{poemTitle}</div>
               <div style={{...yValue, ...xValue, ...renderSetting}} className={classes.mainText}>
               {poem.map((t, i) => {
@@ -76,6 +94,7 @@ const ShowAsGrid = (props) => {
             <input type="range" id="padding" name="padding" min="-9" max="9" step="1" onChange={onChangePadding} value={padding}/>
             <button onClick={switchRenderMode} className={classes.button}>{renderModeButtonText}</button>
             <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
+            <button onClick={exportAsImage} className={classes.button}>EXPORT</button>
           </div>
         </div>
     )

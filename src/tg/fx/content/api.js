@@ -1,69 +1,121 @@
 import classes from '../../tg-styles.module.scss';
 import { useState } from 'react';
+import { getFilmData, getGuardianData, getWeatherData } from '@tg/server-actions/actions';
 
 const APIFX = (props) => {
 
-    const { onUpdate, stanza } = props;
+    const { onSetStatusMessage, onUpdate, stanza } = props;
 
-    const [newsPromptValue, setNewsPromptValue] = useState('');
-    const [newsVolumeValue, setNewsVolumeValue] = useState(3);
-    const [weatherPromptValue, setWeatherPromptValue] = useState('');
-    const [weatherVolumeValue, setWeatherVolumeValue] = useState(3);
-    const [filmPromptValue, setFilmPromptValue] = useState('');
-    const [filmVolumeValue, setFilmVolumeValue] = useState(3);
+    const [promptValue, setPromptValue] = useState('');
+    const [volumeValue, setVolumeValue] = useState(3);
+    const [apiType, setApiType] = useState('news');
 
-    const handleNewsClick = () => {
-        console.log(newsPromptValue, newsVolumeValue)
+    const handleClick = () => {
+        if (apiType === 'news') {
+            onGetGuardianData();
+        }
+        if (apiType === 'weather') {
+            onGetWeatherData();
+        }
+        if (apiType === 'film') {
+            onGetFilmData();
+        }
     }
 
-    const handleWeatherClick = () => {
-        console.log(weatherPromptValue, weatherVolumeValue)
+    const onGetFilmData = async () => {
+        const treatedPrompt = promptValue.replace(' ', '_');
+        const data = await getFilmData(treatedPrompt);
+        const plot = data.Plot;
+        let newStanzaArray = [];
+        let textArray = plot.split(' ');
+        for (let i = 0; i < stanza.length; i++) {
+            if (stanza[i].selected) {
+                let randomIndex = Math.floor(Math.random() * textArray.length);
+                let wordsToAddArray = textArray.filter((word, index) => (index >= randomIndex) && (index < (randomIndex + +volumeValue)));
+                newStanzaArray.push(stanza[i]);
+                for (let j = 0; j < wordsToAddArray.length; j++) {
+                    newStanzaArray.push({id: stanza.length + j, type: 'text', text: wordsToAddArray[j], selected: false})
+                }
+            } else {
+                newStanzaArray.push(stanza[i]);
+            }
+        }
+        onUpdate(newStanzaArray, stanza);
     }
 
-    const handleFilmsClick = () => {
-        console.log(filmPromptValue, filmVolumeValue)
+    const onGetGuardianData = async () => {
+        const treatedPrompt = promptValue.replace(' ', '-');
+        const data = await getGuardianData(treatedPrompt);
+        const headlines = data.response.results.map((article) => article.webTitle).join(' ');
+        console.log(headlines)
+        let newStanzaArray = [];
+        let textArray = headlines.split(' ');
+        for (let i = 0; i < stanza.length; i++) {
+            if (stanza[i].selected) {
+                let randomIndex = Math.floor(Math.random() * textArray.length);
+                let wordsToAddArray = textArray.filter((word, index) => (index >= randomIndex) && (index < (randomIndex + +volumeValue)));
+                newStanzaArray.push(stanza[i]);
+                for (let j = 0; j < wordsToAddArray.length; j++) {
+                    newStanzaArray.push({id: stanza.length + j, type: 'text', text: wordsToAddArray[j], selected: false})
+                }
+            } else {
+                newStanzaArray.push(stanza[i]);
+            }
+        }
+        onUpdate(newStanzaArray, stanza);
+    }
+
+    const onGetWeatherData = async () => {
+        const treatedPrompt = promptValue.replace(' ', '_');
+        const data = await getWeatherData(treatedPrompt);
+        const description = data.description;
+        let newStanzaArray = [];
+        let textArray = description.split(' ');
+        for (let i = 0; i < stanza.length; i++) {
+            if (stanza[i].selected) {
+                let wordsToAddArray = textArray.filter((word, index) => index < +volumeValue);
+                newStanzaArray.push(stanza[i]);
+                for (let j = 0; j < wordsToAddArray.length; j++) {
+                    newStanzaArray.push({id: stanza.length + j, type: 'text', text: wordsToAddArray[j], selected: false})
+                }
+            } else {
+                newStanzaArray.push(stanza[i]);
+            }
+        }
+        onUpdate(newStanzaArray, stanza);
     }
 
     return (
         <div className={classes.apiContainer}>
-            <div className={classes.buttonContainer}>
-                <button className={classes.button} onClick={handleNewsClick}>NEWS</button>
+            <div className={classes.radioContainer}>
                 <div className={classes.paramContainer}>
                     <div className={classes.param}>
-                        <label htmlFor="news-key">key:</label>
-                        <input className={classes.prompt} value={newsPromptValue} onChange={(e) => setNewsPromptValue(e.target.value)} type="text" />
+                        <label htmlFor="news">news: </label>
+                        <input type="radio" id="news" name="news" value="news" readOnly checked={apiType === 'news'} onClick={(e) => setApiType('news')}/>
                     </div>
                     <div className={classes.param}>
-                        <label htmlFor="news-vol">vol:</label>
-                        <input className={classes.prompt} value={newsVolumeValue} onChange={(e) => setNewsVolumeValue(e.target.value)} type="number" />
+                        <label htmlFor="weather">weather: </label>
+                        <input type="radio" id="weather" name="weather" value="weather" readOnly checked={apiType === 'weather'} onClick={(e) => setApiType('weather')}/>
+                    </div>
+                    <div className={classes.param}>
+                        <label htmlFor="film">film: </label>
+                        <input type="radio" id="film" name="film" value="film" readOnly checked={apiType === 'film'} onClick={(e) => setApiType('film')}/>
                     </div>
                 </div>
             </div>
-            <div className={classes.buttonContainer}>
-                <button className={classes.button} onClick={handleWeatherClick}>WEATHER</button>
-                <div className={classes.paramContainer}>
-                    <div className={classes.param}>
-                        <label htmlFor="weather-key">key:</label>
-                        <input className={classes.prompt} value={weatherPromptValue} onChange={(e) => setWeatherPromptValue(e.target.value)} type="text" />
+            <div className={classes.inputsContainer}>
+                    <div className={classes.inputKey}>
+                        <label htmlFor="key">key:</label>
+                        <input className={classes.textInput} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} type="text" />
                     </div>
-                    <div className={classes.param}>
-                        <label htmlFor="weather-vol">vol:</label>
-                        <input className={classes.prompt} value={weatherVolumeValue} onChange={(e) => setWeatherVolumeValue(e.target.value)} type="number" />
+                    <div className={classes.input}>
+                        <label htmlFor="vol">vol:</label>
+                        <input className={classes.textInput} value={volumeValue} onChange={(e) => setVolumeValue(e.target.value)} type="number" />
                     </div>
-                </div>
             </div>
             <div className={classes.buttonContainer}>
-                <button className={classes.button} onClick={handleFilmsClick}>FILMS</button>
-                <div className={classes.paramContainer}>
-                    <div className={classes.param}>
-                        <label htmlFor="film-key">key:</label>
-                        <input className={classes.prompt} value={filmPromptValue} onChange={(e) => setFilmPromptValue(e.target.value)} type="text" />
-                    </div>
-                    <div className={classes.param}></div>
-                        <label htmlFor="film-vol">vol:</label>
-                        <input className={classes.prompt} value={filmVolumeValue} onChange={(e) => setFilmVolumeValue(e.target.value)} type="number" />
-                    </div>
-                </div>
+                <button className={classes.button} onClick={handleClick}>GO</button>
+            </div>
         </div>
     )
 }
