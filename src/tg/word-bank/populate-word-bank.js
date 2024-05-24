@@ -86,7 +86,6 @@ const PopulateWordBank = (props) => {
 
     const onSetPopulateType = (type) => {
         setPopulateType(type);
-        console.log(populateType)
     }
 
     const changePromptHandler = (e) => {

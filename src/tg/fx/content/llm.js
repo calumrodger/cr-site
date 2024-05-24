@@ -77,7 +77,6 @@ const LLMFX = (props) => {
    
     const handlePromptClick = async (e, thePrompt, mode) => {
       e.preventDefault();
-      console.log(thePrompt)
       setLoading(true);
       const response = await fetch("/api/ai", {
         method: "POST",
@@ -126,7 +125,6 @@ const LLMFX = (props) => {
     useEffect(() => {
       if (typeof rawEmojiOutput === 'string' && rawEmojiOutput !== '') {
           let treatedOutput = processLlmOutput(rawEmojiOutput);
-          console.log(treatedOutput)
           if (typeof treatedOutput === "object") {
               onUpdate(getNewStanzaReplace(treatedOutput), stanza)
           } else {
@@ -138,7 +136,6 @@ const LLMFX = (props) => {
     useEffect(() => {
       if (typeof rawIntensifyOutput === 'string' && rawIntensifyOutput !== '') {
           let treatedOutput = processLlmOutput(rawIntensifyOutput);
-          console.log(treatedOutput)
           if (typeof treatedOutput === "object") {
               onUpdate(getNewStanzaAddBefore(treatedOutput), stanza)
           } else {
@@ -150,7 +147,6 @@ const LLMFX = (props) => {
     useEffect(() => {
       if (typeof rawNonsensifyOutput === 'string' && rawNonsensifyOutput !== '') {
           let treatedOutput = processLlmOutput(rawNonsensifyOutput);
-          console.log(treatedOutput)
           if (typeof treatedOutput === "object") {
               onUpdate(getNewStanzaReplace(treatedOutput), stanza)
           } else {

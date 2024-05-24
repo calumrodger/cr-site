@@ -147,7 +147,6 @@ const PoemPad = (props) => {
       <>
         <div className={classes.poemBox}>
           {poem.map((t, i) => {
-            console.log(t)
               return (
               <div key={t.id} className={classes.poemContainer}>
                 <div className={classes.controlsContainer}>

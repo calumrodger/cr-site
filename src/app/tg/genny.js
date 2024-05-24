@@ -562,7 +562,6 @@ const Genny = (props) => {
           newObjArray.push(poem[i]);
         }
       }
-      console.log(newObjArray)
       setPoem(newObjArray);
     }
   }

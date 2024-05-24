@@ -37,7 +37,6 @@ export const checkStyles = (word) => {
 
   export const checkPoemStyles = (stanza) => {
     let thisStyle = {};
-    console.log(stanza)
     if (stanza?.style) {
       if (stanza?.style?.fontSize) {
         thisStyle = {...thisStyle, fontSize: Math.sign(stanza.style.fontSize) !== -1 ? '1.' + stanza.style.fontSize.toString() + 'rem' : `${1 - (( stanza.style.fontSize / 10) * -1)}rem`}
@@ -70,6 +69,5 @@ export const checkStyles = (word) => {
     } else {
       return null;
     }
-    console.log(thisStyle)
     return thisStyle;
   }

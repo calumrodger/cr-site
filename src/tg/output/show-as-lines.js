@@ -13,10 +13,6 @@ const ShowAsLines = (props) => {
     const [colour, setColour] = useState('#fff');
     const [poemToShow, setPoemToShow] = useState([]);
 
-    console.log(poem)
-    console.log(stanza)
-    console.log(poemToShow)
-
     const thePoem = padToShow === 'stanza' ? [{id: 0, stanza: stanza, selected: false}] : poem;
 
     const onChangeColour = (e) => {
