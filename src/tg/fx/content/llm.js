@@ -209,9 +209,11 @@ of joy and laughter, ha ha ha!
     }, [rawNonsensifyOutput])
 
     useEffect(() => {
+      if (rawRemixOutput !== '') {
           let treatedOutput = processRemixOutput(rawRemixOutput);
           console.log('treated output: ' + treatedOutput)
           onUpdate(treatString(treatedOutput), stanza)
+      }
     }, [rawRemixOutput])
 
     const getNewStanzaReplace = (treatedOutput) => {
