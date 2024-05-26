@@ -4,7 +4,7 @@ import { checkStyles } from '@tg/utils/utils';
 
 const StanzaPad = (props) => {
 
-    const { stanza, onWordClick, updateStanzaStyles } = props;
+    const { baseFont, stanza, onWordClick, updateStanzaStyles } = props;
 
     let styles = {};
     if (updateStanzaStyles !== null) {
@@ -13,7 +13,7 @@ const StanzaPad = (props) => {
 
     return (
         <div className={classes.stanzaBox}>
-        <div className={classes.text}>
+        <div style={{fontFamily: `var(${baseFont})`}} className={classes.text}>
           {stanza.map((t, i) => {
             if (t.text === '\n') {
               return <br id={i} key={i} className={classes.lineBreak}/>

@@ -86,12 +86,14 @@ $highlightExtra: #2274A5;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     // grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas: "saveButtonsSection saveButtonsSection titleSection titleSection"
+    grid-template-areas: "saveButtonsSection saveButtonsSection saveButtonsSection titleSection"
                          "statusMessageSection statusMessageSection formSection poemLengthSection";
     gap: .5rem;
 
     .saveButtonsSection {
         margin-top: 4px;
+        display: flex;
+        gap: 1rem;
         grid-area: saveButtonsSection;
     }
 

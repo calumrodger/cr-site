@@ -2,11 +2,11 @@ import classes from '../tg-styles.module.scss';
 
 const WordBank = (props) => {
 
-    const { onSaveWordBankAsList, wordBank, onWordBankClick, deleteSelectedWordBank, selectAllWordBank, unselectAllWordBank } = props;
+    const { baseFont, onSaveWordBankAsList, wordBank, onWordBankClick, deleteSelectedWordBank, selectAllWordBank, unselectAllWordBank } = props;
 
     return (
         <div className={classes.wordBankSection}>
-            <div className={classes.wordBank}>
+            <div className={classes.wordBank} style={{fontFamily: `var(${baseFont})`}}>
             {wordBank.map((word, i) => {
                 return (
                     <span key={i} id={i} onClick={onWordBankClick} className={`${classes.word} ${word.selected ? classes.selected : null}`}>{word.text}</span>

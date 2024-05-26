@@ -16,9 +16,6 @@ const NPlusX = (props) => {
 
     const pos = require('pos');
 
-    // console.log(theDictionary)
-    // console.log(dictionary)
-
     const wordClassCheck = (word1, word2) => {
         const wordOne = new pos.Lexer().lex(word1);
         const wordTwo = new pos.Lexer().lex(word2);
@@ -50,11 +47,7 @@ const NPlusX = (props) => {
     }
 
     const rhymeCheck = (word1, word2) => {
-        // if () {
             console.log(dictionary[word1])
-        // } else {
-        //     console.log('nope')
-        // }
     }
 
     const handleReplaceClick = () => {
@@ -89,7 +82,7 @@ const NPlusX = (props) => {
         for (let i = 0; i < stanza.length; i++) {
             if (stanza[i].selected === true) {
                 let randomWord = theDictionary[Math.floor(Math.random() * theDictionary.length)];
-                newObjArray.push({id: stanza[i].id, type: 'text', text: randomWord, selected: true});
+                newObjArray.push({id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: randomWord, selected: true});
             } else {
                 newObjArray.push(stanza[i]);
             }

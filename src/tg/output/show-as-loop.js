@@ -3,7 +3,7 @@ import { checkPoemStyles, checkStyles } from '@tg/utils/utils';
 import { useState, useEffect } from 'react';
 
 const ShowAsLoop = (props) => {
-    const { outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, outputBgColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
+    const { baseFont, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, outputBgColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
 
     const [slideIndex, setSlideIndex] = useState(0);
     const [sliderValue, setSliderValue] = useState(1000);
@@ -50,7 +50,7 @@ const ShowAsLoop = (props) => {
 
     return (
         <div className={classes.pageContainer}>
-          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour}}>
+          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: `var(${baseFont})`}}>
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div className={classes.mainTextLoop}>
               {thePoemJSX[slideIndex]}

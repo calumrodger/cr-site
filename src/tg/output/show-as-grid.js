@@ -5,7 +5,7 @@ import { toPng } from 'html-to-image';
 
 const ShowAsGrid = (props) => {
     const refer = useRef(null);
-    const { outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour, outputBgColour } = props;
+    const { baseFont, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour, outputBgColour } = props;
 
     const [gridX, setGridX] = useState(1);
     const [gridY, setGridY] = useState(4);
@@ -74,7 +74,7 @@ const ShowAsGrid = (props) => {
 
     return (
         <div className={classes.pageContainer}>
-          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour}} ref={refer}>
+          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: `var(${baseFont})` }} ref={refer}>
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div style={{...yValue, ...xValue, ...renderSetting}} className={classes.mainTextGrid}>
               {poem.map((t, i) => {

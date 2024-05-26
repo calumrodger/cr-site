@@ -53,7 +53,6 @@ const PopulateWordBank = (props) => {
     useEffect(() => {
         if (llmOutput !== '') {
             let treatedOutput = processLlmOutput(llmOutput);
-            console.log(treatedOutput)
             if (typeof treatedOutput === "object") {
                 onPopulateWordBank(treatedOutput, quant)
             } else {

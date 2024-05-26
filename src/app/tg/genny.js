@@ -17,6 +17,7 @@ import StatusBar from '@tg/global/status-bar';
 import CurrentForm from '@tg/global/current-form';
 import Title from '@tg/global/title';
 import PoemLength from '@tg/global/poem-length';
+import BaseFont from '@tg/global/base-font';
 
 // GENERATE COMPONENTS
 import GenerateControls from '@tg/generate/generate-controls';
@@ -160,6 +161,7 @@ const Genny = (props) => {
   const [outputBgColour, setOutputBgColour] = useState('#fff');
   const [outputTitleColour, setOutputTitleColour] = useState('#000');
   const [outputPoemColour, setOutputPoemColour] = useState('#000');
+  const [baseFont, setBaseFont] = useState('--lexend');
 
   // Switches
   const [padToShow, setPadToShow] = useState('stanza');
@@ -170,6 +172,20 @@ const Genny = (props) => {
   const [showAddWordBank, setShowAddWordBank] = useState(false);
   const [loadingDict, setLoadingDict] = useState(false);
 
+  const onSelectFont = (font) => {
+    switch (font) {
+      case 'lexend':
+        setBaseFont('--lexend');
+        break;
+      case 'league-spartan':
+        setBaseFont('--league-spartan');
+        break;
+      default:
+        setBaseFont('--lexend');
+        break;
+    }
+  }
+
   const onSetFormStyle = () => {
     if (formStyle === 'syllable') {
       setFormStyle('stress');
@@ -177,6 +193,7 @@ const Genny = (props) => {
       setFormStyle('syllable');
     }
   }
+
 
   const getStress = (theString) => {
     if (theString === '' || theString === undefined) {
@@ -191,7 +208,6 @@ const Genny = (props) => {
     let stressArray = [];
     for (let i = 0; i < wordsArray.length; i++) {
       if (dictionary[wordsArray[i]] !== undefined) {
-        console.log(dictionary[wordsArray[i]]);
         stressArray.push(dictionary[wordsArray[i]]);
       } else {
         stressArray.push('1');
@@ -200,7 +216,6 @@ const Genny = (props) => {
     let stressCount = 0;
     for (let i = 0; i < stressArray.length; i++) {
       let itemStress = (((stressArray[i].match(/2/g)||[].length).toString()) * 1) + (((stressArray[i].match(/1/g)||[].length).toString()) * 1);
-      console.log(itemStress);
       stressCount = stressCount + itemStress;
     }
     return stressCount;
@@ -470,7 +485,6 @@ const Genny = (props) => {
   }
 
   const onClickImportAsStanza = (text) => {
-    console.log(text)
     const formattedString = text.replace('\n', ' waaaa ')
     setStanza(treatString(formattedString));
     setPadToShow('stanza');
@@ -939,6 +953,7 @@ const Genny = (props) => {
         <div className={classes.globalSection}>
           <div className={classes.saveButtonsSection}>
             <SaveLoad poem={poem} poemTitle={poemTitle}/>
+            <BaseFont onSelectFont={onSelectFont}/>
           </div>
           <div className={classes.titleSection}>
          
@@ -961,7 +976,7 @@ const Genny = (props) => {
         }
         { padToShow === 'stanza' && 
           <div className={classes.stanzaPadSection}>
-            <StanzaPad updateStazaStyles={updateStazaStyles} stanza={stanza} onWordClick={onWordClick}/>
+            <StanzaPad baseFont={baseFont} updateStazaStyles={updateStazaStyles} stanza={stanza} onWordClick={onWordClick}/>
             <div className={classes.toolsContainer}>
               <StanzaPadButtons onShuffleStanza={onShuffleStanza} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
               
@@ -971,7 +986,7 @@ const Genny = (props) => {
         { padToShow === 'poem' &&
           <>
           <div className={classes.poemPadSection}>
-            <PoemPad onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
+            <PoemPad baseFont={baseFont} onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
           </div>
           <div className={classes.poemPadStatusSection}>
             <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
@@ -1022,7 +1037,7 @@ const Genny = (props) => {
             { (!showEditWordBank && !showAddWordBank) &&
             <>
             <span>WORD BANK</span>
-            <WordBank onSaveWordBankAsList={onSaveWordBankAsList} deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
+            <WordBank baseFont={baseFont} onSaveWordBankAsList={onSaveWordBankAsList} deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
             <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
             <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
             </>
@@ -1079,16 +1094,16 @@ const Genny = (props) => {
       <div style={{background: outputBgColour}} className={classes.pageContainerOutput}>
         <div className={classes.poemContent}>
         { outputMode === 'lines' && 
-        <ShowAsLines onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} stanza={stanza} padToShow={padToShow} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
+        <ShowAsLines baseFont={baseFont} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} stanza={stanza} padToShow={padToShow} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
         }
         { outputMode === 'grid' &&
-        <ShowAsGrid onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+        <ShowAsGrid baseFont={baseFont} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
         }
         { outputMode === 'slides' &&
-        <ShowAsSlides onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+        <ShowAsSlides baseFont={baseFont} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
         }
         { outputMode === 'loop' &&
-        <ShowAsLoop onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+        <ShowAsLoop baseFont={baseFont} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
         }
         </div>
       </div>

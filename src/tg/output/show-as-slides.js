@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from 'react';
 import { toPng } from 'html-to-image';
 
 const ShowAsSlides = (props) => {
-    const { outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, outputBgColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
+    const { baseFont, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, outputBgColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
 
     const refer = useRef(null);
 
@@ -65,7 +65,7 @@ const ShowAsSlides = (props) => {
 
     return (
         <div className={classes.pageContainer}>
-          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour}} >
+          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: `var(${baseFont})`}} >
               {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div className={classes.mainTextSlides}>
               {thePoemJSX[slideIndex]}

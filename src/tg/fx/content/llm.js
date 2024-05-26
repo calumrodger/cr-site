@@ -211,7 +211,6 @@ of joy and laughter, ha ha ha!
     useEffect(() => {
       if (rawRemixOutput !== '') {
           let treatedOutput = processRemixOutput(rawRemixOutput);
-          console.log('treated output: ' + treatedOutput)
           onUpdate(treatString(treatedOutput), stanza)
       }
     }, [rawRemixOutput])
