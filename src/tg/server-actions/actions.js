@@ -1,5 +1,13 @@
 'use server';
 
+import fs from 'node:fs';
+import wordListPath from 'word-list';
+
+export async function getDictionary() {
+  const dictionary = fs.readFileSync(wordListPath, 'utf8').split('\n');
+  return dictionary;
+}
+
 export async function getYouTubeComments(videoId) {
         const res = await fetch('https://youtube.googleapis.com/youtube/v3/commentThreads?maxResults=5000&part=snippet&part=replies&videoId=' + videoId + '&key=' + process.env.YOUTUBE_API_KEY)
         // The return value is *not* serialized
@@ -31,20 +39,6 @@ export async function getGuardianData(searchKey) {
   }
 
   return res.json();
-}
-
-function formatDate(date) {
-  var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-  if (month.length < 2) 
-      month = '0' + month;
-  if (day.length < 2) 
-      day = '0' + day;
-
-  return [year, month, day].join('-');
 }
 
 export async function getWeatherData(location) {

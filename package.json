@@ -13,6 +13,7 @@
     "cmu-pronouncing-dictionary": "^3.0.0",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
+    "fs": "^0.0.1-security",
     "gtag": "^1.0.1",
     "html-react-parser": "^3.0.16",
     "html-to-image": "^1.11.11",
@@ -20,10 +21,12 @@
     "n-gram": "^2.0.2",
     "next": "^14.0.4",
     "next-videos": "1.4.1",
+    "pos": "^0.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "replicate": "^0.29.4",
-    "syllable": "^5.0.1"
+    "syllable": "^5.0.1",
+    "word-list": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "18.15.11",

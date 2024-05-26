@@ -967,7 +967,7 @@ const Genny = (props) => {
             </div>
             < hr/>
             <span>N + X</span>
-            <NPlusX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
+            <NPlusX getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
             <hr />
             <span>API INJECTION</span>
             <APIFX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/>
