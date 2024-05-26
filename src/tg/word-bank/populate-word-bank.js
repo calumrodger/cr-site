@@ -99,13 +99,13 @@ const PopulateWordBank = (props) => {
                 <div className={classes.extraSettingsContainer}>
                     <div className={classes.numberInput}>
                         <label htmlFor="populate-quant">#: </label>
-                        <input type="number" id="populate-quant" name="populate-quant" onChange={onChangeQuant} value={quant}/>
+                        <input className={classes.textInput} type="number" id="populate-quant" name="populate-quant" onChange={onChangeQuant} value={quant}/>
                     </div>
                     <button className={`${classes.button}`} onClick={onClickAddWordBank}>new list</button>
                     <button className={`${classes.button}`} onClick={onClickEditWordBank}>edit list</button>
                 </div>
                 <div className={classes.srcInput}>
-                    <input type="radio" id="list" name="list" value="list" readOnly checked={populateType === 'list'} onClick={(e) => onSetPopulateType(e.target.value)}/>
+                    <input className={`${classes.radioInput} ${populateType === 'list' ? classes.selected : null}`} type="radio" id="list" name="list" value="list" readOnly checked={populateType === 'list'} onClick={(e) => onSetPopulateType(e.target.value)}/>
                     <label htmlFor="populate-source">list: </label>
                     <select className={classes.select} value={currentWordList} name="populate-source" id="populate-source" onChange={handleSelectChange}>
                         {allWordLists.map((list, i) => {
@@ -116,7 +116,7 @@ const PopulateWordBank = (props) => {
                     </select>
                 </div>
                 <div className={classes.promptInput}>
-                    <input type="radio" id="ai" name="ai" value="ai" readOnly checked={populateType === 'ai'} onClick={(e) => onSetPopulateType(e.target.value)}/>
+                    <input className={`${classes.radioInput} ${populateType === 'ai' ? classes.selected : null}`} type="radio" id="ai" name="ai" value="ai" readOnly checked={populateType === 'ai'} onClick={(e) => onSetPopulateType(e.target.value)}/>
                     <label htmlFor="populate-prompt">llm: </label>
                     <input className={classes.textInput} type="text" id="populate-prompt" name="populate-prompt" value={currentPrompt} onChange={(e) => changePromptHandler(e)}/>
                 </div>

@@ -110,19 +110,18 @@ const NPlusX = (props) => {
     return (
         <div className={classes.nplusxContainer}>
         <div className={classes.radioButtons}>
-            <span>PRESERVE:</span>
             <div className={classes.buttonsContainer}>
                 <div className={classes.buttonContainer}>
                     <label htmlFor="class">class: </label>
-                    <input type="radio" id="class" name="class" value="class" readOnly checked={wordClass === true} onClick={(e) => setWordClass(!wordClass)}/>
+                    <input className={`${classes.radioInput} ${wordClass === true ? classes.selected : null}`} type="radio" id="class" name="class" value="class" readOnly checked={wordClass === true} onClick={(e) => setWordClass(!wordClass)}/>
                 </div>
                 <div className={classes.buttonContainer}>
                     <label htmlFor="measure">measure: </label>
-                    <input type="radio" id="measure" name="measure" value="measure" readOnly checked={measure === true} onClick={(e) => setMeasure(!measure)}/>
+                    <input className={`${classes.radioInput} ${measure === true ? classes.selected : null}`} type="radio" id="measure" name="measure" value="measure" readOnly checked={measure === true} onClick={(e) => setMeasure(!measure)}/>
                 </div>
                 <div className={classes.buttonContainer}>
                     <label htmlFor="rhyme">rhyme: </label>
-                    <input type="radio" id="rhyme" name="rhyme" value="rhyme" readOnly checked={rhyme === true} onClick={(e) => setRhyme(!rhyme)}/>
+                    <input className={`${classes.radioInput} ${rhyme === true ? classes.selected : null}`} type="radio" id="rhyme" name="rhyme" value="rhyme" readOnly checked={rhyme === true} onClick={(e) => setRhyme(!rhyme)}/>
                 </div>
             </div>
         </div>

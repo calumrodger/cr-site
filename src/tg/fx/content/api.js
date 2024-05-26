@@ -91,15 +91,15 @@ const APIFX = (props) => {
                 <div className={classes.paramContainer}>
                     <div className={classes.param}>
                         <label htmlFor="news">news: </label>
-                        <input type="radio" id="news" name="news" value="news" readOnly checked={apiType === 'news'} onClick={(e) => setApiType('news')}/>
+                        <input className={`${classes.radioInput} ${apiType === 'news' ? classes.selected : null}`} type="radio" id="news" name="news" value="news" readOnly checked={apiType === 'news'} onClick={(e) => setApiType('news')}/>
                     </div>
                     <div className={classes.param}>
                         <label htmlFor="weather">weather: </label>
-                        <input type="radio" id="weather" name="weather" value="weather" readOnly checked={apiType === 'weather'} onClick={(e) => setApiType('weather')}/>
+                        <input className={`${classes.radioInput} ${apiType === 'weather' ? classes.selected : null}`} type="radio" id="weather" name="weather" value="weather" readOnly checked={apiType === 'weather'} onClick={(e) => setApiType('weather')}/>
                     </div>
                     <div className={classes.param}>
                         <label htmlFor="film">film: </label>
-                        <input type="radio" id="film" name="film" value="film" readOnly checked={apiType === 'film'} onClick={(e) => setApiType('film')}/>
+                        <input className={`${classes.radioInput} ${apiType === 'film' ? classes.selected : null}`} type="radio" id="film" name="film" value="film" readOnly checked={apiType === 'film'} onClick={(e) => setApiType('film')}/>
                     </div>
                 </div>
             </div>

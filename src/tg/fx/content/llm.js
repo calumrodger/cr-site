@@ -196,7 +196,7 @@ const LLMFX = (props) => {
             </div>
             <div className={classes.promptContainer}>
                 <label htmlFor="llm-prompt">global remix:</label>
-                <input value={promptValue} onChange={(e) => handleChange(e)} type="text" placeholder="enter text here" />
+                <input className={classes.textInput} value={promptValue} onChange={(e) => handleChange(e)} type="text"  />
                 <button className={classes.button} onClick={handlePromptClick}>GO</button>
             </div>
             <div>

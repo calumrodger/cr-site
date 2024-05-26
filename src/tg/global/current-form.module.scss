@@ -8,11 +8,34 @@ $screenColour: #002400;
 .formBar {
     // background-color: $highlightExtra;
     font-size: .8rem;
-    margin-top: 4px;
+    margin-top: 9px;
+    font-size: .6rem;
 
     .bar {
         border: $fillColourLight 1px solid;
-        width: 4.5rem;
+        width: 3.5rem;
+        height: 2.4rem;
+        font-family: var(--league-spartan);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+        background-color: $screenColour;
+        color: $fillColourLight;
+        font-size: .8rem;
+    }
+
+}
+
+.lengthBar {
+    // background-color: $highlightExtra;
+    font-size: .8rem;
+    margin-top: 9px;
+    font-size: .6rem;
+
+    .bar {
+        border: $fillColourLight 1px solid;
+        width: 2.5rem;
         height: 2.4rem;
         font-family: var(--league-spartan);
         display: flex;

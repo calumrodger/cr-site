@@ -15,6 +15,7 @@ import PadSwitcher from '@tg/global/pad-switcher';
 import StatusBar from '@tg/global/status-bar';
 import CurrentForm from '@tg/global/current-form';
 import Title from '@tg/global/title';
+import PoemLength from '@tg/global/poem-length';
 
 // GENERATE COMPONENTS
 import GenerateControls from '@tg/generate/generate-controls';
@@ -24,9 +25,7 @@ import SourcePad from '@tg/source-pad/source-pad';
 
 // STANZA PAD COMPONENTS
 import StanzaPad from '@tg/stanza-pad/stanza-pad';
-import OnSaveStanzaToPad from '@tg/stanza-pad/save-stanza-to-pad';
 import StanzaPadButtons from '@tg/stanza-pad/stanza-pad-buttons';
-import StanzaUndoRedo from '@tg/stanza-pad/undo-redo-stanza';
 
 // POEM PAD COMPONENTS
 import PoemPad from '@tg/poem-pad/poem-pad';
@@ -53,7 +52,6 @@ import LLMFX from '@tg/fx/content/llm';
 
 // OUTPUT COMPONENTS
 import GiveTitle from '@tg/output/give-title';
-import SaveOutputToTxt from '@tg/output/save-to-txt';
 import OutputAs from '@tg/output/output-as';
 import ShowAsLines from '@tg/output/show-as-lines';
 import ShowAsGrid from '@tg/output/show-as-grid';
@@ -263,6 +261,7 @@ const Genny = (props) => {
       setPadToShow('poem');
     } else {
       setPadToShow('stanza');
+      setOutputCheckbox('lines');
     }
   }
 
@@ -913,13 +912,16 @@ const Genny = (props) => {
             <SaveLoad poem={poem} poemTitle={poemTitle}/>
           </div>
           <div className={classes.titleSection}>
-            <Title />
+         
           </div>
           <div className={classes.statusSection}>
             <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
           </div>
           <div className={classes.formSection}>
             <CurrentForm form={form} />
+          </div>
+          <div className={classes.poemLength}>
+            <PoemLength poem={poem}/>
           </div>
         </div>
         <div className={classes.inputSection}>
@@ -975,6 +977,7 @@ const Genny = (props) => {
             <span>LLM </span>
             <LLMFX onSetStatusMessage={onSetStatusMessage} onUpdate={onUpdate} stanza={stanza}/>
             <hr />
+            <Title />
           </div>
           <div className={classes.composeSection}>
             { (!showEditWordBank && !showAddWordBank) &&

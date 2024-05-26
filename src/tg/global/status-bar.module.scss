@@ -6,18 +6,20 @@ $highlightExtra: #2274A5;
 $screenColour: #002400;
 
 .statusBar {
-    font-size: .8rem;
-    margin-top: 4px;
+    font-size: .6rem;
+    margin-top: 9px;
     // background-color: $highlightExtra;
-    width: 11rem;
+    // width: 12rem;
     
     .bar {
+        font-size: .8rem;
+        font-family:'Courier New', Courier, monospace;
         display: flex;
         justify-content: center;
         align-items: center;
         background: $screenColour;
         border: $outlinesColour 1px solid;
-        width: 10rem;
+        width: 12rem;
         height: 2.4rem;
         color: $fillColourLight;
     }
