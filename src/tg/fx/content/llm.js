@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 const LLMFX = (props) => {
 
-    const { stanza, onUpdate, onSetStatusMessage } = props;
+    const { stanza, onUpdate, onSetStatusMessage, treatString } = props;
 
     const [promptValue, setPromptValue] = useState('');
     const [loading, setLoading] = useState(false);
@@ -11,6 +11,8 @@ const LLMFX = (props) => {
     const [rawEmojiOutput, setRawEmojiOutput] = useState('');
     const [rawIntensifyOutput, setRawIntensifyOutput] = useState('');
     const [rawNonsensifyOutput, setRawNonsensifyOutput] = useState('');
+    const [rawRemixOutput, setRawRemixOutput] = useState('');
+    const [stanzaAsString, setStanzaAsString] = useState('');
 
     useEffect(() => {
       if (loading === true) {
@@ -19,6 +21,11 @@ const LLMFX = (props) => {
         onSetStatusMessage('all systems good');
       }
     }, [loading])
+
+    useEffect(() => {
+      let stanzaString = stanza.map((word) => word.text).join(" ");
+      setStanzaAsString(stanzaString);
+    }, [stanza])
  
 
     const emojiPrompt = 
@@ -55,6 +62,16 @@ const LLMFX = (props) => {
     :::
     
     Do not include anything else in your response, please.`;
+
+    const remixPrompt = 
+    `Rewrite the text below in the triple quotes ("""). Rewrite it in the style of ${promptValue}.
+
+    """${stanzaAsString}"""
+    
+    Keep the line breaks as close to the original as possible. Give me the poem with triple quotes either side e.g.
+    
+    """first line of the poem\nsecond line of the poem\nthird line of the poem\nfourth line of the poem\nfifth line of the poem\nsixth line of the poem\nseventh line of the poem\n"""
+    `
 
     useEffect(() => {
       setSelectedWords(getSelectedWords(stanza));
@@ -98,6 +115,21 @@ const LLMFX = (props) => {
       setLoading(false);
     };
 
+    const handleRemixClick = async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      const response = await fetch("/api/ai", {
+        method: "POST",
+        body: JSON.stringify({
+          prompt: remixPrompt,
+        }),
+      });
+      const data = await response.json()
+      console.log(data.join(""));
+      setRawRemixOutput(data.join(""));
+      setLoading(false);
+    };
+
     const processLlmOutput = (text) => {
       if (text.includes('[') === false || text.includes(']') === false) {
         return 'error';
@@ -108,7 +140,28 @@ const LLMFX = (props) => {
         }
         return words;
       }
-  }
+    }
+
+    const testText = 
+    `"""Oh ho ho! The hours zoomed by, 
+like runaway balloons in a circus sky! 
+Clutched tight, just like a clown's 
+favorite rubber chicken, by 
+greedy little hands, oh my! 
+So, the faces on the clock 
+are all smiles, and the hands 
+are waving goodbye, as we 
+spin around in a whirlwind 
+of joy and laughter, ha ha ha! 
+"""`
+    const processRemixOutput = (text) => {
+      let firstIndex = text.search('"""');
+      let startPoint = firstIndex + 3;
+      let topTrimmed = text.slice(startPoint);
+      let lastIndex = topTrimmed.search('"""');
+      let endPoint = topTrimmed.substring(0, lastIndex);
+      return endPoint;
+    }
 
     const onClickEmojify = (e) => {
       handlePromptClick(e, emojiPrompt, 'emoji');
@@ -155,6 +208,12 @@ const LLMFX = (props) => {
       }
     }, [rawNonsensifyOutput])
 
+    useEffect(() => {
+          let treatedOutput = processRemixOutput(rawRemixOutput);
+          console.log('treated output: ' + treatedOutput)
+          onUpdate(treatString(treatedOutput), stanza)
+    }, [rawRemixOutput])
+
     const getNewStanzaReplace = (treatedOutput) => {
         let newArray = stanza.map((word) => {
             if (word.selected) {
@@ -197,7 +256,7 @@ const LLMFX = (props) => {
             <div className={classes.promptContainer}>
                 <label htmlFor="llm-prompt">global remix:</label>
                 <input className={classes.textInput} value={promptValue} onChange={(e) => handleChange(e)} type="text"  />
-                <button className={classes.button} onClick={handlePromptClick}>GO</button>
+                <button className={classes.button} onClick={handleRemixClick}>GO</button>
             </div>
             <div>
         </div>

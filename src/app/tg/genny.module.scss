@@ -55,6 +55,11 @@ $highlightExtra: #2274A5;
                          "composeSection outputSection outputSection switcherSection fxSection";
 }
 
+.poemPadStatusSection {
+    grid-area: composeSection;
+    margin-left: 2rem;
+}
+
 .button {
     border: 1px solid $bgColour;
     cursor: pointer;

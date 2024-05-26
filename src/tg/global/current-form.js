@@ -7,7 +7,7 @@ const CurrentForm = (props) => {
     return (
         <div className={classes.formBar}>
             <div className={classes.label}>
-                FORM
+                CURRENT FORM
             </div>
             <div className={classes.bar}>
                 {form}

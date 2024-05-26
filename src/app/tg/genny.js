@@ -1,9 +1,10 @@
 'use client';
 
 import classes from './genny.module.scss';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { syllable } from 'syllable';
 import { dictionary } from 'cmu-pronouncing-dictionary';
+import { getDictionary } from '@tg/server-actions/actions';
 
 // PRESETS
 import { emily } from '../../../public/tg/presets/emily';
@@ -94,6 +95,21 @@ const Genny = (props) => {
 
   const { source } = props;
 
+  const dictRef = useRef([]);
+
+  const getTheDictionary = async () => {
+    setStatusMessage('loading dictionary');
+      const theDictionary = await getDictionary();
+      return theDictionary;
+  }
+
+    useEffect(() => {
+        getTheDictionary().then((dictionary) => {
+            dictRef.current = dictionary
+        });
+        setTimeout(() => setStatusMessage('dict loaded'), 3000)
+    }, [])
+
   const treatString = (input) => {
     const sourceArray = input.split(" ");
     const filteredEmpties = sourceArray.filter((item) => item !== "");
@@ -149,6 +165,7 @@ const Genny = (props) => {
   const [injectSetting, setInjectSetting] = useState('replace');
   const [showEditWordBank, setShowEditWordBank] = useState(false);
   const [showAddWordBank, setShowAddWordBank] = useState(false);
+  const [loadingDict, setLoadingDict] = useState(false);
 
   const onSetFormStyle = () => {
     if (formStyle === 'syllable') {
@@ -171,6 +188,7 @@ const Genny = (props) => {
     let stressArray = [];
     for (let i = 0; i < wordsArray.length; i++) {
       if (dictionary[wordsArray[i]] !== undefined) {
+        console.log(dictionary[wordsArray[i]]);
         stressArray.push(dictionary[wordsArray[i]]);
       } else {
         stressArray.push('1');
@@ -179,6 +197,7 @@ const Genny = (props) => {
     let stressCount = 0;
     for (let i = 0; i < stressArray.length; i++) {
       let itemStress = (((stressArray[i].match(/2/g)||[].length).toString()) * 1) + (((stressArray[i].match(/1/g)||[].length).toString()) * 1);
+      console.log(itemStress);
       stressCount = stressCount + itemStress;
     }
     return stressCount;
@@ -308,7 +327,7 @@ const Genny = (props) => {
   const onSelectAllWords = () => {
     let newObjArray = stanza.map((item) => {
       if (item.type === 'text') {
-        return { id: item.id, type: 'text', text: item.text, selected: true }
+        return { id: item.id, type: 'text', text: item.text, style: item?.style, selected: true }
       } else {
         return item;
       }
@@ -318,7 +337,7 @@ const Genny = (props) => {
 
   const onUnselectAllWords = () => { 
     let newObjArray = stanza.map((item) => {
-      return { id: item.id, type: 'text', text: item.text, selected: false }
+      return { id: item.id, type: 'text', text: item.text, style: item?.style, selected: false }
     });
     setStanza(newObjArray);
   }
@@ -888,7 +907,7 @@ const Genny = (props) => {
     let shuffledWordsCount = 0;
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[shuffledWordsCount], selected: true });
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[shuffledWordsCount], style: stanza[i]?.style, selected: true });
         shuffledWordsCount++;
       } else {
         newObjArray.push(stanza[i]);
@@ -940,9 +959,14 @@ const Genny = (props) => {
           </div>
         }
         { padToShow === 'poem' &&
+          <>
           <div className={classes.poemPadSection}>
             <PoemPad onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
           </div>
+          <div className={classes.poemPadStatusSection}>
+            <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
+          </div>
+          </>
         }
 
         { padToShow === 'input' &&
@@ -969,13 +993,13 @@ const Genny = (props) => {
             </div>
             < hr/>
             <span>N + X</span>
-            <NPlusX getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
+            <NPlusX theDictionary={dictRef.current} getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
             <hr />
             <span>API INJECTION</span>
             <APIFX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/>
             <hr />
             <span>LLM </span>
-            <LLMFX onSetStatusMessage={onSetStatusMessage} onUpdate={onUpdate} stanza={stanza}/>
+            <LLMFX onSetStatusMessage={onSetStatusMessage} onUpdate={onUpdate} stanza={stanza} treatString={treatString}/>
             <hr />
             <Title />
           </div>

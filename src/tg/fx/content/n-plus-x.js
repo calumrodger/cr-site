@@ -1,6 +1,5 @@
 import classes from '../../tg-styles.module.scss';
 import { useState, useEffect, useRef } from 'react';
-import { getDictionary } from '@tg/server-actions/actions';
 import { syllable } from 'syllable';
 import { dictionary } from 'cmu-pronouncing-dictionary';
 
@@ -8,27 +7,17 @@ import { dictionary } from 'cmu-pronouncing-dictionary';
 
 const NPlusX = (props) => {
 
-    const { stanza, onUpdate, onSetStatusMessage } = props;
+    const { stanza, onUpdate, onSetStatusMessage, theDictionary } = props;
 
-    const [wordClass, setWordClass] = useState(true);
-    const [measure, setMeasure] = useState(true);
-    const [rhyme, setRhyme] = useState(true);
+    const [wordClass, setWordClass] = useState(false);
+    const [measure, setMeasure] = useState(false);
+    const [rhyme, setRhyme] = useState(false);
     const [nValue, setNValue] = useState(0);
 
-    const dictRef = useRef([]);
-
-    const getTheDictionary = async () => {
-        const theDictionary = await getDictionary();
-        return theDictionary;
-    }
-
-    useEffect(() => {
-        getTheDictionary().then((dictionary) => {
-            dictRef.current = dictionary
-        });
-    }, [])
-
     const pos = require('pos');
+
+    // console.log(theDictionary)
+    // console.log(dictionary)
 
     const wordClassCheck = (word1, word2) => {
         const wordOne = new pos.Lexer().lex(word1);
@@ -62,7 +51,7 @@ const NPlusX = (props) => {
 
     const rhymeCheck = (word1, word2) => {
         // if () {
-            console.log(dictionary.word1)
+            console.log(dictionary[word1])
         // } else {
         //     console.log('nope')
         // }
@@ -99,7 +88,7 @@ const NPlusX = (props) => {
         let newObjArray = [];
         for (let i = 0; i < stanza.length; i++) {
             if (stanza[i].selected === true) {
-                let randomWord = dictRef.current[Math.floor(Math.random() * dictRef.current.length)];
+                let randomWord = theDictionary[Math.floor(Math.random() * theDictionary.length)];
                 newObjArray.push({id: stanza[i].id, type: 'text', text: randomWord, selected: true});
             } else {
                 newObjArray.push(stanza[i]);
@@ -111,6 +100,7 @@ const NPlusX = (props) => {
     return (
         <div className={classes.nplusxContainer}>
         <div className={classes.radioButtons}>
+            <span>keep:</span>
             <div className={classes.buttonsContainer}>
                 <div className={classes.buttonContainer}>
                     <label htmlFor="class">class: </label>
@@ -128,8 +118,8 @@ const NPlusX = (props) => {
         </div>
         <div className={classes.numberAndButton}>
             <div className={classes.input}>
-                <label htmlFor="n-value">vol:</label>
-                <input className={classes.textInput} value={nValue} onChange={(e) => setNValue(e.target.value)} type="number" />
+                <label htmlFor="n-value">n + {nValue === "0" ? "?" : nValue}</label>
+                <input className={classes.slider} type="range" min="0" max="99" id="n-value" name="n-value" onChange={(e) => setNValue(e.target.value)} value={nValue}/>
             </div>
             <button onClick={handleReplaceClick} className={classes.button}>REPLACE</button>
         </div>

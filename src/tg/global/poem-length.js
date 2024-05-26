@@ -7,7 +7,7 @@ const PoemLength = (props) => {
     return (
         <div className={classes.lengthBar}>
             <div className={classes.label}>
-                LENGTH
+                # OF STANZAS
             </div>
             <div className={classes.bar}>
                 {poem.length}
