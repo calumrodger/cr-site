@@ -81,6 +81,7 @@ $highlightExtra: #2274A5;
 .globalSection {
     // border: 1px solid $bgColour;
     padding: .3rem 1rem .3rem .3rem;
+    margin-right: .3rem;
     grid-area: globalSection;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;

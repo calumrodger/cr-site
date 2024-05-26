@@ -5,7 +5,7 @@ const FormResetButton = (props) => {
     const { onResetTypography } = props;
 
     return (
-        <button className={classes.button} onClick={onResetTypography}>RESET</button>
+        <button className={`${classes.button} ${classes.resetButton}`} onClick={onResetTypography}>RESET</button>
     )
 }
 

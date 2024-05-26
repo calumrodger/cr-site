@@ -14,12 +14,13 @@ $screenColour: #002400;
     .bar {
         font-size: .8rem;
         font-family:'Courier New', Courier, monospace;
+        font-weight: 600;
         display: flex;
         justify-content: center;
         align-items: center;
         background: $screenColour;
         border: $fillColourLight 1px solid;
-        width: 12rem;
+        width: 11.6rem;
         height: 2.4rem;
         color: $fillColourLight;
     }

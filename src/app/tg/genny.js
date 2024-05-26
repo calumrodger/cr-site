@@ -150,7 +150,7 @@ const Genny = (props) => {
   const [statusMessage, setStatusMessage] = useState('welcome in genny')
 
   // Settings
-  const [form, setForm] = useState('');
+  const [form, setForm] = useState('5/7/5');
   const [formStyle, setFormStyle] = useState('syllable');
   const [genType, setGenType] = useState('stanza');
   const [nLevel, setNLevel] = useState("-1");

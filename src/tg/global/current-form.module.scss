@@ -8,11 +8,12 @@ $screenColour: #002400;
 .formBar {
     font-size: .8rem;
     font-size: .6rem;
+    
 
     .bar {
         border: $fillColourLight 1px solid;
         width: 3.5rem;
-        height: 2.4rem;
+        height: 2rem;
         font-family: var(--league-spartan);
         display: flex;
         justify-content: center;
@@ -23,6 +24,8 @@ $screenColour: #002400;
         font-size: .8rem;
         word-break: break-all;
         padding: .2rem;
+        font-family:'Courier New', Courier, monospace;
+        font-weight: 600;
     }
 
 }
@@ -32,6 +35,7 @@ $screenColour: #002400;
     font-size: .8rem;
     // margin-top: 9px;
     font-size: .6rem;
+
 
     .bar {
         border: $fillColourLight 1px solid;
@@ -45,6 +49,8 @@ $screenColour: #002400;
         background-color: $screenColour;
         color: $fillColourLight;
         font-size: .8rem;
+        font-family:'Courier New', Courier, monospace;
+        font-weight: 600;
     }
 
 }

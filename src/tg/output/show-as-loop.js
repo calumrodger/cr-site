@@ -1,4 +1,4 @@
-import classes from './show-as-loop.module.scss';
+import classes from './outputs.module.scss';
 import { checkPoemStyles, checkStyles } from '@tg/utils/utils';
 import { useState, useEffect } from 'react';
 
@@ -46,14 +46,21 @@ const ShowAsLoop = (props) => {
         <div className={classes.pageContainer}>
           <div className={classes.poemContainer} >
               <div className={classes.poemTitle}>{poemTitle}</div>
-              <div className={classes.mainText}>
+              <div className={classes.mainTextLoop}>
               {thePoemJSX[slideIndex]}
               </div>
           </div>
           <div className={classes.panel}>
-            <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
-            <input type="range" min="100" max="5000" step="100" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="myRange"/>
-            <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
+            <div className={classes.colourContainer}>
+              <label htmlFor="colour">bg colour:</label>
+              <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
+            </div>
+            <div className={classes.sliderContainer}>
+              <label htmlFor="seconds">speed:</label>
+              <input type="range" min="100" max="5000" step="100" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="seconds"/>
+            </div>
+            <button className={classes.button}>export as .gif</button>
+            <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
         </div>
     )

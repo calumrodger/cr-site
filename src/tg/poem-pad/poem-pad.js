@@ -16,7 +16,7 @@ const PoemPad = (props) => {
     const onSelectStanza = (e) => {
       let newArray = stanzaArray.map((item, index) => {
         if (index == e.target.id) {
-          return { id: item.id, stanza: item.stanza, selected: item.selected ? false : true}
+          return { id: item.id, stanza: item.stanza, style: item?.style, selected: item.selected ? false : true}
         } else {
           return item;
         }
@@ -117,7 +117,7 @@ const PoemPad = (props) => {
       for (let i = 0; i < stanzaArray.length; i++) {
         if (stanzaArray[i].selected) {
           newObjArray.push(stanzaArray[i]);
-          newObjArray.push({ id: stanzaArray.length + 1, stanza: stanzaArray[i].stanza, selected: false })
+          newObjArray.push({ id: stanzaArray.length + 1, stanza: stanzaArray[i].stanza, style: stanzaArray[i]?.style, selected: false })
         } else {
           newObjArray.push(stanzaArray[i]);
         }
@@ -128,7 +128,7 @@ const PoemPad = (props) => {
 
     const selectAll = () => {
       let newObjArray = stanzaArray.map((item) => {
-        return { id: item.id, stanza: item.stanza, selected: true }
+        return { id: item.id, stanza: item.stanza, style: item?.style, selected: true }
       });
       setStanzaArray(newObjArray);
       onUpdatePoem(newObjArray);
@@ -136,7 +136,7 @@ const PoemPad = (props) => {
 
     const unselectAll = () => {
       let newObjArray = stanzaArray.map((item) => {
-        return { id: item.id, stanza: item.stanza, selected: false }
+        return { id: item.id, stanza: item.stanza, style: item?.style, selected: false }
       });
       setStanzaArray(newObjArray);
       onUpdatePoem(newObjArray);

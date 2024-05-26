@@ -1,4 +1,4 @@
-import classes from './show-as-lines.module.scss';
+import classes from './outputs.module.scss';
 import { checkStyles, checkPoemStyles } from '@tg/utils/utils';
 import { useState, useCallback, useRef } from 'react';
 import { toPng } from 'html-to-image';
@@ -44,7 +44,7 @@ const ShowAsLines = (props) => {
         <div className={classes.pageContainer} >
           <div className={classes.poemContainer} ref={refer}>
               <div className={classes.poemTitle}>{poemTitle}</div>
-              <div className={classes.mainText}>
+              <div className={classes.mainTextLines}>
               {thePoem.map((t, i) => {
                 const styleObject = {...checkPoemStyles(t), ...{lineHeight: "1." + sliderValue + "rem"}};
                 return (
@@ -63,11 +63,18 @@ const ShowAsLines = (props) => {
             )}
               </div>
           </div>
-          <div className={classes.showAsLinesPanel}>
-          <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
-          <button onClick={exportAsImage} className={classes.button}>EXPORT</button>
-          <input type="range" min="0" max="9" step="1" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="myRange"/>
+          <div className={classes.panel}>
+          <div className={classes.colourContainer}>
+          <label htmlFor="colour">bg colour:</label>
           <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
+          </div>
+          <div className={classes.sliderContainer}>
+          <label htmlFor="spacing">spacing:</label>
+          <input type="range" min="0" max="9" step="1" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="spacing"/>
+          </div>
+          
+          <button onClick={exportAsImage} className={classes.button}>export as .png</button>
+          <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
           </div>
     )

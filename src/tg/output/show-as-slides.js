@@ -1,4 +1,4 @@
-import classes from './show-as-slides.module.scss';
+import classes from './outputs.module.scss';
 import { checkPoemStyles, checkStyles } from '@tg/utils/utils';
 import { useState } from 'react';
 
@@ -7,7 +7,6 @@ const ShowAsSlides = (props) => {
 
     const [colour, setColour] = useState('#000000');
     const [slideIndex, setSlideIndex] = useState(0);
-    const [disableButton, setDisableButton] = useState('');
 
     const onChangeColour = (e) => {
         setColour(e.target.value);
@@ -43,15 +42,19 @@ const ShowAsSlides = (props) => {
         <div className={classes.pageContainer}>
           <div className={classes.poemContainer} >
               <div className={classes.poemTitle}>{poemTitle}</div>
-              <div className={classes.mainText}>
+              <div className={classes.mainTextSlides}>
               {thePoemJSX[slideIndex]}
               </div>
           </div>
           <div className={classes.panel}>
+          <div className={classes.colourContainer}>
+          <label htmlFor="colour">bg colour:</label>
             <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
-            <button className={`${classes.button} ${slideIndex === 0 ? classes.greyed : null}`} onClick={onClickLeft}>left</button>
-            <button className={`${classes.button} ${slideIndex === (thePoemJSX.length - 1) ? classes.greyed : null}`} onClick={onClickRight}>right</button>
-            <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
+            </div>
+            <button className={`${classes.button} ${slideIndex === 0 ? classes.greyed : null}`} onClick={onClickLeft}>previous</button>
+            <button className={`${classes.button} ${slideIndex === (thePoemJSX.length - 1) ? classes.greyed : null}`} onClick={onClickRight}>next</button>
+            <button className={classes.button}>export as .pdf</button>
+            <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
         </div>
     )

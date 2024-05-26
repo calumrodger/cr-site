@@ -1,4 +1,4 @@
-import classes from './show-as-grid.module.scss';
+import classes from './outputs.module.scss';
 import { checkStyles, checkPoemStyles } from '@tg/utils/utils';
 import { useState, useCallback, useRef } from 'react';
 import { toPng } from 'html-to-image';
@@ -29,7 +29,7 @@ const ShowAsGrid = (props) => {
         }
     }
 
-    const renderModeButtonText = renderMode ? 'L-R' : 'N-S';
+    const renderModeButtonText = renderMode ? 'left-right' : 'top-bottom';
 
     const xValue = {gridTemplateRows: `repeat(${gridX}, 1fr)`};
     const yValue = {gridTemplateColumns: `repeat(${gridY}, 1fr)`};
@@ -70,7 +70,7 @@ const ShowAsGrid = (props) => {
         <div className={classes.pageContainer}>
           <div className={classes.poemContainer} style={{backgroundColor: colour, padding: "1rem"}} ref={refer}>
               <div className={classes.poemTitle}>{poemTitle}</div>
-              <div style={{...yValue, ...xValue, ...renderSetting}} className={classes.mainText}>
+              <div style={{...yValue, ...xValue, ...renderSetting}} className={classes.mainTextGrid}>
               {poem.map((t, i) => {
                 const styleObject = {...checkPoemStyles(t), ...paddingValue};
                 return (
@@ -89,12 +89,21 @@ const ShowAsGrid = (props) => {
               </div>
           </div>
           <div className={classes.panel}>
+          <div className={classes.colourContainer}>
+          <label htmlFor="colour">bg colour:</label>
             <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
-            <input type="range" id="grid-x" name="grid-x" min="1" max="10" step="1" onChange={onChangeGridCoOrds} value={renderMode ? gridY : gridX}/>
-            <input type="range" id="padding" name="padding" min="-9" max="9" step="1" onChange={onChangePadding} value={padding}/>
+           </div> 
+           <div className={classes.sliderContainer}>
+            <label htmlFor="grid-x">columns/rows:</label>
+            <input className={classes.slider} type="range" id="grid-x" name="grid-x" min="1" max="10" step="1" onChange={onChangeGridCoOrds} value={renderMode ? gridY : gridX}/>
+            </div>
+            <div className={classes.sliderContainer}>
+            <label htmlFor="spacing">spacing:</label>
+            <input className={classes.slider} type="range" id="padding" name="padding" min="-9" max="9" step="1" onChange={onChangePadding} value={padding}/>
+            </div>
             <button onClick={switchRenderMode} className={classes.button}>{renderModeButtonText}</button>
-            <button onClick={onLeaveOutputMode} className={classes.button}>BACK</button>
-            <button onClick={exportAsImage} className={classes.button}>EXPORT</button>
+            <button onClick={exportAsImage} className={classes.button}>export to .png</button>
+            <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
         </div>
     )
