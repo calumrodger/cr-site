@@ -809,20 +809,38 @@ width: 6rem;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
 
-    .radioButtons {
-        margin-left: 3rem;
-    }
+    // .radioButtons {
+    //     margin-left: 3rem;
+    // }
 
     .buttonsContainer {
         border: 1px solid $fillColourLight;
         background: $highlightExtra;
-        padding: .3rem;
+        padding: .2rem;
+        width: 5rem;
     }
 
     .buttonContainer {
         font-size: .7rem;
         display: flex;
         align-items: center;
+    }
+
+    .numberAndButton {
+        // width: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: .3rem;
+        align-items: center;
+
+        .input {
+            display: flex;
+            gap: .2rem;
+        }
+
+        input {
+            width: 2rem;
+        }
     }
 }
 

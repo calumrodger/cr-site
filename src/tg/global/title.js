@@ -8,9 +8,9 @@ const Title = () => {
 
     return (
         <div className={classes.container}>
-            <Image src={pic} alt="dada" width={36} height={36} />
+            <Image className={classes.logo} src={pic} alt="dada" width={36} height={36} />
             <div className={classes.textContainer}>
-                <div className={classes.topLine}>.appendChilde(roland)</div>
+                <div className={classes.topLine}>Stanzafier</div>
                 <div className={classes.bottomLine}>poem creation and remix tool</div>
             </div>
         </div>

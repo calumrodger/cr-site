@@ -5,17 +5,26 @@ $highlightColour: #517b1d;
 $highlightExtra: #2274A5;
 
 .container {
-    width: 16rem;
+    // width: 14rem;
+    display: flex;
+    justify-content: flex-end;
+    // border: $fillColourLight 1px solid;
     text-align: right;
-    margin-top: .2rem;
+    margin-top: .4rem;
+    // margin-left: 1rem;
     padding: .1rem;
     // background-color: $highlightExtra;
     color: $fillColourLight;
     display: flex;
 
+    .logo {
+        // margin-left: 2rem;
+    }
+
     .textContainer {
         display: flex;
         flex-direction: column;
+        // width: 12rem;
         padding-left: .7rem;
         padding-top: .3rem;
 
@@ -23,11 +32,14 @@ $highlightExtra: #2274A5;
             font-family: var(--league-spartan);
             font-weight: 800;
             font-size: 1.3rem;
+            font-style: italic;
+            color: $highlightExtra;
+
         }
 
         .bottomLine {
             font-weight: 400;
-            font-size: .7rem;
+            font-size: .6rem;
             text-align: right;
         }
 }

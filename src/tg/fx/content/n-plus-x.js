@@ -13,6 +13,7 @@ const NPlusX = (props) => {
     const [wordClass, setWordClass] = useState(true);
     const [measure, setMeasure] = useState(true);
     const [rhyme, setRhyme] = useState(true);
+    const [nValue, setNValue] = useState(0);
 
     const dictRef = useRef([]);
 
@@ -125,7 +126,13 @@ const NPlusX = (props) => {
                 </div>
             </div>
         </div>
-        <button onClick={handleReplaceClick} className={classes.button}>REPLACE</button>
+        <div className={classes.numberAndButton}>
+            <div className={classes.input}>
+                <label htmlFor="n-value">vol:</label>
+                <input className={classes.textInput} value={nValue} onChange={(e) => setNValue(e.target.value)} type="number" />
+            </div>
+            <button onClick={handleReplaceClick} className={classes.button}>REPLACE</button>
+        </div>
         </div>
     )
 }
