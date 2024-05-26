@@ -110,7 +110,7 @@ const APIFX = (props) => {
                     </div>
                     <div className={classes.input}>
                         <label htmlFor="vol">vol:</label>
-                        <input className={classes.textInput} value={volumeValue} onChange={(e) => setVolumeValue(e.target.value)} type="number" />
+                        <input className={classes.numberInput} value={volumeValue} onChange={(e) => setVolumeValue(e.target.value)} type="number" />
                     </div>
             </div>
             <div className={classes.buttonContainer}>

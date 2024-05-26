@@ -157,6 +157,9 @@ const Genny = (props) => {
   const [outputMode, setOutputMode] = useState('none');
   const [outputCheckbox, setOutputCheckbox] = useState('lines');  
   const [updateStazaStyles, setUpdateStanzaStyles] = useState(null);
+  const [outputBgColour, setOutputBgColour] = useState('#fff');
+  const [outputTitleColour, setOutputTitleColour] = useState('#000');
+  const [outputPoemColour, setOutputPoemColour] = useState('#000');
 
   // Switches
   const [padToShow, setPadToShow] = useState('stanza');
@@ -620,10 +623,6 @@ const Genny = (props) => {
     setAllWordLists([...allWordLists, newWordList]);
   }
 
-  const [outputBgColour, setOutputBgColour] = useState('#fff');
-  const [outputTitleColour, setOutputTitleColour] = useState('#000');
-  const [outputPoemColour, setOutputPoemColour] = useState('#000');
-
   const onChangeOutputBgColour = (hex) => {
     setOutputBgColour(hex);
   }
@@ -1007,16 +1006,16 @@ const Genny = (props) => {
             <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
             <FormResetButton onResetTypography={onResetTypography} />
             </div>
-            < hr/>
+            < hr className={classes.line} />
             <span>N + X</span>
             <NPlusX theDictionary={dictRef.current} getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
-            <hr />
+            <hr className={classes.line} />
             <span>API INJECTION</span>
             <APIFX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/>
-            <hr />
+            <hr className={classes.line} />
             <span>LLM </span>
             <LLMFX onSetStatusMessage={onSetStatusMessage} onUpdate={onUpdate} stanza={stanza} treatString={treatString}/>
-            <hr />
+            <hr className={classes.line} />
             <Title />
           </div>
           <div className={classes.composeSection}>

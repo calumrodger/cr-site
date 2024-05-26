@@ -300,7 +300,7 @@ const GenerateControls = (props) => {
         <div className={classes.generatorGrid}>
             <div className={classes.showSrcButton}>
                 <div className={classes.preset}>
-                    <span>Preset: </span>
+                    <span>preset: </span>
                     <select name="presets" id="presets" defaultValue={currentPreset.name} onChange={(e) => onSelectPreset(presets.value)} placeholder="Select a preset...">
                             { presetArray.map((p, i) => {
                             return <option key={i} onClick={() => setSelectedPreset(p)}>{p.name}</option>
@@ -324,7 +324,7 @@ const GenerateControls = (props) => {
                 <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
             </div>
             <div className={classes.formStyleToggle}>
-                <span>Measure:</span>
+                <span>measure:</span>
                 <div>
                 <input className={`${classes.radioInput} ${formStyle === 'syllable' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="syllable" checked={formStyleCheckbox === 'syllable'} onChange={() => onChangeFormStyleCheckbox('syllable')} />
                 <label htmlFor="syllable">syllable</label>
@@ -335,7 +335,7 @@ const GenerateControls = (props) => {
                 </div>
             </div>
             <div className={classes.reseedToggle}>
-                <span>Reseed by:</span>
+                <span>reseed by:</span>
                 <div>
                     <input className={`${classes.radioInput} ${reseedCheckbox === 'stanza' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="stanza" checked={reseedCheckbox === 'stanza'} onChange={() => onChangeReseedCheckbox('stanza')} />
                     <label htmlFor="stanza">stanza</label>

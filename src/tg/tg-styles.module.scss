@@ -54,15 +54,29 @@ $disabledColour: #2E294E;
 .textInput {
 
         appearance: none;
-        background: $highlightColour;
+        background: $outlinesColour;
         border: $fillColourLight 1px solid;
-        color: $fillColourLight;
+        color: $bgColour;
         height: .9rem;
         border-radius: .2rem;
     
             &:focus {
                 outline: none;
             }
+}
+
+.numberInput {
+
+    appearance: none;
+    background: $highlightColour;
+    border: $fillColourLight 1px solid;
+    color: $fillColourLight;
+    height: .9rem;
+    border-radius: .2rem;
+
+        &:focus {
+            outline: none;
+        }
 }
 
 .radioInput {
@@ -523,18 +537,18 @@ width: 6rem;
         padding: .1rem;
     }
 
-    .numberInput {
+    .numberInputContainer {
 
         input {
-            width: 2rem;
+            width: 2.5rem;
         }
     }
 
     .promptInput {
         // width: 8rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
         gap: .5rem;
         // margin-top: .3rem;
         
@@ -542,7 +556,7 @@ width: 6rem;
         width: 6rem;
         background: $highlightColour;
         border: $fillColourLight 1px solid;
-        height: .9rem;
+        height: .8rem;
         margin-bottom: .2rem;
         color: $fillColourLight;
         border-radius: .2rem;
@@ -554,10 +568,10 @@ width: 6rem;
     }
     
     .srcInput {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        // width: 7rem;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        // // width: 7rem;
         gap: .5rem;
     }
 }
@@ -786,6 +800,11 @@ width: 6rem;
         gap: .2rem;
         margin-top: .2rem;
 
+        .textInput {
+            color: $fillColourLight;
+            background: $highlightColour;
+        }
+
         .input {
             display: flex;
             gap: .2rem;
@@ -887,7 +906,7 @@ width: 6rem;
     .buttonsContainer {
         border: 1px solid $fillColourLight;
         background: $highlightExtra;
-        padding: .5rem;
+        padding: .3rem;
         margin-top: 4px;
         width: 5rem;
     }
@@ -927,6 +946,11 @@ width: 6rem;
             height: 2rem;
         }
     }
+}
+
+.line {
+    width: 100%;
+    color: $fillColourLight;
 }
 
 

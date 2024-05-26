@@ -97,9 +97,9 @@ const PopulateWordBank = (props) => {
             <button className={`${classes.button} ${classes.populateButton}`} onClick={(e) => onClickPopulate(e)}>POPULATE</button>
             <div className={classes.settingsContainer}>
                 <div className={classes.extraSettingsContainer}>
-                    <div className={classes.numberInput}>
+                    <div className={classes.numberInputContainer}>
                         <label htmlFor="populate-quant">#: </label>
-                        <input className={classes.textInput} type="number" id="populate-quant" name="populate-quant" onChange={onChangeQuant} value={quant}/>
+                        <input className={classes.numberInput} type="number" id="populate-quant" name="populate-quant" onChange={onChangeQuant} value={quant}/>
                     </div>
                     <button className={`${classes.button}`} onClick={onClickAddWordBank}>new list</button>
                     <button className={`${classes.button}`} onClick={onClickEditWordBank}>edit list</button>
