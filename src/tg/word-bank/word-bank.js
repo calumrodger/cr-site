@@ -6,7 +6,7 @@ const WordBank = (props) => {
 
     return (
         <div className={classes.wordBankSection}>
-            <div className={classes.wordBank} style={{fontFamily: `var(${baseFont})`}}>
+            <div className={classes.wordBank} style={{fontFamily: baseFont}}>
             {wordBank.map((word, i) => {
                 return (
                     <span key={i} id={i} onClick={onWordBankClick} className={`${classes.word} ${word.selected ? classes.selected : null}`}>{word.text}</span>

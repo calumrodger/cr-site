@@ -47,7 +47,7 @@ const ShowAsLines = (props) => {
 
     return (
         <div className={classes.pageContainer} >
-          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: `var(${baseFont})`}} ref={refer}>
+          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont}} ref={refer}>
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div className={classes.mainTextLines}>
               {thePoem.map((t, i) => {

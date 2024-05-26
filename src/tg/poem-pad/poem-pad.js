@@ -148,10 +148,10 @@ const PoemPad = (props) => {
         <div className={classes.poemBox}>
           {poem.map((t, i) => {
               return (
-              <div key={t.id} className={classes.poemContainer} style={{fontFamily: `var(${baseFont})`}}>
+              <div key={t.id} className={classes.poemContainer} style={{fontFamily: baseFont}}>
                 <div className={classes.controlsContainer}>
                 <span>{i + 1}</span>
-                <button id={i} className={classes.button} onClick={onSelectStanza}>select</button>
+                <button id={i} className={`${classes.button} ${classes.ppButton}`} onClick={onSelectStanza}>select</button>
                 </div>
                 <div id={i} style={checkPoemStyles(t)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                 {t.stanza.map((j, f) => {

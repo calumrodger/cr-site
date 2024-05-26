@@ -309,26 +309,38 @@ width: 6rem;
 .poemBox {
     display: flex;
     flex-direction: column;
+    gap: .5rem;
     justify-content: left;
     background-color: $outlinesColour;
     border: 2px solid $bgColour;
     margin: auto;
-    padding: 1rem;
+    padding: 1rem 2rem;
     white-space: pre-line;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding: 1rem;
-    width: 95%;
-    height: 89%;
+    width: 670px;
+    height: 350px;
+
+    .poemContainer {
+        height: auto;
+    }
 
     .controlsContainer {
         display: flex;
         flex-direction: column;
+        color: $bgColour;
+        
+        .ppButton {
+            color: $bgColour;
+            border: $bgColour 1px solid;
+        }
+      
     }
 
     .stanzaContainer,
     .poemContainer {
         display: flex;
+        gap: .3rem;
 
         .buttonContainer {
             display: flex;
@@ -340,11 +352,10 @@ width: 6rem;
         }
 
         .stanza {
-            cursor: pointer;
             width: fit-content;
             height: fit-content;
             margin: .1rem;
-            padding: .5rem;
+            // padding: .5rem;
             color: $bgColour;
             position: relative;
 

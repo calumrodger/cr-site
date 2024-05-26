@@ -161,7 +161,7 @@ const Genny = (props) => {
   const [outputBgColour, setOutputBgColour] = useState('#fff');
   const [outputTitleColour, setOutputTitleColour] = useState('#000');
   const [outputPoemColour, setOutputPoemColour] = useState('#000');
-  const [baseFont, setBaseFont] = useState('--lexend');
+  const [baseFont, setBaseFont] = useState('var(--lexend)');
 
   // Switches
   const [padToShow, setPadToShow] = useState('stanza');
@@ -175,10 +175,28 @@ const Genny = (props) => {
   const onSelectFont = (font) => {
     switch (font) {
       case 'lexend':
-        setBaseFont('--lexend');
+        setBaseFont('var(--lexend)');
         break;
-      case 'league-spartan':
-        setBaseFont('--league-spartan');
+      case 'serif':
+        setBaseFont('serif');
+        break;
+      case 'sans-serif':
+        setBaseFont('sans-serif');
+        break;
+      case 'cursive':
+        setBaseFont('cursive');
+        break;
+      case 'monospace':
+        setBaseFont('monospace');
+        break;
+      case 'fantasy':
+        setBaseFont('fantasy');
+        break;
+      case 'math':
+        setBaseFont('math');
+        break;
+      case 'system-ui':
+        setBaseFont('system-ui');
         break;
       default:
         setBaseFont('--lexend');
@@ -662,16 +680,28 @@ const Genny = (props) => {
     let font = '';
     switch (value) {
       case '1':
-        font = 'var(--league-spartan)';
-        break;
-      case '2':
         font = 'var(--lexend)';
         break;
+      case '2':
+        font = 'serif';
+        break;
       case '3':
-        font = 'var(--league-script)';
+        font = 'sans-serif';
         break;
       case '4':
-        font = 'var(--teachers)';
+        font = 'monospace';
+        break;
+      case '5':
+        font = 'cursive';
+        break;
+      case '6':
+        font = 'fantasy';
+        break;
+      case '7':
+        font = 'math';
+        break;
+      case '8':
+        font = 'system-ui';
         break;
       default:
         font = 'var(--lexend)';

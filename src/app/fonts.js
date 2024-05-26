@@ -1,4 +1,4 @@
-import { Lexend, Inter } from 'next/font/google'
+import { Lexend,  } from 'next/font/google'
 
 import localFont from 'next/font/local'
  
@@ -8,10 +8,11 @@ export const lexend = Lexend({
     variable: '--lexend'
 })
 
-export const inter = Inter({
+export const goudy = localFont({
+    src: '../../public/fonts/goudy_bookletter_1911-webfont.ttf',
     subsets: ['latin'],
     display: 'swap',
-    variable: '--inter'
+    variable: '--goudy'
 })
 
 export const teachers = localFont({
@@ -34,3 +35,4 @@ export const leagueScript = localFont({
     display: 'swap',
     variable: '--league-script'
 })
+

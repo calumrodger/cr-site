@@ -74,7 +74,7 @@ const ShowAsGrid = (props) => {
 
     return (
         <div className={classes.pageContainer}>
-          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: `var(${baseFont})` }} ref={refer}>
+          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont }} ref={refer}>
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div style={{...yValue, ...xValue, ...renderSetting}} className={classes.mainTextGrid}>
               {poem.map((t, i) => {
