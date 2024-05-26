@@ -1,11 +1,13 @@
 .masterDiv {
     height: 100%;
     width: 100%;
+    min-height: 100vh;
 }
 
 .grid {
     font-size: .6rem;
     height: 100%;
+    min-height: 100vh;
     display: grid;
     grid-template-columns: var(--poem-border-size-mob) auto auto var(--poem-border-size-mob);
     grid-template-rows: var(--poem-border-size-mob) 0 auto var(--poem-border-size-mob);

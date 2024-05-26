@@ -48,31 +48,38 @@ import LoadFromTxt from './load-from-txt';
         setEditingPresetText(currentPreset.text);
     }, [currentPreset])
 
+    const onFirstClickImportAsStanza = () => {
+        onClickImportAsStanza(editingPresetText)
+    }
 
     return (
         <div className={classes.inputPadSectionContainer}>
             <div className={classes.topButtons}>
-                <span>Enter source text below or </span>
+                <span>enter source text below or: </span>
+                <div className={classes.buttonOptions}>
                 <button className={classes.button} onClick={() => setYouTubeActive(!youTubeActive)}>get from YouTube</button>
-                <span> , </span>
                 <LoadFromTxt onPopulateWithTxt={onPopulateWithTxt}/>
-                <span>. Or select a preset:</span>
-                <select value={editingPresetName} name="presets" id="presets" onChange={() => onChangeMenuPreset(presets.value)} placeholder="Select a preset...">
+                </div>
+                <div className={classes.presetContainer}>
+                <span>current preset:</span>
+                <select className={classes.select} value={editingPresetName} name="presets" id="presets" onChange={() => onChangeMenuPreset(presets.value)} placeholder="Select a preset...">
                      { presetArray.map((p, i) => {
                         return <option key={i} onClick={() => setSelectedPreset(p)}>{p.name}</option>
                     })}
                 </select>
+                </div>
                 
                 
             </div>
                 { youTubeActive && <PopulateFromYouTubeComments onCloseYouTubeSearch={onCloseYouTubeSearch} onPopulateWithYouTubeComments={onPopulateWithYouTubeComments}/> }
-                <input type="text" placeholder="Name your source here..." value={editingPresetName} onChange={(e) => setEditingPresetName(e.target.value)}/>
+                <label htmlFor="title">source name: </label>
+                <input id="title" type="text" className={classes.textInput} value={editingPresetName} onChange={(e) => setEditingPresetName(e.target.value)}/>
                 <textarea className={classes.inputPad} type="textarea" id="article-name" name="article-name" value={editingPresetText} onChange={(e) => setEditingPresetText(e.target.value)}/>
             <div className={classes.bottomButtons}>
-                <button onClick={onClickImportAsStanza} className={classes.button}>IMPORT AS STANZA</button>
-                <button onClick={onClickSaveAsNewPreset} className={classes.button}>SAVE AS NEW PRESET</button>
-                <button onClick={onClickOverwritePreset} className={classes.button}>OVERWRITE CURRENT PRESET</button>
-                <button onClick={onClickShowSrc} className={classes.button}>BACK</button>
+                <button onClick={onFirstClickImportAsStanza} className={classes.button}>import as stanza</button>
+                <button onClick={onClickSaveAsNewPreset} className={classes.button}>save as new preset</button>
+                <button onClick={onClickOverwritePreset} className={classes.button}>overwrite current preset</button>
+                <button onClick={onClickShowSrc} className={classes.button}>back</button>
             </div>
         </div>
 

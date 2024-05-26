@@ -1,17 +1,42 @@
 import classes from './outputs.module.scss';
 import { checkPoemStyles, checkStyles } from '@tg/utils/utils';
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
+import { toPng } from 'html-to-image';
 
 const ShowAsSlides = (props) => {
-    const { poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
+    const { outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, outputBgColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
 
-    const [colour, setColour] = useState('#000000');
+    const refer = useRef(null);
+
     const [slideIndex, setSlideIndex] = useState(0);
 
-    const onChangeColour = (e) => {
-        setColour(e.target.value);
-        onChangeOutputBgColour(colour);
+    const onChangeBgColour = (e) => {
+      onChangeOutputBgColour(e.target.value);
     }
+
+    const onChangeTitleColour = (e) => {
+      onChangeOutputTitleColour(e.target.value);
+    }
+
+    const onChangePoemColour = (e) => {
+      onChangeOutputPoemColour(e.target.value);
+    }
+
+    const exportAsImage = useCallback(() => {
+      if (refer.current === null) {
+        return
+      }
+      toPng(refer.current, { cacheBust: true})
+      .then((dataUrl) => {
+        const link = document.createElement('a');
+        link.download = `${poemTitle}.png`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((error) => {
+        console.error('oops, something went wrong!', error);
+      })
+    }, [refer])
 
     const thePoemJSX = poem.map((t, i) => {
       return (
@@ -40,20 +65,28 @@ const ShowAsSlides = (props) => {
 
     return (
         <div className={classes.pageContainer}>
-          <div className={classes.poemContainer} >
-              <div className={classes.poemTitle}>{poemTitle}</div>
+          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour}} >
+              {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div className={classes.mainTextSlides}>
               {thePoemJSX[slideIndex]}
               </div>
           </div>
           <div className={classes.panel}>
-          <div className={classes.colourContainer}>
-          <label htmlFor="colour">bg colour:</label>
-            <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
+            <div className={classes.colourContainer}>
+            <label htmlFor="colour-bg">bg:</label>
+            <input type="color" id="colour-bg" name="colour-bg" onChange={onChangeBgColour} value={outputBgColour}/>
+            </div>
+            <div className={classes.colourContainer}>
+            <label htmlFor="colour-title">title:</label>
+            <input type="color" id="colour-title" name="colour-title" onChange={onChangeTitleColour} value={outputTitleColour}/>
+            </div>
+            <div className={classes.colourContainer}>
+            <label htmlFor="colour-poem">poem:</label>
+            <input type="color" id="colour-poem" name="colour-poem" onChange={onChangePoemColour} value={outputPoemColour}/>
             </div>
             <button className={`${classes.button} ${slideIndex === 0 ? classes.greyed : null}`} onClick={onClickLeft}>previous</button>
             <button className={`${classes.button} ${slideIndex === (thePoemJSX.length - 1) ? classes.greyed : null}`} onClick={onClickRight}>next</button>
-            <button className={classes.button}>export as .pdf</button>
+            <button onClick={exportAsImage}className={classes.button}>export page as .png</button>
             <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
         </div>

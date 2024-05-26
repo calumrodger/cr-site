@@ -96,6 +96,29 @@ $disabledColour: #2E294E;
     display: flex;
     flex-direction: column;
     gap: .2rem;
+
+    textarea {
+        background-color: $outlinesColour;
+        color: $bgColour;
+    }
+
+    .presetContainer {
+        display: flex;
+        gap: .2rem;
+    }
+
+    .topButtons {
+        display: flex;
+        gap: .3rem;
+        padding-top: .2rem;
+        justify-content: space-between;
+    
+    }
+
+    .buttonOptions {
+        display: flex;
+        gap: .2rem;
+    }
 }
 
 .inputPad {
@@ -104,15 +127,13 @@ $disabledColour: #2E294E;
 }
 
 .urlFormContainer {
-    gap: .2rem;
-    width: 60%;
     
     label {
-        margin-left: 1rem;
+        margin-left: .5rem;
     }
 
     input {
-        margin-right: 1rem;
+        margin-right: .5rem;
     }
 }
 
@@ -190,6 +211,14 @@ $disabledColour: #2E294E;
     margin-bottom: 1rem;
 }
 
+.bottomButtons {
+    display: flex;
+    gap: .3rem;
+    justify-content: space-around;
+    margin-top: .3rem;
+
+}
+
 .mainText {
     margin-bottom: 4rem;
 
@@ -254,6 +283,7 @@ width: 6rem;
     gap: .3rem;
     padding-top: .2rem;
 }
+
 
 .poemBox {
     display: flex;
@@ -370,10 +400,14 @@ width: 6rem;
     justify-content: space-between;
     gap: .42rem;
     padding: .2rem;
+
+    .button {
+        margin-top: .1rem;
+    }
 }
 
 .backButton {
-    margin-top: -.1rem;
+    margin-top: 0;
     // font-size: .7rem;
     // padding-bottom: .8rem;
 }

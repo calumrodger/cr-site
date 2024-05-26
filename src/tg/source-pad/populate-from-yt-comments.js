@@ -50,7 +50,7 @@ const PopulateFromYouTubeComments = (props) => {
         <div className={classes.urlFormContainer}>
             <button className={classes.button} onClick={onCloseYouTubeSearch}>x</button>
             <label className={classes.inputLabel} htmlFor="yt-url">YouTube URL: </label>
-            <input type="text" id="yt-url" name="yt-url" value={YTUrl} onChange={onChangeUrlField} className={classes.input} placeholder="YT URL" />
+            <input className={classes.textInput} type="text" id="yt-url" name="yt-url" value={YTUrl} onChange={onChangeUrlField}/>
             <button className={classes.button} onClick={onClickButton}>GO</button>
         </div>
     )

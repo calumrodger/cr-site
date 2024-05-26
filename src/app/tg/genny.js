@@ -466,8 +466,9 @@ const Genny = (props) => {
     setCurrentPreset(newPreset);
   }
 
-  const onClickImportAsStanza = () => {
-    const formattedString = currentPreset.text.replace('\n', ' \n ')
+  const onClickImportAsStanza = (text) => {
+    console.log(text)
+    const formattedString = text.replace('\n', ' waaaa ')
     setStanza(treatString(formattedString));
     setPadToShow('stanza');
   }
@@ -620,9 +621,19 @@ const Genny = (props) => {
   }
 
   const [outputBgColour, setOutputBgColour] = useState('#fff');
+  const [outputTitleColour, setOutputTitleColour] = useState('#000');
+  const [outputPoemColour, setOutputPoemColour] = useState('#000');
 
   const onChangeOutputBgColour = (hex) => {
     setOutputBgColour(hex);
+  }
+
+  const onChangeOutputTitleColour = (hex) => {
+    setOutputTitleColour(hex);
+  }
+
+  const onChangeOutputPoemColour = (hex) => {
+    setOutputPoemColour(hex);
   }
 
   const onChangeOutputCheckbox = (outputType) => {
@@ -970,9 +981,14 @@ const Genny = (props) => {
         }
 
         { padToShow === 'input' &&
+        <>
+        <div className={classes.poemPadStatusSection}>
+        <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
+        </div>
         <div className={classes.inputPadSection}>
           <SourcePad onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset}/> 
         </div>
+        </>
         }
         
         { padToShow === 'stanza' && 
@@ -1043,6 +1059,7 @@ const Genny = (props) => {
         }
         { padToShow !== 'input' &&
         <>
+        
           <div className={classes.outputSection}>
             <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
             <OutputAs padToShow={padToShow} onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
@@ -1063,16 +1080,16 @@ const Genny = (props) => {
       <div style={{background: outputBgColour}} className={classes.pageContainerOutput}>
         <div className={classes.poemContent}>
         { outputMode === 'lines' && 
-        <ShowAsLines stanza={stanza} padToShow={padToShow} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
+        <ShowAsLines onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} stanza={stanza} padToShow={padToShow} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
         }
         { outputMode === 'grid' &&
-        <ShowAsGrid onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+        <ShowAsGrid onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
         }
         { outputMode === 'slides' &&
-        <ShowAsSlides onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+        <ShowAsSlides onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
         }
         { outputMode === 'loop' &&
-        <ShowAsLoop onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+        <ShowAsLoop onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
         }
         </div>
       </div>

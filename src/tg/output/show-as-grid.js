@@ -5,17 +5,23 @@ import { toPng } from 'html-to-image';
 
 const ShowAsGrid = (props) => {
     const refer = useRef(null);
-    const { poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
+    const { outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour, outputBgColour } = props;
 
-    const [colour, setColour] = useState('#fff');
     const [gridX, setGridX] = useState(1);
     const [gridY, setGridY] = useState(4);
     const [renderMode, setRenderMode] = useState(true);
     const [padding, setPadding] = useState(0);
 
-    const onChangeColour = (e) => {
-        setColour(e.target.value);
-        onChangeOutputBgColour(colour);
+    const onChangeBgColour = (e) => {
+      onChangeOutputBgColour(e.target.value);
+    }
+
+    const onChangeTitleColour = (e) => {
+      onChangeOutputTitleColour(e.target.value);
+    }
+
+    const onChangePoemColour = (e) => {
+      onChangeOutputPoemColour(e.target.value);
     }
 
     const switchRenderMode = () => {
@@ -68,8 +74,8 @@ const ShowAsGrid = (props) => {
 
     return (
         <div className={classes.pageContainer}>
-          <div className={classes.poemContainer} style={{backgroundColor: colour, padding: "1rem"}} ref={refer}>
-              <div className={classes.poemTitle}>{poemTitle}</div>
+          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour}} ref={refer}>
+          {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div style={{...yValue, ...xValue, ...renderSetting}} className={classes.mainTextGrid}>
               {poem.map((t, i) => {
                 const styleObject = {...checkPoemStyles(t), ...paddingValue};
@@ -90,9 +96,17 @@ const ShowAsGrid = (props) => {
           </div>
           <div className={classes.panel}>
           <div className={classes.colourContainer}>
-          <label htmlFor="colour">bg colour:</label>
-            <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
-           </div> 
+            <label htmlFor="colour-bg">bg:</label>
+            <input type="color" id="colour-bg" name="colour-bg" onChange={onChangeBgColour} value={outputBgColour}/>
+            </div>
+            <div className={classes.colourContainer}>
+            <label htmlFor="colour-title">title:</label>
+            <input type="color" id="colour-title" name="colour-title" onChange={onChangeTitleColour} value={outputTitleColour}/>
+            </div>
+            <div className={classes.colourContainer}>
+            <label htmlFor="colour-poem">poem:</label>
+            <input type="color" id="colour-poem" name="colour-poem" onChange={onChangePoemColour} value={outputPoemColour}/>
+            </div>
            <div className={classes.sliderContainer}>
             <label htmlFor="grid-x">columns/rows:</label>
             <input className={classes.slider} type="range" id="grid-x" name="grid-x" min="1" max="10" step="1" onChange={onChangeGridCoOrds} value={renderMode ? gridY : gridX}/>

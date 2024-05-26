@@ -7,17 +7,22 @@ const ShowAsLines = (props) => {
 
     const refer = useRef(null);
 
-    const { stanza, padToShow, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
+    const { outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour,  outputBgColour, stanza, padToShow, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
 
     const [sliderValue, setSliderValue] = useState(0);
-    const [colour, setColour] = useState('#fff');
-    const [poemToShow, setPoemToShow] = useState([]);
 
     const thePoem = padToShow === 'stanza' ? [{id: 0, stanza: stanza, selected: false}] : poem;
 
-    const onChangeColour = (e) => {
-        setColour(e.target.value);
-        onChangeOutputBgColour(colour);
+    const onChangeBgColour = (e) => {
+        onChangeOutputBgColour(e.target.value);
+    }
+
+    const onChangeTitleColour = (e) => {
+      onChangeOutputTitleColour(e.target.value);
+    }
+
+    const onChangePoemColour = (e) => {
+      onChangeOutputPoemColour(e.target.value);
     }
 
     const onChangeSlider = (e) => {
@@ -42,8 +47,8 @@ const ShowAsLines = (props) => {
 
     return (
         <div className={classes.pageContainer} >
-          <div className={classes.poemContainer} ref={refer}>
-              <div className={classes.poemTitle}>{poemTitle}</div>
+          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour}} ref={refer}>
+          {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div className={classes.mainTextLines}>
               {thePoem.map((t, i) => {
                 const styleObject = {...checkPoemStyles(t), ...{lineHeight: "1." + sliderValue + "rem"}};
@@ -64,10 +69,18 @@ const ShowAsLines = (props) => {
               </div>
           </div>
           <div className={classes.panel}>
-          <div className={classes.colourContainer}>
-          <label htmlFor="colour">bg colour:</label>
-          <input type="color" id="colour" name="colour" onChange={onChangeColour} value={colour}/>
-          </div>
+            <div className={classes.colourContainer}>
+            <label htmlFor="colour-bg">bg:</label>
+            <input type="color" id="colour-bg" name="colour-bg" onChange={onChangeBgColour} value={outputBgColour}/>
+            </div>
+            <div className={classes.colourContainer}>
+            <label htmlFor="colour-title">title:</label>
+            <input type="color" id="colour-title" name="colour-title" onChange={onChangeTitleColour} value={outputTitleColour}/>
+            </div>
+            <div className={classes.colourContainer}>
+            <label htmlFor="colour-poem">poem:</label>
+            <input type="color" id="colour-poem" name="colour-poem" onChange={onChangePoemColour} value={outputPoemColour}/>
+            </div>
           <div className={classes.sliderContainer}>
           <label htmlFor="spacing">spacing:</label>
           <input type="range" min="0" max="9" step="1" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="spacing"/>
