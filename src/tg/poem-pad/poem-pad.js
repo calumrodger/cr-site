@@ -6,7 +6,7 @@ import SaveOutputToTxt from '@tg/output/save-to-txt';
 
 const PoemPad = (props) => {
 
-    const { baseFont, poem, onEditStanza, onUpdatePoem } = props;
+    const { baseFont, poem, onEditStanza, onUpdatePoem, onShufflePoem } = props;
 
     const [stanzaArray, setStanzaArray] = useState(poem);
 
@@ -14,7 +14,7 @@ const PoemPad = (props) => {
     const [moreThanOneSelected, setMoreThanOneSelected] = useState(false);
 
     const onSelectStanza = (e) => {
-      let newArray = stanzaArray.map((item, index) => {
+      let newArray = poem.map((item, index) => {
         if (index == e.target.id) {
           return { id: item.id, stanza: item.stanza, style: item?.style, selected: item.selected ? false : true}
         } else {
@@ -45,16 +45,6 @@ const PoemPad = (props) => {
       setNoneSelected(zero);
       setMoreThanOneSelected(moreThanOne);
     }, [stanzaArray])
-
-    
-    
-    function arraymove(arr, fromIndex, toIndex) {
-      const newArray = [...arr];
-      var element = arr[fromIndex];
-      newArray.splice(fromIndex, 1);
-      newArray.splice(toIndex, 0, element);
-      return newArray;
-    }
 
     function shiftStanzasUp() {
       // copy stanzaArray and replace unselected stanzas with null
@@ -135,11 +125,16 @@ const PoemPad = (props) => {
     }
 
     const unselectAll = () => {
-      let newObjArray = stanzaArray.map((item) => {
+      let newObjArray = poem.map((item) => {
         return { id: item.id, stanza: item.stanza, style: item?.style, selected: false }
       });
-      setStanzaArray(newObjArray);
+      // setStanzaArray(newObjArray);
       onUpdatePoem(newObjArray);
+    }
+
+    const shuffleClickHandler = () => {
+      console.log('go')
+      onShufflePoem();
     }
 
 
@@ -148,7 +143,8 @@ const PoemPad = (props) => {
         <div className={classes.poemBox}>
           {poem.map((t, i) => {
               return (
-              <div key={t.id} className={classes.poemContainer} style={{fontFamily: baseFont}}>
+              
+              <div key={i} className={classes.poemContainer} style={{fontFamily: baseFont}}>
                 <div className={classes.controlsContainer}>
                 <span>{i + 1}</span>
                 <button id={i} className={`${classes.button} ${classes.ppButton}`} onClick={onSelectStanza}>select</button>
@@ -175,7 +171,7 @@ const PoemPad = (props) => {
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzasDown}>down</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={duplicateStanza}>dupe</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={deleteStanza}>delete</button>
-          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} >shuffle</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shuffleClickHandler}>shuffle</button>
           <button className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`} onClick={editStanza}>edit</button>
         </div>
         </div>

@@ -13,7 +13,7 @@ const PopulateWordBank = (props) => {
     const [currentPrompt, setCurrentPrompt] = useState('');
 
     const fullPrompt = 
-    `Give me a list of ${quant} words that are related to ${currentPrompt}.
+    `Give me a list of ${quant < 21 ? quant : 20} words that are related to ${currentPrompt}.
     
     The words should be related to ${currentPrompt} in some way, but they don't have to be synonyms.
     

@@ -10,11 +10,11 @@ $highlightExtra: #2274A5;
     justify-content: flex-end;
     // border: $fillColourLight 1px solid;
     text-align: right;
-    margin-top: .4rem;
+    // margin-top: .2rem;
     // margin-left: 1rem;
-    padding: .1rem;
+    // padding: .1rem;
     // background-color: $highlightExtra;
-    color: $fillColourLight;
+    color: $outlinesColour;
     display: flex;
 
     .logo {
@@ -26,14 +26,16 @@ $highlightExtra: #2274A5;
         flex-direction: column;
         // width: 12rem;
         padding-left: .7rem;
-        padding-top: .3rem;
+        padding-right: .2rem;
+        // padding-top: .3rem;
 
         .topLine {
             font-family: var(--league-spartan);
             font-weight: 800;
-            font-size: 1.3rem;
+            font-size: 1.7rem;
             font-style: italic;
             color: $highlightExtra;
+            text-shadow: 1px 1px 0px $fillColourLight;
 
         }
 

@@ -203,6 +203,7 @@ $disabledColour: #2E294E;
     .button {
         height: 100%;
         width: 100%;
+        font-size: 1rem;
     }
 }
 
@@ -215,6 +216,29 @@ $disabledColour: #2E294E;
 ////////////////////
 
 // OUTPUT SECTION
+
+.outputPanelContainer {
+    display: flex;
+    gap: .3rem;
+    margin-left: -1rem;
+    padding-bottom: 1rem;
+}
+.outputAsContainer {
+    display: flex;
+    gap: .3rem;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    // font-size: .7rem;
+    // margin-top: .2rem;
+
+    .toggleButtonsContainer {
+        display: flex;
+        gap: .3rem;
+        width: 14rem;
+        padding-right: .4rem;
+    }
+}
 .pageContainer {
     height: 100%;
     width: 100%;
@@ -237,7 +261,6 @@ $disabledColour: #2E294E;
     gap: .3rem;
     justify-content: space-around;
     margin-top: .3rem;
-
 }
 
 .mainText {
@@ -268,6 +291,8 @@ width: 6rem;
 }
 
 .titleContainer {
+    padding-bottom: 1rem;
+    align-items: center;
     display: flex;
     gap: .3rem;
     margin-right: 2.5rem;
@@ -400,6 +425,12 @@ width: 6rem;
     .line-break {
         display: block; 
         white-space: pre-line;
+    }
+
+    .wordInputField {
+        appearance: none;
+        width: 4rem;
+        outline: none;
     }
 
     .word {
@@ -708,7 +739,11 @@ width: 6rem;
     }
 }
 
-
+.infinitySelected {
+    padding-top: .2rem;
+    font-size: 1.5rem;
+    line-height: .1;
+}
 
 .showSrcButton {
     grid-area: show-src;
@@ -740,18 +775,19 @@ width: 6rem;
 .genButtons {
     grid-area: gen-buttons;
     text-align: right;
-    // display: flex;
-    // justify-content: flex-end;
-    // align-items: flex-end;
-    // margin-top: .5rem;
 
     button {
         height: 1.6rem;
         width: 6.5rem;
         font-size: 1rem;
     }
-    // flex-direction: column;
-    // gap: .5rem;
+}
+
+.toggleButtonsContainer {
+    background-color: $highlightExtra;
+    border: $fillColourLight 1px solid;
+    padding: .3rem;
+    margin-top: .2rem;
 }
 
 .saveStanzaButton {

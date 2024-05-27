@@ -13,6 +13,7 @@
     "cmu-pronouncing-dictionary": "^3.0.0",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
+    "export-from-json": "^1.7.4",
     "fs": "^0.0.1-security",
     "gtag": "^1.0.1",
     "html-react-parser": "^3.0.16",

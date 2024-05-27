@@ -1,21 +1,11 @@
 import classes from '../tg-styles.module.scss';
-import { useState } from 'react';
 
 const StanzaUndoRedo = (props) => {
 
-    const { stanza, setStanza, oldStanza, setOldStanza } = props;
-
-    const [undone, setUndone] = useState(false);
+    const { onUndoRedoStanza } = props;
 
     const undoRedo = () => {
-        if (!undone) {
-            setOldStanza(stanza);
-            setStanza(oldStanza);
-            setUndone(true);
-        } else {
-            setStanza(oldStanza);
-            setUndone(false);
-        }
+            onUndoRedoStanza();
     }
 
     return (

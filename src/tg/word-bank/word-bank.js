@@ -2,7 +2,7 @@ import classes from '../tg-styles.module.scss';
 
 const WordBank = (props) => {
 
-    const { baseFont, onSaveWordBankAsList, wordBank, onWordBankClick, deleteSelectedWordBank, selectAllWordBank, unselectAllWordBank } = props;
+    const { onShuffleWordBank, baseFont, onSaveWordBankAsList, wordBank, onWordBankClick, deleteSelectedWordBank, selectAllWordBank, unselectAllWordBank } = props;
 
     return (
         <div className={classes.wordBankSection}>
@@ -16,7 +16,7 @@ const WordBank = (props) => {
             <div className={classes.wordBankButtons}>
                 <button className={`${classes.button} ${classes.wordBankButton}`} onClick={selectAllWordBank}>select all</button>
                 <button className={`${classes.button} ${classes.wordBankButton}`} onClick={unselectAllWordBank}>unselect all</button>
-                <button className={`${classes.button} ${classes.wordBankButton}`} >shuffle</button>
+                <button className={`${classes.button} ${classes.wordBankButton}`} onClick={onShuffleWordBank}>shuffle</button>
                 <button className={`${classes.button} ${classes.wordBankButton}`} onClick={onSaveWordBankAsList}>save as list</button>
                 <button className={`${classes.button} ${classes.wordBankButton}`} onClick={deleteSelectedWordBank}>delete</button>
             </div>

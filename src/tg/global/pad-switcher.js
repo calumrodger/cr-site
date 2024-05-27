@@ -4,7 +4,7 @@ const PadSwitcher = (props) => {
 
     const { onSwitchPad, padToShow } = props;
 
-    const buttonText = padToShow === 'stanza' ? 'GO TO POEM PAD' : 'GO TO STANZA PAD';
+    const buttonText = padToShow === 'stanza' ? 'POEM PAD' : 'STANZA PAD';
 
     return (
         <div className={classes.switcherContainer}>

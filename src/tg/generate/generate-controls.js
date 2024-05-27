@@ -247,10 +247,10 @@ const GenerateControls = (props) => {
     
     const onFormSubmit = () => {
         if (formStyle === 'syllable') {
-            if (genType === 'stanza' && nLevel === "-1") {
+            if (genType === 'stanza' && nLevel === "10") {
                 onUpdate(formatPoem(getOriginalPoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
-            if (genType === 'line' && nLevel === "-1") {
+            if (genType === 'line' && nLevel === "10") {
                 onUpdate(formatPoem(getRandomLinePoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (nLevel === "0") {
@@ -258,10 +258,10 @@ const GenerateControls = (props) => {
             }
         }
         if (formStyle === 'stress') {
-            if (genType === 'stanza' && nLevel === "-1") {
+            if (genType === 'stanza' && nLevel === "10") {
                 onUpdate(formatPoem(getOriginalPoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
-            if (genType === 'line' && nLevel === "-1") {
+            if (genType === 'line' && nLevel === "10") {
                 onUpdate(formatPoem(getRandomLinePoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (nLevel === "0") {
@@ -307,14 +307,14 @@ const GenerateControls = (props) => {
                         })}
                     </select>
                 </div>
-                <button onClick={onClickShowSrc} className={`${classes.button} ${classes.srcPadButton}`}>SELECT/EDIT TEXT SOURCE</button>
+                <button onClick={onClickShowSrc} className={`${classes.button} ${classes.srcPadButton}`}>SOURCE PAD</button>
             </div>
             <div className={classes.nLevelSlider}>
-                <label htmlFor="n-level-slider">n-level: {nLevel === "-1" ? 'OFF' : nLevel}</label>
-                <input className={classes.slider} type="range" id="n-level-slider" name="n-level-slider" min="-1" max="0" step="1" value={nLevel} onChange={onChangeNLevelSlider}></input>
+                <label htmlFor="n-level-slider">n-level: <span className={`${nLevel === "10" ? classes.infinitySelected : null}`}>{nLevel === "10" ? '∞' : nLevel}</span></label>
+                <input className={classes.slider} type="range" id="n-level-slider" name="n-level-slider" min="0" max="10" step="1" value={nLevel} onChange={onChangeNLevelSlider}></input>
             </div>
             <div className={classes.genButtons}>
-                <button className={classes.button} onClick={onFormSubmit}>GENERATE!</button>
+                <button className={classes.button} onClick={onFormSubmit}>GENERATE</button>
             </div>
             <div className={classes.formInput}>
                 <label htmlFor="form">form:</label>
@@ -325,24 +325,28 @@ const GenerateControls = (props) => {
             </div>
             <div className={classes.formStyleToggle}>
                 <span>measure:</span>
-                <div>
-                <input className={`${classes.radioInput} ${formStyle === 'syllable' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="syllable" checked={formStyleCheckbox === 'syllable'} onChange={() => onChangeFormStyleCheckbox('syllable')} />
-                <label htmlFor="syllable">syllable</label>
-                </div>
-                <div>
-                <input className={`${classes.radioInput} ${formStyle === 'stress' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="stress" checked={formStyleCheckbox === 'stress'} onChange={() => onChangeFormStyleCheckbox('stress')} />
-                <label htmlFor="stress">stress</label>
+                <div className={classes.toggleButtonsContainer}>
+                    <div>
+                        <input className={`${classes.radioInput} ${formStyle === 'syllable' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="syllable" checked={formStyleCheckbox === 'syllable'} onChange={() => onChangeFormStyleCheckbox('syllable')} />
+                        <label htmlFor="syllable">syllable</label>
+                    </div>
+                    <div>
+                        <input className={`${classes.radioInput} ${formStyle === 'stress' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="stress" checked={formStyleCheckbox === 'stress'} onChange={() => onChangeFormStyleCheckbox('stress')} />
+                        <label htmlFor="stress">stress</label>
+                    </div>
                 </div>
             </div>
             <div className={classes.reseedToggle}>
                 <span>reseed by:</span>
-                <div>
-                    <input className={`${classes.radioInput} ${reseedCheckbox === 'stanza' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="stanza" checked={reseedCheckbox === 'stanza'} onChange={() => onChangeReseedCheckbox('stanza')} />
-                    <label htmlFor="stanza">stanza</label>
-                </div>
-                <div>
-                    <input className={`${classes.radioInput} ${reseedCheckbox === 'line' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="line" checked={reseedCheckbox === 'line'} onChange={() => onChangeReseedCheckbox('line')} />
-                    <label htmlFor="line">line</label>
+                <div className={classes.toggleButtonsContainer}>
+                    <div>
+                        <input className={`${classes.radioInput} ${reseedCheckbox === 'stanza' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="stanza" checked={reseedCheckbox === 'stanza'} onChange={() => onChangeReseedCheckbox('stanza')} />
+                        <label htmlFor="stanza">stanza</label>
+                    </div>
+                    <div>
+                        <input className={`${classes.radioInput} ${reseedCheckbox === 'line' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="line" checked={reseedCheckbox === 'line'} onChange={() => onChangeReseedCheckbox('line')} />
+                        <label htmlFor="line">line</label>
+                    </div>
                 </div>
             </div>
         </div>
