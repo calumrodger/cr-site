@@ -15,7 +15,8 @@ export async function getYouTubeComments(videoId) {
        
         if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
-          throw new Error('Failed to fetch data')
+          // throw new Error('Failed to fetch data')
+          return 'error';
         }
        
         return res.json()

@@ -1212,7 +1212,7 @@ const Genny = (props) => {
         <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
         </div>
         <div className={classes.inputPadSection}>
-          <SourcePad onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset}/> 
+          <SourcePad onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset} onSetStatusMessage={onSetStatusMessage}/> 
         </div>
         </>
         }

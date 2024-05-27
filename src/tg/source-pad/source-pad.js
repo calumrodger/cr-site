@@ -8,7 +8,7 @@ import LoadFromTxt from './load-from-txt';
 
   const SourcePad = (props) => {
 
-    const { onSetCurrentPresetText, onSetCurrentPresetName, onOverwritePreset, onSelectPreset, presetArray, onSaveNewPreset, onChangeCurrentPreset, currentPreset, onClickShowSrc, onClickImportAsStanza } = props;
+    const { onSetStatusMessage, onSetCurrentPresetText, onSetCurrentPresetName, onOverwritePreset, onSelectPreset, presetArray, onSaveNewPreset, onChangeCurrentPreset, currentPreset, onClickShowSrc, onClickImportAsStanza } = props;
     
     const [youTubeString, setYouTubeString] = useState('');
     const [txtString, setTxtString] = useState('');
@@ -71,7 +71,7 @@ import LoadFromTxt from './load-from-txt';
                 
                 
             </div>
-                { youTubeActive && <PopulateFromYouTubeComments onCloseYouTubeSearch={onCloseYouTubeSearch} onPopulateWithYouTubeComments={onPopulateWithYouTubeComments}/> }
+                { youTubeActive && <PopulateFromYouTubeComments onSetStatusMessage={onSetStatusMessage} onCloseYouTubeSearch={onCloseYouTubeSearch} onPopulateWithYouTubeComments={onPopulateWithYouTubeComments}/> }
                 <hr className={classes.line}/>
                 <label htmlFor="title">source name: </label>
                 <input id="title" type="text" className={classes.textInput} value={editingPresetName} onChange={(e) => setEditingPresetName(e.target.value)}/>
