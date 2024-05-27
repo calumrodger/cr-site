@@ -200,14 +200,60 @@ const Genny = (props) => {
     setStatusMessage('state loaded')
   }
 
+  const punctOptions = (count, word) => {
+
+    let trimmedWord = word.replace(/[^\w\s\']|_/g, "");
+    let finalWord = trimmedWord.replace(/\s+/g, " ").trim();
+    switch (count) {
+      case 0:
+        return `${finalWord}.`;
+      case 1:
+        return `${finalWord},`;
+      case 2:
+        return `${finalWord}:`;
+      case 3:
+        return `${finalWord};`;
+      case 4:
+        return `${finalWord}!`;
+      case 5:
+        return `${finalWord}?`;
+      case 6:
+        return `${finalWord}...`;
+      case 7:
+        return `${finalWord} -`;
+      case 8:
+        return `*${finalWord}*`;
+      case 9:
+        return `(${finalWord})`;
+      case 10:
+        return `[${finalWord}]`;
+      case 11:
+        return `_${finalWord}_`;
+      case 12:
+        return `~${finalWord}~`;
+        default: 
+        return word;
+  }
+}
 
   const onAddPunct = (reverse) => {
-    setPunctCounter(punctCounter + 1);
+    if (reverse) {
+      if (punctCounter === 0) {
+        setPunctCounter(12);
+      } else {
+        setPunctCounter(punctCounter - 1);
+      }
+    } else {
+      if (punctCounter === 12) {
+        setPunctCounter(0);
+      } else {
+        setPunctCounter(punctCounter + 1);
+      }
+    }
+
     let newObjArray = stanza.map((item, index) => {
-      let newText = '';
-      if (!reverse) { newText = `"${item.text}"` } else { newText = `!${item.text}!` }
       if (item.selected === true) {
-        return { id: item.id, type: 'text', text: newText, style: item?.style, selected: item.selected }
+        return { id: item.id, type: 'text', text: punctOptions(punctCounter, item.text), style: item?.style, selected: item.selected }
       } else {
         return item;
       }
@@ -298,8 +344,12 @@ const Genny = (props) => {
         syllableCounter = syllableCounter + syllable(stanza[i].text);
       }
       if (stanza[i].text === '\n') {
+        if (syllableCounter === 0) {
+          form = form
+        } else {
         form = form + syllableCounter.toString() + '/';
         syllableCounter = 0;
+        }
       }
     }
     form = form.slice(0, -1)

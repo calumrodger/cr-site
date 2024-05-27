@@ -9,7 +9,7 @@ const Title = () => {
     return (
         <div className={classes.container}>
             <div className={classes.textContainer}>
-                <div className={classes.topLine}>Stanzafier1.0</div>
+                <div className={classes.topLine}>Stanzafier0.9</div>
                 <div className={classes.bottomLine}>poem creation and remix tool</div>
             </div>
             <Image className={classes.logo} src={pic} alt="dada" width={36} height={36} />
