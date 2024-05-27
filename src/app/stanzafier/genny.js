@@ -96,19 +96,19 @@ const Genny = (props) => {
 
   const { source } = props;
 
-  const dictRef = useRef([]);
+  // const dictRef = useRef([]);
 
-  const getTheDictionary = async () => {
-    setStatusMessage('loading dictionary');
-      const theDictionary = await getDictionary();
-      return theDictionary;
-  }
+  // const getTheDictionary = async () => {
+  //   setStatusMessage('loading dictionary');
+  //     const theDictionary = await getDictionary();
+  //     return theDictionary;
+  // }
 
-    useEffect(() => {
-        getTheDictionary().then((dictionary) => {
-            dictRef.current = dictionary
-        }).then(() => setStatusMessage('dict loaded'));
-    }, [])
+  //   useEffect(() => {
+  //       getTheDictionary().then((dictionary) => {
+  //           dictRef.current = dictionary
+  //       }).then(() => setStatusMessage('dict loaded'));
+  //   }, [])
 
   const treatString = (input) => {
     const sourceArray = input.split(" ");
@@ -1235,7 +1235,7 @@ const Genny = (props) => {
             </div>
             < hr className={classes.line} />
             <span>N + X</span>
-            <NPlusX theDictionary={dictRef.current} getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
+            <NPlusX getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
             <hr className={classes.line} />
             <span>API INJECTION</span>
             <APIFX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/>

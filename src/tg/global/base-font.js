@@ -15,7 +15,7 @@ const BaseFont = (props) => {
 
     return (
         <div className={classes.baseFont}>
-            <label htmlFor="base-font">base face:</label>
+            <label htmlFor="base-font">base font:</label>
             <select onChange={((e) => onClickFont(e.target.value))} className={classes.select} id="font" name="font">
                 <option value="lexend" onClick={() => setSelectedFont('lexend')}>default</option>
                 <option value="serif" >serif</option>

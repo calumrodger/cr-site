@@ -7,7 +7,7 @@ import { dictionary } from 'cmu-pronouncing-dictionary';
 
 const NPlusX = (props) => {
 
-    const { stanza, onUpdate, onSetStatusMessage, theDictionary } = props;
+    const { stanza, onUpdate, onSetStatusMessage, } = props;
 
     const [wordClass, setWordClass] = useState(false);
     const [measure, setMeasure] = useState(false);
@@ -78,16 +78,17 @@ const NPlusX = (props) => {
     }
 
     const replaceRandom = () => {
-        let newObjArray = [];
-        for (let i = 0; i < stanza.length; i++) {
-            if (stanza[i].selected === true) {
-                let randomWord = theDictionary[Math.floor(Math.random() * theDictionary.length)];
-                newObjArray.push({id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: randomWord, selected: true});
-            } else {
-                newObjArray.push(stanza[i]);
-            }
-        }
-        onUpdate(newObjArray, stanza); 
+        console.log('replaceRandom')
+        // let newObjArray = [];
+        // for (let i = 0; i < stanza.length; i++) {
+        //     if (stanza[i].selected === true) {
+        //         let randomWord = theDictionary[Math.floor(Math.random() * theDictionary.length)];
+        //         newObjArray.push({id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: randomWord, selected: true});
+        //     } else {
+        //         newObjArray.push(stanza[i]);
+        //     }
+        // }
+        // onUpdate(newObjArray, stanza); 
     }
 
     return (
