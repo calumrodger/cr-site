@@ -1220,7 +1220,7 @@ const Genny = (props) => {
         <div className={classes.globalSection}>
           <div className={classes.saveButtonsSection}>
             <SaveLoad poem={poem} poemTitle={poemTitle} onLoadState={onLoadState} oldStanza={oldStanza} wordBank={wordBank} allWordLists={allWordLists} selectedWordList={selectedWordList} presetArray={presetArray} currentPreset={currentPreset} stanza={stanza} form={form} formStyle={formStyle} genType={genType} nLevel={nLevel} outputCheckbox={outputCheckbox} updateStanzaStyles={updateStazaStyles} outputBgColour={outputBgColour} outputTitleColour={outputTitleColour} outputPoemColour={outputPoemColour} baseFont={baseFont} punctCounter={punctCounter} injectSetting={injectSetting}/>
-            <BaseFont onSelectFont={onSelectFont}/>
+            <BaseFont baseFont={baseFont} onSelectFont={onSelectFont}/>
           </div>
           <div className={classes.titleSection}>
          

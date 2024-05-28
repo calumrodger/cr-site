@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const BaseFont = (props) => {
 
-    const { onSelectFont } = props;
+    const { onSelectFont, baseFont } = props;
 
     const onClickFont = (font) => {
         onSelectFont(font);
@@ -16,8 +16,8 @@ const BaseFont = (props) => {
     return (
         <div className={classes.baseFont}>
             <label htmlFor="base-font">base font:</label>
-            <select onChange={((e) => onClickFont(e.target.value))} className={classes.select} id="font" name="font">
-                <option value="lexend" onClick={() => setSelectedFont('lexend')}>default</option>
+            <select onChange={((e) => onClickFont(e.target.value))} defaultValue={baseFont} className={classes.select} id="font" name="font">
+                <option value="lexend">default</option>
                 <option value="serif" >serif</option>
                 <option value="sans-serif" >sans serif</option>
                 <option value="monospace" >monospace</option>
