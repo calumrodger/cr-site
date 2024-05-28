@@ -59,6 +59,7 @@ import ShowAsLines from '@tg/output/show-as-lines';
 import ShowAsGrid from '@tg/output/show-as-grid';
 import ShowAsSlides from '@tg/output/show-as-slides';
 import ShowAsLoop from '@tg/output/show-as-loop';
+import { format } from 'path';
 
 
 const Genny = (props) => {
@@ -127,6 +128,32 @@ const Genny = (props) => {
       } 
     }
     const finalList = newSource.map((item, index) => {
+      if (item === '\n') {
+        return { id: index, type: 'break', text: item, selected: false }
+      } else {
+      return { id: index, type: 'text', text: item, selected: false }
+      }
+    });
+    return finalList;
+  }
+
+  const treatImportString = (input) => {
+    const sourceArray = input.split("\n");
+    let formattedArray = [];
+    for (let i = 0; i < sourceArray.length; i++) {
+      if (sourceArray[i] === '') {
+        formattedArray.push(' \n ');
+      } else {
+        formattedArray.push(sourceArray[i]);
+        formattedArray.push(' \n ');
+      }
+    } 
+    formattedArray.pop();
+    const newString = formattedArray.join("");
+    const newArray = newString.split(" ")
+    const filteredEmpties = newArray.filter((item) => item !== "");
+    console.log(filteredEmpties)
+    const finalList = filteredEmpties.map((item, index) => {
       if (item === '\n') {
         return { id: index, type: 'break', text: item, selected: false }
       } else {
@@ -612,8 +639,9 @@ const Genny = (props) => {
   }
 
   const onClickImportAsStanza = (text) => {
-    const formattedString = text.replace('\n', ' waaaa ')
-    setStanza(treatString(formattedString));
+    // const formattedString = text.replace('\n', ' waaaa ')
+    console.log('text:' + text)
+    setStanza(treatImportString(text));
     setPadToShow('stanza');
   }
 
@@ -1243,7 +1271,7 @@ const Genny = (props) => {
             <FormResetButton onResetTypography={onResetTypography} />
             </div>
             < hr className={classes.line} />
-            <span>N + X</span>
+            <span>N + ?</span>
             <NPlusX getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
             <hr className={classes.line} />
             <span>API INJECTION</span>

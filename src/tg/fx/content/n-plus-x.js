@@ -2,6 +2,7 @@ import classes from '../../tg-styles.module.scss';
 import { useState, useEffect, useRef } from 'react';
 import { syllable } from 'syllable';
 import { dictionary } from 'cmu-pronouncing-dictionary';
+import { getWordFromDictionary } from '@tg/server-actions/actions';
 
 
 
@@ -77,8 +78,10 @@ const NPlusX = (props) => {
         }
     }
 
-    const replaceRandom = () => {
+    const replaceRandom = async () => {
         console.log('replaceRandom')
+        const result = await getWordFromDictionary();
+        console.log(result)
         // let newObjArray = [];
         // for (let i = 0; i < stanza.length; i++) {
         //     if (stanza[i].selected === true) {
@@ -111,9 +114,14 @@ const NPlusX = (props) => {
             </div>
         </div>
         <div className={classes.numberAndButton}>
-            <div className={classes.input}>
-                <label htmlFor="n-value">n + {nValue === "0" ? "?" : nValue}</label>
+            <div className={classes.synonymSlider}>
+                <div className={classes.input}>
+                    <span>nymspin</span>
+                    <button className={classes.synonymButton}>go</button>
+                    
+                </div>
                 <input className={classes.slider} type="range" min="0" max="99" id="n-value" name="n-value" onChange={(e) => setNValue(e.target.value)} value={nValue}/>
+                {/* <button className={classes.synonymButton}>go</button> */}
             </div>
             <button onClick={handleReplaceClick} className={classes.button}>REPLACE</button>
         </div>

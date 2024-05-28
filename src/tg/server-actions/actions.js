@@ -1,13 +1,5 @@
 'use server';
 
-import fs from 'node:fs';
-import wordListPath from 'word-list';
-
-export async function getDictionary() {
-  const dictionary = fs.readFileSync(wordListPath, 'utf8').split('\n');
-  return dictionary;
-}
-
 export async function getYouTubeComments(videoId) {
         const res = await fetch('https://youtube.googleapis.com/youtube/v3/commentThreads?maxResults=5000&part=snippet&part=replies&videoId=' + videoId + '&key=' + process.env.YOUTUBE_API_KEY)
         // The return value is *not* serialized
@@ -20,6 +12,18 @@ export async function getYouTubeComments(videoId) {
         }
        
         return res.json()
+}
+
+export async function getWordFromDictionary() {
+  const res = await fetch('https://wordsapiv1.p.rapidapi.com/words/lovely/synonyms',
+    {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"}}
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
 }
 
 
