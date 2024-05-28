@@ -366,14 +366,20 @@ const Genny = (props) => {
   const detectFormSyllable = (stanza) => {
     let form = '';
     let syllableCounter = 0;
+    let breakCount = 0;
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].text !== '\n') {
         syllableCounter = syllableCounter + syllable(stanza[i].text);
       }
       if (stanza[i].text === '\n') {
-        if (syllableCounter === 0) {
+        if (syllableCounter === 0 && breakCount === 0) {
           form = form
+          breakCount++;
+        } else if (syllableCounter === 0 && breakCount > 0) {
+          form = form + '/';
+          breakCount++;
         } else {
+          breakCount = 0;
         form = form + syllableCounter.toString() + '/';
         syllableCounter = 0;
         }
