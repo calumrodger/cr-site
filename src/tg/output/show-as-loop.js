@@ -51,10 +51,12 @@ const ShowAsLoop = (props) => {
     return (
         <div className={classes.pageContainer}>
           <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont}}>
+          <div className={classes.smallContainerFlex}>
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div className={classes.mainTextLoop}>
               {thePoemJSX[slideIndex]}
               </div>
+          </div>
           </div>
           <div className={classes.panel}>
           <div className={classes.colourContainer}>

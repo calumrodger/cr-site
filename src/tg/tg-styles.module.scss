@@ -617,11 +617,11 @@ width: 6rem;
     }
     
     .srcInput {
-        // display: flex;
-        // justify-content: center;
-        // align-items: center;
-        // // width: 7rem;
         gap: .5rem;
+
+        .select {
+            width: 6.4rem;
+        }
     }
 }
 

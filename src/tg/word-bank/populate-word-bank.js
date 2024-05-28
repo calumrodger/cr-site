@@ -23,6 +23,10 @@ const PopulateWordBank = (props) => {
     
     All the words should be lower case, unless they are proper nouns. Do not include anything else in your response.`;
 
+    useEffect(() => {
+        setCurrentWordList(selectedWordList.name);
+    }, [selectedWordList])
+    
     const onChangeQuant = (e) => {
         setQuant(e.target.value);
     }
@@ -106,7 +110,7 @@ const PopulateWordBank = (props) => {
                 <div className={classes.srcInput}>
                     <input className={`${classes.radioInput} ${populateType === 'list' ? classes.selected : null}`} type="radio" id="list" name="list" value="list" readOnly checked={populateType === 'list'} onClick={(e) => onSetPopulateType(e.target.value)}/>
                     <label htmlFor="populate-source">list: </label>
-                    <select className={classes.select} value={currentWordList} name="populate-source" id="populate-source" onChange={handleSelectChange}>
+                    <select className={classes.select} value={selectedWordList.name} name="populate-source" id="populate-source" onChange={handleSelectChange}>
                         {allWordLists.map((list, i) => {
                             return (
                                 <option key={i} value={list.name}>{list.name}</option>

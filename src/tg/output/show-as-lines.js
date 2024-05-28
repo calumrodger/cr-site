@@ -46,8 +46,9 @@ const ShowAsLines = (props) => {
     }, [refer])
 
     return (
-        <div className={classes.pageContainer} >
+        <>
           <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont}} ref={refer}>
+          <div className={classes.smallContainerLines}>
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div className={classes.mainTextLines}>
               {thePoem.map((t, i) => {
@@ -66,6 +67,7 @@ const ShowAsLines = (props) => {
                 </div>
             )}
             )}
+              </div>
               </div>
           </div>
           <div className={classes.panel}>
@@ -89,7 +91,7 @@ const ShowAsLines = (props) => {
           <button onClick={exportAsImage} className={classes.button}>export as .png</button>
           <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
-          </div>
+          </>
     )
 }
 

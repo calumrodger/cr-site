@@ -7,7 +7,7 @@ import '../styles/globals.scss'
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${lexend.variable} ${leagueSpartan.variable} ${leagueScript.variable}`}>{children}</body>
+      <body style={{backgroudColor: "#000"}}className={`${lexend.variable} ${leagueSpartan.variable} ${leagueScript.variable}`}>{children}</body>
       <Analytics />
     </html>
   )

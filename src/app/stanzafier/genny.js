@@ -751,9 +751,17 @@ const Genny = (props) => {
   }
 
   const onUpdateWordBankEdit = (name, words) => {
-    let newWordsArray = words;
-    let newWordList = {name: name, words: newWordsArray};
+    console.log(selectedWordList)
+    let newWordList = {id: selectedWordList.id, name: name, words: words};
+    let newWordLists = allWordLists.map((item) => {
+      if (item.id === selectedWordList.id) {
+        return newWordList;
+      } else {
+        return item;
+      }
+    });
     setSelectedWordList(newWordList);
+    setAllWordLists(newWordLists);
   }
 
   const onAddWordBankEdit = (name, words) => {
@@ -1027,7 +1035,7 @@ const Genny = (props) => {
   }
 
   const onSaveWordBankAsList = () => {
-    const id = allWordLists.length - 1;
+    const id = allWordLists.length;
     let words = [];
     for (let i = 0; i < wordBank.length; i++) {
       if (wordBank[i].selected === true) {
@@ -1035,6 +1043,7 @@ const Genny = (props) => {
       }
     }
     setAllWordLists([...allWordLists, {id: id, name: 'new list', words: words}]);
+    setSelectedWordList({id: id, name: 'new list', words: words});
   }
 
   const onSetStatusMessage = (message) => {
@@ -1304,7 +1313,6 @@ const Genny = (props) => {
   } else {
     return (
       <div style={{background: outputBgColour}} className={classes.pageContainerOutput}>
-        <div className={classes.poemContent}>
         { outputMode === 'lines' && 
         <ShowAsLines baseFont={baseFont} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} stanza={stanza} padToShow={padToShow} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
         }
@@ -1317,7 +1325,6 @@ const Genny = (props) => {
         { outputMode === 'loop' &&
         <ShowAsLoop baseFont={baseFont} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
         }
-        </div>
       </div>
     )
   }

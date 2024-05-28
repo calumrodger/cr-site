@@ -10,9 +10,6 @@ export default async function PoemPage() {
   const source = "so much depends \n upon \n";
 
   return (
-        <>
           <Genny source={source}/>
-        </>
-   
   )
 }
