@@ -535,10 +535,12 @@ const Genny = (props) => {
 
   const onDuplicateSelectedWords = () => {
     let newObjArray = [];
+    let idCount = stanza.length + 1;
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         newObjArray.push(stanza[i]);
-        newObjArray.push({ id: stanza.length + 1, text: stanza[i].text, selected: false })
+        newObjArray.push({ id: idCount, type: 'text', text: stanza[i].text, selected: false })
+        idCount++;
       } else {
         newObjArray.push(stanza[i]);
       }
