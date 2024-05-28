@@ -509,7 +509,11 @@ const Genny = (props) => {
 
   const onUnselectAllWords = () => { 
     let newObjArray = stanza.map((item) => {
-      return { id: item.id, type: 'text', text: item.text, style: item?.style, selected: false }
+      if (item.type === 'text') {
+        return { id: item.id, type: 'text', text: item.text, style: item?.style, selected: false }
+      } else {
+        return item;
+      }
     });
     setStanza(newObjArray);
   }
