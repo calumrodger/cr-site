@@ -15,13 +15,13 @@ const OutputAs = (props) => {
                 <span >as</span>
                 <div className={classes.toggleButtonsContainer}>
                     <input className={`${classes.radioInput} ${outputCheckbox === 'lines' ? classes.selected : null}`} type="radio" id="lines" name="output" value="lines" checked={outputCheckbox === 'lines'} onChange={() => onChangeOutputCheckbox('lines')} />
-                    <label htmlFor="lines">lines</label>
+                    <label  htmlFor="lines">lines</label>
                     <input className={`${classes.radioInput} ${outputCheckbox === 'grid' ? classes.selected : null}`} type="radio" id="grid" name="output" value="grid" disabled={padToShow === 'stanza' ? true : false} checked={outputCheckbox === 'grid'} onChange={() => onChangeOutputCheckbox('grid')} />
-                    <label htmlFor="grid">grid</label>
+                    <label className={`${classes.outputLabel} ${padToShow !== 'poem' ? classes.disabled : null}`} htmlFor="grid">grid</label>
                     <input className={`${classes.radioInput} ${outputCheckbox === 'slides' ? classes.selected : null}`} type="radio" id="slides" name="output" value="slides" disabled={padToShow === 'stanza' ? true : false} checked={outputCheckbox === 'slides'} onChange={() => onChangeOutputCheckbox('slides')} />
-                    <label htmlFor="slides">pages</label>
+                    <label className={`${classes.outputLabel} ${padToShow !== 'poem' ? classes.disabled : null}`} htmlFor="slides">pages</label>
                     <input className={`${classes.radioInput} ${outputCheckbox === 'loop' ? classes.selected : null}`} type="radio" id="loop" name="output" value="loop" disabled={padToShow === 'stanza' ? true : false} checked={outputCheckbox === 'loop'} onChange={() => onChangeOutputCheckbox('loop')} />
-                    <label htmlFor="loop">loop</label>
+                    <label className={`${classes.outputLabel} ${padToShow !== 'poem' ? classes.disabled : null}`} htmlFor="loop">loop</label>
                 </div>
             </div>
             </div>

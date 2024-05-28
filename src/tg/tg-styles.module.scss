@@ -237,6 +237,14 @@ $disabledColour: #2E294E;
         gap: .3rem;
         width: 14rem;
         padding-right: .4rem;
+
+            .outputLabel {
+
+                &.disabled {
+                    color: $disabledColour;
+                    cursor: default;
+                }
+            }
     }
 }
 .pageContainer {
