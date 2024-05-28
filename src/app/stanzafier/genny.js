@@ -518,6 +518,17 @@ const Genny = (props) => {
     setStanza(newObjArray);
   }
 
+  useEffect(() => {
+    console.log(stanza)
+    let copyStanza = stanza;
+    for (let i = 0; i < copyStanza.length; i++) {
+      if (copyStanza[i].text === '') {
+        copyStanza.splice(i, 1);
+      }
+    }
+    setStanza(copyStanza);
+  }, [stanza])
+
   const onDeleteSelectedWords = () => {
     let newObjArray = [];
     let numberOfSelected = stanza.filter((item) => item.selected === true).length;
