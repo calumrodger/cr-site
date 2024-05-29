@@ -1,8 +1,44 @@
 import classes from '../tg-styles.module.scss';
+import { useState, useEffect } from 'react';
 
 const WordBank = (props) => {
 
     const { onShuffleWordBank, baseFont, onSaveWordBankAsList, wordBank, onWordBankClick, deleteSelectedWordBank, selectAllWordBank, unselectAllWordBank } = props;
+
+    const [noneSelected, setNoneSelected] = useState(true);
+    const [moreThanOneSelected, setMoreThanOneSelected] = useState(false);
+    const [allSelected, setAllSelected] = useState(false);
+
+    const isMoreThanOneWordSelected = () => {
+        const quantity = wordBank.filter((item) => item.selected).length;
+        if (quantity > 1) {
+          return true;
+        }
+      }
+  
+      const areZeroWordsSelected = () => {
+        const quantity = wordBank.filter((item) => item.selected).length;
+        if (quantity === 0) {
+          return true;
+        }
+      }
+  
+      const areAllWordsSelected = () => {
+        const quantityWords = wordBank.length;
+        const quantitySelected = wordBank.filter((item) => item.selected).length;
+        if (quantitySelected === quantityWords) {
+            return true;
+        }
+      }
+  
+      useEffect(() => {
+        const zero = areZeroWordsSelected();
+        const moreThanOne = isMoreThanOneWordSelected();
+        const all = areAllWordsSelected();
+        setNoneSelected(zero);
+        setMoreThanOneSelected(moreThanOne);
+        setAllSelected(all)
+      }, [wordBank])
 
     return (
         <div className={classes.wordBankSection}>
@@ -14,11 +50,11 @@ const WordBank = (props) => {
             })}
             </div>
             <div className={classes.wordBankButtons}>
-                <button className={`${classes.button} ${classes.wordBankButton}`} onClick={selectAllWordBank}>select all</button>
-                <button className={`${classes.button} ${classes.wordBankButton}`} onClick={unselectAllWordBank}>unselect all</button>
-                <button className={`${classes.button} ${classes.wordBankButton}`} onClick={onShuffleWordBank}>shuffle</button>
-                <button className={`${classes.button} ${classes.wordBankButton}`} onClick={onSaveWordBankAsList}>save as list</button>
-                <button className={`${classes.button} ${classes.wordBankButton}`} onClick={deleteSelectedWordBank}>delete</button>
+                <button className={`${classes.button} ${classes.wordBankButton} ${allSelected ? classes.disabled : null}`} onClick={selectAllWordBank}>select all</button>
+                <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={unselectAllWordBank}>unselect all</button>
+                <button className={`${classes.button} ${classes.wordBankButton} ${!moreThanOneSelected ? classes.disabled : null}`} onClick={onShuffleWordBank}>shuffle</button>
+                <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={onSaveWordBankAsList}>save as list</button>
+                <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={deleteSelectedWordBank}>delete</button>
             </div>
         </div>
     )
