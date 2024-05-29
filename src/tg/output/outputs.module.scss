@@ -13,6 +13,7 @@ $disabledColour: #2E294E;
 }
 .poemContainer {
     min-width: calc(100% - 4rem);
+    width: fit-content;
     padding: 2rem;
     margin: auto;
 }
