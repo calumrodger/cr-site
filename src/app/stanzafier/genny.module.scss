@@ -29,10 +29,8 @@ $highlightExtra: #2274A5;
     box-shadow: .5rem .3rem .3rem #84732b;
     background-color: $bgColour;
     color: $fillColourLight;
-    // padding: 1rem;
     height: 100%;
     width: 100%;
-    // overflow: scroll;
 }
 
 .pageContainerOutput {
@@ -43,7 +41,6 @@ $highlightExtra: #2274A5;
 .pageContent {
     height: 100%;
     display: grid;
-    // gap: .1rem;
     grid-template-rows: 25% 37.5% 25% 12.5%;
     grid-template-columns: 20% 25% 25% 10% 20%;
     grid-template-areas: "composeSection globalSection inputSection inputSection fxSection"
