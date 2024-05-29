@@ -6,7 +6,7 @@ import { masterWordList } from 'public/tg/words_alpha';
 
 const NPlusX = (props) => {
 
-    const { stanza, onUpdate, onSetStatusMessage, formStyle } = props;
+    const { stanza, onUpdate, onSetStatusMessage, formStyle, getStress } = props;
 
     const [wordClass, setWordClass] = useState(false);
     const [measure, setMeasure] = useState(false);
@@ -78,7 +78,13 @@ const NPlusX = (props) => {
     }
 
     const rhymeCheck = (word1, word2) => {
-        const wordOnePronArray = dictionary[word1]?.split(' ');
+        const treatedWord = treatWordFirst(word1);
+        const wordInDictionary = checkWordIsInRhymeDictionary(treatedWord);
+        if (!wordInDictionary) {
+            onSetStatusMessage('word not in dictionary');
+            return null;
+        } else {
+        const wordOnePronArray = dictionary[treatedWord]?.split(' ');
         const wordTwoPronArray = dictionary[word2]?.split(' ');
         let notDefined = '';
         if (wordOnePronArray === undefined) {
@@ -88,7 +94,6 @@ const NPlusX = (props) => {
             notDefined = notDefined + word2;
         }
         if (notDefined !== '') {
-            onSetStatusMessage('word(s)' + notDefined + ' not in dictionary');
             return false;
         }
         let rhymeIndexOne = 0;
@@ -110,25 +115,92 @@ const NPlusX = (props) => {
         } else {        
             return false;
         }
+        }
     }
 
-    // Replace function
-    const replaceRandom = async () => {
-        let numberToGet = stanza.filter((word) => {
-            if (word.selected === true) {
-                return word;
-            }}).length
-        let array = [];
-        for (let i = 0; i < numberToGet; i++) {
-            let finalWord = '';
 
-            while (finalWord === '') {
+    // Find word of same syllable count
+    const findWordOfSameSyllableCount = (word) => {
+        let syllableCount = syllable(word);
+        console.log(syllableCount)
+        let finalWord = '';
+        while (finalWord === '') {
             let randomIndex = Math.floor(Math.random() * wordList.length);
             let randomWord = wordList[randomIndex];
-            if (!rhyme && !measure && !wordClass) {
+            console.log(randomWord, syllable(randomWord))
+            if (syllable(randomWord) === syllableCount) {
                 finalWord = randomWord;
             }
-            array.push(finalWord);
+        }
+        return finalWord;
+    }
+
+    const findWordOfSameStressCount = (word) => {
+        let syllableCount = getStress(word);
+        let finalWord = '';
+        while (finalWord === '') {
+            let randomIndex = Math.floor(Math.random() * wordList.length);
+            let randomWord = wordList[randomIndex];
+            if (getStress(randomWord) === syllableCount) {
+                finalWord = randomWord;
+            }
+        }
+        return finalWord;
+    }
+
+    const findWordOfSameClass = (word) => {
+        let finalWord = '';
+        while (finalWord === '') {
+            let randomIndex = Math.floor(Math.random() * wordList.length);
+            let randomWord = wordList[randomIndex];
+            if (wordClassCheck(word, randomWord)) {
+                finalWord = randomWord;
+            }
+        }
+        return finalWord;
+    }
+
+    const findWordThatRhymes = (word) => {
+        let finalWord = '';
+        while (finalWord === '') {
+            let randomIndex = Math.floor(Math.random() * wordList.length);
+            let randomWord = wordList[randomIndex];
+            if (rhymeCheck(word, randomWord) === true) {
+                finalWord = randomWord;
+            }
+            if (rhymeCheck(word, randomWord) === null) {
+                return '';
+            }
+        }
+        return finalWord;
+    }
+
+
+
+    // Replace function
+    const replace = () => {
+        let whatToGet = stanza.filter((word) => {
+            if (word.selected === true) {
+                return word.text;
+            }})
+        let numberToGet = whatToGet.length;
+        console.log(whatToGet, numberToGet)
+        let array = [];
+
+        for (let i = 0; i < numberToGet; i++) {
+            if (measure && !wordClass && !rhyme) {
+                if (formStyle === 'syllable') {
+                    array.push(findWordOfSameSyllableCount(whatToGet[i].text))
+                }
+                if (formStyle === 'stress') {
+                    array.push(findWordOfSameStressCount(whatToGet[i].text))
+                }
+            }
+            if (wordClass && !measure && !rhyme) {
+                array.push(findWordOfSameClass(whatToGet[i].text))
+            }
+            if (rhyme && !measure && !wordClass) {
+                array.push(findWordThatRhymes(whatToGet[i].text))
             }
         }
         setNewWordsArray(array); 
@@ -136,32 +208,7 @@ const NPlusX = (props) => {
 
     // Click handler
     const handleReplaceClick = () => {
-        if (!wordClass && !measure && !rhyme) {
-            replaceRandom();
-        }
-        if (!wordClass && !measure && rhyme) {
-            console.log(checkWordIsInRhymeDictionary('glimpse'));
-            console.log(rhymeCheck('buyout', 'tryout'))
-        }
-        if (!wordClass && measure && !rhyme) {
-            console.log(measureCheck('a', 'the'));
-        }
-        if (!wordClass && measure && rhyme) {
-            console.log(checkWordHasClass('went'));
-        }
-        if (wordClass && !measure && !rhyme) {
-            console.log(wordClassCheck('go', 'dog'));
-        }
-        if (wordClass && !measure && rhyme) {
-            
-        }
-        if (wordClass && measure && !rhyme) {
-            
-        }
-        if (wordClass && measure && rhyme) {
-            testClick();
-            
-        }
+        replace();
     }
 
     // Insert words into stanza
@@ -220,3 +267,15 @@ const NPlusX = (props) => {
 }
 
 export default NPlusX;
+
+
+    // Find random matching word [for n+ when I add it]
+    // const findWordNOfSameSyllableCount = (word, n) => {
+    //     let syllableCount = syllable(word);
+    //     let matchingWords = wordList.filter((word) => {
+    //         if (syllable(word) === syllableCount) {
+    //             return word;
+    //         }
+    //     })
+    //     return matchingWords[n];
+    // }
