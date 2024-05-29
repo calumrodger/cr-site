@@ -102,6 +102,7 @@ const NPlusX = (props) => {
         let array = [];
         for (let i = 0; i < numberToGet; i++) {
             let randomWordObj = await getRandomWordFromDictionary();
+            console.log(randomWordObj)
             let randomWord = randomWordObj.word;
             array.push(randomWord);
         }

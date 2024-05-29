@@ -32,9 +32,11 @@ export async function getRandomWordFromDictionary(word) {
   );
 
   if (!res.ok) {
+    console.log('nae joy')
     throw new Error('Failed to fetch data');
   }
 
+  console.log(res.json())
   return res.json();
 }
 
