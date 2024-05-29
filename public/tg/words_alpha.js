@@ -1,4 +1,5 @@
-a
+export const masterWordList = 
+`a
 aa
 aaa
 aah
@@ -370102,4 +370103,4 @@ zwinglianism
 zwinglianist
 zwitter
 zwitterion
-zwitterionic
+zwitterionic`

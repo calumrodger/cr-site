@@ -15,28 +15,25 @@ export async function getYouTubeComments(videoId) {
 }
 
 export async function getWordFromDictionary(word) {
-  const res = await fetch('https://wordsapiv1.p.rapidapi.com/words/lovely',
-    {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"}}
+  const res = await fetch('https://wordsapiv1.p.rapidapi.com/words/' + word,
+    {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com", "Accept": "application/json"}}
   );
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
-
   return res.json();
 }
 
-export async function getRandomWordFromDictionary(word) {
-  const res = await fetch('https://wordsapiv1.p.rapidapi.com/words?random=true',
-    {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"}}
+export async function getLoadOfWordsFromDictionary(word) {
+  const res = await fetch('https://wordsapiv1.p.mashape.com/words?lettersMax=4',
+    {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com", "Accept": "application/json"}}
   );
 
   if (!res.ok) {
-    console.log('nae joy')
     throw new Error('Failed to fetch data');
   }
 
-  console.log(res.json())
   return res.json();
 }
 
@@ -74,13 +71,13 @@ export async function getWeatherData(location) {
 }
 
 // export async function getDictionary() {
-//   const file = '../../public/word-lists/word-lists.json';
+//   const file = '../../../public/word-lists/word-lists.json';
 //   let reader = new FileReader();
 //   if (!file) {
 //       return;
 //   }
 //   reader.readAsText(file)
 //   reader.onload = function() {
-//       onLoadState(JSON.parse(reader.result)[0]);
+//       console.log(JSON.parse(reader.result)[0]);
 //   };
 // }

@@ -1,23 +1,52 @@
 import classes from '../../tg-styles.module.scss';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, use } from 'react';
 import { syllable } from 'syllable';
 import { dictionary } from 'cmu-pronouncing-dictionary';
-import { getWordFromDictionary, getRandomWordFromDictionary } from '@tg/server-actions/actions';
-
-
+import { masterWordList } from 'public/tg/words_alpha';
 
 const NPlusX = (props) => {
 
-    const { stanza, onUpdate, onSetStatusMessage, } = props;
+    const { stanza, onUpdate, onSetStatusMessage, formStyle } = props;
 
     const [wordClass, setWordClass] = useState(false);
     const [measure, setMeasure] = useState(false);
     const [rhyme, setRhyme] = useState(false);
     const [nValue, setNValue] = useState(0);
-    const [randomWordArray, setRandomWordArray] = useState([]);
+    const [newWordsArray, setNewWordsArray] = useState([]);
 
+    const posTypes = ["CC", "CD", "DT", "EX", "FW", "IN", "JJ", "JJR", "JJS", "LS", "MD", "NN", "NNP", "NNPS", "NNS", "POS", "PDT", "PP$", "PRP", "RB", "RBR", "RBS", "RP", "SYM", "TO", "UH", "VB", "VBD", "VBG", "VBN", "VBP", "VBZ", "WDT", "WP", "WP$", "WRB"]
+
+    const wordList = masterWordList.split('\n');
     const pos = require('pos');
 
+    // Treat word before passing to any functions
+    const treatWordFirst = (word) => {
+        let treatedWord = word.replace(/[^a-zA-Z ]/g, "");
+        return treatedWord;
+    }
+
+    // Check input word is in dictionaries
+    const checkWordHasClass = (word) => {
+        const wordLex = new pos.Lexer().lex(word);
+        const tagger = new pos.Tagger();
+        const taggedWord = tagger.tag(wordLex);
+        console.log(taggedWord)
+        if (posTypes.includes(taggedWord[0][1])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    const checkWordIsInRhymeDictionary = (word) => {
+        if (dictionary[word] === undefined) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // Check if two words are of the same class/measure/rhyme
     const wordClassCheck = (word1, word2) => {
         const wordOne = new pos.Lexer().lex(word1);
         const wordTwo = new pos.Lexer().lex(word2);
@@ -49,24 +78,79 @@ const NPlusX = (props) => {
     }
 
     const rhymeCheck = (word1, word2) => {
-            console.log(dictionary[word1])
+        const wordOnePronArray = dictionary[word1]?.split(' ');
+        const wordTwoPronArray = dictionary[word2]?.split(' ');
+        let notDefined = '';
+        if (wordOnePronArray === undefined) {
+            notDefined = word1 + ', ';
+        }
+        if (wordTwoPronArray === undefined) {
+            notDefined = notDefined + word2;
+        }
+        if (notDefined !== '') {
+            onSetStatusMessage('word(s)' + notDefined + ' not in dictionary');
+            return false;
+        }
+        let rhymeIndexOne = 0;
+        for (let i = 0; i < wordOnePronArray.length; i++) {
+            if (wordOnePronArray[i].includes("1")) {
+                rhymeIndexOne = i; 
+            }
+        }
+        const rhymeOne = wordOnePronArray.slice(rhymeIndexOne).join(' ');
+        let rhymeIndexTwo = 0;
+        for (let i = 0; i < wordTwoPronArray.length; i++) {
+            if (wordTwoPronArray[i].includes("1")) {
+                rhymeIndexTwo = i; 
+            }
+        }
+        const rhymeTwo = wordTwoPronArray.slice(rhymeIndexTwo).join(' ');
+        if (rhymeOne === rhymeTwo) {
+            return true;
+        } else {        
+            return false;
+        }
     }
 
+    // Replace function
+    const replaceRandom = async () => {
+        let numberToGet = stanza.filter((word) => {
+            if (word.selected === true) {
+                return word;
+            }}).length
+        let array = [];
+        for (let i = 0; i < numberToGet; i++) {
+            let finalWord = '';
+
+            while (finalWord === '') {
+            let randomIndex = Math.floor(Math.random() * wordList.length);
+            let randomWord = wordList[randomIndex];
+            if (!rhyme && !measure && !wordClass) {
+                finalWord = randomWord;
+            }
+            array.push(finalWord);
+            }
+        }
+        setNewWordsArray(array); 
+    }
+
+    // Click handler
     const handleReplaceClick = () => {
         if (!wordClass && !measure && !rhyme) {
             replaceRandom();
         }
         if (!wordClass && !measure && rhyme) {
-            console.log(rhymeCheck('hello'))
+            console.log(checkWordIsInRhymeDictionary('glimpse'));
+            console.log(rhymeCheck('buyout', 'tryout'))
         }
         if (!wordClass && measure && !rhyme) {
             console.log(measureCheck('a', 'the'));
         }
         if (!wordClass && measure && rhyme) {
-            
+            console.log(checkWordHasClass('went'));
         }
         if (wordClass && !measure && !rhyme) {
-            console.log(wordClassCheck('a', 'the'));
+            console.log(wordClassCheck('go', 'dog'));
         }
         if (wordClass && !measure && rhyme) {
             
@@ -75,10 +159,12 @@ const NPlusX = (props) => {
             
         }
         if (wordClass && measure && rhyme) {
+            testClick();
             
         }
     }
 
+    // Insert words into stanza
     const insertWords = (arr) => {
         let newObjArray = [];
         let randomWordCount = 0;
@@ -93,25 +179,11 @@ const NPlusX = (props) => {
         onUpdate(newObjArray, stanza);
     }
 
-    const replaceRandom = async () => {
-        let numberToGet = stanza.filter((word) => {
-            if (word.selected === true) {
-                return word;
-            }}).length
-        console.log(numberToGet);
-        let array = [];
-        for (let i = 0; i < numberToGet; i++) {
-            let randomWordObj = await getWordFromDictionary();
-            console.log(randomWordObj)
-            let randomWord = randomWordObj.word;
-            array.push(randomWord);
-        }
-        setRandomWordArray(array); 
-    }
-
     useEffect(() => {
-        insertWords(randomWordArray);
-    }, [randomWordArray])
+        if (newWordsArray.length > 0) {
+            insertWords(newWordsArray);
+        }
+    }, [newWordsArray])
 
     return (
         <div className={classes.nplusxContainer}>
@@ -135,8 +207,7 @@ const NPlusX = (props) => {
         <div className={classes.numberAndButton}>
             <div className={classes.synonymSlider}>
                 <div className={classes.input}>
-                    <span>nymspin</span>
-                    <button className={classes.synonymButton}>go</button>
+                    <span>n + {nValue == 0 ? '?' : nValue}</span>
                     
                 </div>
                 <input className={classes.slider} type="range" min="0" max="99" id="n-value" name="n-value" onChange={(e) => setNValue(e.target.value)} value={nValue}/>

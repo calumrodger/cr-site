@@ -75,7 +75,7 @@ const ShowAsLoop = (props) => {
               <label htmlFor="seconds">speed:</label>
               <input type="range" min="100" max="5000" step="100" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="seconds"/>
             </div>
-            <button className={classes.button}>export as .gif</button>
+            <button className={`${classes.button} ${classes.disabled}`}>export as .gif</button>
             <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
         </div>
