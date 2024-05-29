@@ -15,7 +15,7 @@ export async function getYouTubeComments(videoId) {
 }
 
 export async function getWordFromDictionary(word) {
-  const res = await fetch('https://wordsapiv1.p.rapidapi.com/words/' + word,
+  const res = await fetch('https://wordsapiv1.p.rapidapi.com/words/lovely',
     {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"}}
   );
 
