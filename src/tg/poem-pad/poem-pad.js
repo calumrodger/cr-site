@@ -12,6 +12,7 @@ const PoemPad = (props) => {
 
     const [noneSelected, setNoneSelected] = useState(true);
     const [moreThanOneSelected, setMoreThanOneSelected] = useState(false);
+    const [allSelected, setAllSelected] = useState(false);
 
     const onSelectStanza = (e) => {
       let newArray = poem.map((item, index) => {
@@ -39,11 +40,21 @@ const PoemPad = (props) => {
       }
     }
 
+    const areAllStanzasSelected = () => {
+      const quantityStanzas = stanzaArray.length;
+      const quantitySelected = stanzaArray.filter((item) => item.selected).length;
+      if (quantitySelected === quantityStanzas) {
+          return true;
+      }
+    }
+
     useEffect(() => {
       const zero = areZeroStanzasSelected();
       const moreThanOne = isMoreThanOneStanzaSelected();
+      const all = areAllStanzasSelected();
       setNoneSelected(zero);
       setMoreThanOneSelected(moreThanOne);
+      setAllSelected(all)
     }, [stanzaArray])
 
     function shiftStanzasUp() {
@@ -165,13 +176,13 @@ const PoemPad = (props) => {
         <div className={classes.poemPadButtonOuterContainer}>
         <div className={classes.poemPadButtonContainer}>
         <SaveOutputToTxt poem={poem} /> 
-          <button className={`${classes.button}`} onClick={selectAll}>select all</button>
-          <button className={`${classes.button}`} onClick={unselectAll}>unselect all</button>
+          <button className={`${classes.button} ${allSelected ? classes.disabled : null}`} onClick={selectAll}>select all</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={unselectAll}>unselect all</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzasUp}>up</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzasDown}>down</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={duplicateStanza}>dupe</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={deleteStanza}>delete</button>
-          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shuffleClickHandler}>shuffle</button>
+          <button className={`${classes.button} ${!moreThanOneSelected ? classes.disabled : null}`} onClick={shuffleClickHandler}>shuffle</button>
           <button className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`} onClick={editStanza}>edit</button>
         </div>
         </div>

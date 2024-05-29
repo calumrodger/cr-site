@@ -10,6 +10,7 @@ const StanzaPadButtons = (props) => {
 
     const [noneSelected, setNoneSelected] = useState(true);
     const [moreThanOneSelected, setMoreThanOneSelected] = useState(false);
+    const [allSelected, setAllSelected] = useState(false);
 
     
     const isMoreThanOneWordSelected = () => {
@@ -25,12 +26,23 @@ const StanzaPadButtons = (props) => {
           return true;
         }
       }
+
+      const areAllWordsSelected = () => {
+        const quantityWords = stanza.filter((item) => item.type === 'text').length;
+        const quantitySelected = stanza.filter((item) => item.selected && item.type === 'text').length;
+        if (quantitySelected === quantityWords) {
+            return true;
+        }
+      }
+
   
       useEffect(() => {
         const zero = areZeroWordsSelected();
         const moreThanOne = isMoreThanOneWordSelected();
+        const all = areAllWordsSelected();
         setNoneSelected(zero);
         setMoreThanOneSelected(moreThanOne);
+        setAllSelected(all);
       }, [stanza])
 
     const onClickEditWord = () => {
@@ -63,29 +75,29 @@ const StanzaPadButtons = (props) => {
     return (
         <div className={classes.stanzaPadButtonsContainer}>
             <div>
-            <button className={classes.button} onClick={onSelectAllWords}>select all</button>
+            <button className={`${classes.button} ${allSelected ? classes.disabled : null}`} onClick={onSelectAllWords}>select all</button>
             </div>
             <div>
-            <button className={classes.button} onClick={onUnselectAllWords}>unselect all</button>
+            <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={onUnselectAllWords}>unselect all</button>
             </div>
             <div>
-            <button className={classes.button} onClick={onDeleteSelectedWords}>delete</button>
+            <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={onDeleteSelectedWords}>delete</button>
             </div>
             <div>
-            <button className={classes.button} onClick={onDuplicateSelectedWords}>duplicate</button>
+            <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={onDuplicateSelectedWords}>duplicate</button>
             </div>
             <div>
-            <button className={classes.button} onClick={onSaveToWordBank}>save to bank</button>
+            <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={onSaveToWordBank}>save to bank</button>
             </div>
             <div>
-            <button className={classes.button} onClick={onClickStripPunct}>strip punct</button>
+            <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={onClickStripPunct}>strip punct</button>
             </div>
             <div>
-            <button onClick={onClickAddPunctReverse} className={`${classes.button} ${classes.backButton}`}><span>{backText}</span></button>
-            <button onClick={onClickAddPunct} className={classes.button}>add punct</button>
+            <button onClick={onClickAddPunctReverse} className={`${classes.button} ${classes.backButton} ${noneSelected ? classes.disabled : null}`}><span>{backText}</span></button>
+            <button onClick={onClickAddPunct} className={`${classes.button} ${noneSelected ? classes.disabled : null}`}>add punct</button>
             </div>
             <div>
-            <button className={classes.button} onClick={onShuffleStanza}>shuffle</button>
+            <button className={`${classes.button} ${!moreThanOneSelected ? classes.disabled : null}`} onClick={onShuffleStanza}>shuffle</button>
             </div>
             <div>
             <button onClick={onClickEditWord} className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`}>edit word</button>
