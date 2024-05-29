@@ -14,8 +14,20 @@ export async function getYouTubeComments(videoId) {
         return res.json()
 }
 
-export async function getWordFromDictionary() {
-  const res = await fetch('https://wordsapiv1.p.rapidapi.com/words/lovely/synonyms',
+export async function getWordFromDictionary(word) {
+  const res = await fetch('https://wordsapiv1.p.rapidapi.com/words/' + word,
+    {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"}}
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
+}
+
+export async function getRandomWordFromDictionary(word) {
+  const res = await fetch('https://wordsapiv1.p.rapidapi.com/words?random=true',
     {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"}}
   );
 
@@ -58,3 +70,15 @@ export async function getWeatherData(location) {
 
   return res.json();
 }
+
+// export async function getDictionary() {
+//   const file = '../../public/word-lists/word-lists.json';
+//   let reader = new FileReader();
+//   if (!file) {
+//       return;
+//   }
+//   reader.readAsText(file)
+//   reader.onload = function() {
+//       onLoadState(JSON.parse(reader.result)[0]);
+//   };
+// }

@@ -49,7 +49,7 @@ const ShowAsLoop = (props) => {
     }
 
     return (
-        <div className={classes.pageContainer}>
+        <div className={classes.pageContainer} >
           <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont}}>
           <div className={classes.smallContainerFlex}>
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }

@@ -8,34 +8,13 @@ $disabledBg: #896978;
 $disabledColour: #2E294E;
 
 .pageContainer {
-    height: 100%;
-    width: 100%;
-    // max-height: 100vh;
-    // max-width: 100vw;
-    // background: transparent;
-    font-family: var(--lexend);
-    // position: fixed;
-    // overflow: scroll;
-    top: 0;
-    left: 0;
+    margin: auto;
     padding: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .poemContainer {
-  
-    // height: 100%;
-    // width: 100%;
+    min-width: calc(100% - 4rem);
     padding: 2rem;
-    // min-height: 100vh;
-    // min-width: 100vw;
-    // padding: 2rem;
     margin: auto;
-
-    // display: flex;
-    // align-items: center;
-    // flex-direction: column;
 }
 
 .button {
@@ -187,7 +166,7 @@ $disabledColour: #2E294E;
   }
 
 .mainTextLines {
-    // margin-bottom: 4rem;
+    // height: 100%;
 
     .word {
         display: inline-block;
@@ -204,6 +183,7 @@ $disabledColour: #2E294E;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
     gap: 1rem;
     // padding-left: 5rem;
 }

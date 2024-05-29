@@ -2,7 +2,7 @@ import classes from '../../tg-styles.module.scss';
 import { useState, useEffect, useRef } from 'react';
 import { syllable } from 'syllable';
 import { dictionary } from 'cmu-pronouncing-dictionary';
-import { getWordFromDictionary } from '@tg/server-actions/actions';
+import { getWordFromDictionary, getRandomWordFromDictionary } from '@tg/server-actions/actions';
 
 
 
@@ -14,6 +14,7 @@ const NPlusX = (props) => {
     const [measure, setMeasure] = useState(false);
     const [rhyme, setRhyme] = useState(false);
     const [nValue, setNValue] = useState(0);
+    const [randomWordArray, setRandomWordArray] = useState([]);
 
     const pos = require('pos');
 
@@ -78,21 +79,38 @@ const NPlusX = (props) => {
         }
     }
 
-    const replaceRandom = async () => {
-        console.log('replaceRandom')
-        const result = await getWordFromDictionary();
-        console.log(result)
-        // let newObjArray = [];
-        // for (let i = 0; i < stanza.length; i++) {
-        //     if (stanza[i].selected === true) {
-        //         let randomWord = theDictionary[Math.floor(Math.random() * theDictionary.length)];
-        //         newObjArray.push({id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: randomWord, selected: true});
-        //     } else {
-        //         newObjArray.push(stanza[i]);
-        //     }
-        // }
-        // onUpdate(newObjArray, stanza); 
+    const insertWords = (arr) => {
+        let newObjArray = [];
+        let randomWordCount = 0;
+        for (let i = 0; i < stanza.length; i++) {
+            if (stanza[i].selected === true) {
+                newObjArray.push({id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: arr[randomWordCount], selected: true});
+                randomWordCount++;
+            } else {
+                newObjArray.push(stanza[i]);
+            }
+        }
+        onUpdate(newObjArray, stanza);
     }
+
+    const replaceRandom = async () => {
+        let numberToGet = stanza.filter((word) => {
+            if (word.selected === true) {
+                return word;
+            }}).length
+        console.log(numberToGet);
+        let array = [];
+        for (let i = 0; i < numberToGet; i++) {
+            let randomWordObj = await getRandomWordFromDictionary();
+            let randomWord = randomWordObj.word;
+            array.push(randomWord);
+        }
+        setRandomWordArray(array); 
+    }
+
+    useEffect(() => {
+        insertWords(randomWordArray);
+    }, [randomWordArray])
 
     return (
         <div className={classes.nplusxContainer}>
