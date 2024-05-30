@@ -69,15 +69,3 @@ export async function getWeatherData(location) {
 
   return res.json();
 }
-
-// export async function getDictionary() {
-//   const file = '../../../public/word-lists/word-lists.json';
-//   let reader = new FileReader();
-//   if (!file) {
-//       return;
-//   }
-//   reader.readAsText(file)
-//   reader.onload = function() {
-//       console.log(JSON.parse(reader.result)[0]);
-//   };
-// }

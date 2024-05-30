@@ -1315,7 +1315,7 @@ const Genny = (props) => {
           </div>
         </div>
         <div className={classes.inputSection}>
-          <GenerateControls editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType}/>
+          <GenerateControls editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage}/>
           
         </div>
         </>

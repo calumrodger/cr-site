@@ -5,7 +5,7 @@ import OnSaveStanzaToPad from '@tg/stanza-pad/save-stanza-to-pad';
 
 const GenerateControls = (props) => {
 
-    const { editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
+    const { onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
     const [currentForm, setCurrentForm] = useState(form);
     
     const getFormArray = (form) => {
@@ -87,6 +87,7 @@ const GenerateControls = (props) => {
     }
 
     const getOriginalLineWithIndexStress = (text, form, index) => {
+        // remove line breaks
         const treatedText = text.replace(/(?:\r\n|\r|\n)/g, ' ');
         const stringArray = treatedText.split(' ');
         let startPosition = stringArray[index];
@@ -97,7 +98,7 @@ const GenerateControls = (props) => {
             newIndex++;
         }
         if (getStress(line) > form) {
-            return ['', newIndex];
+            return [null, newIndex];
         }
         if (getStress(line) === form) {
             return [line, newIndex];
@@ -184,27 +185,43 @@ const GenerateControls = (props) => {
     }
 
     const getOriginalPoemStress = (text, form) => {
+        let formSum = form.reduce((a, b) => a + b, 0);
         let poem = [];
         let currentIndex = Math.floor(Math.random() * text.length);
         let globalCount = 0;
-        for (let i = 0; i < form.length; i++) {
-            if (globalCount > 10000) {
-                alert("no poem found - try a bigger string or a different form");
+        // for (let i = 0; i < form.length; i++) {
+            if (globalCount === text.split(' ').length) {
+                onSetStatusMessage("no poem found - try a bigger string or a different form");
                 return [];
             }
-        let line = getOriginalLineWithIndexStress(text, form[i], currentIndex);
-        if (!line || !line[0]) {
-            i = -1;
-            poem = [];
-            globalCount++;
-            currentIndex = Math.floor(Math.random() * text.length);
-        } else {
-            poem.push(line[0]);
-            currentIndex = line[1];
-        }
+        let line = getOriginalLineStress(text, formSum);
+        console.log(line)
+        const textArray = line.split(' ');
+        const stressArray = line.split(' ').map((item) => getStress(item));
+        console.log(stressArray)
+        for (let i = 0; i < form.length; i++) {
+            let lineStress = 0;
+            let newLine = []; 
+            for (let j = 0; j < form[i]; j++) {
+                lineStress += stressArray[j];
+                newLine.push(textArray[i]);
+            }
+            poem.push(newLine.join(' '));
         }
         return poem;
     }
+        // if (!line || !line[0]) {
+        //     // i = -1;
+        //     poem = [];
+        //     globalCount++;
+        //     currentIndex = Math.floor(Math.random() * text.length);
+        // } else {
+        //     poem.push(line[0]);
+        //     currentIndex = line[1];
+        // }
+        // }
+    //     return line;
+    // }
 
     
     const getRandomWordPoemStress = (text, form) => {
