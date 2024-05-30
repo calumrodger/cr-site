@@ -5,7 +5,7 @@ import OnSaveStanzaToPad from '@tg/stanza-pad/save-stanza-to-pad';
 
 const GenerateControls = (props) => {
 
-    const { editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, assignCurrentPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
+    const { editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
     const [currentForm, setCurrentForm] = useState(form);
     
     const getFormArray = (form) => {

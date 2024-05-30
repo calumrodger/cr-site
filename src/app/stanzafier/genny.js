@@ -134,7 +134,7 @@ const Genny = (props) => {
       return { id: index, type: 'text', text: item, selected: false }
       }
     });
-      if (finalList[finalList.length - 1].type === 'break') {
+      if (finalList[finalList.length - 1]?.type === 'break') {
         finalList.pop();
       }
     return finalList;

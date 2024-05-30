@@ -15,12 +15,14 @@ const NPlusX = (props) => {
     const [nValue, setNValue] = useState(0);
     const [newWordsArray, setNewWordsArray] = useState([]);
     const [src, setSrc] = useState('big');
+    const [lastClicked, setLastClicked] = useState('');
 
     const posTypes = ["CC", "CD", "DT", "EX", "FW", "IN", "JJ", "JJR", "JJS", "LS", "MD", "NN", "NNP", "NNPS", "NNS", "POS", "PDT", "PP$", "PRP", "RB", "RBR", "RBS", "RP", "SYM", "TO", "UH", "VB", "VBD", "VBG", "VBN", "VBP", "VBZ", "WDT", "WP", "WP$", "WRB"]
 
     const wordListBig = masterWordListBig.split('\n');
     const wordListWee = masterWordListWee.split('\n');
     const pos = require('pos');
+    const rhymingDictionaryLength = Object.keys(dictionary).length;
 
     function remove(str) {
         let res = '';
@@ -53,8 +55,6 @@ const NPlusX = (props) => {
 
     // Treat word before passing to any functions
     const treatWordFirst = (word) => {
-        console.log(word)
-        console.log(checkPunctuation(word))
         if (checkPunctuation(word)) {
             let wordArray = word.split('');
             let startPunctArray = [];
@@ -92,7 +92,6 @@ const NPlusX = (props) => {
         const wordLex = new pos.Lexer().lex(word);
         const tagger = new pos.Tagger();
         const taggedWord = tagger.tag(wordLex);
-        console.log(taggedWord)
         if (posTypes.includes(taggedWord[0][1])) {
             return true;
         } else {
@@ -140,7 +139,7 @@ const NPlusX = (props) => {
     }
 
     const rhymeCheck = (word1, word2) => {
-        const treatedWord = removePunctFromWord(word1);
+        const treatedWord = word1;
         const wordInDictionary = checkWordIsInRhymeDictionary(treatedWord);
         if (!wordInDictionary) {
             onSetStatusMessage('word not in dictionary');
@@ -183,29 +182,24 @@ const NPlusX = (props) => {
 
     // Find word of same syllable count
     const findWordOfSameSyllableCount = (word, wordList) => {
-        let treatedWord = treatWordFirst(word);
-        console.log(treatedWord)
-        let syllableCount = syllable(treatedWord[0]);
+        let syllableCount = syllable(word);
         if (syllableCount === 0) {
             return '';
         } else {
-        console.log(syllableCount)
         let finalWord = '';
         while (finalWord === '') {
             let randomIndex = Math.floor(Math.random() * wordList.length);
             let randomWord = wordList[randomIndex];
-            console.log(randomWord, syllable(randomWord))
             if (syllable(randomWord) === syllableCount) {
                 finalWord = randomWord;
             }
         }
-        return treatedWord[1] + finalWord + treatedWord[2];
+        return finalWord;
     }
     }
 
     const findWordOfSameStressCount = (word, wordList) => {
-        let treatedWord = treatWordFirst(word);
-        let syllableCount = getStress(treatedWord[0]);
+        let syllableCount = getStress(word);
         let finalWord = '';
         while (finalWord === '') {
             let randomIndex = Math.floor(Math.random() * wordList.length);
@@ -214,36 +208,34 @@ const NPlusX = (props) => {
                 finalWord = randomWord;
             }
         }
-        return treatedWord[1] + finalWord + treatedWord[2];
+        return finalWord;
     }
 
     const findWordOfSameClass = (word, wordList) => {
         let finalWord = '';
-        let treatedWord = treatWordFirst(word);
         while (finalWord === '') {
             let randomIndex = Math.floor(Math.random() * wordList.length);
             let randomWord = wordList[randomIndex];
-            if (wordClassCheck(treatedWord[0], randomWord)) {
+            if (wordClassCheck(word, randomWord)) {
                 finalWord = randomWord;
             }
         }
-        return treatedWord[1] + finalWord + treatedWord[2];
+        return finalWord;
     }
 
     const findWordThatRhymes = (word, wordList) => {
         let finalWord = '';
-        let treatedWord = treatWordFirst(word);
         while (finalWord === '') {
             let randomIndex = Math.floor(Math.random() * wordList.length);
             let randomWord = wordList[randomIndex];
-            if (rhymeCheck(treatedWord[0], randomWord) === true) {
+            if (rhymeCheck(word, randomWord) === true) {
                 finalWord = randomWord;
             }
-            if (rhymeCheck(treatedWord[0], randomWord) === null) {
+            if (rhymeCheck(word, randomWord) === null) {
                 return '';
             }
         }
-        return treatedWord[1] + finalWord + treatedWord[2];
+        return finalWord;
     }
 
 
@@ -255,7 +247,6 @@ const NPlusX = (props) => {
                 return word.text;
             }})
         let numberToGet = whatToGet.length;
-        console.log(whatToGet, numberToGet)
         let array = [];
 
         let wordList = src === 'big' ? wordListBig : wordListWee;
@@ -275,6 +266,76 @@ const NPlusX = (props) => {
             if (rhyme && !measure && !wordClass) {
                 array.push(findWordThatRhymes(whatToGet[i].text, wordList))
             }
+            if (rhyme && measure && !wordClass) {
+                for (let rm = 0; rm < rhymingDictionaryLength; rm++) {
+                    if (rm === rhymingDictionaryLength - 1) {
+                        alert('no match found');
+                        return whatToGet[i].text;
+                    }
+                    let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
+                    let doesItMatchMeasure = measureCheck(whatToGet[i].text, matchedWord);
+                    if (doesItMatchMeasure) {
+                        array.push(matchedWord);
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            if (rhyme && wordClass && !measure) {
+                for (let rc = 0; rc < rhymingDictionaryLength; rc++) {
+                    if (rc === rhymingDictionaryLength - 1) {
+                        alert('no match found')
+                        return whatToGet[i].text;
+                    }
+                    let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
+                    let doesItMatchClass = wordClassCheck(whatToGet[i].text, matchedWord);
+                    if (doesItMatchClass) {
+                        array.push(matchedWord);
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            if (measure && wordClass && !rhyme) {
+                for (let mc = 0; mc < wordList.length; mc++) {
+                    if (mc === wordList.length - 1) {
+                        alert('no match found');
+                        return whatToGet[i].text;
+                    }
+                    let matchedWord = findWordOfSameClass(whatToGet[i].text, wordList);
+                    let doesItMatchMeasure = measureCheck(whatToGet[i].text, matchedWord);
+                    if (doesItMatchMeasure) {
+                        array.push(matchedWord);
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            if (measure && wordClass && rhyme) {
+                for (let mcr = 0; mcr < rhymingDictionaryLength; mcr++) {
+                    if (mcr === rhymingDictionaryLength - 1) {
+                        alert('no match found');
+                        return whatToGet[i].text;
+                    }
+                    let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
+                    let doesItMatchMeasure = measureCheck(whatToGet[i].text, matchedWord);
+                    let doesItMatchClass = wordClassCheck(whatToGet[i].text, matchedWord);
+                    if (doesItMatchMeasure && doesItMatchClass) {
+                        array.push(matchedWord);
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            if (!measure && !wordClass && !rhyme) {
+                let randomIndex = Math.floor(Math.random() * wordList.length);
+                array.push(wordList[randomIndex]);
+            }
+
         }
         setNewWordsArray(array); 
     }
@@ -305,6 +366,51 @@ const NPlusX = (props) => {
         }
     }, [newWordsArray])
 
+    const onClickWordClass = () => {
+        if (wordClass === true) {
+            setWordClass(false);
+        } else {
+            setWordClass(true);
+            if (lastClicked === 'measure') {
+                setRhyme(false);
+            }
+            if (lastClicked === 'rhyme') {
+                setMeasure(false);
+            }
+            setLastClicked('class');
+        }
+    }
+
+    const onClickMeasure = () => {
+        if (measure === true) {
+            setMeasure(false);
+        } else {
+            setMeasure(true);
+            if (lastClicked === 'class') {
+                setRhyme(false);
+            }
+            if (lastClicked === 'rhyme') {
+                setWordClass(false);
+            }
+            setLastClicked('measure');
+        }
+    }
+
+    const onClickRhyme = () => {
+        if (rhyme === true) {
+            setRhyme(false);
+        } else {
+            setRhyme(true);
+            if (lastClicked === 'class') {
+                setMeasure(false);
+            }
+            if (lastClicked === 'measure') {
+                setWordClass(false);
+            }
+            setLastClicked('rhyme');
+        }
+    }
+
     return (
         <div className={classes.nplusxContainer}>
         <div className={classes.radioButtons}>
@@ -312,15 +418,15 @@ const NPlusX = (props) => {
             <div className={classes.buttonsContainer}>
                 <div className={classes.buttonContainer}>
                     <label htmlFor="class">class: </label>
-                    <input className={`${classes.radioInput} ${wordClass === true ? classes.selected : null}`} type="radio" id="class" name="class" value="class" readOnly checked={wordClass === true} onClick={(e) => setWordClass(!wordClass)}/>
+                    <input className={`${classes.radioInput} ${wordClass === true ? classes.selected : null}`} type="radio" id="class" name="class" value="class" readOnly checked={wordClass === true} onClick={(e) => onClickWordClass()}/>
                 </div>
                 <div className={classes.buttonContainer}>
                     <label htmlFor="measure">measure: </label>
-                    <input className={`${classes.radioInput} ${measure === true ? classes.selected : null}`} type="radio" id="measure" name="measure" value="measure" readOnly checked={measure === true} onClick={(e) => setMeasure(!measure)}/>
+                    <input className={`${classes.radioInput} ${measure === true ? classes.selected : null}`} type="radio" id="measure" name="measure" value="measure" readOnly checked={measure === true} onClick={(e) => onClickMeasure()}/>
                 </div>
                 <div className={classes.buttonContainer}>
                     <label htmlFor="rhyme">rhyme: </label>
-                    <input className={`${classes.radioInput} ${rhyme === true ? classes.selected : null}`} type="radio" id="rhyme" name="rhyme" value="rhyme" readOnly checked={rhyme === true} onClick={(e) => setRhyme(!rhyme)}/>
+                    <input className={`${classes.radioInput} ${rhyme === true ? classes.selected : null}`} type="radio" id="rhyme" name="rhyme" value="rhyme" readOnly checked={rhyme === true} onClick={(e) => onClickRhyme()}/>
                 </div>
             </div>
         </div>

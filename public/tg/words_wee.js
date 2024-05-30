@@ -2269,7 +2269,6 @@ cylinder
 cyprus
 cz
 czech
-d
 da
 dad
 daddy
