@@ -144,7 +144,6 @@ const PoemPad = (props) => {
     }
 
     const shuffleClickHandler = () => {
-      console.log('go')
       onShufflePoem();
     }
 

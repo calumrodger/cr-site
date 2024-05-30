@@ -24,10 +24,6 @@ const NPlusX = (props) => {
     const pos = require('pos');
     const rhymingDictionaryLength = Object.keys(dictionary).length;
 
-    // useEffect(() => {
-    //     console.log(dictArray());
-    // })
-
     const dictArray = () => {
         let array = [];
         for (let i = 0; i < rhymingDictionaryLength; i++) {

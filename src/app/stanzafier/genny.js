@@ -162,7 +162,6 @@ const Genny = (props) => {
     const newString = formattedArray.join("");
     const newArray = newString.split(" ")
     const filteredEmpties = newArray.filter((item) => item !== "");
-    console.log(filteredEmpties)
     const finalList = filteredEmpties.map((item, index) => {
       if (item === '\n') {
         return { id: index, type: 'break', text: item, selected: false }
@@ -365,7 +364,6 @@ const Genny = (props) => {
     let stressCount = 0;
     for (let i = 0; i < stressArray.length; i++) {
       let itemStress = (((stressArray[i].match(/2/g)||[].length).toString()) * 1) + (((stressArray[i].match(/1/g)||[].length).toString()) * 1);
-      console.log(stressArray[i], itemStress)
       stressCount = stressCount + itemStress;
     }
     return stressCount;
@@ -398,7 +396,6 @@ const Genny = (props) => {
       }
       if (i === stanza.length - 1) {
         form = form + syllableCounter.toString();
-        console.log(form)
       }
     }
     return form;
@@ -524,7 +521,6 @@ const Genny = (props) => {
   }
 
   useEffect(() => {
-    console.log(stanza)
     let copyStanza = stanza;
     for (let i = 0; i < copyStanza.length; i++) {
       if (copyStanza[i].text === '') {
@@ -686,8 +682,6 @@ const Genny = (props) => {
   }
 
   const onClickImportAsStanza = (text) => {
-    // const formattedString = text.replace('\n', ' waaaa ')
-    console.log('text:' + text)
     setStanza(treatImportString(text));
     setPadToShow('stanza');
   }
@@ -826,7 +820,6 @@ const Genny = (props) => {
   }
 
   const onUpdateWordBankEdit = (name, words) => {
-    console.log(selectedWordList)
     let newWordList = {id: selectedWordList.id, name: name, words: words};
     let newWordLists = allWordLists.map((item) => {
       if (item.id === selectedWordList.id) {
@@ -1182,7 +1175,6 @@ const Genny = (props) => {
   }
 
   const onShufflePoem = () => {
-    console.log('fired')
     let selectedStanzas = [];
     for (let i = 0; i < poem.length; i++) {
       if (poem[i].selected) {
@@ -1193,7 +1185,6 @@ const Genny = (props) => {
     let newObjArray = [];
     let shuffledStanzasCount = 0;
     for (let i = 0; i < poem.length; i++) {
-      console.log(poem[i].id)
       if (poem[i].selected) {
         newObjArray.push({ id: i, stanza: selectedStanzas[shuffledStanzasCount], style: poem[i]?.style, selected: true });
         shuffledStanzasCount++;
