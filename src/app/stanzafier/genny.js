@@ -60,6 +60,7 @@ import ShowAsGrid from '@tg/output/show-as-grid';
 import ShowAsSlides from '@tg/output/show-as-slides';
 import ShowAsLoop from '@tg/output/show-as-loop';
 import { format } from 'path';
+import { buildNGrams } from 'word-ngrams';
 
 
 const Genny = (props) => {
@@ -110,6 +111,12 @@ const Genny = (props) => {
   //           dictRef.current = dictionary
   //       }).then(() => setStatusMessage('dict loaded'));
   //   }, [])
+
+  useEffect(() => {
+    // console.log(buildNGrams(emily.text, 3, {includePunctuation: true}))
+    // console.log(getStress(`"hello!" why? am I alive...`))
+    // getStress("o !!!! dnkffnds splash a a a a a the the of of of of of of of j")
+  })
 
   const treatString = (input) => {
     const sourceArray = input.split(" ");
@@ -341,15 +348,16 @@ const Genny = (props) => {
       return 0;
     }
     let wordsArray = theString.split(" ");
+    let trimmedWordsArray = [];
     for (let i = 0; i < wordsArray.length; i++) {
-      wordsArray[i].trim;
-      wordsArray[i].replace(/[^\w\s\']|_/g, "")
-      wordsArray[i].replace(/\s+/g, " ")
+      let wordForTrimming = wordsArray[i].trim();
+      let trimmedWord = wordForTrimming.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+      trimmedWordsArray.push(trimmedWord);
     }
     let stressArray = [];
-    for (let i = 0; i < wordsArray.length; i++) {
-      if (dictionary[wordsArray[i]] !== undefined) {
-        stressArray.push(dictionary[wordsArray[i]]);
+    for (let i = 0; i < trimmedWordsArray.length; i++) {
+      if (dictionary[trimmedWordsArray[i]] !== undefined) {
+        stressArray.push(dictionary[trimmedWordsArray[i]]);
       } else {
         stressArray.push('1');
       }
@@ -357,6 +365,7 @@ const Genny = (props) => {
     let stressCount = 0;
     for (let i = 0; i < stressArray.length; i++) {
       let itemStress = (((stressArray[i].match(/2/g)||[].length).toString()) * 1) + (((stressArray[i].match(/1/g)||[].length).toString()) * 1);
+      console.log(stressArray[i], itemStress)
       stressCount = stressCount + itemStress;
     }
     return stressCount;
@@ -366,13 +375,13 @@ const Genny = (props) => {
     setPoemTitle(e.target.value);
   }
   
-  const detectFormSyllable = (stanza) => {
+  const detectForm = (stanza, detector) => {
     let form = '';
     let syllableCounter = 0;
     let breakCount = 0;
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].text !== '\n') {
-        syllableCounter = syllableCounter + syllable(stanza[i].text);
+        syllableCounter = syllableCounter + detector(stanza[i].text);
       }
       if (stanza[i].text === '\n') {
         if (syllableCounter === 0 && breakCount === 0) {
@@ -395,27 +404,11 @@ const Genny = (props) => {
     return form;
   }
 
-  const detectFormStress = (stanza) => {
-    let form = '';
-    let syllableCounter = 0;
-    for (let i = 0; i < stanza.length; i++) {
-      if (stanza[i].text !== '\n') {
-        syllableCounter = syllableCounter + getStress(stanza[i].text);
-      }
-      if (stanza[i].text === '\n') {
-        form = form + syllableCounter.toString() + '/';
-        syllableCounter = 0;
-      }
-    }
-    form = form.slice(0, -1)
-    return form;
-  }
-
   useEffect(() => {
     if (formStyle === 'syllable') {
-      setForm(detectFormSyllable(stanza));
+      setForm(detectForm(stanza, syllable));
     } else {
-      setForm(detectFormStress(stanza));
+      setForm(detectForm(stanza, getStress));
     }
   }, [stanza, formStyle])
 

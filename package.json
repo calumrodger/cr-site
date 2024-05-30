@@ -27,7 +27,8 @@
     "react-dom": "^18.2.0",
     "replicate": "^0.29.4",
     "syllable": "^5.0.1",
-    "word-list": "^4.0.0"
+    "word-list": "^4.0.0",
+    "word-ngrams": "^0.2.0"
   },
   "devDependencies": {
     "@types/node": "18.15.11",

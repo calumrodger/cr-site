@@ -24,15 +24,16 @@ const NPlusX = (props) => {
     const pos = require('pos');
     const rhymingDictionaryLength = Object.keys(dictionary).length;
 
-    function remove(str) {
-        let res = '';
-        for (let i = 0; i < str.length; i++) {
-            let character = str.charAt(i);
-            if (!checkPunctuation(character)) {
-                res += character;
-            }
+    // useEffect(() => {
+    //     console.log(dictArray());
+    // })
+
+    const dictArray = () => {
+        let array = [];
+        for (let i = 0; i < rhymingDictionaryLength; i++) {
+            array.push(dictionary["dog"]);
         }
-        return res;
+        return array;
     }
     
     function checkPunctuation(word) {

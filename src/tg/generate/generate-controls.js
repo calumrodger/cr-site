@@ -30,6 +30,7 @@ const GenerateControls = (props) => {
     //INDEX: starting index to check string on
     //RETURNS array of two elements, first is the line, second is the index to start from next time
     const getOriginalLineWithIndexSyllable = (text, form, index) => {
+        // remove line breaks
         const treatedText = text.replace(/(?:\r\n|\r|\n)/g, ' ');
         const stringArray = treatedText.split(' ');
         let startPosition = stringArray[index];
