@@ -468,12 +468,15 @@ width: 6rem;
 
 .stanzaPadButtonsContainer {
     display: flex;
-    justify-content: space-between;
-    gap: .42rem;
+    justify-content: space-around;
+    align-items: center;
+    gap: .1rem;
     padding: .2rem;
+    
 
     .button {
         margin-top: .1rem;
+        font-size: .65rem;
     }
 }
 
@@ -991,7 +994,7 @@ width: 6rem;
     font-size: .8rem;
     display: grid;
     gap: .3rem;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
 
     // .radioButtons {
@@ -1002,8 +1005,27 @@ width: 6rem;
         border: 1px solid $fillColourLight;
         background: $highlightExtra;
         padding: .3rem;
-        margin-top: 4px;
+        // margin-top: 4px;
         width: 5rem;
+    }
+
+    .nplusxSrcButtonsContainer {
+        border: 1px solid $fillColourLight;
+        background: $highlightExtra;
+        // font-size: .6rem;
+        padding: .1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: fit-content;
+
+        .buttonContainer {
+            font-size: .7rem;
+        }
+
+        .radioInput {
+            width: .6rem;
+        }
     }
 
     .buttonContainer {
@@ -1023,7 +1045,7 @@ width: 6rem;
         display: flex;
         flex-direction: column;
         gap: .5rem;
-        align-items: flex-end;
+        align-items: center;
         justify-content: flex-end;
 
         .input {

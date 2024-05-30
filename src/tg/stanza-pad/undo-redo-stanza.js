@@ -2,14 +2,14 @@ import classes from '../tg-styles.module.scss';
 
 const StanzaUndoRedo = (props) => {
 
-    const { onUndoRedoStanza } = props;
+    const { onUndoRedoStanza, wordEditMode } = props;
 
     const undoRedo = () => {
             onUndoRedoStanza();
     }
 
     return (
-        <button className={classes.button} onClick={undoRedo}>undo/redo</button>
+        <button className={`${classes.button} ${wordEditMode ? classes.disabled : null}`} onClick={undoRedo}>undo/redo</button>
     )
 }
 

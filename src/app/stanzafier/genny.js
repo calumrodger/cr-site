@@ -134,6 +134,9 @@ const Genny = (props) => {
       return { id: index, type: 'text', text: item, selected: false }
       }
     });
+      if (finalList[finalList.length - 1].type === 'break') {
+        finalList.pop();
+      }
     return finalList;
   }
 
@@ -384,8 +387,11 @@ const Genny = (props) => {
         syllableCounter = 0;
         }
       }
+      if (i === stanza.length - 1) {
+        form = form + syllableCounter.toString();
+        console.log(form)
+      }
     }
-    form = form.slice(0, -1)
     return form;
   }
 
@@ -621,20 +627,45 @@ const Genny = (props) => {
   const onClickInject = () => {
     let newObjArray = [];
     let selectedWords = wordBank.filter((item) => item.selected === true);
-    for (let i = 0; i < stanza.length; i++) {
-      let randomIndex = Math.floor(Math.random() * selectedWords.length);
-      if (stanza[i].selected) {
-        if (injectSetting === 'replace') {
-          newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[randomIndex].text, selected: true });
-        } else if (injectSetting === 'add-before') {
-          newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[randomIndex].text, selected: false });
+    let selectedStanzaWords = stanza.filter((item) => item.selected === true);
+    if (selectedStanzaWords.length === 1) {
+      for (let i = 0; i < stanza.length; i++) {
+        if (stanza[i].selected) {
+          if (injectSetting === 'replace') {
+            for (let j = 0; j < selectedWords.length; j++) {
+              newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[j].text, selected: false });
+            }
+          } else if (injectSetting === 'add-before') {
+            for (let j = 0; j < selectedWords.length; j++) {
+              newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[j].text, selected: false });
+            }
+            newObjArray.push(stanza[i]);
+          } else if (injectSetting === 'add-after') {
+            newObjArray.push(stanza[i]);
+            for (let j = 0; j < selectedWords.length; j++) {
+              newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[j].text, selected: false });
+            }
+          }
+        } else {
           newObjArray.push(stanza[i]);
-        } else if (injectSetting === 'add-after') {
-          newObjArray.push(stanza[i]);
-          newObjArray.push({ id: stanza[i].id + 1, type: 'text', text: selectedWords[randomIndex].text, selected: false });
         }
-      } else {
-        newObjArray.push(stanza[i]);
+      }
+    } else {
+      for (let i = 0; i < stanza.length; i++) {
+        let randomIndex = Math.floor(Math.random() * selectedWords.length);
+        if (stanza[i].selected) {
+          if (injectSetting === 'replace') {
+            newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[randomIndex].text, selected: true });
+          } else if (injectSetting === 'add-before') {
+            newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[randomIndex].text, selected: false });
+            newObjArray.push(stanza[i]);
+          } else if (injectSetting === 'add-after') {
+            newObjArray.push(stanza[i]);
+            newObjArray.push({ id: stanza[i].id + 1, type: 'text', text: selectedWords[randomIndex].text, selected: false });
+          }
+        } else {
+          newObjArray.push(stanza[i]);
+        }
       }
     }
     setStanza(newObjArray);
@@ -1192,7 +1223,14 @@ const Genny = (props) => {
     // }
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        newObjArray.push({ id: stanza[i].id, type: 'text', text: wordBeingEdited, style: stanza[i]?.style, selected: false });
+        if (wordBeingEdited.includes(' ')) {
+          let splitText = wordBeingEdited.split(' ');
+          for (let j = 0; j < splitText.length; j++) {
+            newObjArray.push({ id: stanza[i].id + j, type: 'text', text: splitText[j], style: stanza[i]?.style, selected: false });
+          }
+        } else {
+          newObjArray.push({ id: stanza[i].id, type: 'text', text: wordBeingEdited, style: stanza[i]?.style, selected: false });
+        }
       } else {
         newObjArray.push(stanza[i]);
       }
@@ -1213,6 +1251,57 @@ const Genny = (props) => {
     setStanza(newObjArray);
   }
 
+  const addLineBreakAfterSelected = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: true });
+        newObjArray.push({ id: stanza[i].id + 1, type: 'break', text: '\n', selected: false });
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    setStanza(newObjArray);
+  }
+
+  function shiftWordsUp() {
+    // copy stanzaArray and replace unselected stanzas with null
+    const newArray = stanza.map(word => word.selected ? word : null);
+
+    // rotate left to place selected stanzas in correct position
+    newArray.push(newArray.shift());
+
+    // etc...
+    stanza.forEach((word, index) => {
+        if (!word.selected) {
+            const offsetIndex = newArray.indexOf(null, index);
+            const newIndex = offsetIndex !== -1
+                ? offsetIndex
+                : newArray.indexOf(null);
+            newArray[newIndex] = word;
+        }
+    });
+
+    setOldStanza(stanza);
+    setStanza(newArray);
+}
+
+  function shiftWordsDown() {
+    const newArray = stanza.map(word => word.selected ? word : null);
+    newArray.unshift(newArray.pop());
+    stanza.forEach((word, index) => {
+        if (!word.selected) {
+            const offsetIndex = newArray.lastIndexOf(null, index);
+            const newIndex = offsetIndex !== -1
+                ? offsetIndex
+                : newArray.lastIndexOf(null);
+            newArray[newIndex] = word;
+        }
+    });
+    setOldStanza(stanza);
+    setStanza(newArray);
+}
+
 
 
   if (outputMode === 'none') {
@@ -1221,7 +1310,7 @@ const Genny = (props) => {
       <div className={classes.bigContainer}>
     <div className={classes.pageContainer}>
       <div className={classes.pageContent}> 
-        { padToShow === 'stanza' && 
+        { padToShow === 'stanza' && !wordEditMode &&
         <>
         <div className={classes.globalSection}>
           <div className={classes.saveButtonsSection}>
@@ -1251,7 +1340,7 @@ const Genny = (props) => {
           <div className={classes.stanzaPadSection}>
             <StanzaPad wordBeingEdited={wordBeingEdited} onSetWordBeingEdited={onSetWordBeingEdited} wordEditMode={wordEditMode} baseFont={baseFont} updateStazaStyles={updateStazaStyles} stanza={stanza} onWordClick={onWordClick}/>
             <div className={classes.toolsContainer}>
-              <StanzaPadButtons onUndoRedoStanza={onUndoRedoStanza} onAddPunct={onAddPunct} onStripPunct={onStripPunct} onConfirmEditWord={onConfirmEditWord} onSetWordBeingEdited={onSetWordBeingEdited} onSetWordEditMode={onSetWordEditMode} wordEditMode={wordEditMode} onShuffleStanza={onShuffleStanza} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
+              <StanzaPadButtons shiftWordsUp={shiftWordsUp} shiftWordsDown={shiftWordsDown} addLineBreakAfterSelected={addLineBreakAfterSelected} onUndoRedoStanza={onUndoRedoStanza} onAddPunct={onAddPunct} onStripPunct={onStripPunct} onConfirmEditWord={onConfirmEditWord} onSetWordBeingEdited={onSetWordBeingEdited} onSetWordEditMode={onSetWordEditMode} wordEditMode={wordEditMode} onShuffleStanza={onShuffleStanza} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
             </div>
           </div>
         }
@@ -1277,7 +1366,7 @@ const Genny = (props) => {
         </>
         }
         
-        { padToShow === 'stanza' && 
+        { padToShow === 'stanza' && !wordEditMode &&
           <>
           <div className={classes.fxSection}>
           <span>TYPOGRAPHY</span>
@@ -1343,7 +1432,7 @@ const Genny = (props) => {
           </div>
           </>
         }
-        { padToShow !== 'input' &&
+        { padToShow !== 'input' && !wordEditMode &&
         <>
         
           <div className={classes.outputSection}>

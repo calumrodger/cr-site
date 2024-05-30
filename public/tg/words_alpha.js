@@ -1,4 +1,4 @@
-export const masterWordList = 
+export const masterWordListBig = 
 `a
 aa
 aaa
@@ -199821,9 +199821,6 @@ niggly
 niggling
 nigglingly
 nigglings
-niggot
-niggra
-niggun
 nigh
 nighed
 nigher
