@@ -606,16 +606,16 @@ const Genny = (props) => {
         if (stanza[i].selected) {
           if (injectSetting === 'replace') {
             let randomIndex = Math.floor(Math.random() * selectedWords.length);
-              newObjArray.push({ id: stanza[i].id, type: 'text', style: selectedWords[randomIndex].style, text: selectedWords[randomIndex].text, selected: true });
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i].style, text: selectedWords[randomIndex].text, selected: true });
           } else if (injectSetting === 'add-before') {
             for (let j = 0; j < selectedWords.length; j++) {
-              newObjArray.push({ id: stanza[i].id, type: 'text', style: selectedWords[j].style, text: selectedWords[j].text, selected: false });
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i].style, text: selectedWords[j].text, selected: false });
             }
             newObjArray.push(stanza[i]);
           } else if (injectSetting === 'add-after') {
             newObjArray.push(stanza[i]);
             for (let j = 0; j < selectedWords.length; j++) {
-              newObjArray.push({ id: stanza[i].id, type: 'text', style: selectedWords[j].style, text: selectedWords[j].text, selected: false });
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i].style, text: selectedWords[j].text, selected: false });
             }
           }
         } else {
