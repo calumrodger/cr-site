@@ -1,6 +1,8 @@
+import classes from './docs.module.scss';
+
 const DocsPage = () => {
     return (
-        <div>
+        <div className={classes.container}>
         <h1>Docs Page</h1>
         </div>
     );

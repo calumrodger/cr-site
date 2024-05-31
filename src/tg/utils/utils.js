@@ -1,8 +1,11 @@
-export const checkStyles = (word) => {
+export const checkStyles = (word, baseFontSize) => {
     let thisStyle = {};
     if (word?.style) {
+
+      const fontSizeValue = (+baseFontSize + +word?.style?.fontSize).toString() + 'rem';
+
       if (word?.style?.fontSize) {
-        thisStyle = {...thisStyle, fontSize: Math.sign(word.style.fontSize) !== -1 ? '1.' + word.style.fontSize.toString() + 'rem' : `${1 - (( word.style.fontSize / 10) * -1)}rem`}
+        thisStyle = {...thisStyle, fontSize: fontSizeValue}
       } 
       if (word?.style?.color) {
         thisStyle = {...thisStyle, color: word.style.color}
@@ -35,11 +38,12 @@ export const checkStyles = (word) => {
     return thisStyle;
   }
 
-  export const checkPoemStyles = (stanza) => {
+  export const checkPoemStyles = (stanza, baseFontSize) => {
     let thisStyle = {};
+    const fontSizeValue = (+baseFontSize + +stanza?.style?.fontSize).toString() + 'rem';
     if (stanza?.style) {
       if (stanza?.style?.fontSize) {
-        thisStyle = {...thisStyle, fontSize: Math.sign(stanza.style.fontSize) !== -1 ? '1.' + stanza.style.fontSize.toString() + 'rem' : `${1 - (( stanza.style.fontSize / 10) * -1)}rem`}
+        thisStyle = {...thisStyle, fontSize: fontSizeValue}
       } 
       if (stanza?.style?.color) {
         thisStyle = {...thisStyle, color: stanza.style.color}

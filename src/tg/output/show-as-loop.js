@@ -3,7 +3,7 @@ import { checkPoemStyles, checkStyles } from '@tg/utils/utils';
 import { useState, useEffect } from 'react';
 
 const ShowAsLoop = (props) => {
-    const { baseFont, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, outputBgColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
+    const { baseFont, baseFontSize, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, outputBgColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
 
     const [slideIndex, setSlideIndex] = useState(0);
     const [sliderValue, setSliderValue] = useState(1000);
@@ -22,12 +22,12 @@ const ShowAsLoop = (props) => {
 
     const thePoemJSX = poem.map((t, i) => {
       return (
-        <div key={i} id={i} style={checkPoemStyles(t)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+        <div key={i} id={i} style={checkPoemStyles(t, baseFontSize)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
         {t.stanza.map((j, i) => {
           if (j.text === '\n') {
             return <br id={i} key={i} className={classes.lineBreak}/>
           } else {
-            return <div id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </div>
+            return <div id={i} key={i} style={checkStyles(j, baseFontSize)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </div>
           }
         })}
       </div>
@@ -50,7 +50,7 @@ const ShowAsLoop = (props) => {
 
     return (
         <div className={classes.pageContainer} >
-          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont}}>
+          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}}>
           <div className={classes.smallContainerFlex}>
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div className={classes.mainTextLoop}>

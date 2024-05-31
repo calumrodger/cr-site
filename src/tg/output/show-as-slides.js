@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from 'react';
 import { toPng } from 'html-to-image';
 
 const ShowAsSlides = (props) => {
-    const { baseFont, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, outputBgColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
+    const { baseFont, baseFontSize, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, outputBgColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
 
     const refer = useRef(null);
 
@@ -40,12 +40,12 @@ const ShowAsSlides = (props) => {
 
     const thePoemJSX = poem.map((t, i) => {
       return (
-        <div key={i} id={i} style={checkPoemStyles(t)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+        <div key={i} id={i} style={checkPoemStyles(t, baseFontSize)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
         {t.stanza.map((j, i) => {
           if (j.text === '\n') {
             return <br id={i} key={i} className={classes.lineBreak}/>
           } else {
-            return <span id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </span>
+            return <span id={i} key={i} style={checkStyles(j, baseFontSize)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </span>
           }
         })}
       </div>
@@ -65,7 +65,7 @@ const ShowAsSlides = (props) => {
 
     return (
         <div className={classes.pageContainer} >
-          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont}} >
+          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}} >
             <div className={classes.smallContainerFlex}>
                 {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
                 <div className={classes.mainTextSlides}>

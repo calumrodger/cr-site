@@ -15,7 +15,7 @@ const ResizeText = (props) => {
     return (
         <div className={classes.formSliderContainer}>
     <label htmlFor="resize-quant">size:</label>
-    <input className={classes.slider} type="range" min="-9" max="9" id="resize-quant" name="resize-quant" onChange={onChangeQuant} value={quant}/>
+    <input className={classes.slider} type="range" min="-5" max="5" step=".1" id="resize-quant" name="resize-quant" onChange={onChangeQuant} value={quant}/>
     </div>
  )
 }

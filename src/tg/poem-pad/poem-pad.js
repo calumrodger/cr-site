@@ -6,7 +6,7 @@ import SaveOutputToTxt from '@tg/output/save-to-txt';
 
 const PoemPad = (props) => {
 
-    const { baseFont, poem, onEditStanza, onUpdatePoem, onShufflePoem } = props;
+    const { baseFont, baseFontSize, poem, onEditStanza, onUpdatePoem, onShufflePoem } = props;
 
     const [stanzaArray, setStanzaArray] = useState(poem);
 
@@ -97,9 +97,10 @@ const PoemPad = (props) => {
 
     const editStanza = (e) => {
       let stanzaIndex = stanzaArray.findIndex((item) => item.selected === true);
+      let poemStyles = poem[stanzaIndex]?.style ? poem[stanzaIndex].style : null;
       let stanza = stanzaArray[stanzaIndex].stanza;
       let stanzaStyles = stanzaArray[stanzaIndex]?.style ? stanzaArray[stanzaIndex].style : null;
-      onEditStanza(stanza, stanzaIndex, stanzaStyles);
+      onEditStanza(stanza, stanzaIndex, stanzaStyles, poemStyles);
     }
 
     const deleteStanza = () => {
@@ -154,17 +155,17 @@ const PoemPad = (props) => {
           {poem.map((t, i) => {
               return (
               
-              <div key={i} className={classes.poemContainer} style={{fontFamily: baseFont}}>
+              <div key={i} className={classes.poemContainer} style={{fontFamily: baseFont, fontSize: baseFontSize + 'rem'}}>
                 <div className={classes.controlsContainer}>
                 <span>{i + 1}</span>
                 <button id={i} className={`${classes.button} ${classes.ppButton}`} onClick={onSelectStanza}>select</button>
                 </div>
-                <div id={i} style={checkPoemStyles(t)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+                <div id={i} style={checkPoemStyles(t, baseFontSize)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                 {t.stanza.map((j, f) => {
                   if (j.text === '\n') {
                     return <br key={j.id} className={classes.lineBreak}/>
                   } else {
-                    return <div key={j.id} style={checkStyles(j)} className={`${classes.word}`}>{j.text} </div>
+                    return <div key={j.id} style={checkStyles(j, baseFontSize)} className={`${classes.word}`}>{j.text} </div>
                   }
                 })}
                 </div>

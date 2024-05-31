@@ -330,7 +330,10 @@ const GenerateControls = (props) => {
     return (
         <div className={classes.generatorGrid}>
             <div className={classes.showSrcButton}>
-                <div className={classes.preset}>
+                
+                <button onClick={onClickShowSrc} className={`${classes.button} ${classes.srcPadButton}`}>SOURCE PAD</button>
+            </div>
+            <div className={classes.preset}>
                     <span>preset: </span>
                     <select name="presets" id="presets" defaultValue={currentPreset.name} onChange={(e) => onSelectPreset(presets.value)} placeholder="Select a preset...">
                             { presetArray.map((p, i) => {
@@ -338,8 +341,6 @@ const GenerateControls = (props) => {
                         })}
                     </select>
                 </div>
-                <button onClick={onClickShowSrc} className={`${classes.button} ${classes.srcPadButton}`}>SOURCE PAD</button>
-            </div>
             <div className={classes.nLevelSlider}>
                 <label htmlFor="n-level-slider">n-level: <span>{nLevel === "10" ? 'OFF' : nLevel}</span></label>
                 <input className={classes.slider} type="range" id="n-level-slider" name="n-level-slider" min="0" max="10" step="1" value={nLevel} onChange={onChangeNLevelSlider}></input>

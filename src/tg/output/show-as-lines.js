@@ -7,7 +7,7 @@ const ShowAsLines = (props) => {
 
     const refer = useRef(null);
 
-    const { baseFont, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour,  outputBgColour, stanza, padToShow, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
+    const { baseFont, baseFontSize, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour,  outputBgColour, stanza, padToShow, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour } = props;
 
     const [sliderValue, setSliderValue] = useState(0);
 
@@ -47,12 +47,12 @@ const ShowAsLines = (props) => {
 
     return (
       <div className={classes.pageContainer}  >
-          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont}} >
+          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}} >
           <div className={classes.smallContainerFlex}>
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div className={classes.mainTextLines}>
               {thePoem.map((t, i) => {
-                const styleObject = {...checkPoemStyles(t), ...{lineHeight: "1." + sliderValue + "rem"}};
+                const styleObject = {...checkPoemStyles(t, baseFontSize), ...{lineHeight: "1." + sliderValue + "rem"}};
                 return (
                   <div key={i} id={i} style={styleObject} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                   {t.stanza.map((j, i) => {
@@ -60,7 +60,7 @@ const ShowAsLines = (props) => {
                       return <br id={i} key={i} className={classes.lineBreak}/>
                     } else {
                       const theText = j.text + " ";
-                      return <div id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{theText}</div>
+                      return <div id={i} key={i} style={checkStyles(j, baseFontSize)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{theText}</div>
                     }
                   })}
                   <br/>

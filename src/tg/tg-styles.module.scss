@@ -207,11 +207,23 @@ $disabledColour: #2E294E;
     }
 }
 
+.fontControlsContainer {
+    display: flex;
+    gap: .2rem;
+    align-items: center;
+    margin-right: .5rem;
+}
+
 .baseFont {
     font-size: .7rem;
     display: flex;
     flex-direction: column;
     width: 5rem;
+}
+
+.fontSizeSlider {
+    font-size: .7rem;
+    width: 3rem;
 }
 ////////////////////
 
@@ -429,6 +441,7 @@ width: 6rem;
     height: 247px;
     white-space: pre-line;
     overflow-y: scroll;
+    color: $bgColour;
 
     .line-break {
         display: block; 
@@ -445,7 +458,7 @@ width: 6rem;
         cursor: pointer;
         display: inline-block;
         margin: .1rem;
-        color: $bgColour;
+        // color: $bgColour;
         position: relative;
 
         &::before {
@@ -466,6 +479,9 @@ width: 6rem;
     } 
 }
 
+.textContainer {
+    margin: auto;
+}
 .stanzaPadButtonsContainer {
     display: flex;
     justify-content: space-around;
@@ -759,7 +775,7 @@ width: 6rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: "show-src form-input n-slider n-slider "
+    grid-template-areas: "show-src preset form-input n-slider "
                          "show-src form-style reseed gen-buttons"
                         "show-src form-style reseed save-buttons";
     gap: .5rem; 
@@ -790,9 +806,12 @@ width: 6rem;
 
 .showSrcButton {
     grid-area: show-src;
-    margin-left: .5rem;
+    // margin-left: .5rem;
     display: flex;
+    align-items: center;
+    justify-self: center;
     flex-direction: column;
+    width: 3rem;
 
     .preset {
         font-size: .8rem;
@@ -800,9 +819,18 @@ width: 6rem;
 
     .button {
         font-size: .8rem;
-        width: 6rem;
+        width: 4rem;
         height: 4rem;
     }
+}
+
+.preset {
+    grid-area: preset;
+    font-size: .8rem;
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+
 }
 
 .nLevelSlider {
@@ -812,6 +840,7 @@ width: 6rem;
     display: flex;
     flex-direction: column;
     gap: .2rem;
+    margin-left: 2.7rem;
 
 }
 

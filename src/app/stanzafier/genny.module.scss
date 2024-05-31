@@ -22,6 +22,7 @@ $highlightExtra: #2274A5;
     // height: 100%;
     // width: 100%;
     background-color: #6582a5;
+    height: 100%;
 }
 
 .pageContainer {
@@ -80,7 +81,7 @@ $highlightExtra: #2274A5;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     // grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas: "saveButtonsSection saveButtonsSection saveButtonsSection titleSection"
+    grid-template-areas: "saveButtonsSection saveButtonsSection saveButtonsSection saveButtonsSection"
                          "statusMessageSection statusMessageSection formSection poemLengthSection";
     gap: .5rem;
 
@@ -89,10 +90,6 @@ $highlightExtra: #2274A5;
         display: flex;
         gap: 1rem;
         grid-area: saveButtonsSection;
-    }
-
-    .titleSection {
-        grid-area: titleSection;
     }
 
     .statusMessageSection {

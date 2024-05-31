@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 const WordBank = (props) => {
 
-    const { onShuffleWordBank, baseFont, onSaveWordBankAsList, wordBank, onWordBankClick, deleteSelectedWordBank, selectAllWordBank, unselectAllWordBank } = props;
+    const { onShuffleWordBank, baseFont, baseFontSize, onSaveWordBankAsList, wordBank, onWordBankClick, deleteSelectedWordBank, selectAllWordBank, unselectAllWordBank } = props;
 
     const [noneSelected, setNoneSelected] = useState(true);
     const [moreThanOneSelected, setMoreThanOneSelected] = useState(false);
@@ -42,7 +42,7 @@ const WordBank = (props) => {
 
     return (
         <div className={classes.wordBankSection}>
-            <div className={classes.wordBank} style={{fontFamily: baseFont}}>
+            <div className={classes.wordBank} style={{fontFamily: baseFont, fontSize: baseFontSize + 'rem'}}>
             {wordBank.map((word, i) => {
                 return (
                     <span key={i} id={i} onClick={onWordBankClick} className={`${classes.word} ${word.selected ? classes.selected : null}`}>{word.text}</span>

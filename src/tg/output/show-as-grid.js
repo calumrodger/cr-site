@@ -5,7 +5,7 @@ import { toPng } from 'html-to-image';
 
 const ShowAsGrid = (props) => {
     const refer = useRef(null);
-    const { baseFont, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour, outputBgColour } = props;
+    const { baseFont, baseFontSize, outputPoemColour, onChangeOutputPoemColour, outputTitleColour, onChangeOutputTitleColour, poem, poemTitle, onLeaveOutputMode, onChangeOutputBgColour, outputBgColour } = props;
 
     const [gridX, setGridX] = useState(1);
     const [gridY, setGridY] = useState(4);
@@ -74,18 +74,18 @@ const ShowAsGrid = (props) => {
 
     return (
         <div className={classes.pageContainer} >
-          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont }} >
+          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem' }} >
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div style={{...yValue, ...xValue, ...renderSetting}} className={classes.mainTextGrid}>
               {poem.map((t, i) => {
-                const styleObject = {...checkPoemStyles(t), ...paddingValue};
+                const styleObject = {...checkPoemStyles(t, baseFontSize), ...paddingValue};
                 return (
                   <div key={i} id={i} style={styleObject} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                   {t.stanza.map((j, i) => {
                     if (j.text === '\n') {
                       return <br id={i} key={i} className={classes.lineBreak}/>
                     } else {
-                      return <div id={i} key={i} style={checkStyles(j)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </div>
+                      return <div id={i} key={i} style={checkStyles(j, baseFontSize)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{j.text} </div>
                     }
                   })}
                   <br/>
