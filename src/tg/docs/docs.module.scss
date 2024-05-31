@@ -1,0 +1,50 @@
+$bgColour: #131b23;
+$outlinesColour: #e9f1f7;
+$fillColourLight: #e7dfc6;
+$highlightColour: #517b1d;
+$highlightExtra: #2274A5;
+$screenColour: #002400;
+$disabledBg: #896978;
+$disabledColour: #2E294E;
+
+
+.container {
+    margin: auto;
+    padding: 3rem;
+    background-color: $fillColourLight;
+    color: $bgColour;
+    height: 100%;
+}
+
+.panel {
+    height: 1.5rem;
+    width: 1.5rem;
+    // border: 1px solid #000;
+    border-radius: .2rem;
+    background: $bgColour;
+    position: fixed;
+    bottom: 10%;
+    right: calc(50% - .5rem);
+    margin: auto;
+    display: flex;
+    gap: .2rem;
+    align-items: center;
+    justify-content: space-around;
+    padding: .2rem .2rem;
+}
+
+.button {
+    border: 1px solid $fillColourLight;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+    color: $fillColourLight;
+    padding: .1rem;
+    font-size: .7rem;
+    border-radius: .2rem;
+
+    &:hover {
+        background-color: $highlightColour;
+        color: $bgColour;
+    }
+}

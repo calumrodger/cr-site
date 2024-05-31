@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 const SaveLoad = (props) => {
 
-    const { onLoadState, poem, poemTitle, oldStanza, wordBank, allWordLists, selectedWordList, presetArray, currentPreset, stanza, form, formStyle, genType, nLevel, outputCheckbox, updateStanzaStyles, outputBgColour, outputTitleColour, outputPoemColour, baseFont, baseFontSize, punctCounter, injectSetting } = props;
+    const { onSetDocsMode, onLoadState, poem, poemTitle, oldStanza, wordBank, allWordLists, selectedWordList, presetArray, currentPreset, stanza, form, formStyle, genType, nLevel, outputCheckbox, updateStanzaStyles, outputBgColour, outputTitleColour, outputPoemColour, baseFont, baseFontSize, punctCounter, injectSetting } = props;
     // const [loadedJSON, setLoadedJSON] = useState({});
 
     // useEffect(() => {
@@ -37,7 +37,7 @@ const SaveLoad = (props) => {
                 <label className={`${classes.fileLoad} ${classes.button}`} htmlFor="txt-src">LOAD STATE
                 <input className={classes.fileLoad} type="file" accept=".json" id="txt-src" name="txt-src" onChange={onLoadHandler}  />
                 </label>
-                <Link className={classes.button} href="/docs">HELP/ DOCS</Link>
+                <button className={classes.button} onClick={onSetDocsMode}>HELP/ DOCS</button>
             </div>
         )
 }

@@ -64,6 +64,9 @@ import ShowAsGrid from '@tg/output/show-as-grid';
 import ShowAsSlides from '@tg/output/show-as-slides';
 import ShowAsLoop from '@tg/output/show-as-loop';
 
+// DOCS
+import Docs from '@tg/docs/docs';
+
 
 const Genny = (props) => {
 
@@ -166,6 +169,7 @@ const Genny = (props) => {
   const [showEditWordBank, setShowEditWordBank] = useState(false);
   const [showAddWordBank, setShowAddWordBank] = useState(false);
   const [wordEditMode, setWordEditMode] = useState(false);
+  const [docsMode, setDocsMode] = useState(false);
 
   const onLoadState = (state) => {
     setStatusMessage('loading state');
@@ -192,6 +196,10 @@ const Genny = (props) => {
     setPunctCounter(state.punctCounter);
     setInjectSetting(state.injectSetting);
     setStatusMessage('state loaded')
+  }
+
+  const onSetDocsMode = () => {
+    setDocsMode(!docsMode);
   }
 
   const punctOptions = (count, word) => {
@@ -1264,169 +1272,175 @@ const Genny = (props) => {
 
 
 
-  if (outputMode === 'none') {
-  return (
-    <div className={classes.background}>
-      <div className={classes.bigContainer}>
-    <div className={classes.pageContainer}>
-      <div className={classes.pageContent}> 
-        { padToShow === 'stanza' && !wordEditMode &&
-        <>
-        <div className={classes.globalSection}>
-          <div className={classes.saveButtonsSection}>
-            <SaveLoad poem={poem} poemTitle={poemTitle} onLoadState={onLoadState} oldStanza={oldStanza} wordBank={wordBank} allWordLists={allWordLists} selectedWordList={selectedWordList} presetArray={presetArray} currentPreset={currentPreset} stanza={stanza} form={form} formStyle={formStyle} genType={genType} nLevel={nLevel} outputCheckbox={outputCheckbox} updateStanzaStyles={updateStazaStyles} outputBgColour={outputBgColour} outputTitleColour={outputTitleColour} outputPoemColour={outputPoemColour} baseFont={baseFont} baseFontSize={baseFontSize} punctCounter={punctCounter} injectSetting={injectSetting} />
-            <BaseFont baseFont={baseFont} baseFontSize={baseFontSize} onSetBaseFontSize={onSetBaseFontSize} onSelectFont={onSelectFont}/>
-          </div>
-          <div className={classes.titleSection}>
-         
-          </div>
-          <div className={classes.statusSection}>
-            <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
-          </div>
-          <div className={classes.formSection}>
-            <CurrentForm form={form} />
-          </div>
-          <div className={classes.poemLength}>
-            <PoemLength poem={poem}/>
-          </div>
-        </div>
-        <div className={classes.inputSection}>
-          <GenerateControls editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage}/>
+  if (!docsMode) {
+    if (outputMode === 'none') {
+    return (
+      <div className={classes.background}>
+        <div className={classes.bigContainer}>
+      <div className={classes.pageContainer}>
+        <div className={classes.pageContent}> 
+          { padToShow === 'stanza' && !wordEditMode &&
+          <>
+          <div className={classes.globalSection}>
+            <div className={classes.saveButtonsSection}>
+              <SaveLoad onSetDocsMode={onSetDocsMode} poem={poem} poemTitle={poemTitle} onLoadState={onLoadState} oldStanza={oldStanza} wordBank={wordBank} allWordLists={allWordLists} selectedWordList={selectedWordList} presetArray={presetArray} currentPreset={currentPreset} stanza={stanza} form={form} formStyle={formStyle} genType={genType} nLevel={nLevel} outputCheckbox={outputCheckbox} updateStanzaStyles={updateStazaStyles} outputBgColour={outputBgColour} outputTitleColour={outputTitleColour} outputPoemColour={outputPoemColour} baseFont={baseFont} baseFontSize={baseFontSize} punctCounter={punctCounter} injectSetting={injectSetting} />
+              <BaseFont baseFont={baseFont} baseFontSize={baseFontSize} onSetBaseFontSize={onSetBaseFontSize} onSelectFont={onSelectFont}/>
+            </div>
+            <div className={classes.titleSection}>
           
-        </div>
-        </>
-        }
-        { padToShow === 'stanza' && 
-          <div className={classes.stanzaPadSection}>
-            <StanzaPad wordBeingEdited={wordBeingEdited} onSetWordBeingEdited={onSetWordBeingEdited} wordEditMode={wordEditMode} baseFont={baseFont} baseFontSize={baseFontSize} updateStazaStyles={updateStazaStyles} updatePoemStyles={updatePoemStyles} stanza={stanza} onWordClick={onWordClick}/>
-            <div className={classes.toolsContainer}>
-              <StanzaPadButtons shiftWordsUp={shiftWordsUp} shiftWordsDown={shiftWordsDown} addLineBreakAfterSelected={addLineBreakAfterSelected} onUndoRedoStanza={onUndoRedoStanza} onAddPunct={onAddPunct} onStripPunct={onStripPunct} onConfirmEditWord={onConfirmEditWord} onSetWordBeingEdited={onSetWordBeingEdited} onSetWordEditMode={onSetWordEditMode} wordEditMode={wordEditMode} onShuffleStanza={onShuffleStanza} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
+            </div>
+            <div className={classes.statusSection}>
+              <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
+            </div>
+            <div className={classes.formSection}>
+              <CurrentForm form={form} />
+            </div>
+            <div className={classes.poemLength}>
+              <PoemLength poem={poem}/>
             </div>
           </div>
-        }
-        { padToShow === 'poem' &&
-          <>
-          <div className={classes.poemPadSection}>
-            <PoemPad onShufflePoem={onShufflePoem} baseFont={baseFont} baseFontSize={baseFontSize} onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
-          </div>
-          <div className={classes.poemPadStatusSection}>
-            <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
-            <BaseFont baseFont={baseFont} baseFontSize={baseFontSize} onSetBaseFontSize={onSetBaseFontSize} onSelectFont={onSelectFont}/>
+          <div className={classes.inputSection}>
+            <GenerateControls editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage}/>
+            
           </div>
           </>
-        }
-
-        { padToShow === 'input' &&
-        <>
-        <div className={classes.poemPadStatusSection}>
-        <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
-        </div>
-        <div className={classes.inputPadSection}>
-          <SourcePad onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset} onSetStatusMessage={onSetStatusMessage}/> 
-        </div>
-        </>
-        }
-        
-        { padToShow === 'stanza' && !wordEditMode &&
-          <>
-          <div className={classes.fxSection}>
-          <span>TYPOGRAPHY</span>
-            <div className={classes.fxTypographyGrid}>
-              <ResizeText onResizeText={onResizeText}/>
-              <ReweightText onReweightText={onReweightText}/>
-              <FontText onChangeFont={onChangeFont} />
-              <FontStyle onChangeTextRotation={onChangeTextRotation} />
-       
+          }
+          { padToShow === 'stanza' && 
+            <div className={classes.stanzaPadSection}>
+              <StanzaPad wordBeingEdited={wordBeingEdited} onSetWordBeingEdited={onSetWordBeingEdited} wordEditMode={wordEditMode} baseFont={baseFont} baseFontSize={baseFontSize} updateStazaStyles={updateStazaStyles} updatePoemStyles={updatePoemStyles} stanza={stanza} onWordClick={onWordClick}/>
+              <div className={classes.toolsContainer}>
+                <StanzaPadButtons shiftWordsUp={shiftWordsUp} shiftWordsDown={shiftWordsDown} addLineBreakAfterSelected={addLineBreakAfterSelected} onUndoRedoStanza={onUndoRedoStanza} onAddPunct={onAddPunct} onStripPunct={onStripPunct} onConfirmEditWord={onConfirmEditWord} onSetWordBeingEdited={onSetWordBeingEdited} onSetWordEditMode={onSetWordEditMode} wordEditMode={wordEditMode} onShuffleStanza={onShuffleStanza} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
+              </div>
             </div>
-            <div className={classes.fxTypographyFlex}>
-            <ColourText onChangeTextColour={onChangeTextColour}/>
-            <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
-            <FormResetButton onResetTypography={onResetTypography} />
-            </div>
-            < hr className={classes.line} />
-            <span>N + ?</span>
-            <NPlusX getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
-            <hr className={classes.line} />
-            <span>API INJECTION</span>
-            <APIFX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/>
-            <hr className={classes.line} />
-            <span>LLM </span>
-            <LLMFX onSetStatusMessage={onSetStatusMessage} onUpdate={onUpdate} stanza={stanza} treatString={treatString}/>
-            <hr className={classes.line} />
-            <Title />
-          </div>
-          <div className={classes.composeSection}>
-            { (!showEditWordBank && !showAddWordBank) &&
+          }
+          { padToShow === 'poem' &&
             <>
-            <span>WORD BANK</span>
-            <WordBank onShuffleWordBank={onShuffleWordBank} baseFont={baseFont} baseFontSize={baseFontSize} onSaveWordBankAsList={onSaveWordBankAsList} deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
-            <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
-            <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
+            <div className={classes.poemPadSection}>
+              <PoemPad onShufflePoem={onShufflePoem} baseFont={baseFont} baseFontSize={baseFontSize} onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
+            </div>
+            <div className={classes.poemPadStatusSection}>
+              <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
+              <BaseFont baseFont={baseFont} baseFontSize={baseFontSize} onSetBaseFontSize={onSetBaseFontSize} onSelectFont={onSelectFont}/>
+            </div>
             </>
-            }
-            { showEditWordBank &&
-            <WordBankEdit onUpdateWordBankEdit={onUpdateWordBankEdit} onOpenWordBankEdit={onOpenWordBankEdit} selectedWordList={selectedWordList}/>
-            }
-            { showAddWordBank &&
-            <WordBankAdd onAddWordBankEdit={onAddWordBankEdit} onOpenWordBankAdd={onOpenWordBankAdd}/>
-            }
-          </div>
-          </>
-        }
-        { padToShow === 'poem' && 
-          <>
-          <div className={classes.fxSection}>
-          <span>TYPOGRAPHY</span>
-            <div className={classes.fxTypographyGrid}>
-              <ResizeText onResizeText={onResizeText}/>
-              <ReweightText onReweightText={onReweightText}/>
-              <FontText onChangeFont={onChangeFont} />
-              <FontStyle onChangeTextRotation={onChangeTextRotation} />
-       
-            </div>
-            <div className={classes.fxTypographyFlex}>
-            <ColourText onChangeTextColour={onChangeTextColour}/>
-            <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
-            <FormResetButton onResetTypography={onResetTypography} />
-            </div>
-            < hr/>
-          </div>
-          </>
-        }
-        { padToShow !== 'input' && !wordEditMode &&
-        <>
-        
-          <div className={classes.outputSection}>
-            <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
-            <OutputAs padToShow={padToShow} onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
-          </div>
-          <div className={classes.switcherSection}>
-            <PadSwitcher onSwitchPad={onSwitchPad} padToShow={padToShow}/>
-          </div>
-        </>
-        }
+          }
 
-      </div> 
-    </div>
-    </div>
-    </div>
-  );
+          { padToShow === 'input' &&
+          <>
+          <div className={classes.poemPadStatusSection}>
+          <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
+          </div>
+          <div className={classes.inputPadSection}>
+            <SourcePad onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset} onSetStatusMessage={onSetStatusMessage}/> 
+          </div>
+          </>
+          }
+          
+          { padToShow === 'stanza' && !wordEditMode &&
+            <>
+            <div className={classes.fxSection}>
+            <span>TYPOGRAPHY</span>
+              <div className={classes.fxTypographyGrid}>
+                <ResizeText onResizeText={onResizeText}/>
+                <ReweightText onReweightText={onReweightText}/>
+                <FontText onChangeFont={onChangeFont} />
+                <FontStyle onChangeTextRotation={onChangeTextRotation} />
+        
+              </div>
+              <div className={classes.fxTypographyFlex}>
+              <ColourText onChangeTextColour={onChangeTextColour}/>
+              <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
+              <FormResetButton onResetTypography={onResetTypography} />
+              </div>
+              < hr className={classes.line} />
+              <span>N + ?</span>
+              <NPlusX getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
+              <hr className={classes.line} />
+              <span>API INJECTION</span>
+              <APIFX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/>
+              <hr className={classes.line} />
+              <span>LLM </span>
+              <LLMFX onSetStatusMessage={onSetStatusMessage} onUpdate={onUpdate} stanza={stanza} treatString={treatString}/>
+              <hr className={classes.line} />
+              <Title />
+            </div>
+            <div className={classes.composeSection}>
+              { (!showEditWordBank && !showAddWordBank) &&
+              <>
+              <span>WORD BANK</span>
+              <WordBank onShuffleWordBank={onShuffleWordBank} baseFont={baseFont} baseFontSize={baseFontSize} onSaveWordBankAsList={onSaveWordBankAsList} deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
+              <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
+              <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
+              </>
+              }
+              { showEditWordBank &&
+              <WordBankEdit onUpdateWordBankEdit={onUpdateWordBankEdit} onOpenWordBankEdit={onOpenWordBankEdit} selectedWordList={selectedWordList}/>
+              }
+              { showAddWordBank &&
+              <WordBankAdd onAddWordBankEdit={onAddWordBankEdit} onOpenWordBankAdd={onOpenWordBankAdd}/>
+              }
+            </div>
+            </>
+          }
+          { padToShow === 'poem' && 
+            <>
+            <div className={classes.fxSection}>
+            <span>TYPOGRAPHY</span>
+              <div className={classes.fxTypographyGrid}>
+                <ResizeText onResizeText={onResizeText}/>
+                <ReweightText onReweightText={onReweightText}/>
+                <FontText onChangeFont={onChangeFont} />
+                <FontStyle onChangeTextRotation={onChangeTextRotation} />
+        
+              </div>
+              <div className={classes.fxTypographyFlex}>
+              <ColourText onChangeTextColour={onChangeTextColour}/>
+              <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
+              <FormResetButton onResetTypography={onResetTypography} />
+              </div>
+              < hr/>
+            </div>
+            </>
+          }
+          { padToShow !== 'input' && !wordEditMode &&
+          <>
+          
+            <div className={classes.outputSection}>
+              <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
+              <OutputAs padToShow={padToShow} onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
+            </div>
+            <div className={classes.switcherSection}>
+              <PadSwitcher onSwitchPad={onSwitchPad} padToShow={padToShow}/>
+            </div>
+          </>
+          }
+
+        </div> 
+      </div>
+      </div>
+      </div>
+    );
+    } else {
+      return (
+        <div style={{background: outputBgColour}} className={classes.pageContainerOutput}>
+          { outputMode === 'lines' && 
+          <ShowAsLines baseFont={baseFont} baseFontSize={baseFontSize} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} stanza={stanza} padToShow={padToShow} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
+          }
+          { outputMode === 'grid' &&
+          <ShowAsGrid baseFont={baseFont} baseFontSize={baseFontSize} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+          }
+          { outputMode === 'slides' &&
+          <ShowAsSlides baseFont={baseFont} baseFontSize={baseFontSize} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+          }
+          { outputMode === 'loop' &&
+          <ShowAsLoop baseFont={baseFont} baseFontSize={baseFontSize} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
+          }
+        </div>
+      )
+    }
   } else {
     return (
-      <div style={{background: outputBgColour}} className={classes.pageContainerOutput}>
-        { outputMode === 'lines' && 
-        <ShowAsLines baseFont={baseFont} baseFontSize={baseFontSize} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} stanza={stanza} padToShow={padToShow} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/> 
-        }
-        { outputMode === 'grid' &&
-        <ShowAsGrid baseFont={baseFont} baseFontSize={baseFontSize} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
-        }
-        { outputMode === 'slides' &&
-        <ShowAsSlides baseFont={baseFont} baseFontSize={baseFontSize} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
-        }
-        { outputMode === 'loop' &&
-        <ShowAsLoop baseFont={baseFont} baseFontSize={baseFontSize} onChangeOutputPoemColour={onChangeOutputPoemColour} outputPoemColour={outputPoemColour} onChangeOutputTitleColour={onChangeOutputTitleColour} outputTitleColour={outputTitleColour} outputBgColour={outputBgColour} onChangeOutputBgColour={onChangeOutputBgColour} poem={poem} poemTitle={poemTitle} onLeaveOutputMode={onLeaveOutputMode}/>
-        }
-      </div>
+      <Docs onSetDocsMode={onSetDocsMode} />
     )
   }
 };
