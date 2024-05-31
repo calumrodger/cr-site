@@ -605,18 +605,17 @@ const Genny = (props) => {
       for (let i = 0; i < stanza.length; i++) {
         if (stanza[i].selected) {
           if (injectSetting === 'replace') {
-            for (let j = 0; j < selectedWords.length; j++) {
-              newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[j].text, selected: false });
-            }
+            let randomIndex = Math.floor(Math.random() * selectedWords.length);
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: selectedWords[randomIndex].style, text: selectedWords[randomIndex].text, selected: true });
           } else if (injectSetting === 'add-before') {
             for (let j = 0; j < selectedWords.length; j++) {
-              newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[j].text, selected: false });
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: selectedWords[j].style, text: selectedWords[j].text, selected: false });
             }
             newObjArray.push(stanza[i]);
           } else if (injectSetting === 'add-after') {
             newObjArray.push(stanza[i]);
             for (let j = 0; j < selectedWords.length; j++) {
-              newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[j].text, selected: false });
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: selectedWords[j].style, text: selectedWords[j].text, selected: false });
             }
           }
         } else {
@@ -1324,7 +1323,6 @@ const Genny = (props) => {
             </div>
             </>
           }
-
           { padToShow === 'input' &&
           <>
           <div className={classes.poemPadStatusSection}>
@@ -1409,9 +1407,11 @@ const Genny = (props) => {
               <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
               <OutputAs padToShow={padToShow} onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
             </div>
+            { !editExistingStanzaMode &&
             <div className={classes.switcherSection}>
               <PadSwitcher onSwitchPad={onSwitchPad} padToShow={padToShow}/>
             </div>
+            }
           </>
           }
 
