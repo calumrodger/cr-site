@@ -105,26 +105,7 @@ const GenerateControls = (props) => {
         }
     }
 
-    const getOriginalLineStress = (text, form) => {
-        let line = '';
-        const treatedText = text.replace(/(?:\r\n|\r|\n)/g, ' ');
-        const stringArray = treatedText.split(' ');
-        let currentIndex = Math.floor(Math.random() * stringArray.length);
-        let startPosition = stringArray[currentIndex];
-        line = startPosition;
-        let newIndex = currentIndex + 1;
-        while (getStress(line) !== form) {
-            if (getStress(line) < form) {
-                line = line + ' ' + stringArray[newIndex];
-                newIndex++
-            }
-            if (getStress(line) > form) {
-                line = '';
-                newIndex = Math.floor(Math.random() * stringArray.length);
-            }
-        }
-        return line;
-    }
+    
 
     
     const getRandomLineStress = (text, form) => {
@@ -184,6 +165,33 @@ const GenerateControls = (props) => {
         return poem;
     }
 
+    const getOriginalLineStress = (text, form) => {
+        let line = '';
+        const treatedText = text.replace(/(?:\r\n|\r|\n)/g, ' ');
+        const stringArray = treatedText.split(' ');
+        let currentIndex = Math.floor(Math.random() * stringArray.length);
+        let startPosition = stringArray[currentIndex];
+        line = startPosition;
+        let newIndex = currentIndex + 1;
+        while (getStress(line) !== form) {
+            if (stringArray[newIndex].trim() === '') {
+                newIndex = Math.floor(Math.random() * stringArray.length);
+            }
+            if (getStress(line) < form) {
+                console.log(stringArray[newIndex + 1])
+                line = line + ' ' + stringArray[newIndex];
+                newIndex++
+            }
+            if (getStress(line) > form) {
+                line = '';
+                newIndex = Math.floor(Math.random() * stringArray.length);
+                console.log('no text')
+            }
+        }
+        console.log(line)
+        return line;
+    }
+
     const getOriginalPoemStress = (text, form) => {
         let formSum = form.reduce((a, b) => a + b, 0);
         let poem = [];
@@ -196,15 +204,20 @@ const GenerateControls = (props) => {
             }
         let line = getOriginalLineStress(text, formSum);
         console.log(line)
-        const textArray = line.split(' ');
+        const textArrayUntreated = line.split(' ');
         const stressArray = line.split(' ').map((item) => getStress(item));
+        const textArray = textArrayUntreated.filter((item) => item !== '');
+        console.log(textArray)
         console.log(stressArray)
+        let position = 0;
         for (let i = 0; i < form.length; i++) {
             let lineStress = 0;
             let newLine = []; 
-            for (let j = 0; j < form[i]; j++) {
+            for (let j = 0; lineStress < form[i];) {
                 lineStress += stressArray[j];
-                newLine.push(textArray[i]);
+                newLine.push(textArray[position]);
+                j++;
+                position = position + stressArray[j]
             }
             poem.push(newLine.join(' '));
         }
