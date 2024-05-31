@@ -136,7 +136,7 @@ const Genny = (props) => {
   const [oldStanza, setOldStanza] = useState([]);
   const [poem, setPoem] = useState([]);
   const [poemTitle, setPoemTitle] = useState('');
-  const [wordBank, setWordBank] = useState(['hello', 'world']);
+  const [wordBank, setWordBank] = useState([{id: 0, text: 'hello', selected: false}, {id: 1, text: 'world', selected: false}]);
   const [allWordLists, setAllWordLists] = useState([basic, gptBirdArray, basicallyEmpty]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
   const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp])
