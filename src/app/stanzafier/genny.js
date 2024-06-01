@@ -10,9 +10,10 @@ import { getDictionary } from '@tg/server-actions/actions';
 import { emily } from '../../../public/tg/presets/emily';
 import { flatland } from '../../../public/tg/presets/flatland';
 import { stcrsvp } from 'public/tg/presets/stc';
+import { opiumEater } from 'public/tg/presets/opium-eater';
 
 // WORD LISTS
-import { gptBirdArray, basicallyEmpty, basic } from '../../../public/tg/word-lists';
+import { gptBirdArray, basicallyEmpty, basic, prepositions } from '../../../public/tg/word-lists';
 
 // GLOBAL COMPONENTS
 import SaveLoad from '@tg/global/save-load';
@@ -137,9 +138,9 @@ const Genny = (props) => {
   const [poem, setPoem] = useState([]);
   const [poemTitle, setPoemTitle] = useState('');
   const [wordBank, setWordBank] = useState([{id: 0, text: 'hello', selected: false}, {id: 1, text: 'world', selected: false}]);
-  const [allWordLists, setAllWordLists] = useState([basic, gptBirdArray, basicallyEmpty]);
+  const [allWordLists, setAllWordLists] = useState([basic, gptBirdArray, basicallyEmpty, prepositions]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp])
+  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
   const [statusMessage, setStatusMessage] = useState('welcome in genny')
@@ -516,16 +517,11 @@ const Genny = (props) => {
 
   const onDeleteSelectedWords = () => {
     let newObjArray = [];
-    let numberOfSelected = stanza.filter((item) => item.selected === true).length;
-    if (numberOfSelected === stanza.length) {
-      newObjArray.push({id: stanza[0].id, type: 'text', text: stanza[0].text, selected: false});
-    } else {
       for (let i = 0; i < stanza.length; i++) {
         if (!stanza[i].selected) {
           newObjArray.push(stanza[i]);
         }
       }
-    }
     setStanza(newObjArray);
   }
 
@@ -535,7 +531,7 @@ const Genny = (props) => {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         newObjArray.push(stanza[i]);
-        newObjArray.push({ id: idCount, type: 'text', text: stanza[i].text, selected: false })
+        newObjArray.push({ id: idCount, type: 'text', style: stanza[i]?.style, text: stanza[i].text, selected: false })
         idCount++;
       } else {
         newObjArray.push(stanza[i]);
@@ -606,16 +602,16 @@ const Genny = (props) => {
         if (stanza[i].selected) {
           if (injectSetting === 'replace') {
             let randomIndex = Math.floor(Math.random() * selectedWords.length);
-              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i].style, text: selectedWords[randomIndex].text, selected: true });
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: selectedWords[randomIndex].text, selected: true });
           } else if (injectSetting === 'add-before') {
             for (let j = 0; j < selectedWords.length; j++) {
-              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i].style, text: selectedWords[j].text, selected: false });
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: selectedWords[j].text, selected: false });
             }
             newObjArray.push(stanza[i]);
           } else if (injectSetting === 'add-after') {
             newObjArray.push(stanza[i]);
             for (let j = 0; j < selectedWords.length; j++) {
-              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i].style, text: selectedWords[j].text, selected: false });
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: selectedWords[j].text, selected: false });
             }
           }
         } else {
@@ -627,13 +623,13 @@ const Genny = (props) => {
         let randomIndex = Math.floor(Math.random() * selectedWords.length);
         if (stanza[i].selected) {
           if (injectSetting === 'replace') {
-            newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[randomIndex].text, selected: true });
+            newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: selectedWords[randomIndex].text, selected: true });
           } else if (injectSetting === 'add-before') {
-            newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[randomIndex].text, selected: false });
+            newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: selectedWords[randomIndex].text, selected: false });
             newObjArray.push(stanza[i]);
           } else if (injectSetting === 'add-after') {
             newObjArray.push(stanza[i]);
-            newObjArray.push({ id: stanza[i].id + 1, type: 'text', text: selectedWords[randomIndex].text, selected: false });
+            newObjArray.push({ id: stanza[i].id + 1, type: 'text',  style: stanza[i]?.style, text: selectedWords[randomIndex].text, selected: false });
           }
         } else {
           newObjArray.push(stanza[i]);
@@ -1210,7 +1206,7 @@ const Genny = (props) => {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         let newText = stanza[i].text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-        newObjArray.push({ id: stanza[i].id, type: 'text', text: newText, selected: true });
+        newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: newText, selected: true });
       } else {
         newObjArray.push(stanza[i]);
       }
@@ -1222,7 +1218,7 @@ const Genny = (props) => {
     let newObjArray = [];
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: true });
+        newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: stanza[i].text, selected: true });
         newObjArray.push({ id: stanza[i].id + 1, type: 'break', text: '\n', selected: false });
       } else {
         newObjArray.push(stanza[i]);

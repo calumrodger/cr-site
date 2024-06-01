@@ -34,7 +34,7 @@ const APIFX = (props) => {
                 let wordsToAddArray = textArray.filter((word, index) => (index >= randomIndex) && (index < (randomIndex + +volumeValue)));
                 newStanzaArray.push(stanza[i]);
                 for (let j = 0; j < wordsToAddArray.length; j++) {
-                    newStanzaArray.push({id: stanza.length + j, type: 'text', text: wordsToAddArray[j], selected: false})
+                    newStanzaArray.push({id: stanza.length + j, type: 'text', style: stanza[i]?.style, text: wordsToAddArray[j], selected: false})
                 }
             } else {
                 newStanzaArray.push(stanza[i]);
@@ -56,7 +56,7 @@ const APIFX = (props) => {
                 let wordsToAddArray = textArray.filter((word, index) => (index >= randomIndex) && (index < (randomIndex + +volumeValue)));
                 newStanzaArray.push(stanza[i]);
                 for (let j = 0; j < wordsToAddArray.length; j++) {
-                    newStanzaArray.push({id: stanza.length + j, type: 'text', text: wordsToAddArray[j], selected: false})
+                    newStanzaArray.push({id: stanza.length + j, type: 'text', style: stanza[i]?.style, text: wordsToAddArray[j], selected: false})
                 }
             } else {
                 newStanzaArray.push(stanza[i]);
@@ -76,7 +76,7 @@ const APIFX = (props) => {
                 let wordsToAddArray = textArray.filter((word, index) => index < +volumeValue);
                 newStanzaArray.push(stanza[i]);
                 for (let j = 0; j < wordsToAddArray.length; j++) {
-                    newStanzaArray.push({id: stanza.length + j, type: 'text', text: wordsToAddArray[j], selected: false})
+                    newStanzaArray.push({id: stanza.length + j, type: 'text', style: stanza[i].style, text: wordsToAddArray[j], selected: false})
                 }
             } else {
                 newStanzaArray.push(stanza[i]);

@@ -223,18 +223,8 @@ const GenerateControls = (props) => {
         }
         return poem;
     }
-        // if (!line || !line[0]) {
-        //     // i = -1;
-        //     poem = [];
-        //     globalCount++;
-        //     currentIndex = Math.floor(Math.random() * text.length);
-        // } else {
-        //     poem.push(line[0]);
-        //     currentIndex = line[1];
-        // }
-        // }
-    //     return line;
-    // }
+
+    
 
     
     const getRandomWordPoemStress = (text, form) => {

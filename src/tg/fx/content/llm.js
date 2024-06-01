@@ -42,13 +42,15 @@ const LLMFX = (props) => {
     Do not include anything else in your response.`
 
     const intensifyPrompt = 
-    `For each of the following words in the list, please add two or more intensifiers: 
+    `For each of the following words, please add two or more intensifiers: 
     
     ${selectedWords.join(", ")}.
     
-    Return the list of intensified words in the same order as the original words, in the format:
+    Return the intensifiers in the same order as the original words, in the format of a JavaScript array:
     
-    ['intensified string 1', 'intensified string 2', 'intensified string 3', ...].`;
+    ['intensified string 1', 'intensified string 2', 'intensified string 3', ...].
+    
+    Do not give any additional information in your response, please.`;
 
     const nonsensifyPrompt = 
     `Give me a JavaScript array of ${selectedWords.length} nonsense syllables that represent the following words:
@@ -218,7 +220,7 @@ of joy and laughter, ha ha ha!
     const getNewStanzaReplace = (treatedOutput) => {
         let newArray = stanza.map((word) => {
             if (word.selected) {
-                return { id: word.id, type: "text", text: null, selected: true }
+                return { id: word.id, type: "text", style: word?.style, text: null, selected: true }
             } else {
                 return word;
             }
@@ -238,8 +240,16 @@ of joy and laughter, ha ha ha!
       let replacementCount = 0;
       for (let i = 0; i < stanza.length; i++) {
         if (stanza[i].selected) {
-          newArray.push({id: stanza.length + replacementCount + 1, type: 'text', text: treatedOutput[replacementCount], selected: false})
-          newArray.push(stanza[i]);
+          let replacements = treatedOutput[replacementCount]?.split(' ');
+          if (replacements) {
+            for (let j = 0; j < replacements.length; j++) {
+            newArray.push({id: stanza.length + replacementCount + 1, type: 'text', text: replacements[j], selected: true})
+            newArray.push(stanza[i]);
+            replacementCount++;
+            }
+          } else {
+            onSetStatusMessage('error: no replacements found')
+          }
         } else {
           newArray.push(stanza[i]);
         }

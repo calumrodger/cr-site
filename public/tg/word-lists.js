@@ -28,3 +28,13 @@ export const gptBirdArray =
 export const basicallyEmpty = {id: 1, name: 'basically-empty', words: ['only']};
 
 export const basic = {id: 2, name: 'basic', words: ['hello', 'world', 'hi', 'bye', 'eat', 'fish', 'go', 'bum', 'deal', 'gimp', 'legend', 'fruit', 'potion', 'belt', 'mane', 'transcend', 'glimpse', 'fisherman', 'spoke', 'gun', 'easy', 'fourteen', 'blend']}
+
+export const prepositions = {id: 3, name: 'prepositions', words: [
+    "about", "above", "across", "after", "against", "along", "amid", "among", "around",
+    "as", "at", "before", "behind", "below", "beneath", "beside", "between", "beyond",
+    "but", "by", "concerning", "considering", "despite", "down", "during", "except",
+    "excepting", "for", "from", "in", "inside", "into", "like", "near", "of", "off", 
+    "on", "onto", "out", "outside", "over", "past", "regarding", "round", "since", 
+    "through", "throughout", "till", "to", "toward", "towards", "under", "underneath", 
+    "until", "up", "upon", "with", "within", "without"
+]};
