@@ -317,7 +317,7 @@ const GenerateControls = (props) => {
                 onUpdate(formatPoem(getRandomWordPoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (genType === 'stanza' && nLevel !== "10" && nLevel !== "1") {
-                console.log(getNGramPoemSyllableStanza(currentPreset.text, currentForm));
+                console.log(getNGramPoemSyllableStanza(currentPreset.text, getFormArraySansBreaks(currentForm)));
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "1") {
                 onUpdate(formatPoem(getNGramPoemSyllableLine(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
@@ -334,7 +334,7 @@ const GenerateControls = (props) => {
                 onUpdate(formatPoem(getRandomWordPoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (genType === 'stanza' && nLevel !== "10" && nLevel !== "1") {
-                getNGramPoemStressStanza(currentPreset.text, getFormArraySansBreaks(currentForm));
+                console.log(getNGramPoemStressStanza(currentPreset.text, getFormArraySansBreaks(currentForm)));
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "1") {
                 onUpdate(formatPoem(getNGramPoemStressLine(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
