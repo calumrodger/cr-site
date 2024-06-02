@@ -1,6 +1,7 @@
 import classes from '../tg-styles.module.scss';
 import { useState } from 'react';
 import { syllable } from 'syllable';
+import { buildNGrams } from 'word-ngrams';
 import OnSaveStanzaToPad from '@tg/stanza-pad/save-stanza-to-pad';
 
 const GenerateControls = (props) => {
@@ -176,18 +177,22 @@ const GenerateControls = (props) => {
     // returns undefined if no match found
 
     const getNgramPoemStressLine = (text, form) => {
+        console.log(buildNGrams(text, nLevel, {includePunctuation: true}));
         return 'ngram stress line' + nLevel;
     }
 
     const getNGramPoemStressStanza = (text, form) => {
+        console.log(buildNGrams(text, nLevel, {includePunctuation: true}));
         return 'ngram stress stanza' + nLevel;
     }
 
     const getNgramPoemSyllableLine = (text, form) => {
+        console.log(buildNGrams(text, nLevel, {includePunctuation: true}));
         return 'ngram syllable line' + nLevel;
     }
 
     const getNGramPoemSyllableStanza = (text, form) => {
+        console.log(buildNGrams(text, nLevel, {includePunctuation: true}));
         return 'ngram syllable stanza' + nLevel;
     }
 
@@ -221,10 +226,10 @@ const GenerateControls = (props) => {
                 onUpdate(formatPoem(getRandomWordPoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (genType === 'stanza' && nLevel !== "10" && nLevel !== "0") {
-                console.log(formatPoem(getNGramPoemSyllableStanza(currentPreset.text, currentForm), currentForm));
+                console.log(getNGramPoemSyllableStanza(currentPreset.text, currentForm));
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "0") {
-                console.log(formatPoem(getNgramPoemSyllableLine(currentPreset.text, currentForm), currentForm));
+                console.log(getNGramPoemSyllableStanza(currentPreset.text, currentForm));
             }
         }
         if (formStyle === 'stress') {
@@ -238,10 +243,10 @@ const GenerateControls = (props) => {
                 onUpdate(formatPoem(getRandomWordPoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
             if (genType === 'stanza' && nLevel !== "10" && nLevel !== "0") {
-                console.log(formatPoem(getNGramPoemStressStanza(currentPreset.text, currentForm), currentForm));
+                console.log(getNGramPoemStressStanza(currentPreset.text, currentForm));
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "0") {
-                console.log(formatPoem(getNgramPoemStressLine(currentPreset.text, currentForm), currentForm));
+                console.log(getNGramPoemStressLine(currentPreset.text, currentForm));
             }
         }
  

@@ -4,7 +4,6 @@ import classes from './genny.module.scss';
 import { useState, useEffect, useRef } from 'react';
 import { syllable } from 'syllable';
 import { dictionary } from 'cmu-pronouncing-dictionary';
-import { getDictionary } from '@tg/server-actions/actions';
 
 // PRESETS
 import { emily } from '../../../public/tg/presets/emily';
@@ -72,12 +71,6 @@ import Docs from '@tg/docs/docs';
 const Genny = (props) => {
 
   const { source } = props;
-
-  useEffect(() => {
-    // console.log(buildNGrams(emily.text, 3, {includePunctuation: true}))
-    // console.log(getStress(`"hello!" why? am I alive...`))
-    // getStress("o !!!! dnkffnds splash a a a a a the the of of of of of of of j")
-  })
 
   const treatString = (input) => {
     const sourceArray = input.split(" ");
