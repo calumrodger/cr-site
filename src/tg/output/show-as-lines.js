@@ -54,7 +54,7 @@ const ShowAsLines = (props) => {
               {thePoem.map((t, i) => {
                 const styleObject = {...checkPoemStyles(t, baseFontSize), ...{lineHeight: "1." + sliderValue + "rem"}};
                 return (
-                  <div key={i} id={i} style={styleObject} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+                  <div key={i} id={i} style={{...styleObject, padding: baseFontSize + 'rem'}} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                   {t.stanza.map((j, i) => {
                     if (j.text === '\n') {
                       return <br id={i} key={i} className={classes.lineBreak}/>

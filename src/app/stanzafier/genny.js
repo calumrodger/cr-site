@@ -4,15 +4,15 @@ import classes from './genny.module.scss';
 import { useState, useEffect, useRef } from 'react';
 import { syllable } from 'syllable';
 import { dictionary } from 'cmu-pronouncing-dictionary';
-import { getDictionary } from '@tg/server-actions/actions';
 
 // PRESETS
 import { emily } from '../../../public/tg/presets/emily';
 import { flatland } from '../../../public/tg/presets/flatland';
 import { stcrsvp } from 'public/tg/presets/stc';
+import { opiumEater } from 'public/tg/presets/opium-eater';
 
 // WORD LISTS
-import { gptBirdArray, basicallyEmpty, basic } from '../../../public/tg/word-lists';
+import { gptBirdArray, basicallyEmpty, basic, prepositions } from '../../../public/tg/word-lists';
 
 // GLOBAL COMPONENTS
 import SaveLoad from '@tg/global/save-load';
@@ -71,12 +71,6 @@ import Docs from '@tg/docs/docs';
 const Genny = (props) => {
 
   const { source } = props;
-
-  useEffect(() => {
-    // console.log(buildNGrams(emily.text, 3, {includePunctuation: true}))
-    // console.log(getStress(`"hello!" why? am I alive...`))
-    // getStress("o !!!! dnkffnds splash a a a a a the the of of of of of of of j")
-  })
 
   const treatString = (input) => {
     const sourceArray = input.split(" ");
@@ -137,9 +131,9 @@ const Genny = (props) => {
   const [poem, setPoem] = useState([]);
   const [poemTitle, setPoemTitle] = useState('');
   const [wordBank, setWordBank] = useState([{id: 0, text: 'hello', selected: false}, {id: 1, text: 'world', selected: false}]);
-  const [allWordLists, setAllWordLists] = useState([basic, gptBirdArray, basicallyEmpty]);
+  const [allWordLists, setAllWordLists] = useState([basic, gptBirdArray, basicallyEmpty, prepositions]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp])
+  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
   const [statusMessage, setStatusMessage] = useState('welcome in genny')
@@ -313,7 +307,7 @@ const Genny = (props) => {
 
   const getStress = function (theString) {
     if (theString) {
-      const parts = theString.split(/\s+/).map(part => part.replace(/[^\w']|_/g, ""));
+      const parts = theString.trim().split(/\s+/).map(part => part.replace(/[^\w']|_/g, ""));
       const pronArray = parts.map(part => dictionary[part]);
       const stressArray = pronArray.map(pron => pron?.match(/[12]/g)?.length ?? 1);
       return stressArray.reduce((p, c) => p + c, 0);
@@ -516,16 +510,11 @@ const Genny = (props) => {
 
   const onDeleteSelectedWords = () => {
     let newObjArray = [];
-    let numberOfSelected = stanza.filter((item) => item.selected === true).length;
-    if (numberOfSelected === stanza.length) {
-      newObjArray.push({id: stanza[0].id, type: 'text', text: stanza[0].text, selected: false});
-    } else {
       for (let i = 0; i < stanza.length; i++) {
         if (!stanza[i].selected) {
           newObjArray.push(stanza[i]);
         }
       }
-    }
     setStanza(newObjArray);
   }
 
@@ -535,7 +524,7 @@ const Genny = (props) => {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         newObjArray.push(stanza[i]);
-        newObjArray.push({ id: idCount, type: 'text', text: stanza[i].text, selected: false })
+        newObjArray.push({ id: idCount, type: 'text', style: stanza[i]?.style, text: stanza[i].text, selected: false })
         idCount++;
       } else {
         newObjArray.push(stanza[i]);
@@ -573,6 +562,14 @@ const Genny = (props) => {
   const onPopulateWordBank = (words, quant) => {
 
     let finalArray = [];
+
+    // const words1minus2 = words1.filter(x => !words2.includes(x));
+    // let i = 0;
+    // while (i < numWordsToAdd) {
+    //   const randomIndex = Math.floor(words1minus2.length * Math.random());
+    //   words2.push(words1minus2.splice(randomIndex, 1)[0]);
+    //   i += 1;
+    // }
     let currentWordBank = wordBank.map(item => item.text);
     if (words.length < quant) {
       let checkIfAlreadyThere = words.filter(element => currentWordBank.includes(element));
@@ -605,18 +602,17 @@ const Genny = (props) => {
       for (let i = 0; i < stanza.length; i++) {
         if (stanza[i].selected) {
           if (injectSetting === 'replace') {
-            for (let j = 0; j < selectedWords.length; j++) {
-              newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[j].text, selected: false });
-            }
+            let randomIndex = Math.floor(Math.random() * selectedWords.length);
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: selectedWords[randomIndex].text, selected: true });
           } else if (injectSetting === 'add-before') {
             for (let j = 0; j < selectedWords.length; j++) {
-              newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[j].text, selected: false });
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: selectedWords[j].text, selected: false });
             }
             newObjArray.push(stanza[i]);
           } else if (injectSetting === 'add-after') {
             newObjArray.push(stanza[i]);
             for (let j = 0; j < selectedWords.length; j++) {
-              newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[j].text, selected: false });
+              newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: selectedWords[j].text, selected: false });
             }
           }
         } else {
@@ -628,13 +624,13 @@ const Genny = (props) => {
         let randomIndex = Math.floor(Math.random() * selectedWords.length);
         if (stanza[i].selected) {
           if (injectSetting === 'replace') {
-            newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[randomIndex].text, selected: true });
+            newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: selectedWords[randomIndex].text, selected: true });
           } else if (injectSetting === 'add-before') {
-            newObjArray.push({ id: stanza[i].id, type: 'text', text: selectedWords[randomIndex].text, selected: false });
+            newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: selectedWords[randomIndex].text, selected: false });
             newObjArray.push(stanza[i]);
           } else if (injectSetting === 'add-after') {
             newObjArray.push(stanza[i]);
-            newObjArray.push({ id: stanza[i].id + 1, type: 'text', text: selectedWords[randomIndex].text, selected: false });
+            newObjArray.push({ id: stanza[i].id + 1, type: 'text',  style: stanza[i]?.style, text: selectedWords[randomIndex].text, selected: false });
           }
         } else {
           newObjArray.push(stanza[i]);
@@ -1211,7 +1207,7 @@ const Genny = (props) => {
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
         let newText = stanza[i].text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-        newObjArray.push({ id: stanza[i].id, type: 'text', text: newText, selected: true });
+        newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: newText, selected: true });
       } else {
         newObjArray.push(stanza[i]);
       }
@@ -1223,7 +1219,7 @@ const Genny = (props) => {
     let newObjArray = [];
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        newObjArray.push({ id: stanza[i].id, type: 'text', text: stanza[i].text, selected: true });
+        newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: stanza[i].text, selected: true });
         newObjArray.push({ id: stanza[i].id + 1, type: 'break', text: '\n', selected: false });
       } else {
         newObjArray.push(stanza[i]);
@@ -1324,7 +1320,6 @@ const Genny = (props) => {
             </div>
             </>
           }
-
           { padToShow === 'input' &&
           <>
           <div className={classes.poemPadStatusSection}>
@@ -1409,9 +1404,11 @@ const Genny = (props) => {
               <GiveTitle onSetPoemTitle={onSetPoemTitle} poemTitle={poemTitle}/>
               <OutputAs padToShow={padToShow} onClickOutput={onClickOutput} outputCheckbox={outputCheckbox} onChangeOutputCheckbox={onChangeOutputCheckbox}/>
             </div>
+            { !editExistingStanzaMode &&
             <div className={classes.switcherSection}>
               <PadSwitcher onSwitchPad={onSwitchPad} padToShow={padToShow}/>
             </div>
+            }
           </>
           }
 
