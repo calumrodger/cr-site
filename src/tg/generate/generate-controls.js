@@ -74,6 +74,27 @@ const GenerateControls = (props) => {
         return poem;
     }
 
+    const getNGramLineSyllable = (text, form) => {
+        const nGrams = generateNGrams(text, nLevel);
+        const randomNGram = getRandomNGram(text, nGrams);
+        let theNGram = randomNGram;
+        while (syllable(theNGram[0]) !== form) {
+            while (syllable(theNGram[0]) < form) {
+                let theNewNGram = addNGramToNGram(theNGram, nGrams);
+                theNGram = theNewNGram;
+            }
+            // trim the excess if poss 
+            while (syllable(theNGram[0]) > form) {
+                let gramStringArray = theNGram[0].split(' ');
+                gramStringArray.pop();
+                theNGram[0] = gramStringArray.join(' ');
+            }
+            let newRandomNGram = getRandomNGram(text, nGrams);
+            theNGram = newRandomNGram;
+        }
+        return theNGram[0];
+    }
+
     const getRandomWordPoemStress = (text, form) => {
         let poem = [];
         for (let i = 0; i < form.length; i++) {
@@ -400,16 +421,20 @@ const GenerateControls = (props) => {
         const nGrams = generateNGrams(text, nLevel);
         const randomNGram = getRandomNGram(text, nGrams);
         let theNGram = randomNGram;
-        while (getStress(theNGram[0]) < form) {
-            let theNewNGram = addNGramToNGram(theNGram, nGrams);
-            theNGram = theNewNGram;
-        }
-        // trim the excess words if poss
-        while (getStress(theNGram[0]) > form) {
-            let gramStringArray = theNGram[0].split(' ');
-            gramStringArray.pop();
-            theNGram[0] = gramStringArray.join(' ');
-        }
+        while (getStress(theNGram[0]) !== form) {
+            while (getStress(theNGram[0]) < form) {
+                let theNewNGram = addNGramToNGram(theNGram, nGrams);
+                theNGram = theNewNGram;
+            }
+            // trim the excess words if poss
+            while (getStress(theNGram[0]) > form) {
+                let gramStringArray = theNGram[0].split(' ');
+                gramStringArray.pop();
+                theNGram[0] = gramStringArray.join(' ');
+            }
+        let newRandomNGram = getRandomNGram(text, nGrams);
+        theNGram = newRandomNGram;
+        }  
         return theNGram[0];
     }
 
