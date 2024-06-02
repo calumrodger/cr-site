@@ -23,81 +23,6 @@ const GenerateControls = (props) => {
         return newForm.filter((item) => item !== '/');
     }
     
-
-    //DEP: npm i syllable
-    //PARAMS: demoString - string of any length (longer is better)
-    //FORM: array of numbers, each number is the number of syllables in a line
-    //INDEX: starting index to check string on
-    //RETURNS array of two elements, first is the line, second is the index to start from next time
-    const getOriginalLineWithIndexSyllable = (text, form, index) => {
-        // remove line breaks
-        const treatedText = text.replace(/(?:\r\n|\r|\n)/g, ' ');
-        const stringArray = treatedText.split(' ');
-        let startPosition = stringArray[index];
-        let line = startPosition;
-        let newIndex = index + 1;
-        while (syllable(line) < form) {
-            line = line + ' ' + stringArray[newIndex];
-            newIndex++;
-        }
-        if (syllable(line) > form) {
-            return [null, newIndex];
-        }
-        if (syllable(line) === form) {
-            return [line, newIndex];
-        }
-    }
-
-    // const getOriginalLineSyllable = (text, form) => {
-    //     let line = '';
-    //     const treatedText = text.replace(/(?:\r\n|\r|\n)/g, ' ');
-    //     const stringArray = treatedText.split(' ');
-    //     let currentIndex = Math.floor(Math.random() * stringArray.length);
-    //     let startPosition = stringArray[currentIndex];
-    //     line = startPosition;
-    //     let newIndex = currentIndex + 1;
-    //     while (syllable(line) !== form) {
-    //         if (syllable(line) < form) {
-    //             line = line + ' ' + stringArray[newIndex];
-    //             newIndex++
-    //         }
-    //         if (syllable(line) > form) {
-    //             line = '';
-    //             newIndex = Math.floor(Math.random() * stringArray.length);
-    //         }
-    //     }
-    //     return line;
-    // }
-
-    const getOriginalLineSyllable = (text, form) => {
-        let currentIndex, line;
-        const stringArray = text.trim().split(/\s+/);
-        const indexArray = [...Array(stringArray.length).keys()];
-        const initialize = () => {
-            currentIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
-            line = stringArray[currentIndex];
-        };
-        initialize();
-    
-        while (indexArray.length > 0) {
-            currentIndex = (currentIndex + 1) % stringArray.length;
-            if (syllable(line) < form) {
-                line = `${line} ${stringArray[currentIndex]}`;
-            }
-            const lineStress = syllable(line);
-            if (lineStress === form) {
-                console.log(line, syllable(line));
-                return line;
-            }
-            if (lineStress > form) {
-                initialize();
-            }
-        }
-    
-        return null;
-    };
-
-    
     const getRandomLineSyllable = (text, form) => {
         let line = '';
         const treatedText = text.replace(/(?:\r\n|\r|\n)/g, ' ');
@@ -114,28 +39,6 @@ const GenerateControls = (props) => {
         return line;
     }
 
-    const getOriginalLineWithIndexStress = (text, form, index) => {
-        // remove line breaks
-        const treatedText = text.replace(/(?:\r\n|\r|\n)/g, ' ');
-        const stringArray = treatedText.split(' ');
-        let startPosition = stringArray[index];
-        let line = startPosition;
-        let newIndex = index + 1;
-        while (getStress(line) < form) {
-            line = line + ' ' + stringArray[newIndex];
-            newIndex++;
-        }
-        if (getStress(line) > form) {
-            return [null, newIndex];
-        }
-        if (getStress(line) === form) {
-            return [line, newIndex];
-        }
-    }
-
-    
-
-    
     const getRandomLineStress = (text, form) => {
         let line = '';
         const treatedText = text.replace(/(?:\r\n|\r|\n)/g, ' ');
@@ -150,58 +53,6 @@ const GenerateControls = (props) => {
             }
         }
         return line;
-    }
-
-    // const getOriginalPoemSyllable = (text, form) => {
-    //     let poem = [];
-    //     let currentIndex = Math.floor(Math.random() * text.length);
-    //     let globalCount = 0;
-    //     for (let i = 0; i < form.length; i++) {
-    //         if (globalCount > 10000) {
-    //             alert("no poem found - try a bigger string or a different form");
-    //             return [];
-    //         }
-    //     let line = getOriginalLineSyllable(text, form);
-    //     if (line[0] === null) {
-    //         i = -1;
-    //         poem = [];
-    //         globalCount++;
-    //         currentIndex = Math.floor(Math.random() * text.length);
-    //     } else {
-    //         poem.push(line[0]);
-    //         currentIndex = line[1];
-    //     }
-    //     }
-    //     return poem;
-    // }
-
-    const getOriginalPoemSyllable = (text, form) => {
-        let formSum = form.reduce((a, b) => a + b, 0);
-        let poem = [];
-        let globalCount = 0;
-        if (globalCount === text.split(' ').length) {
-            onSetStatusMessage("no poem found - try a bigger string or a different form");
-            return [];
-        }
-        let line = getOriginalLineSyllable(text, formSum);
-        const textArrayUntreated = line.split(' ');
-        const syllableArray = line.split(' ').map((item) => getStress(item));
-        const textArray = textArrayUntreated.filter((item) => item !== '');
-        console.log(textArray)
-        console.log(syllableArray)
-        let position = 0;
-        for (let i = 0; i < form.length; i++) {
-            let lineSyllable = 0;
-            let newLine = []; 
-            for (let j = 0; lineSyllable < form[i];) {
-                lineSyllable += syllableArray[j];
-                newLine.push(textArray[position]);
-                j++;
-                position = position + syllableArray[j]
-            }
-            poem.push(newLine.join(' '));
-        }
-        return poem;
     }
 
     const getRandomWordPoemSyllable = (text, form) => {
@@ -222,68 +73,6 @@ const GenerateControls = (props) => {
         return poem;
     }
 
-    const getOriginalLineStress = (text, form) => {
-        let currentIndex, line;
-        const stringArray = text.trim().split(/\s+/);
-        const indexArray = [...Array(stringArray.length).keys()];
-        const initialize = () => {
-            currentIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
-            line = stringArray[currentIndex];
-        };
-        initialize();
-    
-        while (indexArray.length > 0) {
-            currentIndex = (currentIndex + 1) % stringArray.length;
-            if (getStress(line) < form) {
-                line = `${line} ${stringArray[currentIndex]}`;
-            }
-            const lineStress = getStress(line);
-            if (lineStress === form) {
-                console.log(line, getStress(line));
-                return line;
-            }
-            if (lineStress > form) {
-                initialize();
-            }
-        }
-    
-        return null;
-    };
-
-    const getOriginalPoemStress = (text, form) => {
-        let formSum = form.reduce((a, b) => a + b, 0);
-        let poem = [];
-        let currentIndex = Math.floor(Math.random() * text.length);
-        let globalCount = 0;
-        // for (let i = 0; i < form.length; i++) {
-            if (globalCount === text.split(' ').length) {
-                onSetStatusMessage("no poem found - try a bigger string or a different form");
-                return [];
-            }
-        let line = getOriginalLineStress(text, formSum);
-        const textArrayUntreated = line.split(' ');
-        const stressArray = line.split(' ').map((item) => getStress(item));
-        const textArray = textArrayUntreated.filter((item) => item !== '');
-        console.log(textArray)
-        console.log(stressArray)
-        let position = 0;
-        for (let i = 0; i < form.length; i++) {
-            let lineStress = 0;
-            let newLine = []; 
-            for (let j = 0; lineStress < form[i];) {
-                lineStress += stressArray[j];
-                newLine.push(textArray[position]);
-                j++;
-                position = position + stressArray[j]
-            }
-            poem.push(newLine.join(' '));
-        }
-        return poem;
-    }
-
-    
-
-    
     const getRandomWordPoemStress = (text, form) => {
         let poem = [];
         for (let i = 0; i < form.length; i++) {
@@ -302,8 +91,89 @@ const GenerateControls = (props) => {
         return poem;
     }
 
+    const getOriginalPoemStress = (text, form) => {
+        let currentIndex, line;
+        const poem = [];
+        const formArray = form.split("/").map(x => x && Number(x));
+        let formIndex = 0;
+        const stringArray = text.trim().split(/\s+/);
+        const indexArray = [...Array(stringArray.length).keys()];
+        const nextIndex = () => (currentIndex + 1) % stringArray.length;
+        const initialize = () => {
+            currentIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+            line = stringArray[currentIndex];
+        };
+        initialize();
+    
+        while (indexArray.length > 0 && poem.length < formArray.length) {
+            currentIndex = nextIndex();
+            if (getStress(line) < formArray[formIndex]) {
+                line = `${line} ${stringArray[currentIndex]}`;
+            }
+            if (getStress(line) === formArray[formIndex]) {
+                poem.push(line);
+                formIndex += 1;
+                currentIndex = nextIndex();
+                line = stringArray[currentIndex];
+                while (formArray[formIndex] === "") {
+                    poem.push("");
+                    formIndex += 1;
+                }
+            }
+            if (getStress(line) > formArray[formIndex]) {
+                initialize();
+            }
+        }
+        if (poem.length === 0) {
+            onSetStatusMessage("no poem found - try a bigger string or a different form");
+        }
+        return poem;
+    };
 
+    const getOriginalPoemSyllable = (text, form) => {
+        let currentIndex, line;
+        const poem = [];
+        const formArray = form.split("/").map(x => x && Number(x));
+        let formIndex = 0;
+        const stringArray = text.trim().split(/\s+/);
+        const indexArray = [...Array(stringArray.length).keys()];
+        const nextIndex = () => (currentIndex + 1) % stringArray.length;
+        const initialize = () => {
+            currentIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+            line = stringArray[currentIndex];
+        };
+        initialize();
+    
+        while (indexArray.length > 0 && poem.length < formArray.length) {
+            currentIndex = nextIndex();
+            if (syllable(line) < formArray[formIndex]) {
+                line = `${line} ${stringArray[currentIndex]}`;
+            }
+            if (syllable(line) === formArray[formIndex]) {
+                poem.push(line);
+                formIndex += 1;
+                currentIndex = nextIndex();
+                line = stringArray[currentIndex];
+                while (formArray[formIndex] === "") {
+                    poem.push("");
+                    formIndex += 1;
+                }
+            }
+            if (syllable(line) > formArray[formIndex]) {
+                initialize();
+            }
+        }
+        if (poem.length === 0) {
+            onSetStatusMessage("no poem found - try a bigger string or a different form");
+        }
+        return poem;
+    };
 
+    const getOriginalLineStress = (text, form) => getOriginalPoemStress(text, `${form}`)[0];
+    // returns undefined if no match found
+
+    const getOriginalLineSyllable = (text, form) => getOriginalPoemSyllable(text, `${form}`)[0];
+    // returns undefined if no match found
 
     const formatPoem = (poem, form) => {
 
@@ -326,7 +196,7 @@ const GenerateControls = (props) => {
     const onFormSubmit = () => {
         if (formStyle === 'syllable') {
             if (genType === 'stanza' && nLevel === "10") {
-                onUpdate(formatPoem(getOriginalPoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                onUpdate(formatPoem(getOriginalPoemSyllable(currentPreset.text, currentForm), currentForm));
             }
             if (genType === 'line' && nLevel === "10") {
                 onUpdate(formatPoem(getRandomLinePoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
@@ -337,7 +207,7 @@ const GenerateControls = (props) => {
         }
         if (formStyle === 'stress') {
             if (genType === 'stanza' && nLevel === "10") {
-                onUpdate(formatPoem(getOriginalPoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                onUpdate(formatPoem(getOriginalPoemStress(currentPreset.text, currentForm), currentForm));
             }
             if (genType === 'line' && nLevel === "10") {
                 onUpdate(formatPoem(getRandomLinePoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));

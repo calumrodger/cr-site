@@ -314,7 +314,7 @@ const Genny = (props) => {
 
   const getStress = function (theString) {
     if (theString) {
-      const parts = theString.split(/\s+/).map(part => part.replace(/[^\w']|_/g, ""));
+      const parts = theString.trim().split(/\s+/).map(part => part.replace(/[^\w']|_/g, ""));
       const pronArray = parts.map(part => dictionary[part]);
       const stressArray = pronArray.map(pron => pron?.match(/[12]/g)?.length ?? 1);
       return stressArray.reduce((p, c) => p + c, 0);
@@ -569,6 +569,14 @@ const Genny = (props) => {
   const onPopulateWordBank = (words, quant) => {
 
     let finalArray = [];
+
+    // const words1minus2 = words1.filter(x => !words2.includes(x));
+    // let i = 0;
+    // while (i < numWordsToAdd) {
+    //   const randomIndex = Math.floor(words1minus2.length * Math.random());
+    //   words2.push(words1minus2.splice(randomIndex, 1)[0]);
+    //   i += 1;
+    // }
     let currentWordBank = wordBank.map(item => item.text);
     if (words.length < quant) {
       let checkIfAlreadyThere = words.filter(element => currentWordBank.includes(element));
