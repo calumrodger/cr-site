@@ -79,12 +79,15 @@ const GenerateControls = (props) => {
         const randomNGram = getRandomNGram(text, nGrams);
         let theNGram = randomNGram;
         while (syllable(theNGram[0]) !== form) {
+            console.log('while a')
             while (syllable(theNGram[0]) < form) {
+                console.log('while less')
                 let theNewNGram = addNGramToNGram(theNGram, nGrams);
                 theNGram = theNewNGram;
             }
             // trim the excess if poss 
             while (syllable(theNGram[0]) > form) {
+                console.log('while more')
                 let gramStringArray = theNGram[0].split(' ');
                 gramStringArray.pop();
                 theNGram[0] = gramStringArray.join(' ');
@@ -92,6 +95,28 @@ const GenerateControls = (props) => {
             let newRandomNGram = getRandomNGram(text, nGrams);
             theNGram = newRandomNGram;
         }
+        return theNGram[0];
+    }
+
+    const getNGramLineStress = (text, form, nGrams) => {
+        
+        const randomNGram = getRandomNGram(text, nGrams);
+        let theNGram = randomNGram;
+        while (getStress(theNGram[0]) !== form) {
+            while (getStress(theNGram[0]) < form) {
+                let theNewNGram = addNGramToNGram(theNGram, nGrams);
+                theNGram = theNewNGram;
+            }
+            // trim the excess words if poss
+            while (getStress(theNGram[0]) > form) {
+                let gramStringArray = theNGram[0].split(' ');
+                gramStringArray.pop();
+                theNGram[0] = gramStringArray.join(' ');
+            }
+        let newRandomNGram = getRandomNGram(text, nGrams);
+        theNGram = newRandomNGram;
+        }  
+        console.log(theNGram)
         return theNGram[0];
     }
 
@@ -204,8 +229,8 @@ const GenerateControls = (props) => {
         return randomNGram;
     }
 
-    const generateNGrams = (text, nLevel) => {
-        return buildNGrams(text, +nLevel, {caseSensitive: true, includePunctuation: true});
+    const generateNGrams = (text, currentNLevel) => {
+        return buildNGrams(text, +currentNLevel, {caseSensitive: true, includePunctuation: true});
     }
 
     // Returns n-gram object [string, {n-gram-pivot: frequency, ...}]
@@ -416,28 +441,6 @@ const GenerateControls = (props) => {
         return poem;
     };
 
-
-    const getNGramLineStress = (text, form) => {
-        const nGrams = generateNGrams(text, nLevel);
-        const randomNGram = getRandomNGram(text, nGrams);
-        let theNGram = randomNGram;
-        while (getStress(theNGram[0]) !== form) {
-            while (getStress(theNGram[0]) < form) {
-                let theNewNGram = addNGramToNGram(theNGram, nGrams);
-                theNGram = theNewNGram;
-            }
-            // trim the excess words if poss
-            while (getStress(theNGram[0]) > form) {
-                let gramStringArray = theNGram[0].split(' ');
-                gramStringArray.pop();
-                theNGram[0] = gramStringArray.join(' ');
-            }
-        let newRandomNGram = getRandomNGram(text, nGrams);
-        theNGram = newRandomNGram;
-        }  
-        return theNGram[0];
-    }
-
     const getNGramLineSyllableForIndex = (nGrams, form, randomNGram) => {
         console.log(randomNGram)
         // const nGrams = generateNGrams(text, nLevel);
@@ -492,8 +495,9 @@ const GenerateControls = (props) => {
 
     const getNGramPoemStressLine = (text, form) => {
         let poem = [];
+        const nGrams = generateNGrams(text, nLevel);
         for (let i = 0; i < form.length; i++) {
-            let line = getNGramLineStress(text, form[i]);
+            let line = getNGramLineStress(text, form[i], nGrams);
             poem.push(line);
         }
         return poem;
