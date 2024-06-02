@@ -176,7 +176,7 @@ const GenerateControls = (props) => {
     const getOriginalLineSyllable = (text, form) => getOriginalPoemSyllable(text, `${form}`)[0];
     // returns undefined if no match found
 
-    const getNgramPoemStressLine = (text, form) => {
+    const getNGramPoemStressLine = (text, form) => {
         console.log(buildNGrams(text, nLevel, {includePunctuation: true}));
         return 'ngram stress line' + nLevel;
     }
@@ -186,7 +186,7 @@ const GenerateControls = (props) => {
         return 'ngram stress stanza' + nLevel;
     }
 
-    const getNgramPoemSyllableLine = (text, form) => {
+    const getNGramPoemSyllableLine = (text, form) => {
         console.log(buildNGrams(text, nLevel, {includePunctuation: true}));
         return 'ngram syllable line' + nLevel;
     }
@@ -229,7 +229,7 @@ const GenerateControls = (props) => {
                 console.log(getNGramPoemSyllableStanza(currentPreset.text, currentForm));
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "0") {
-                console.log(getNGramPoemSyllableStanza(currentPreset.text, currentForm));
+                console.log(getNGramPoemSyllableLine(currentPreset.text, currentForm));
             }
         }
         if (formStyle === 'stress') {
