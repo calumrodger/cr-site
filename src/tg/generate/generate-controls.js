@@ -176,11 +176,6 @@ const GenerateControls = (props) => {
     const getOriginalLineSyllable = (text, form) => getOriginalPoemSyllable(text, `${form}`)[0];
     // returns undefined if no match found
 
-    const getNGramPoemStressLine = (text, form) => {
-        // console.log(buildNGrams(text, nLevel, {includePunctuation: true}));
-        return 'ngram stress line' + nLevel;
-    }
-
     const getRandomNGram = (text, nGrams) => {
         const randomIndex = Math.floor(Math.random() * Object.entries(nGrams).length);
         const randomNGram = Object.entries(nGrams)[randomIndex];
@@ -232,35 +227,62 @@ const GenerateControls = (props) => {
         console.log(newGramObject);
         return newGramObject;
     }
-        
 
-    const getNGramPoemStressStanza = (text, form) => {
-
+    const getNGramLineStress = (text, form) => {
         const nGrams = generateNGrams(text, nLevel);
         const randomNGram = getRandomNGram(text, nGrams);
         let theNGram = randomNGram;
-        // console.log('form' + form)
-        let formSum = form.reduce((a, b) => a + b, 0);
-        // console.log(formSum)
-
-        while (getStress(theNGram[0]) < formSum) {
+        while (getStress(theNGram[0]) < form) {
             let theNewNGram = addNGramToNGram(theNGram, nGrams);
             theNGram = theNewNGram;
         }
-
         // trim the excess if poss 
-        while (getStress(theNGram[0]) > formSum) {
+        while (getStress(theNGram[0]) > form) {
             let gramStringArray = theNGram[0].split(' ');
             gramStringArray.pop();
             theNGram[0] = gramStringArray.join(' ');
         }
+        return theNGram[0];
+    }
 
-        console.log(theNGram[0], getStress(theNGram[0]));
+    const getNGramLineSyllable = (text, form) => {
+        const nGrams = generateNGrams(text, nLevel);
+        const randomNGram = getRandomNGram(text, nGrams);
+        let theNGram = randomNGram;
+        while (syllable(theNGram[0]) < form) {
+            let theNewNGram = addNGramToNGram(theNGram, nGrams);
+            theNGram = theNewNGram;
+        }
+        // trim the excess if poss 
+        while (syllable(theNGram[0]) > form) {
+            let gramStringArray = theNGram[0].split(' ');
+            gramStringArray.pop();
+            theNGram[0] = gramStringArray.join(' ');
+        }
+        return theNGram[0];
+    }
+
+    const getNGramPoemStressLine = (text, form) => {
+        let poem = [];
+        for (let i = 0; i < form.length; i++) {
+            let line = getNGramLineStress(text, form[i]);
+            poem.push(line);
+        }
+        return poem;
     }
 
     const getNGramPoemSyllableLine = (text, form) => {
+        let poem = [];
+        for (let i = 0; i < form.length; i++) {
+            let line = getNGramLineSyllable(text, form[i]);
+            poem.push(line);
+        }
+        return poem;
+    }
+
+    const getNGramPoemStressStanza = (text, form) => {
         console.log(buildNGrams(text, nLevel, {includePunctuation: true}));
-        return 'ngram syllable line' + nLevel;
+        return 'ngram stress stanza' + nLevel;
     }
 
     const getNGramPoemSyllableStanza = (text, form) => {
@@ -298,7 +320,7 @@ const GenerateControls = (props) => {
                 console.log(getNGramPoemSyllableStanza(currentPreset.text, currentForm));
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "1") {
-                console.log(getNGramPoemSyllableLine(currentPreset.text, currentForm));
+                onUpdate(formatPoem(getNGramPoemSyllableLine(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
         }
         if (formStyle === 'stress') {
@@ -315,7 +337,7 @@ const GenerateControls = (props) => {
                 getNGramPoemStressStanza(currentPreset.text, getFormArraySansBreaks(currentForm));
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "1") {
-                console.log(getNGramPoemStressLine(currentPreset.text, currentForm));
+                onUpdate(formatPoem(getNGramPoemStressLine(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
         }
  
