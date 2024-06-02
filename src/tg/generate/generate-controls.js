@@ -175,6 +175,22 @@ const GenerateControls = (props) => {
     const getOriginalLineSyllable = (text, form) => getOriginalPoemSyllable(text, `${form}`)[0];
     // returns undefined if no match found
 
+    const getNgramPoemStressLine = (text, form) => {
+        return 'ngram stress line' + nLevel;
+    }
+
+    const getNGramPoemStressStanza = (text, form) => {
+        return 'ngram stress stanza' + nLevel;
+    }
+
+    const getNgramPoemSyllableLine = (text, form) => {
+        return 'ngram syllable line' + nLevel;
+    }
+
+    const getNGramPoemSyllableStanza = (text, form) => {
+        return 'ngram syllable stanza' + nLevel;
+    }
+
     const formatPoem = (poem, form) => {
 
         const formArray = getFormArray(form);
@@ -204,6 +220,12 @@ const GenerateControls = (props) => {
             if (nLevel === "0") {
                 onUpdate(formatPoem(getRandomWordPoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
             }
+            if (genType === 'stanza' && nLevel !== "10" && nLevel !== "0") {
+                console.log(formatPoem(getNGramPoemSyllableStanza(currentPreset.text, currentForm), currentForm));
+            }
+            if (genType === 'line' && nLevel !== "10" && nLevel !== "0") {
+                console.log(formatPoem(getNgramPoemSyllableLine(currentPreset.text, currentForm), currentForm));
+            }
         }
         if (formStyle === 'stress') {
             if (genType === 'stanza' && nLevel === "10") {
@@ -214,6 +236,12 @@ const GenerateControls = (props) => {
             }
             if (nLevel === "0") {
                 onUpdate(formatPoem(getRandomWordPoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+            }
+            if (genType === 'stanza' && nLevel !== "10" && nLevel !== "0") {
+                console.log(formatPoem(getNGramPoemStressStanza(currentPreset.text, currentForm), currentForm));
+            }
+            if (genType === 'line' && nLevel !== "10" && nLevel !== "0") {
+                console.log(formatPoem(getNgramPoemStressLine(currentPreset.text, currentForm), currentForm));
             }
         }
  
