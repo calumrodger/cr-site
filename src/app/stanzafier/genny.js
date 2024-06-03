@@ -3,6 +3,7 @@
 import classes from './genny.module.scss';
 import { useState, useEffect, useRef } from 'react';
 import { syllable } from 'syllable';
+// import { dictionary } from '../../../public/tg/cmu-stress-count-dictionary';
 import { dictionary } from 'cmu-pronouncing-dictionary';
 
 // PRESETS
@@ -12,7 +13,7 @@ import { stcrsvp } from 'public/tg/presets/stc';
 import { opiumEater } from 'public/tg/presets/opium-eater';
 
 // WORD LISTS
-import { gptBirdArray, basicallyEmpty, basic, prepositions } from '../../../public/tg/word-lists';
+import { wordBankDefaultText, gptBirdArray, prepositions, adjectives } from '../../../public/tg/word-lists';
 
 // GLOBAL COMPONENTS
 import SaveLoad from '@tg/global/save-load';
@@ -130,8 +131,8 @@ const Genny = (props) => {
   const [oldStanza, setOldStanza] = useState([]);
   const [poem, setPoem] = useState([]);
   const [poemTitle, setPoemTitle] = useState('');
-  const [wordBank, setWordBank] = useState([{id: 0, text: 'hello', selected: false}, {id: 1, text: 'world', selected: false}]);
-  const [allWordLists, setAllWordLists] = useState([basic, gptBirdArray, basicallyEmpty, prepositions]);
+  const [wordBank, setWordBank] = useState(wordBankDefaultText);
+  const [allWordLists, setAllWordLists] = useState([adjectives, gptBirdArray, prepositions]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
   const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
@@ -227,6 +228,8 @@ const Genny = (props) => {
         return `_${finalWord}_`;
       case 12:
         return `~${finalWord}~`;
+      case 13:
+        return `"${finalWord}"`;
         default: 
         return word;
   }
@@ -235,12 +238,12 @@ const Genny = (props) => {
   const onAddPunct = (reverse) => {
     if (reverse) {
       if (punctCounter === 0) {
-        setPunctCounter(12);
+        setPunctCounter(13);
       } else {
         setPunctCounter(punctCounter - 1);
       }
     } else {
-      if (punctCounter === 12) {
+      if (punctCounter === 13) {
         setPunctCounter(0);
       } else {
         setPunctCounter(punctCounter + 1);
@@ -1312,7 +1315,10 @@ const Genny = (props) => {
           { padToShow === 'stanza' && !wordEditMode &&
             <>
             <div className={classes.fxSection}>
-            <span>TYPOGRAPHY</span>
+              <div className={classes.fxHeadingContainer}>
+            <span className={classes.sectionSubheading}>TYPOGRAPHY</span>
+            <span className={classes.sectionTitle}>FX</span>
+            </div>
               <div className={classes.fxTypographyGrid}>
                 <ResizeText onResizeText={onResizeText}/>
                 <ReweightText onReweightText={onReweightText}/>
@@ -1326,13 +1332,13 @@ const Genny = (props) => {
               <FormResetButton onResetTypography={onResetTypography} />
               </div>
               < hr className={classes.line} />
-              <span>N + ?</span>
+              <span className={classes.sectionSubheading}>N + X</span>
               <NPlusX getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
               <hr className={classes.line} />
-              <span>API INJECTION</span>
+              <span className={classes.sectionSubheading}>API INJECTION</span>
               <APIFX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/>
               <hr className={classes.line} />
-              <span>LLM </span>
+              <span className={classes.sectionSubheading}>LLM </span>
               <LLMFX onSetStatusMessage={onSetStatusMessage} onUpdate={onUpdate} stanza={stanza} treatString={treatString}/>
               <hr className={classes.line} />
               <Title />
@@ -1340,7 +1346,7 @@ const Genny = (props) => {
             <div className={classes.composeSection}>
               { (!showEditWordBank && !showAddWordBank) &&
               <>
-              <span>WORD BANK</span>
+              <span className={classes.sectionTitle}>WORD BANK</span>
               <WordBank onShuffleWordBank={onShuffleWordBank} baseFont={baseFont} baseFontSize={baseFontSize} onSaveWordBankAsList={onSaveWordBankAsList} deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
               <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
               <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
