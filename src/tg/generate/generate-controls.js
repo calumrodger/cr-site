@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { syllable } from 'syllable';
 import { buildNGrams } from 'word-ngrams';
 import OnSaveStanzaToPad from '@tg/stanza-pad/save-stanza-to-pad';
+import { get } from 'http';
 
 const GenerateControls = (props) => {
 
@@ -74,55 +75,55 @@ const GenerateControls = (props) => {
         return poem;
     }
 
-    const getNGramLineSyllable = (text, form) => {
-        const nGrams = generateNGrams(text, nLevel);
-        const indexArray = [...Array(Object.entries(nGrams).length).keys()];
-        let randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
-        let theNGram = Object.entries(nGrams)[randomIndex];
-        while ((indexArray.length > 0) && (syllable(theNGram[0]) !== form)) {
-            while (syllable(theNGram[0]) < form) {
-                console.log('while less')
-                let theNewNGram = addNGramToNGram(theNGram, nGrams);
-                theNGram = theNewNGram;
-            }
-            // trim the excess words if poss
-            while (syllable(theNGram[0]) > form) {
-                console.log('while more')
-                let gramStringArray = theNGram[0].split(' ');
-                gramStringArray.pop();
-                theNGram = [gramStringArray.join(' ')];
-            }
-            randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
-            theNGram = Object.entries(nGrams)[randomIndex];
-            console.log('new n-gram', theNGram)
-        }  
-        return theNGram[0];
-    }
+    // const getNGramLineSyllable = (text, form) => {
+    //     const nGrams = generateNGrams(text, nLevel);
+    //     const indexArray = [...Array(Object.entries(nGrams).length).keys()];
+    //     let randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+    //     let theNGram = Object.entries(nGrams)[randomIndex];
+    //     while ((indexArray.length > 0) && (syllable(theNGram[0]) !== form)) {
+    //         while (syllable(theNGram[0]) < form) {
+    //             console.log('while less')
+    //             let theNewNGram = addNGramToNGram(theNGram, nGrams);
+    //             theNGram = theNewNGram;
+    //         }
+    //         // trim the excess words if poss
+    //         while (syllable(theNGram[0]) > form) {
+    //             console.log('while more')
+    //             let gramStringArray = theNGram[0].split(' ');
+    //             gramStringArray.pop();
+    //             theNGram = [gramStringArray.join(' ')];
+    //         }
+    //         randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+    //         theNGram = Object.entries(nGrams)[randomIndex];
+    //         console.log('new n-gram', theNGram)
+    //     }  
+    //     return theNGram[0];
+    // }
 
-    const getNGramLineStress = (text, form) => {
-        const nGrams = generateNGrams(text, nLevel);
-        const indexArray = [...Array(Object.entries(nGrams).length).keys()];
-        let randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
-        let theNGram = Object.entries(nGrams)[randomIndex];
-        while ((indexArray.length > 0) && (getStress(theNGram[0]) !== form)) {
-            while (getStress(theNGram[0]) < form) {
-                console.log('while less')
-                let theNewNGram = addNGramToNGram(theNGram, nGrams);
-                theNGram = theNewNGram;
-            }
-            // trim the excess words if poss
-            while (getStress(theNGram[0]) > form) {
-                console.log('while more')
-                let gramStringArray = theNGram[0].split(' ');
-                gramStringArray.pop();
-                theNGram = [gramStringArray.join(' ')];
-            }
-            randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
-            theNGram = Object.entries(nGrams)[randomIndex];
-            console.log('new n-gram', theNGram)
-        }  
-        return theNGram[0];
-    }
+    // const getNGramLineStress = (text, form) => {
+    //     const nGrams = generateNGrams(text, nLevel);
+    //     const indexArray = [...Array(Object.entries(nGrams).length).keys()];
+    //     let randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+    //     let theNGram = Object.entries(nGrams)[randomIndex];
+    //     while ((indexArray.length > 0) && (getStress(theNGram[0]) !== form)) {
+    //         while (getStress(theNGram[0]) < form) {
+    //             console.log('while less')
+    //             let theNewNGram = addNGramToNGram(theNGram, nGrams);
+    //             theNGram = theNewNGram;
+    //         }
+    //         // trim the excess words if poss
+    //         while (getStress(theNGram[0]) > form) {
+    //             console.log('while more')
+    //             let gramStringArray = theNGram[0].split(' ');
+    //             gramStringArray.pop();
+    //             theNGram = [gramStringArray.join(' ')];
+    //         }
+    //         randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+    //         theNGram = Object.entries(nGrams)[randomIndex];
+    //         console.log('new n-gram', theNGram)
+    //     }  
+    //     return theNGram[0];
+    // }
 
     const getRandomWordPoemStress = (text, form) => {
         let poem = [];
@@ -226,6 +227,10 @@ const GenerateControls = (props) => {
 
     const getOriginalLineSyllable = (text, form) => getOriginalPoemSyllable(text, `${form}`)[0];
     // returns undefined if no match found
+
+    const getNGramLineSyllable = (text, form) => getNGramPoemSyllableStanza(text, `${form}`)[0];
+
+    const getNGramLineStress = (text, form) => getNGramPoemStressStanza(text, `${form}`)[0];
 
     const getRandomNGram = (text, nGrams) => {
         const randomIndex = Math.floor(Math.random() * Object.entries(nGrams).length);
