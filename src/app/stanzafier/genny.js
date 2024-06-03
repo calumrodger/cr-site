@@ -306,41 +306,15 @@ const Genny = (props) => {
   }
 
   const getStress = function (theString) {
+    const tinyWords = ['a', 'the', 'of', 'it', 'an', 'to', 'and', 'are', 'in', 'on', 'at', 'from', 'for', 'with', 'by', 'as', 'or', 'but', 'nor', 'so', 'yet', 'if', 'is', 'was', 'be', 'am', 'are', 'were', 'been', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'shall', 'would', 'should', 'can', 'could', 'may']
     if (theString) {
       const parts = theString.trim().split(/\s+/).map(part => part.replace(/[^\w']|_/g, ""));
-      const pronArray = parts.map(part => dictionary[part]);
-      const stressArray = pronArray.map(pron => pron?.match(/[12]/g)?.length ?? 1);
+      const pronArray = parts.map(part => tinyWords.includes(part.toLowerCase()) ? "0" : dictionary[part]);
+      const stressArray = pronArray.map(pron => pron?.match(/[12]/g)?.length ? pron?.match(/[12]/g)?.length : pron === "0" ? 0 : 1);
       return stressArray.reduce((p, c) => p + c, 0);
     }
     return 0;
   };
-  
-  // const getStress = (theString) => {
-  //   if (theString === '' || theString === undefined) {
-  //     return 0;
-  //   }
-  //   let wordsArray = theString.split(" ");
-  //   let trimmedWordsArray = [];
-  //   for (let i = 0; i < wordsArray.length; i++) {
-  //     let wordForTrimming = wordsArray[i].trim();
-  //     let trimmedWord = wordForTrimming.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
-  //     trimmedWordsArray.push(trimmedWord);
-  //   }
-  //   let stressArray = [];
-  //   for (let i = 0; i < trimmedWordsArray.length; i++) {
-  //     if (dictionary[trimmedWordsArray[i]] !== undefined) {
-  //       stressArray.push(dictionary[trimmedWordsArray[i]]);
-  //     } else {
-  //       stressArray.push('1');
-  //     }
-  //   }
-  //   let stressCount = 0;
-  //   for (let i = 0; i < stressArray.length; i++) {
-  //     let itemStress = (((stressArray[i].match(/2/g)||[].length).toString()) * 1) + (((stressArray[i].match(/1/g)||[].length).toString()) * 1);
-  //     stressCount = stressCount + itemStress;
-  //   }
-  //   return stressCount;
-  // }
   
   const onSetPoemTitle = (e) => {
     setPoemTitle(e.target.value);
@@ -409,8 +383,12 @@ const Genny = (props) => {
     setWordBank(newObjArray);
   }
 
-  const onUpdate = (newstanza) => {
-    setStanza(newstanza);
+  const onUpdate = (newStanza) => {
+    if (newStanza === null) {
+      console.log('nope')
+      return;
+    }
+    setStanza(newStanza);
     setOldStanza(stanza);
   }
 

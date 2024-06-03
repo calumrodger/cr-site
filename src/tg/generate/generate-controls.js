@@ -243,45 +243,45 @@ const GenerateControls = (props) => {
     }
 
     // Returns n-gram object [string, {n-gram-pivot: frequency, ...}]
-    const addNGramToNGram = (nGram, nGrams, text) => {
-        // console.log(nGram)
-        const nGramsArray = Object.entries(nGrams);
-        const nGramsLength = nGramsArray.length;
-        const optionsArray = Object.entries(nGram[1]);
-        const stringOptions = [];
-        for (let i = 0; i < optionsArray.length; i++) {
-            let numberToPush = optionsArray[i][1];
-            for (let j = 0; j < numberToPush; j++) {
-                stringOptions.push(optionsArray[i][0]);
-            }
-        }
-        const stringSelection = stringOptions[Math.floor(Math.random() * stringOptions.length)];
-        // console.log(stringSelection)
-        if (stringSelection === "!" || stringSelection === "?" || stringSelection === "." || stringSelection === ";") {
-            let newRandomNGram = getRandomNGram(text, nGrams);
-            const newSentenceGramString = nGram[0] + stringSelection + ' ' + newRandomNGram[0];
-            const newSentenceGramObject = [newSentenceGramString, newRandomNGram[1]];
-            return newSentenceGramObject;
-        }
-        let newNGramOptions = [];
-        for (let i = 0; i < nGramsLength; i++) {
-            let stringArray = nGramsArray[i][0].split(' ');
-            if (stringArray[0] === stringSelection) {
-                newNGramOptions.push(nGramsArray[i]);
-            }
-        }
-        if (newNGramOptions.length === 0) {
-            let newRandomNGram = getRandomNGram(text, nGrams);
-            const newSentenceGramString = nGram[0] + ' ' + stringSelection + ' ' + newRandomNGram[0];
-            const newSentenceGramObject = [newSentenceGramString, newRandomNGram[1]];
-            return newSentenceGramObject;
-        }
-        const finalGramSelection = newNGramOptions[Math.floor(Math.random() * newNGramOptions.length)];
-        const newGramString = nGram[0] + ' ' + finalGramSelection[0];
-        const newGramObject = [newGramString, finalGramSelection[1]];
-        // console.log(newGramObject);
-        return newGramObject;
-    }
+    // const addNGramToNGram = (nGram, nGrams, text) => {
+    //     // console.log(nGram)
+    //     const nGramsArray = Object.entries(nGrams);
+    //     const nGramsLength = nGramsArray.length;
+    //     const optionsArray = Object.entries(nGram[1]);
+    //     const stringOptions = [];
+    //     for (let i = 0; i < optionsArray.length; i++) {
+    //         let numberToPush = optionsArray[i][1];
+    //         for (let j = 0; j < numberToPush; j++) {
+    //             stringOptions.push(optionsArray[i][0]);
+    //         }
+    //     }
+    //     const stringSelection = stringOptions[Math.floor(Math.random() * stringOptions.length)];
+    //     // console.log(stringSelection)
+    //     if (stringSelection === "!" || stringSelection === "?" || stringSelection === "." || stringSelection === ";") {
+    //         let newRandomNGram = getRandomNGram(text, nGrams);
+    //         const newSentenceGramString = nGram[0] + stringSelection + ' ' + newRandomNGram[0];
+    //         const newSentenceGramObject = [newSentenceGramString, newRandomNGram[1]];
+    //         return newSentenceGramObject;
+    //     }
+    //     let newNGramOptions = [];
+    //     for (let i = 0; i < nGramsLength; i++) {
+    //         let stringArray = nGramsArray[i][0].split(' ');
+    //         if (stringArray[0] === stringSelection) {
+    //             newNGramOptions.push(nGramsArray[i]);
+    //         }
+    //     }
+    //     if (newNGramOptions.length === 0) {
+    //         let newRandomNGram = getRandomNGram(text, nGrams);
+    //         const newSentenceGramString = nGram[0] + ' ' + stringSelection + ' ' + newRandomNGram[0];
+    //         const newSentenceGramObject = [newSentenceGramString, newRandomNGram[1]];
+    //         return newSentenceGramObject;
+    //     }
+    //     const finalGramSelection = newNGramOptions[Math.floor(Math.random() * newNGramOptions.length)];
+    //     const newGramString = nGram[0] + ' ' + finalGramSelection[0];
+    //     const newGramObject = [newGramString, finalGramSelection[1]];
+    //     // console.log(newGramObject);
+    //     return newGramObject;
+    // }
 
     const addNGramToNGramForIndex = (nGram, nGrams, text) => {
         // console.log(nGram)
@@ -576,7 +576,11 @@ const GenerateControls = (props) => {
 
     
     const onChangeForm = (e) => {
-        setCurrentForm(e.target.value)
+        const permittedCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/'];
+        const formArray = e.target.value.split('');
+        const newFormArray = formArray.filter((item) => permittedCharacters.includes(item));
+        const finalString = newFormArray.join('');
+        setCurrentForm(finalString)
     }
 
     // const srcText = padToShow !== 'input' ? 'SHOW SRC' : 'HIDE SRC';

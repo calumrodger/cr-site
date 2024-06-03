@@ -23,14 +23,6 @@ const NPlusX = (props) => {
     const wordListWee = masterWordListWee.split('\n');
     const pos = require('pos');
     const rhymingDictionaryLength = Object.keys(dictionary).length;
-
-    const dictArray = () => {
-        let array = [];
-        for (let i = 0; i < rhymingDictionaryLength; i++) {
-            array.push(dictionary["dog"]);
-        }
-        return array;
-    }
     
     function checkPunctuation(word) {
         const punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
@@ -136,10 +128,10 @@ const NPlusX = (props) => {
     }
 
     const rhymeCheck = (word1, word2) => {
-        const treatedWord = word1;
+        const treatedWord = word1.replace(/[^a-zA-Z]/g, '');
         const wordInDictionary = checkWordIsInRhymeDictionary(treatedWord);
         if (!wordInDictionary) {
-            onSetStatusMessage('word not in dictionary');
+            onSetStatusMessage('word ' + word1 + ' not in dictionary');
             return null;
         } else {
         const wordOnePronArray = dictionary[treatedWord]?.split(' ');
@@ -229,7 +221,7 @@ const NPlusX = (props) => {
                 finalWord = randomWord;
             }
             if (rhymeCheck(word, randomWord) === null) {
-                return '';
+                return word;
             }
         }
         return finalWord;

@@ -6,7 +6,6 @@ const PopulateWordBank = (props) => {
     const {onPopulateWordBank, onOpenWordBankEdit, onOpenWordBankAdd, allWordLists, selectedWordList, onSetSelectedWordList} = props;
 
     const [quant, setQuant] = useState(10);
-    const [currentWordList, setCurrentWordList] = useState(selectedWordList.name);
     const [populateType, setPopulateType] = useState('list');
     const [loading, setLoading] = useState(false);
     const [llmOutput, setLlmOutput] = useState('');
@@ -23,9 +22,6 @@ const PopulateWordBank = (props) => {
     
     All the words should be lower case, unless they are proper nouns. Do not include anything else in your response.`;
 
-    useEffect(() => {
-        setCurrentWordList(selectedWordList.name);
-    }, [selectedWordList])
     
     const onChangeQuant = (e) => {
         setQuant(e.target.value);
@@ -75,7 +71,6 @@ const PopulateWordBank = (props) => {
     }
 
     const handleSelectChange = (e) => {
-        setCurrentWordList(e.target.value);
         onSetSelectedWordList(e.target.value)
     }
 
