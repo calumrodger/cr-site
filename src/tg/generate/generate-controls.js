@@ -90,7 +90,7 @@ const GenerateControls = (props) => {
                 console.log('while more')
                 let gramStringArray = theNGram[0].split(' ');
                 gramStringArray.pop();
-                theNGram[0] = gramStringArray.join(' ');
+                theNGram = [gramStringArray.join(' ')];
             }
             let newRandomNGram = getRandomNGram(text, nGrams);
             theNGram = newRandomNGram;
@@ -104,17 +104,19 @@ const GenerateControls = (props) => {
         let theNGram = randomNGram;
         while (getStress(theNGram[0]) !== form) {
             while (getStress(theNGram[0]) < form) {
+                console.log('while less')
                 let theNewNGram = addNGramToNGram(theNGram, nGrams);
                 theNGram = theNewNGram;
             }
             // trim the excess words if poss
             while (getStress(theNGram[0]) > form) {
+                console.log('while more')
                 let gramStringArray = theNGram[0].split(' ');
                 gramStringArray.pop();
-                theNGram[0] = gramStringArray.join(' ');
+                theNGram = [gramStringArray.join(' ')];
             }
-        let newRandomNGram = getRandomNGram(text, nGrams);
-        theNGram = newRandomNGram;
+            let newRandomNGram = getRandomNGram(text, nGrams);
+            theNGram = newRandomNGram;
         }  
         console.log(theNGram)
         return theNGram[0];
