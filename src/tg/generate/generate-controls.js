@@ -146,30 +146,32 @@ const GenerateControls = (props) => {
 
     const getOriginalPoemStress = (text, form) => {
         let currentIndex, line;
-        const poem = [];
+        let thePoem = [];
         const formArray = form.split("/").map(x => x && Number(x));
         let formIndex = 0;
         const stringArray = text.trim().split(/\s+/);
         const indexArray = [...Array(stringArray.length).keys()];
         const nextIndex = () => (currentIndex + 1) % stringArray.length;
         const initialize = () => {
+            thePoem = [];
+            formIndex = 0;
             currentIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
             line = stringArray[currentIndex];
         };
         initialize();
     
-        while (indexArray.length > 0 && poem.length < formArray.length) {
+        while (indexArray.length > 0 && thePoem.length < formArray.length) {
             currentIndex = nextIndex();
             if (getStress(line) < formArray[formIndex]) {
                 line = `${line} ${stringArray[currentIndex]}`;
             }
             if (getStress(line) === formArray[formIndex]) {
-                poem.push(line);
+                thePoem.push(line);
                 formIndex += 1;
                 currentIndex = nextIndex();
                 line = stringArray[currentIndex];
                 while (formArray[formIndex] === "") {
-                    poem.push("");
+                    thePoem.push("");
                     formIndex += 1;
                 }
             }
@@ -177,15 +179,15 @@ const GenerateControls = (props) => {
                 initialize();
             }
         }
-        if (poem.length === 0) {
+        if (thePoem.length === 0) {
             onSetStatusMessage("no poem found - try a bigger string or a different form");
         }
-        return poem;
+        return thePoem;
     };
 
     const getOriginalPoemSyllable = (text, form) => {
         let currentIndex, line;
-        const poem = [];
+        let thePoem = [];
         const formArray = form.split("/").map(x => x && Number(x));
         let formIndex = 0;
         const stringArray = text.trim().split(/\s+/);
@@ -193,23 +195,25 @@ const GenerateControls = (props) => {
         console.log(indexArray.length)
         const nextIndex = () => (currentIndex + 1) % stringArray.length;
         const initialize = () => {
+            thePoem = [];
+            formIndex = 0;
             currentIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
             line = stringArray[currentIndex];
         };
         initialize();
     
-        while (indexArray.length > 0 && poem.length < formArray.length) {
+        while (indexArray.length > 0 && thePoem.length < formArray.length) {
             currentIndex = nextIndex();
             if (syllable(line) < formArray[formIndex]) {
                 line = `${line} ${stringArray[currentIndex]}`;
             }
             if (syllable(line) === formArray[formIndex]) {
-                poem.push(line);
+                thePoem.push(line);
                 formIndex += 1;
                 currentIndex = nextIndex();
                 line = stringArray[currentIndex];
                 while (formArray[formIndex] === "") {
-                    poem.push("");
+                    thePoem.push("");
                     formIndex += 1;
                 }
             }
@@ -217,10 +221,10 @@ const GenerateControls = (props) => {
                 initialize();
             }
         }
-        if (poem.length === 0) {
+        if (thePoem.length === 0) {
             onSetStatusMessage("no poem found - try a bigger string or a different form");
         }
-        return poem;
+        return thePoem;
     };
 
     const getOriginalLineStress = (text, form) => getOriginalPoemStress(text, `${form}`)[0];

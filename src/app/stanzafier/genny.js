@@ -4,7 +4,7 @@ import classes from './genny.module.scss';
 import { useState, useEffect, useRef } from 'react';
 import { syllable } from 'syllable';
 // import { dictionary } from '../../../public/tg/cmu-stress-count-dictionary';
-import { dictionary } from 'cmu-pronouncing-dictionary';
+import { dictionary } from '../../../public/tg/cmu-stress-count-dictionary';
 
 // PRESETS
 import { emily } from '../../../public/tg/presets/emily';
@@ -308,12 +308,10 @@ const Genny = (props) => {
     setWordBeingEdited(e);
   }
 
-  const getStress = function (theString) {
-    const tinyWords = ['a', 'the', 'of', 'it', 'an', 'to', 'and', 'are', 'in', 'on', 'at', 'from', 'for', 'with', 'by', 'as', 'or', 'but', 'nor', 'so', 'yet', 'if', 'is', 'was', 'be', 'am', 'are', 'were', 'been', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'shall', 'would', 'should', 'can', 'could', 'may']
+  const getStress = function (theString) {// preprocessed stress dict
     if (theString) {
       const parts = theString.trim().split(/\s+/).map(part => part.replace(/[^\w']|_/g, ""));
-      const pronArray = parts.map(part => tinyWords.includes(part.toLowerCase()) ? "0" : dictionary[part]);
-      const stressArray = pronArray.map(pron => pron?.match(/[12]/g)?.length ? pron?.match(/[12]/g)?.length : pron === "0" ? 0 : 1);
+      const stressArray = parts.map(part => dictionary[part] ?? 1);
       return stressArray.reduce((p, c) => p + c, 0);
     }
     return 0;

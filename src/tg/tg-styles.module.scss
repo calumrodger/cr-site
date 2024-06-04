@@ -943,9 +943,10 @@ width: 6rem;
         .inputKey {
             display: flex;
             gap: .2rem;
+            width: 6rem;
 
             input {
-                width: 4rem;
+                max-width: 3.5rem;
             }
         }
     }

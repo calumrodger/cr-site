@@ -387,6 +387,7 @@ const NPlusX = (props) => {
             setLastClicked('rhyme');
         }
     }
+    
 
     return (
         <div className={classes.nplusxContainer}>
@@ -424,7 +425,7 @@ const NPlusX = (props) => {
                     
                 </div>
             </div>
-            <button onClick={handleReplaceClick} className={classes.button}>REPLACE</button>
+            <button onClick={handleReplaceClick} className={classes.button}>GO</button>
         </div>
         </div>
     )
