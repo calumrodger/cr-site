@@ -13,7 +13,17 @@ $disabledColour: #2E294E;
     padding: 3rem;
     background-color: $fillColourLight;
     color: $bgColour;
-    height: 100%;
+    // height: 100%;
+
+    a {
+        color: $highlightExtra;
+    }
+}
+
+.imageContainer {
+    margin: auto;
+    height: 100px;
+    width: 80%;
 }
 
 .panel {

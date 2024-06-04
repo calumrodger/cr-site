@@ -544,19 +544,19 @@ const GenerateControls = (props) => {
     }
 
     const submitSelection = (functionToPerform) => {
-        onSetStatusMessage('processing');
+        // onSetStatusMessage('processing');
         const thePoem = functionToPerform(currentPreset.text, currentForm);
         const formattedPoem = formatPoem(thePoem, currentForm);
         onUpdate(formattedPoem);
-        onSetStatusMessage('success!');
+        // onSetStatusMessage('success!');
     }
 
     const submitSelectionWithSansBreaks = (functionToPerform) => {
-        onSetStatusMessage('processing');
+        // onSetStatusMessage('processing');
         const thePoem = functionToPerform(currentPreset.text, getFormArraySansBreaks(currentForm));
         const formattedPoem = formatPoem(thePoem, currentForm);
         onUpdate(formattedPoem);
-        onSetStatusMessage('success!');
+        // onSetStatusMessage('success!');
     }
     
     const onFormSubmit = () => {

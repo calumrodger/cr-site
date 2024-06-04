@@ -1294,8 +1294,11 @@ const Genny = (props) => {
               <PoemPad onShufflePoem={onShufflePoem} baseFont={baseFont} baseFontSize={baseFontSize} onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
             </div>
             <div className={classes.poemPadStatusSection}>
+            <BaseFont baseFont={baseFont} baseFontSize={baseFontSize} onSetBaseFontSize={onSetBaseFontSize} onSelectFont={onSelectFont}/>
               <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
-              <BaseFont baseFont={baseFont} baseFontSize={baseFontSize} onSetBaseFontSize={onSetBaseFontSize} onSelectFont={onSelectFont}/>
+              <PoemLength poem={poem}/>
+              
+            
             </div>
             </>
           }
