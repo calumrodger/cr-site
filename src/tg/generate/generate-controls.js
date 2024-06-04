@@ -9,6 +9,7 @@ const GenerateControls = (props) => {
 
     const { onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
     const [currentForm, setCurrentForm] = useState(form);
+    const [loading, setLoading] = useState(false);
     
     const getFormArray = (form) => {
         const splitForm = form.split('/').map((item) => parseInt(item));
@@ -283,7 +284,7 @@ const GenerateControls = (props) => {
     //     return newGramObject;
     // }
 
-    const addNGramToNGramForIndex = (nGram, nGrams, text) => {
+    const addNGramToNGramForIndex = (nGram, nGrams) => {
         // console.log(nGram)
         const nGramsArray = Object.entries(nGrams);
         const nGramsLength = nGramsArray.length;
@@ -408,6 +409,9 @@ const GenerateControls = (props) => {
                 randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
                 randomNGram = Object.entries(nGrams)[randomIndex];
                 nGram = getNGramLineStressForIndex(nGrams, formSum, randomNGram);
+            }
+            if (nGram === false) {
+                return;
             }
             console.log(nGram, getStress(nGram))
             stringArray = nGram.trim().split(/\s+/);
@@ -535,40 +539,56 @@ const GenerateControls = (props) => {
         return theThing;
     }
 
+    const submitSelection = (functionToPerform) => {
+        onSetStatusMessage('processing');
+        const thePoem = functionToPerform(currentPreset.text, currentForm);
+        const formattedPoem = formatPoem(thePoem, currentForm);
+        onUpdate(formattedPoem);
+        onSetStatusMessage('success!');
+    }
+
+    const submitSelectionWithSansBreaks = (functionToPerform) => {
+        onSetStatusMessage('processing');
+        const thePoem = functionToPerform(currentPreset.text, getFormArraySansBreaks(currentForm));
+        const formattedPoem = formatPoem(thePoem, currentForm);
+        onUpdate(formattedPoem);
+        onSetStatusMessage('success!');
+    }
     
     const onFormSubmit = () => {
         if (formStyle === 'syllable') {
             if (genType === 'stanza' && nLevel === "10") {
-                onUpdate(formatPoem(getOriginalPoemSyllable(currentPreset.text, currentForm), currentForm));
+                submitSelection(getOriginalPoemSyllable);
             }
             if (genType === 'line' && nLevel === "10") {
-                onUpdate(formatPoem(getRandomLinePoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getRandomLinePoemSyllable);
             }
             if (nLevel === "1") {
-                onUpdate(formatPoem(getRandomWordPoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getRandomWordPoemSyllable);
             }
             if (genType === 'stanza' && nLevel !== "10" && nLevel !== "1") {
-                onUpdate(formatPoem(getNGramPoemSyllableStanza(currentPreset.text, currentForm), currentForm));
+                submitSelection(getNGramPoemSyllableStanza);
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "1") {
-                onUpdate(formatPoem(getNGramPoemSyllableLine(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getNGramPoemSyllableLine);
             }
         }
         if (formStyle === 'stress') {
             if (genType === 'stanza' && nLevel === "10") {
-                onUpdate(formatPoem(getOriginalPoemStress(currentPreset.text, currentForm), currentForm));
+                submitSelection(getOriginalPoemStress);
             }
             if (genType === 'line' && nLevel === "10") {
-                onUpdate(formatPoem(getRandomLinePoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getRandomLinePoemStress);
             }
             if (nLevel === "1") {
-                onUpdate(formatPoem(getRandomWordPoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getRandomWordPoemStress);
             }
             if (genType === 'stanza' && nLevel !== "10" && nLevel !== "1") {
-                onUpdate(formatPoem(getNGramPoemStressStanza(currentPreset.text, currentForm), currentForm));
+                onSetStatusMessage('processing');
+                submitSelection(getNGramPoemStressStanza);
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "1") {
-                onUpdate(formatPoem(getNGramPoemStressLine(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getNGramPoemStressLine);
             }
         }
  
