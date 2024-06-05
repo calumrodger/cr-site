@@ -540,33 +540,22 @@ const Genny = (props) => {
 
   const onPopulateWordBank = (words, quant) => {
 
-    let finalArray = [];
+    let currentWordBankWords = wordBank.map(item => item.text);
 
-    // const words1minus2 = words1.filter(x => !words2.includes(x));
-    // let i = 0;
-    // while (i < numWordsToAdd) {
-    //   const randomIndex = Math.floor(words1minus2.length * Math.random());
-    //   words2.push(words1minus2.splice(randomIndex, 1)[0]);
-    //   i += 1;
-    // }
-    let currentWordBank = wordBank.map(item => item.text);
-    if (words.length < quant) {
-      let checkIfAlreadyThere = words.filter(element => currentWordBank.includes(element));
-      quant = words.length - checkIfAlreadyThere.length;
+    const words1minus2 = words.filter(x => !currentWordBankWords.includes(x));
+    let i = 0;
+    while (i < quant) {
+      const randomIndex = Math.floor(words1minus2.length * Math.random());
+      currentWordBankWords.push(words1minus2.splice(randomIndex, 1)[0]);
+      i += 1;
     }
 
-    let newArray =  words.sort(() => 0.5 - Math.random());
-    let selected = newArray.slice(0, quant);
-    let intersection = newArray.filter(element => currentWordBank.includes(element));
-    let filteredArray = selected.filter(element => !intersection.includes(element));
-    finalArray = [...finalArray, ...filteredArray];
-
-    let formattedArray = finalArray.map((item, i) => {
+    let formattedArray = currentWordBankWords.map((item, i) => {
       return { id: i, text: item, selected: false }
     });
 
-    let newWordBank = [...formattedArray, ...wordBank];
-    setWordBank(newWordBank);
+    // let newWordBank = [...formattedArray, ...wordBank];
+    setWordBank(formattedArray);
   }
 
   const onChangeInjectSetting = (e) => {
