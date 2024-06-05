@@ -12,6 +12,9 @@ import { flatland } from '../../../public/tg/presets/flatland';
 import { stcrsvp } from 'public/tg/presets/stc';
 import { opiumEater } from 'public/tg/presets/opium-eater';
 import { shake } from '../../../public/tg/presets/shake';
+import { burns } from '../../../public/tg/presets/burns';
+import { gertrude } from '../../../public/tg/presets/gertrude';
+import { grass } from '../../../public/tg/presets/grass';
 
 // WORD LISTS
 import { wordBankDefaultText, gptBirdArray, prepositions, adjectives } from '../../../public/tg/word-lists';
@@ -135,7 +138,7 @@ const Genny = (props) => {
   const [wordBank, setWordBank] = useState(wordBankDefaultText);
   const [allWordLists, setAllWordLists] = useState([adjectives, gptBirdArray, prepositions]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater, shake])
+  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater, shake, burns, gertrude, grass])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
   const [statusMessage, setStatusMessage] = useState('welcome in genny')

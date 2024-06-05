@@ -458,7 +458,7 @@ const GenerateControls = (props) => {
                 submitSelectionWithSansBreaks(getRandomWordPoemStress);
             }
             if (genType === 'stanza' && nLevel !== "10" && nLevel !== "1") {
-                onSetStatusMessage('processing');
+                // onSetStatusMessage('processing');
                 submitSelection(getNGramPoemStressStanza);
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "1") {
