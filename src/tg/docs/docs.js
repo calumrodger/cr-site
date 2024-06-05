@@ -15,8 +15,9 @@ const Docs = (props) => {
     return (
         <>
         <div className={classes.container}>
-            <h1>Stanzafier</h1>
-            <p><b>NOTE: Do NOT exit this page via your browser's back button - you will lose all your work! Use the back button on the panel below provided.</b></p>
+            <h1 style={{fontStyle: "italic", marginBottom: ".2rem"}}>Stanzafier0.9</h1>
+            <p style={{fontSize: ".8rem"}}>poem creation and remix tool</p>
+            <p><b>NOTE: Do NOT exit this page via your browser&apos;s back button - you will lose all your work! Use the back button on the panel below provided.</b></p>
             <p>Welcome to Stanzafier. The Stanzafier interface is arranged in various sections. Refer to the diagram below and follow the links to find detailed documentation on each section. </p>
             <p>The default screen is the home screen or STANZA PAD SCREEN.</p>
             <Image src={stanzaPadImg.src} height={stanzaPadImg.height / 2} width={stanzaPadImg.width /2}/>

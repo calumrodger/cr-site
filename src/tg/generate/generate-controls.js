@@ -1,5 +1,5 @@
 import classes from '../tg-styles.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { syllable } from 'syllable';
 import { buildNGrams } from 'word-ngrams';
 import OnSaveStanzaToPad from '@tg/stanza-pad/save-stanza-to-pad';
@@ -7,7 +7,7 @@ import { get } from 'http';
 
 const GenerateControls = (props) => {
 
-    const { onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
+    const { stanza, onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
     const [currentForm, setCurrentForm] = useState(form);
     const [loading, setLoading] = useState(false);
     
@@ -280,6 +280,7 @@ const GenerateControls = (props) => {
         if (poem.length === 0) {
             onSetStatusMessage("no poem found - try a bigger string or a different form");
         }
+        onSetStatusMessage('success!');
         return poem;
     };
 
@@ -467,6 +468,10 @@ const GenerateControls = (props) => {
         }
  
     }
+
+    // useEffect(() => {
+    //     onSetStatusMessage('success');
+    // }, [stanza])
 
     
     const onChangeForm = (e) => {
