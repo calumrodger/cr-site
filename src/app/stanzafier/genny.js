@@ -11,6 +11,7 @@ import { emily } from '../../../public/tg/presets/emily';
 import { flatland } from '../../../public/tg/presets/flatland';
 import { stcrsvp } from 'public/tg/presets/stc';
 import { opiumEater } from 'public/tg/presets/opium-eater';
+import { shake } from '../../../public/tg/presets/shake';
 
 // WORD LISTS
 import { wordBankDefaultText, gptBirdArray, prepositions, adjectives } from '../../../public/tg/word-lists';
@@ -134,7 +135,7 @@ const Genny = (props) => {
   const [wordBank, setWordBank] = useState(wordBankDefaultText);
   const [allWordLists, setAllWordLists] = useState([adjectives, gptBirdArray, prepositions]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater])
+  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater, shake])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
   const [statusMessage, setStatusMessage] = useState('welcome in genny')
@@ -1322,13 +1323,13 @@ const Genny = (props) => {
               <FormResetButton onResetTypography={onResetTypography} />
               </div>
               < hr className={classes.line} />
-              <span className={classes.sectionSubheading}>N + X</span>
+              <span className={classes.sectionSubheading}>N+X REPLACEMENT</span>
               <NPlusX getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
               <hr className={classes.line} />
               <span className={classes.sectionSubheading}>API INJECTION</span>
               <APIFX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/>
               <hr className={classes.line} />
-              <span className={classes.sectionSubheading}>LLM </span>
+              <span className={classes.sectionSubheading}>LLM TRANSLATION</span>
               <LLMFX onSetStatusMessage={onSetStatusMessage} onUpdate={onUpdate} stanza={stanza} treatString={treatString}/>
               <hr className={classes.line} />
               <Title />

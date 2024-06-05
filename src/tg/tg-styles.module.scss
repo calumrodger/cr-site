@@ -19,7 +19,7 @@ $disabledColour: #2E294E;
     border-radius: .2rem;
 
     &:hover {
-        background-color: $highlightColour;
+        background-color: $highlightExtra;
         color: $bgColour;
     }
 
@@ -52,7 +52,6 @@ $disabledColour: #2E294E;
 }
 
 .textInput {
-
         appearance: none;
         background: $outlinesColour;
         border: $fillColourLight 1px solid;
