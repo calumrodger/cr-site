@@ -6,6 +6,8 @@ import outputImg from '../../../public/tg/docs-images/sample-output.png'
 import Image from 'next/image';
 import Link from 'next/link';
 
+import Title from '@tg/global/title';
+
 const Docs = (props) => {
 
     const { onSetDocsMode } = props;
@@ -210,7 +212,8 @@ const Docs = (props) => {
             </ul>
         </div>
         <div className={classes.panel}>
-            <button className={classes.button} onClick={onSetDocsMode}>X</button>
+            <Title onSetDocsMode={onSetDocsMode}/>
+            <button className={classes.button} onClick={onSetDocsMode}>back</button>
         </div>
         </>
     )
