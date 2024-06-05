@@ -135,7 +135,7 @@ $disabledColour: #2E294E;
 }
 
 .inputPad {
-    height: 85%;
+    height: 480px;
     width: 100%;
 }
 
@@ -331,7 +331,7 @@ width: 6rem;
 
 // POEM PAD SECTION
 .poemPadContainer {
-    height: 70%;
+    height: 370px;
 }
 
 .saveToTxtButton {
@@ -579,7 +579,8 @@ width: 6rem;
 }
 
 .editField {
-    height: 70%;
+    height: 430px;
+    width: 190px;
 }
 
 .populateContainer {
