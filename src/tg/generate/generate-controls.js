@@ -130,7 +130,7 @@ const GenerateControls = (props) => {
             }
         }
         if (thePoem.length === 0) {
-            onSetStatusMessage("no poem found - try a bigger string or a different form");
+            onSetStatusMessage("no poem found - try a bigger string or a different form", 3000, 'red');
         }
         return thePoem;
     };
@@ -171,7 +171,7 @@ const GenerateControls = (props) => {
             }
         }
         if (thePoem.length === 0) {
-            onSetStatusMessage("no poem found - try a bigger string or a different form");
+            onSetStatusMessage("no poem found - try a bigger string or a different form", 3000, 'red');
         }
         return thePoem;
     };
@@ -278,9 +278,8 @@ const GenerateControls = (props) => {
             }
         }
         if (poem.length === 0) {
-            onSetStatusMessage("no poem found - try a bigger string or a different form");
+            onSetStatusMessage("no poem found - try a bigger string or a different form", 3000, 'red');
         }
-        onSetStatusMessage('success!');
         return poem;
     };
 
@@ -331,7 +330,7 @@ const GenerateControls = (props) => {
             }
         }
         if (poem.length === 0) {
-            onSetStatusMessage("no poem found - try a bigger string or a different form");
+            onSetStatusMessage("no poem found - try a bigger string or a different form", 3000, 'red');
         }
         return poem;
     };
@@ -415,19 +414,23 @@ const GenerateControls = (props) => {
     }
 
     const submitSelection = (functionToPerform) => {
-        // onSetStatusMessage('processing');
+        setLoading(true)
+        // onSetStatusMessage('processing', 10000, 'yellow');
         const thePoem = functionToPerform(currentPreset.text, currentForm);
         const formattedPoem = formatPoem(thePoem, currentForm);
         onUpdate(formattedPoem);
-        // onSetStatusMessage('success!');
+        setLoading(false)
+        onSetStatusMessage('success!', 1000, 'green');
     }
 
     const submitSelectionWithSansBreaks = (functionToPerform) => {
-        // onSetStatusMessage('processing');
+        setLoading(true)
+        // onSetStatusMessage('processing', 10000, 'yellow');
         const thePoem = functionToPerform(currentPreset.text, getFormArraySansBreaks(currentForm));
         const formattedPoem = formatPoem(thePoem, currentForm);
         onUpdate(formattedPoem);
-        // onSetStatusMessage('success!');
+        setLoading(false)
+        onSetStatusMessage('success!', 1000, 'green');
     }
     
     const onFormSubmit = () => {
@@ -469,10 +472,6 @@ const GenerateControls = (props) => {
  
     }
 
-    // useEffect(() => {
-    //     onSetStatusMessage('success');
-    // }, [stanza])
-
     
     const onChangeForm = (e) => {
         const permittedCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/'];
@@ -481,9 +480,6 @@ const GenerateControls = (props) => {
         const finalString = newFormArray.join('');
         setCurrentForm(finalString)
     }
-
-    // const srcText = padToShow !== 'input' ? 'SHOW SRC' : 'HIDE SRC';
-    const buttonText = formStyle === 'syllable' ? 'Switch to Stress' : 'Switch to Syllable';
 
     const [reseedCheckbox, setReseedCheckbox] = useState('stanza');
     const [formStyleCheckbox, setFormStyleCheckbox] = useState('syllable');

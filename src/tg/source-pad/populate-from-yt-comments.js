@@ -24,7 +24,7 @@ const PopulateFromYouTubeComments = (props) => {
         }
         const comments = await getYouTubeComments(video_id);
         if (comments === 'error') {
-            onSetStatusMessage('failed :( try another url');
+            onSetStatusMessage('failed :( try another url', 3000, 'red');
             return;
         }
         setCommentsData(comments);

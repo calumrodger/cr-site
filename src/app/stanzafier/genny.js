@@ -141,7 +141,7 @@ const Genny = (props) => {
   const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater, shake, burns, gertrude, grass])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
-  const [statusMessage, setStatusMessage] = useState('welcome in genny')
+  const [statusMessage, setStatusMessage] = useState(['welcome in genny', 0, 'white'])
 
   // Settings
   const [form, setForm] = useState('5/7/5');
@@ -1066,8 +1066,8 @@ const Genny = (props) => {
     setSelectedWordList({id: id, name: 'new list', words: words});
   }
 
-  const onSetStatusMessage = (message) => {
-    setStatusMessage(message);
+  const onSetStatusMessage = (message, time, fx) => {
+    setStatusMessage([message, time, fx]);
   }
 
   function shuffle(array) {

@@ -149,7 +149,7 @@ const Docs = (props) => {
             <p>This FX panel uses LLM technology to provide various translations of your stanza.</p>
             <ul>
                 <li><b>EMOJIFY</b> replaces all selected words with their ‘equivalent’ emojis.</li>
-                <li><b>INTENSIFY</b> adds a number of ‘intensifying’ words BEFORE each selected word.</li>
+                <li><b>SLANGIFY</b> replaces all selected words with slang ‘equivalents’.</li>
                 <li><b>NONSENSIFY</b> replaces all selected words with non-existent ‘nonsense’ words.</li>
                 <li><b>global remix</b> allows you to remix your entire stanza by entering a prompt to rewrite by – for example, ‘allen ginsberg’, ‘angry dog’, ‘pirate’. Enter a prompt and click <b>GO</b>. Note that a) clicking <b>GO</b> will delete your entire stanza, so be sure to save your work beforehand, and b) attempting to remix longer stanzas may result in the remix failing.</li>
             </ul>

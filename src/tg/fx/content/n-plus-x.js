@@ -111,7 +111,7 @@ const NPlusX = (props) => {
         const treatedWord = word1.replace(/[^a-zA-Z]/g, '').toLowerCase();
         const wordInDictionary = checkWordIsInRhymeDictionary(treatedWord);
         if (!wordInDictionary) {
-            onSetStatusMessage('word ' + word1 + ' not in dictionary');
+            onSetStatusMessage('word ' + word1 + ' not in dictionary', 2000, 'red');
             return null;
         } else {
         const wordOnePronArray = dictionary[treatedWord]?.split(' ');
@@ -246,7 +246,7 @@ const NPlusX = (props) => {
             if (rhyme && measure && !wordClass) {
                 for (let rm = 0; rm < rhymingDictionaryLength; rm++) {
                     if (rm === rhymingDictionaryLength - 1) {
-                        alert('no match found');
+                        onSetStatusMessage('no match found', 3000, 'red');
                         return whatToGet[i].text;
                     }
                     let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
@@ -262,7 +262,7 @@ const NPlusX = (props) => {
             if (rhyme && wordClass && !measure) {
                 for (let rc = 0; rc < rhymingDictionaryLength; rc++) {
                     if (rc === rhymingDictionaryLength - 1) {
-                        alert('no match found')
+                        onSetStatusMessage('no match found', 3000, 'red');
                         return whatToGet[i].text;
                     }
                     let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
@@ -278,7 +278,7 @@ const NPlusX = (props) => {
             if (measure && wordClass && !rhyme) {
                 for (let mc = 0; mc < wordList.length; mc++) {
                     if (mc === wordList.length - 1) {
-                        alert('no match found');
+                        onSetStatusMessage('no match found', 3000, 'red');
                         return whatToGet[i].text;
                     }
                     let matchedWord = findWordOfSameClass(whatToGet[i].text, wordList);
@@ -294,7 +294,7 @@ const NPlusX = (props) => {
             if (measure && wordClass && rhyme) {
                 for (let mcr = 0; mcr < rhymingDictionaryLength; mcr++) {
                     if (mcr === rhymingDictionaryLength - 1) {
-                        alert('no match found');
+                        onSetStatusMessage('no match found', 3000, 'red');
                         return whatToGet[i].text;
                     }
                     let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
