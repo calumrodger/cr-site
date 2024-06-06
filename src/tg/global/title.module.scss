@@ -17,6 +17,10 @@ $highlightExtra: #2274A5;
     color: $outlinesColour;
     display: flex;
 
+    &.onMainScreen {
+        padding-top: .4rem;
+    }
+
     .logo {
         margin-left: .4rem;
     }

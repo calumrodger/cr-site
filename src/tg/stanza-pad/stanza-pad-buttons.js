@@ -84,7 +84,19 @@ const StanzaPadButtons = (props) => {
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={onDeleteSelectedWords}>delete</button>
             </div>
             <div>
+            <button onClick={shiftWordsUp} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move left</button>
+            </div>
+            <div>
+            <button onClick={shiftWordsDown} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move right</button>
+            </div>
+            <div>
+            <button className={`${classes.button} ${!moreThanOneSelected || wordEditMode ? classes.disabled : null}`} onClick={onShuffleStanza}>shuffle</button>
+            </div>
+            <div>
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={onDuplicateSelectedWords}>duplicate</button>
+            </div>
+            <div>
+            <button onClick={onClickEditWord} className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`}>edit word</button>
             </div>
             <div>
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={onSaveToWordBank}>save to bank</button>
@@ -95,18 +107,6 @@ const StanzaPadButtons = (props) => {
             <div>
             <button onClick={onClickAddPunctReverse} className={`${classes.button} ${classes.backButton} ${noneSelected || wordEditMode ? classes.disabled : null}`}><span>{backText}</span></button>
             <button onClick={onClickAddPunct} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>add punct</button>
-            </div>
-            <div>
-            <button className={`${classes.button} ${!moreThanOneSelected || wordEditMode ? classes.disabled : null}`} onClick={onShuffleStanza}>shuffle</button>
-            </div>
-            <div>
-            <button onClick={onClickEditWord} className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`}>edit word</button>
-            </div>
-            <div>
-            <button onClick={shiftWordsUp} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move left</button>
-            </div>
-            <div>
-            <button onClick={shiftWordsDown} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move right</button>
             </div>
             <div>
             <button onClick={addLineBreakAfterSelected} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>line break</button>

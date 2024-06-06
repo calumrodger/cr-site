@@ -8,7 +8,7 @@ $highlightExtra: #2274A5;
     margin: auto;
     height: 500px !important;
     width: 1250px !important;
-    background-color: #6582a5;
+    background-color: gray;
     position: absolute;
     top:  50%;
     left: 50%;
@@ -16,12 +16,18 @@ $highlightExtra: #2274A5;
     // width: 100%;
     transform: translate(-50%,-50%);
     font-family: var(--inter);
+
+    hr {
+        margin-top: .5rem;
+        margin-bottom: .3rem;
+        background-color: $fillColourLight;
+    }
 }
 
 .background {
     // height: 100%;
     // width: 100%;
-    background-color: #6582a5;
+    background-color: gray;
     height: 100%;
 }
 
@@ -52,7 +58,11 @@ $highlightExtra: #2274A5;
 
 .poemPadStatusSection {
     grid-area: composeSection;
-    margin-left: 2rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
 }
 
 .button {
@@ -134,10 +144,34 @@ $highlightExtra: #2274A5;
     // align-items: baseline;
 }
 
+
+.sectionTitle {
+    background-color: $fillColourLight;
+    border: 1px solid $highlightExtra;
+    color: $bgColour;
+    padding: .1rem;
+    border-radius: .5rem;
+}
+
+.sectionSubheading {
+    font-size: .9rem;
+    // background-color: $fillColourLight;
+    // border: 1px solid $highlightExtra;
+    color: $fillColourLight;
+    // padding: .1rem;
+    // border-radius: .5rem;
+}
 .fxSection {
     // border: 1px solid $bgColour;
     grid-area: fxSection;
     padding: .5rem;
+
+    
+.fxHeadingContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
     .fxTypographyGrid {
         margin-top: .4rem;

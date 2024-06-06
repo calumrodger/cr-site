@@ -1,13 +1,15 @@
 import classes from '../tg-styles.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { syllable } from 'syllable';
 import { buildNGrams } from 'word-ngrams';
 import OnSaveStanzaToPad from '@tg/stanza-pad/save-stanza-to-pad';
+import { get } from 'http';
 
 const GenerateControls = (props) => {
 
-    const { onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
+    const { stanza, onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
     const [currentForm, setCurrentForm] = useState(form);
+    const [loading, setLoading] = useState(false);
     
     const getFormArray = (form) => {
         const splitForm = form.split('/').map((item) => parseInt(item));
@@ -94,41 +96,84 @@ const GenerateControls = (props) => {
 
     const getOriginalPoemStress = (text, form) => {
         let currentIndex, line;
-        const poem = [];
-        const formArray = form.split("/").map(x => x && Number(x));
+        let thePoem = [];
+        const formArray = form.split("/").map(x => x && Number(x)).filter((item) => item !== "");
         let formIndex = 0;
         const stringArray = text.trim().split(/\s+/);
         const indexArray = [...Array(stringArray.length).keys()];
         const nextIndex = () => (currentIndex + 1) % stringArray.length;
         const initialize = () => {
+            thePoem = [];
+            formIndex = 0;
             currentIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
             line = stringArray[currentIndex];
         };
         initialize();
     
-        while (indexArray.length > 0 && poem.length < formArray.length) {
+        while (indexArray.length > 0 && thePoem.length < formArray.length) {
             currentIndex = nextIndex();
             if (getStress(line) < formArray[formIndex]) {
                 line = `${line} ${stringArray[currentIndex]}`;
             }
             if (getStress(line) === formArray[formIndex]) {
-                poem.push(line);
+                thePoem.push(line);
                 formIndex += 1;
                 currentIndex = nextIndex();
                 line = stringArray[currentIndex];
-                while (formArray[formIndex] === "") {
-                    poem.push("");
-                    formIndex += 1;
-                }
+                // while (formArray[formIndex] === "") {
+                //     thePoem.push("");
+                //     formIndex += 1;
+                // }
             }
             if (getStress(line) > formArray[formIndex]) {
                 initialize();
             }
         }
-        if (poem.length === 0) {
-            onSetStatusMessage("no poem found - try a bigger string or a different form");
+        if (thePoem.length === 0) {
+            onSetStatusMessage("no poem found - try a bigger string or a different form", 3000, 'red');
         }
-        return poem;
+        return thePoem;
+    };
+
+    const getOriginalPoemSyllable = (text, form) => {
+        let currentIndex, line;
+        let thePoem = [];
+        const formArray = form.split("/").map(x => x && Number(x)).filter((item) => item !== "");
+        let formIndex = 0;
+        const stringArray = text.trim().split(/\s+/);
+        const indexArray = [...Array(stringArray.length).keys()];
+        const nextIndex = () => (currentIndex + 1) % stringArray.length;
+        const initialize = () => {
+            thePoem = [];
+            formIndex = 0;
+            currentIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+            line = stringArray[currentIndex];
+        };
+        initialize();
+    
+        while (indexArray.length > 0 && thePoem.length < formArray.length) {
+            currentIndex = nextIndex();
+            if (syllable(line) < formArray[formIndex]) {
+                line = `${line} ${stringArray[currentIndex]}`;
+            }
+            if (syllable(line) === formArray[formIndex]) {
+                thePoem.push(line);
+                formIndex += 1;
+                currentIndex = nextIndex();
+                line = stringArray[currentIndex];
+                // while (formArray[formIndex] === "") {
+                //     thePoem.push("");
+                //     formIndex += 1;
+                // }
+            }
+            if (syllable(line) > formArray[formIndex]) {
+                initialize();
+            }
+        }
+        if (thePoem.length === 0) {
+            onSetStatusMessage("no poem found - try a bigger string or a different form", 3000, 'red');
+        }
+        return thePoem;
     };
 
     const getOriginalLineStress = (text, form) => getOriginalPoemStress(text, `${form}`)[0];
@@ -137,19 +182,21 @@ const GenerateControls = (props) => {
     const getOriginalLineSyllable = (text, form) => getOriginalPoemSyllable(text, `${form}`)[0];
     // returns undefined if no match found
 
+    const getNGramLineSyllable = (text, form) => getNGramPoemSyllableStanza(text, `${form}`)[0];
+
+    const getNGramLineStress = (text, form) => getNGramPoemStressStanza(text, `${form}`)[0];
+
     const getRandomNGram = (text, nGrams) => {
         const randomIndex = Math.floor(Math.random() * Object.entries(nGrams).length);
         const randomNGram = Object.entries(nGrams)[randomIndex];
         return randomNGram;
     }
 
-    const generateNGrams = (text, nLevel) => {
-        return buildNGrams(text, +nLevel, {caseSensitive: true, includePunctuation: true});
+    const generateNGrams = (text, currentNLevel) => {
+        return buildNGrams(text, +currentNLevel, {caseSensitive: true, includePunctuation: true});
     }
 
-    // Returns n-gram object [string, {n-gram-pivot: frequency, ...}]
-    const addNGramToNGram = (nGram, nGrams, text) => {
-        // console.log(nGram)
+    const addNGramToNGramForIndex = (nGram, nGrams) => {
         const nGramsArray = Object.entries(nGrams);
         const nGramsLength = nGramsArray.length;
         const optionsArray = Object.entries(nGram[1]);
@@ -161,9 +208,9 @@ const GenerateControls = (props) => {
             }
         }
         const stringSelection = stringOptions[Math.floor(Math.random() * stringOptions.length)];
-        // console.log(stringSelection)
         if (stringSelection === "!" || stringSelection === "?" || stringSelection === "." || stringSelection === ";") {
-            let newRandomNGram = getRandomNGram(text, nGrams);
+            const randomIndex = Math.floor(Math.random() * Object.entries(nGrams).length);
+            let newRandomNGram = Object.entries(nGrams)[randomIndex];
             const newSentenceGramString = nGram[0] + stringSelection + ' ' + newRandomNGram[0];
             const newSentenceGramObject = [newSentenceGramString, newRandomNGram[1]];
             return newSentenceGramObject;
@@ -176,40 +223,34 @@ const GenerateControls = (props) => {
             }
         }
         if (newNGramOptions.length === 0) {
-            let newRandomNGram = getRandomNGram(text, nGrams);
-            const newSentenceGramString = nGram[0] + ' ' + stringSelection + ' ' + newRandomNGram[0];
-            const newSentenceGramObject = [newSentenceGramString, newRandomNGram[1]];
-            return newSentenceGramObject;
+            return null;
         }
         const finalGramSelection = newNGramOptions[Math.floor(Math.random() * newNGramOptions.length)];
         const newGramString = nGram[0] + ' ' + finalGramSelection[0];
         const newGramObject = [newGramString, finalGramSelection[1]];
-        // console.log(newGramObject);
         return newGramObject;
     }
 
-    const getNGramPoemStressStanza = (text, form) => {
+    const getNGramPoemSyllableStanza = (text, form) => {
         const nGrams = generateNGrams(text, nLevel);
         const indexArray = [...Array(Object.entries(nGrams).length).keys()];
-        console.log(indexArray)
-        let line, nGram, stringArray, indexToSearchNGramsOn;
+        let line, nGram, stringArray;
         let currentIndex = 0;
         let poem = [];
-        const formArray = form.split("/").map(x => x && Number(x));
+        const formArray = form.split("/").map(x => x && Number(x)).filter((item) => item !== "");
         let formIndex = 0;
         let formSum = formArray.reduce((a, b) => a + b, 0);
         const nextIndex = () => (currentIndex + 1);
-        const initialize = () => {;
-            indexToSearchNGramsOn = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
-            console.log(indexToSearchNGramsOn)
-            nGram = getNGramLineStressWithIndex(text, formSum, indexToSearchNGramsOn);
-            console.log(nGram[0], getStress(nGram[0]))
-            stringArray = nGram[0].trim().split(/\s+/);
-            console.log(stringArray)
-            let indexesArray = nGram[1];
-            for (let i = 0; i < indexesArray.length; i++) {
-                indexArray.splice(indexArray.indexOf(indexesArray[i]), 1);
+        const initialize = () => {
+            let randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+            let randomNGram = Object.entries(nGrams)[randomIndex];
+            nGram = null;
+            while (nGram === null) {
+                randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+                randomNGram = Object.entries(nGrams)[randomIndex];
+                nGram = getNGramLineSyllableForIndex(nGrams, formSum, randomNGram);
             }
+            stringArray = nGram.trim().split(/\s+/);
             line = stringArray[0];
             currentIndex = 0;
             formIndex = 0;
@@ -218,9 +259,60 @@ const GenerateControls = (props) => {
         initialize();
     
         while ( indexArray.length > 0 &&  poem.length < formArray.length) {
-            console.log(line, getStress(line), formArray[formIndex])
             currentIndex = nextIndex();
-            console.log(currentIndex)
+            if (syllable(line) < formArray[formIndex]) {
+                line = `${line} ${stringArray[currentIndex]}`;
+            }
+            if (syllable(line) === formArray[formIndex]) {
+                poem.push(line);
+                formIndex += 1;
+                currentIndex = nextIndex();
+                line = stringArray[currentIndex];
+                // while (formArray[formIndex] === "") {
+                //     poem.push("");
+                //     formIndex += 1;
+                // }
+            }
+            if (syllable(line) > formArray[formIndex]) {
+                initialize();
+            }
+        }
+        if (poem.length === 0) {
+            onSetStatusMessage("no poem found - try a bigger string or a different form", 3000, 'red');
+        }
+        return poem;
+    };
+
+    const getNGramPoemStressStanza = (text, form) => {
+        const nGrams = generateNGrams(text, nLevel);
+        const indexArray = [...Array(Object.entries(nGrams).length).keys()];
+        console.log(indexArray)
+        let line, nGram, stringArray;
+        let currentIndex = 0;
+        let poem = [];
+        const formArray = form.split("/").map(x => x && Number(x)).filter((item) => item !== "");
+        let formIndex = 0;
+        let formSum = formArray.reduce((a, b) => a + b, 0);
+        const nextIndex = () => (currentIndex + 1);
+        const initialize = () => {
+            let randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+            let randomNGram = Object.entries(nGrams)[randomIndex];
+            nGram = null;
+            while (nGram === null) {
+                randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
+                randomNGram = Object.entries(nGrams)[randomIndex];
+                nGram = getNGramLineStressForIndex(nGrams, formSum, randomNGram);
+            }
+            stringArray = nGram.trim().split(/\s+/);
+            line = stringArray[0];
+            currentIndex = 0;
+            formIndex = 0;
+            poem = [];
+        };
+        initialize();
+    
+        while ( indexArray.length > 0 &&  poem.length < formArray.length) {
+            currentIndex = nextIndex();
             if (getStress(line) < formArray[formIndex]) {
                 line = `${line} ${stringArray[currentIndex]}`;
             }
@@ -229,35 +321,40 @@ const GenerateControls = (props) => {
                 formIndex += 1;
                 currentIndex = nextIndex();
                 line = stringArray[currentIndex];
-                while (formArray[formIndex] === "") {
-                    console.log('in this bit')
-                    poem.push("");
-                    formIndex += 1;
-                }
+                // while (formArray[formIndex] === "") {
+                //     poem.push("");
+                //     formIndex += 1;
+                // }
             }
             if (getStress(line) > formArray[formIndex]) {
                 console.log(line, getStress(line), formArray[formIndex])
                 console.log('init')
+                // break;
                 initialize();
             }
         }
         if (poem.length === 0) {
-            onSetStatusMessage("no poem found - try a bigger string or a different form");
+            onSetStatusMessage("no poem found - try a bigger string or a different form", 3000, 'red');
         }
-        console.log(poem)
         return poem;
     };
 
-    const getNGramLineStress = (text, form) => {
-        const nGrams = generateNGrams(text, nLevel);
-        const randomNGram = getRandomNGram(text, nGrams);
+    const getNGramLineSyllableForIndex = (nGrams, form, randomNGram) => {
         let theNGram = randomNGram;
-        while (getStress(theNGram[0]) < form) {
-            let theNewNGram = addNGramToNGram(theNGram, nGrams);
-            theNGram = theNewNGram;
+        if (theNGram && theNGram[0] !== null) {
+            while (syllable(theNGram[0]) < form) {
+                let theNewNGram = addNGramToNGramForIndex(theNGram, nGrams);
+                if (theNewNGram !== null) {
+                    theNGram = theNewNGram;
+                } else {
+                    return null;
+                }
+            }
+        } else {
+            return null;
         }
-        // trim the excess words if poss
-        while (getStress(theNGram[0]) > form) {
+        // trim the excess if poss 
+        while (syllable(theNGram[0]) > form) {
             let gramStringArray = theNGram[0].split(' ');
             gramStringArray.pop();
             theNGram[0] = gramStringArray.join(' ');
@@ -373,16 +470,133 @@ const GenerateControls = (props) => {
         return poem;
     };
 
-    const getNGramLineSyllable = (text, form) => {
+    const getOriginalLineStress = (text, form) => getOriginalPoemStress(text, `${form}`)[0];
+    // returns undefined if no match found
+
+    const getOriginalLineSyllable = (text, form) => getOriginalPoemSyllable(text, `${form}`)[0];
+    // returns undefined if no match found
+
+    const getRandomNGram = (text, nGrams) => {
+        const randomIndex = Math.floor(Math.random() * Object.entries(nGrams).length);
+        const randomNGram = Object.entries(nGrams)[randomIndex];
+        return randomNGram;
+    }
+
+    const generateNGrams = (text, nLevel) => {
+        return buildNGrams(text, +nLevel, {caseSensitive: true, includePunctuation: true});
+    }
+
+    // Returns n-gram object [string, {n-gram-pivot: frequency, ...}]
+    const addNGramToNGram = (nGram, nGrams, text) => {
+        // console.log(nGram)
+        const nGramsArray = Object.entries(nGrams);
+        const nGramsLength = nGramsArray.length;
+        const optionsArray = Object.entries(nGram[1]);
+        const stringOptions = [];
+        for (let i = 0; i < optionsArray.length; i++) {
+            let numberToPush = optionsArray[i][1];
+            for (let j = 0; j < numberToPush; j++) {
+                stringOptions.push(optionsArray[i][0]);
+            }
+        }
+        const stringSelection = stringOptions[Math.floor(Math.random() * stringOptions.length)];
+        // console.log(stringSelection)
+        if (stringSelection === "!" || stringSelection === "?" || stringSelection === "." || stringSelection === ";") {
+            let newRandomNGram = getRandomNGram(text, nGrams);
+            const newSentenceGramString = nGram[0] + stringSelection + ' ' + newRandomNGram[0];
+            const newSentenceGramObject = [newSentenceGramString, newRandomNGram[1]];
+            return newSentenceGramObject;
+        }
+        let newNGramOptions = [];
+        for (let i = 0; i < nGramsLength; i++) {
+            let stringArray = nGramsArray[i][0].split(' ');
+            if (stringArray[0] === stringSelection) {
+                newNGramOptions.push(nGramsArray[i]);
+            }
+        }
+        if (newNGramOptions.length === 0) {
+            let newRandomNGram = getRandomNGram(text, nGrams);
+            const newSentenceGramString = nGram[0] + ' ' + stringSelection + ' ' + newRandomNGram[0];
+            const newSentenceGramObject = [newSentenceGramString, newRandomNGram[1]];
+            return newSentenceGramObject;
+        }
+        const finalGramSelection = newNGramOptions[Math.floor(Math.random() * newNGramOptions.length)];
+        const newGramString = nGram[0] + ' ' + finalGramSelection[0];
+        const newGramObject = [newGramString, finalGramSelection[1]];
+        // console.log(newGramObject);
+        return newGramObject;
+    }
+
+    const getNGramPoemStressStanza = (text, form) => {
         const nGrams = generateNGrams(text, nLevel);
-        const randomNGram = getRandomNGram(text, nGrams);
+        const indexArray = [...Array(Object.entries(nGrams).length).keys()];
+        console.log(indexArray)
+        let line, nGram, stringArray;
+        let currentIndex = 0;
+        let poem = [];
+        const formArray = form.split("/").map(x => x && Number(x));
+        let formIndex = 0;
+        let formSum = formArray.reduce((a, b) => a + b, 0);
+        const nextIndex = () => (currentIndex + 1);
+        const initialize = () => {;
+            nGram = getNGramLineStress(text, formSum);
+            console.log(nGram, getStress(nGram))
+            stringArray = nGram.trim().split(/\s+/);
+            line = stringArray[0];
+            currentIndex = 0;
+            formIndex = 0;
+            poem = [];
+        };
+        initialize();
+    
+        while ( indexArray.length > 0 &&  poem.length < formArray.length) {
+            console.log(line, getStress(line), formArray[formIndex])
+            currentIndex = nextIndex();
+            console.log(currentIndex)
+            if (getStress(line) < formArray[formIndex]) {
+                line = `${line} ${stringArray[currentIndex]}`;
+            }
+            if (getStress(line) === formArray[formIndex]) {
+                poem.push(line);
+                formIndex += 1;
+                currentIndex = nextIndex();
+                line = stringArray[currentIndex];
+                while (formArray[formIndex] === "") {
+                    console.log('in this bit')
+                    poem.push("");
+                    formIndex += 1;
+                }
+            }
+            if (getStress(line) > formArray[formIndex]) {
+                console.log(line, getStress(line), formArray[formIndex])
+                console.log('init')
+                // break;
+                initialize();
+            }
+        }
+        if (poem.length === 0) {
+            onSetStatusMessage("no poem found - try a bigger string or a different form");
+        }
+        console.log(poem)
+        return poem;
+    };
+
+    const getNGramLineSyllableForIndex = (nGrams, form, randomNGram) => {
         let theNGram = randomNGram;
-        while (syllable(theNGram[0]) < form) {
-            let theNewNGram = addNGramToNGram(theNGram, nGrams);
-            theNGram = theNewNGram;
+        if (theNGram && theNGram[0] !== null) {
+            while (syllable(theNGram[0]) < form) {
+                let theNewNGram = addNGramToNGramForIndex(theNGram, nGrams);
+                if (theNewNGram !== null) {
+                    theNGram = theNewNGram;
+                } else {
+                    return null;
+                }
+            }
+        } else {
+            return null;
         }
         // trim the excess if poss 
-        while (syllable(theNGram[0]) > form) {
+        while (getStress(theNGram[0]) > form) {
             let gramStringArray = theNGram[0].split(' ');
             gramStringArray.pop();
             theNGram[0] = gramStringArray.join(' ');
@@ -408,11 +622,6 @@ const GenerateControls = (props) => {
         return poem;
     }
 
-    const getNGramPoemSyllableStanza = (text, form) => {
-        console.log(buildNGrams(text, nLevel, {includePunctuation: true}));
-        return 'ngram syllable stanza' + nLevel;
-    }
-
     const formatPoem = (poem, form) => {
         const formArray = getFormArray(form);
         for (let i = 0; i < formArray.length; i++) {
@@ -427,40 +636,60 @@ const GenerateControls = (props) => {
         return theThing;
     }
 
+    const submitSelection = (functionToPerform) => {
+        setLoading(true)
+        // onSetStatusMessage('processing', 10000, 'yellow');
+        const thePoem = functionToPerform(currentPreset.text, currentForm);
+        const formattedPoem = formatPoem(thePoem, currentForm);
+        onUpdate(formattedPoem);
+        setLoading(false)
+        onSetStatusMessage('success!', 1000, 'green');
+    }
+
+    const submitSelectionWithSansBreaks = (functionToPerform) => {
+        setLoading(true)
+        // onSetStatusMessage('processing', 10000, 'yellow');
+        const thePoem = functionToPerform(currentPreset.text, getFormArraySansBreaks(currentForm));
+        const formattedPoem = formatPoem(thePoem, currentForm);
+        onUpdate(formattedPoem);
+        setLoading(false)
+        onSetStatusMessage('success!', 1000, 'green');
+    }
     
     const onFormSubmit = () => {
         if (formStyle === 'syllable') {
             if (genType === 'stanza' && nLevel === "10") {
-                onUpdate(formatPoem(getOriginalPoemSyllable(currentPreset.text, currentForm), currentForm));
+                submitSelection(getOriginalPoemSyllable);
             }
             if (genType === 'line' && nLevel === "10") {
-                onUpdate(formatPoem(getRandomLinePoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getRandomLinePoemSyllable);
             }
             if (nLevel === "1") {
-                onUpdate(formatPoem(getRandomWordPoemSyllable(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getRandomWordPoemSyllable);
             }
             if (genType === 'stanza' && nLevel !== "10" && nLevel !== "1") {
-                console.log(getNGramPoemSyllableStanza(currentPreset.text, getFormArraySansBreaks(currentForm)));
+                submitSelection(getNGramPoemSyllableStanza);
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "1") {
-                onUpdate(formatPoem(getNGramPoemSyllableLine(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getNGramPoemSyllableLine);
             }
         }
         if (formStyle === 'stress') {
             if (genType === 'stanza' && nLevel === "10") {
-                onUpdate(formatPoem(getOriginalPoemStress(currentPreset.text, currentForm), currentForm));
+                submitSelection(getOriginalPoemStress);
             }
             if (genType === 'line' && nLevel === "10") {
-                onUpdate(formatPoem(getRandomLinePoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getRandomLinePoemStress);
             }
             if (nLevel === "1") {
-                onUpdate(formatPoem(getRandomWordPoemStress(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getRandomWordPoemStress);
             }
             if (genType === 'stanza' && nLevel !== "10" && nLevel !== "1") {
-                onUpdate(formatPoem(getNGramPoemStressStanza(currentPreset.text, currentForm), currentForm));
+                // onSetStatusMessage('processing');
+                submitSelection(getNGramPoemStressStanza);
             }
             if (genType === 'line' && nLevel !== "10" && nLevel !== "1") {
-                onUpdate(formatPoem(getNGramPoemStressLine(currentPreset.text, getFormArraySansBreaks(currentForm)), currentForm));
+                submitSelectionWithSansBreaks(getNGramPoemStressLine);
             }
         }
  
@@ -468,11 +697,12 @@ const GenerateControls = (props) => {
 
     
     const onChangeForm = (e) => {
-        setCurrentForm(e.target.value)
+        const permittedCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/'];
+        const formArray = e.target.value.split('');
+        const newFormArray = formArray.filter((item) => permittedCharacters.includes(item));
+        const finalString = newFormArray.join('');
+        setCurrentForm(finalString)
     }
-
-    // const srcText = padToShow !== 'input' ? 'SHOW SRC' : 'HIDE SRC';
-    const buttonText = formStyle === 'syllable' ? 'Switch to Stress' : 'Switch to Syllable';
 
     const [reseedCheckbox, setReseedCheckbox] = useState('stanza');
     const [formStyleCheckbox, setFormStyleCheckbox] = useState('syllable');

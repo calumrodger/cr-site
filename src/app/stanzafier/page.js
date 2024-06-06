@@ -7,7 +7,7 @@ export const metadata = {
 
 export default async function PoemPage() {
 
-  const source = "so much depends \n upon \n";
+  const source = "This is the STANZA PAD. \n Click on a word to SELECT it. \n Transform SELECTED words with the WORD BANK and FX panels. \n When your stanza is ready, click SAVE STANZA. \n To create a new stanza, click GENERATE. \n Click POEM PAD to view and rearrange stanzas. \n Click OUTPUT to admire your poem. \n Click HELP/DOCS to learn more.";
 
   return (
           <Genny source={source}/>

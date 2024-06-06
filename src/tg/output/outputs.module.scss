@@ -50,6 +50,8 @@ $disabledColour: #2E294E;
 .mainTextGrid {
     // margin-bottom: 4rem;
     display: grid;
+    width: fit-content;
+    margin: auto;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
 

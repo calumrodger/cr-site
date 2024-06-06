@@ -23,14 +23,6 @@ const NPlusX = (props) => {
     const wordListWee = masterWordListWee.split('\n');
     const pos = require('pos');
     const rhymingDictionaryLength = Object.keys(dictionary).length;
-
-    const dictArray = () => {
-        let array = [];
-        for (let i = 0; i < rhymingDictionaryLength; i++) {
-            array.push(dictionary["dog"]);
-        }
-        return array;
-    }
     
     function checkPunctuation(word) {
         const punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
@@ -50,38 +42,18 @@ const NPlusX = (props) => {
         return justTheWord;
     }
 
-    // Treat word before passing to any functions
-    const treatWordFirst = (word) => {
-        if (checkPunctuation(word)) {
-            let wordArray = word.split('');
-            let startPunctArray = [];
-            let endPunctArray = [];
-            let theWordArray = []
-            let wordBeenFoundYet = false;
-
-            for (let i = 0; i < wordArray.length; i++) {
-                if (!wordBeenFoundYet) {
-                    if (checkPunctuation(wordArray[i])) {
-                        startPunctArray.push(wordArray[i]);
-                    } else {
-                        theWordArray.push(wordArray[i]);
-                        wordBeenFoundYet = true;
-                    }
-                } else {
-                    if (checkPunctuation(wordArray[i])) {
-                        // TODO KNOWN BUG need to add a for loop here to check if the next character is also punctuation
-                        if ((!wordArray[i+1]) || (wordArray[i+1]) && (checkPunctuation(wordArray[i+1])))
-                        endPunctArray.push(wordArray[i]);
-                    } else {
-                        theWordArray.push(wordArray[i]);
-                    }
-                }
-            }
-            return [theWordArray.join(''), startPunctArray.join(''), endPunctArray.join('')];
-        } else {
-            return [word, '', ''];
-        }
-    }
+    const treatWordFirst = function (word) {
+        const wordArray = Array.from(word);
+        const nonPunctChar = x => !Array.from("!\"#$%&'()*+,-./:;=<>?@][\\^_`{|}~£").includes(x);
+        const firstNonPunctChar = wordArray.findIndex(nonPunctChar);
+        const lastNonPunctChar = word.length - wordArray.reverse().findIndex(nonPunctChar);
+        const wordStart = (firstNonPunctChar + 1 || 1) - 1; // voodoo for n === -1 ? 0 n
+        return [
+            word.slice(wordStart, lastNonPunctChar),
+            word.slice(0, wordStart),
+            word.slice(lastNonPunctChar)
+        ];
+    };
 
 
     // Check input word is in dictionaries
@@ -136,10 +108,10 @@ const NPlusX = (props) => {
     }
 
     const rhymeCheck = (word1, word2) => {
-        const treatedWord = word1;
+        const treatedWord = word1.replace(/[^a-zA-Z]/g, '').toLowerCase();
         const wordInDictionary = checkWordIsInRhymeDictionary(treatedWord);
         if (!wordInDictionary) {
-            onSetStatusMessage('word not in dictionary');
+            onSetStatusMessage('word ' + word1 + ' not in dictionary', 2000, 'red');
             return null;
         } else {
         const wordOnePronArray = dictionary[treatedWord]?.split(' ');
@@ -179,7 +151,8 @@ const NPlusX = (props) => {
 
     // Find word of same syllable count
     const findWordOfSameSyllableCount = (word, wordList) => {
-        let syllableCount = syllable(word);
+        let textArray = treatWordFirst(word);
+        let syllableCount = syllable(textArray[0]);
         if (syllableCount === 0) {
             return '';
         } else {
@@ -191,12 +164,14 @@ const NPlusX = (props) => {
                 finalWord = randomWord;
             }
         }
-        return finalWord;
+        let finalText = textArray[1] + finalWord + textArray[2];
+        return finalText;
     }
     }
 
     const findWordOfSameStressCount = (word, wordList) => {
-        let syllableCount = getStress(word);
+        let textArray = treatWordFirst(word);
+        let syllableCount = getStress(textArray[0]);
         let finalWord = '';
         while (finalWord === '') {
             let randomIndex = Math.floor(Math.random() * wordList.length);
@@ -205,34 +180,39 @@ const NPlusX = (props) => {
                 finalWord = randomWord;
             }
         }
-        return finalWord;
+        let finalText = textArray[1] + finalWord + textArray[2];
+        return finalText;
     }
 
     const findWordOfSameClass = (word, wordList) => {
+        let textArray = treatWordFirst(word);
         let finalWord = '';
         while (finalWord === '') {
             let randomIndex = Math.floor(Math.random() * wordList.length);
             let randomWord = wordList[randomIndex];
-            if (wordClassCheck(word, randomWord)) {
+            if (wordClassCheck(textArray[0], randomWord)) {
                 finalWord = randomWord;
             }
         }
-        return finalWord;
+        let finalText = textArray[1] + finalWord + textArray[2];
+        return finalText;
     }
 
     const findWordThatRhymes = (word, wordList) => {
+        let textArray = treatWordFirst(word);
         let finalWord = '';
         while (finalWord === '') {
             let randomIndex = Math.floor(Math.random() * wordList.length);
             let randomWord = wordList[randomIndex];
-            if (rhymeCheck(word, randomWord) === true) {
+            if (rhymeCheck(textArray[0], randomWord) === true) {
                 finalWord = randomWord;
             }
-            if (rhymeCheck(word, randomWord) === null) {
-                return '';
+            if (rhymeCheck(textArray[0], randomWord) === null) {
+                return textArray[1] + textArray[0] + textArray[2];
             }
         }
-        return finalWord;
+        let finalText = textArray[1] + finalWord + textArray[2];
+        return finalText;
     }
 
 
@@ -266,7 +246,7 @@ const NPlusX = (props) => {
             if (rhyme && measure && !wordClass) {
                 for (let rm = 0; rm < rhymingDictionaryLength; rm++) {
                     if (rm === rhymingDictionaryLength - 1) {
-                        alert('no match found');
+                        onSetStatusMessage('no match found', 3000, 'red');
                         return whatToGet[i].text;
                     }
                     let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
@@ -282,7 +262,7 @@ const NPlusX = (props) => {
             if (rhyme && wordClass && !measure) {
                 for (let rc = 0; rc < rhymingDictionaryLength; rc++) {
                     if (rc === rhymingDictionaryLength - 1) {
-                        alert('no match found')
+                        onSetStatusMessage('no match found', 3000, 'red');
                         return whatToGet[i].text;
                     }
                     let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
@@ -298,7 +278,7 @@ const NPlusX = (props) => {
             if (measure && wordClass && !rhyme) {
                 for (let mc = 0; mc < wordList.length; mc++) {
                     if (mc === wordList.length - 1) {
-                        alert('no match found');
+                        onSetStatusMessage('no match found', 3000, 'red');
                         return whatToGet[i].text;
                     }
                     let matchedWord = findWordOfSameClass(whatToGet[i].text, wordList);
@@ -314,7 +294,7 @@ const NPlusX = (props) => {
             if (measure && wordClass && rhyme) {
                 for (let mcr = 0; mcr < rhymingDictionaryLength; mcr++) {
                     if (mcr === rhymingDictionaryLength - 1) {
-                        alert('no match found');
+                        onSetStatusMessage('no match found', 3000, 'red');
                         return whatToGet[i].text;
                     }
                     let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
@@ -407,6 +387,7 @@ const NPlusX = (props) => {
             setLastClicked('rhyme');
         }
     }
+    
 
     return (
         <div className={classes.nplusxContainer}>
@@ -444,7 +425,7 @@ const NPlusX = (props) => {
                     
                 </div>
             </div>
-            <button onClick={handleReplaceClick} className={classes.button}>REPLACE</button>
+            <button onClick={handleReplaceClick} className={classes.button}>GO</button>
         </div>
         </div>
     )

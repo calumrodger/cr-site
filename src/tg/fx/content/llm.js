@@ -16,9 +16,9 @@ const LLMFX = (props) => {
 
     useEffect(() => {
       if (loading === true) {
-        onSetStatusMessage('awaiting LLM response...');
+        onSetStatusMessage('awaiting LLM response...', 10000, 'yellow');
       } else {
-        onSetStatusMessage('all systems good');
+        onSetStatusMessage('all systems good', 0, 'green');
       }
     }, [loading])
 
@@ -42,15 +42,17 @@ const LLMFX = (props) => {
     Do not include anything else in your response.`
 
     const intensifyPrompt = 
-    `For each of the following words, please add two or more intensifiers: 
+    `Give me a JavaScript array of ${selectedWords.length} slang words which are synonyms of the following words:
     
-    ${selectedWords.join(", ")}.
+    ${selectedWords.join(", ")}
     
-    Return the intensifiers in the same order as the original words, in the format of a JavaScript array:
+    Return the slang words in the same order as the words. You can use slang from any country, era or walk of life. Your complete response should be in the format below, enclosed by ::: - triple colons.
     
-    ['intensified string 1', 'intensified string 2', 'intensified string 3', ...].
+    :::
+    ['slangword1', 'slangword2', 'slangword3', ...]
+    :::
     
-    Do not give any additional information in your response, please.`;
+    Do not include the original words or anything else in your response, please. The array should comprise the new slang words only.`;;
 
     const nonsensifyPrompt = 
     `Give me a JavaScript array of ${selectedWords.length} nonsense syllables that represent the following words:
@@ -144,18 +146,6 @@ const LLMFX = (props) => {
       }
     }
 
-    const testText = 
-    `"""Oh ho ho! The hours zoomed by, 
-like runaway balloons in a circus sky! 
-Clutched tight, just like a clown's 
-favorite rubber chicken, by 
-greedy little hands, oh my! 
-So, the faces on the clock 
-are all smiles, and the hands 
-are waving goodbye, as we 
-spin around in a whirlwind 
-of joy and laughter, ha ha ha! 
-"""`
     const processRemixOutput = (text) => {
       let firstIndex = text.search('"""');
       let startPoint = firstIndex + 3;
@@ -192,7 +182,7 @@ of joy and laughter, ha ha ha!
       if (typeof rawIntensifyOutput === 'string' && rawIntensifyOutput !== '') {
           let treatedOutput = processLlmOutput(rawIntensifyOutput);
           if (typeof treatedOutput === "object") {
-              onUpdate(getNewStanzaAddBefore(treatedOutput), stanza)
+              onUpdate(getNewStanzaReplace(treatedOutput), stanza)
           } else {
               console.log('ERROR' + treatedOutput)
           }
@@ -227,8 +217,8 @@ of joy and laughter, ha ha ha!
         });
         let replacementCount = 0;
         for (let i = 0; i < newArray.length; i++) {
-            if ((newArray[i].type === 'text') && (newArray[i].text === null)) {
-                newArray[i].text = treatedOutput[replacementCount];
+            if ((newArray[i].type === 'text') && (newArray[i].text === null) && (treatedOutput !== 'error')) {
+                newArray[i].text = treatedOutput[replacementCount]?.replaceAll(' ', '');
                 replacementCount++;
             }
         }
@@ -248,7 +238,7 @@ of joy and laughter, ha ha ha!
             replacementCount++;
             }
           } else {
-            onSetStatusMessage('error: no replacements found')
+            onSetStatusMessage('error: no replacements found', 3000, 'red')
           }
         } else {
           newArray.push(stanza[i]);
@@ -261,7 +251,7 @@ of joy and laughter, ha ha ha!
         <div className={classes.llmContainer}>
             <div className={classes.buttonsContainer}>
                 <button className={classes.button} onClick={(e) => onClickEmojify(e)}>EMOJIFY</button>
-                <button className={classes.button} onClick={(e) => onClickIntensify(e)}>INTENSIFY</button>
+                <button className={classes.button} onClick={(e) => onClickIntensify(e)}>SLANGIFY</button>
                 <button className={classes.button} onClick={(e) => onClickNonsensify(e)}>NONSENSIFY</button>
             </div>
             <div className={classes.promptContainer}>

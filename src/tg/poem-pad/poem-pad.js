@@ -148,24 +148,27 @@ const PoemPad = (props) => {
       onShufflePoem();
     }
 
+    const onWordClick = (e) => {
+      console.log('hi')
+    }
+
 
     return (
       <>
         <div className={classes.poemBox}>
           {poem.map((t, i) => {
               return (
-              
               <div key={i} className={classes.poemContainer} style={{fontFamily: baseFont, fontSize: baseFontSize + 'rem'}}>
                 <div className={classes.controlsContainer}>
                 <span>{i + 1}</span>
                 <button id={i} className={`${classes.button} ${classes.ppButton}`} onClick={onSelectStanza}>select</button>
                 </div>
-                <div id={i} style={checkPoemStyles(t, baseFontSize)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
+                <div style={checkPoemStyles(t, baseFontSize)} className={`${classes.stanza} ${t.selected ? classes.selected : null}`}>
                 {t.stanza.map((j, f) => {
                   if (j.text === '\n') {
                     return <br key={j.id} className={classes.lineBreak}/>
                   } else {
-                    return <div key={j.id} style={checkStyles(j, baseFontSize)} className={`${classes.word}`}>{j.text} </div>
+                    return <span id={i} key={j.id} style={checkStyles(j, baseFontSize)} className={`${classes.word}`}>{j.text} </span>
                   }
                 })}
                 </div>

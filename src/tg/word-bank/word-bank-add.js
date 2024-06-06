@@ -26,7 +26,7 @@ const WordBankAdd = (props) => {
     return (
         <>
         <input type="text" value={name} onChange={onChangeName}/>
-        <textarea value={initialValue} onChange={onChangeWords}/>
+        <textarea className={classes.editField} value={initialValue} onChange={onChangeWords}/>
         <button className={classes.button} onClick={onSaveWordBankEdit}>SAVE</button>
         </>
     )

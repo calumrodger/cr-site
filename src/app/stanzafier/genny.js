@@ -3,16 +3,21 @@
 import classes from './genny.module.scss';
 import { useState, useEffect, useRef } from 'react';
 import { syllable } from 'syllable';
-import { dictionary } from 'cmu-pronouncing-dictionary';
+// import { dictionary } from '../../../public/tg/cmu-stress-count-dictionary';
+import { dictionary } from '../../../public/tg/cmu-stress-count-dictionary';
 
 // PRESETS
 import { emily } from '../../../public/tg/presets/emily';
 import { flatland } from '../../../public/tg/presets/flatland';
 import { stcrsvp } from 'public/tg/presets/stc';
 import { opiumEater } from 'public/tg/presets/opium-eater';
+import { shake } from '../../../public/tg/presets/shake';
+import { burns } from '../../../public/tg/presets/burns';
+import { gertrude } from '../../../public/tg/presets/gertrude';
+import { grass } from '../../../public/tg/presets/grass';
 
 // WORD LISTS
-import { gptBirdArray, basicallyEmpty, basic, prepositions } from '../../../public/tg/word-lists';
+import { wordBankDefaultText, gptBirdArray, prepositions, adjectives } from '../../../public/tg/word-lists';
 
 // GLOBAL COMPONENTS
 import SaveLoad from '@tg/global/save-load';
@@ -130,13 +135,13 @@ const Genny = (props) => {
   const [oldStanza, setOldStanza] = useState([]);
   const [poem, setPoem] = useState([]);
   const [poemTitle, setPoemTitle] = useState('');
-  const [wordBank, setWordBank] = useState([{id: 0, text: 'hello', selected: false}, {id: 1, text: 'world', selected: false}]);
-  const [allWordLists, setAllWordLists] = useState([basic, gptBirdArray, basicallyEmpty, prepositions]);
+  const [wordBank, setWordBank] = useState(wordBankDefaultText);
+  const [allWordLists, setAllWordLists] = useState([adjectives, gptBirdArray, prepositions]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater])
+  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater, shake, burns, gertrude, grass])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
-  const [statusMessage, setStatusMessage] = useState('welcome in genny')
+  const [statusMessage, setStatusMessage] = useState(['welcome in genny', 0, 'white'])
 
   // Settings
   const [form, setForm] = useState('5/7/5');
@@ -227,6 +232,8 @@ const Genny = (props) => {
         return `_${finalWord}_`;
       case 12:
         return `~${finalWord}~`;
+      case 13:
+        return `"${finalWord}"`;
         default: 
         return word;
   }
@@ -235,12 +242,12 @@ const Genny = (props) => {
   const onAddPunct = (reverse) => {
     if (reverse) {
       if (punctCounter === 0) {
-        setPunctCounter(12);
+        setPunctCounter(13);
       } else {
         setPunctCounter(punctCounter - 1);
       }
     } else {
-      if (punctCounter === 12) {
+      if (punctCounter === 13) {
         setPunctCounter(0);
       } else {
         setPunctCounter(punctCounter + 1);
@@ -305,42 +312,14 @@ const Genny = (props) => {
     setWordBeingEdited(e);
   }
 
-  const getStress = function (theString) {
+  const getStress = function (theString) {// preprocessed stress dict
     if (theString) {
       const parts = theString.trim().split(/\s+/).map(part => part.replace(/[^\w']|_/g, ""));
-      const pronArray = parts.map(part => dictionary[part]);
-      const stressArray = pronArray.map(pron => pron?.match(/[12]/g)?.length ?? 1);
+      const stressArray = parts.map(part => dictionary[part] ?? 1);
       return stressArray.reduce((p, c) => p + c, 0);
     }
     return 0;
   };
-  
-  // const getStress = (theString) => {
-  //   if (theString === '' || theString === undefined) {
-  //     return 0;
-  //   }
-  //   let wordsArray = theString.split(" ");
-  //   let trimmedWordsArray = [];
-  //   for (let i = 0; i < wordsArray.length; i++) {
-  //     let wordForTrimming = wordsArray[i].trim();
-  //     let trimmedWord = wordForTrimming.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
-  //     trimmedWordsArray.push(trimmedWord);
-  //   }
-  //   let stressArray = [];
-  //   for (let i = 0; i < trimmedWordsArray.length; i++) {
-  //     if (dictionary[trimmedWordsArray[i]] !== undefined) {
-  //       stressArray.push(dictionary[trimmedWordsArray[i]]);
-  //     } else {
-  //       stressArray.push('1');
-  //     }
-  //   }
-  //   let stressCount = 0;
-  //   for (let i = 0; i < stressArray.length; i++) {
-  //     let itemStress = (((stressArray[i].match(/2/g)||[].length).toString()) * 1) + (((stressArray[i].match(/1/g)||[].length).toString()) * 1);
-  //     stressCount = stressCount + itemStress;
-  //   }
-  //   return stressCount;
-  // }
   
   const onSetPoemTitle = (e) => {
     setPoemTitle(e.target.value);
@@ -409,8 +388,12 @@ const Genny = (props) => {
     setWordBank(newObjArray);
   }
 
-  const onUpdate = (newstanza) => {
-    setStanza(newstanza);
+  const onUpdate = (newStanza) => {
+    if (newStanza === null) {
+      console.log('nope')
+      return;
+    }
+    setStanza(newStanza);
     setOldStanza(stanza);
   }
 
@@ -561,33 +544,22 @@ const Genny = (props) => {
 
   const onPopulateWordBank = (words, quant) => {
 
-    let finalArray = [];
+    let currentWordBankWords = wordBank.map(item => item.text);
 
-    // const words1minus2 = words1.filter(x => !words2.includes(x));
-    // let i = 0;
-    // while (i < numWordsToAdd) {
-    //   const randomIndex = Math.floor(words1minus2.length * Math.random());
-    //   words2.push(words1minus2.splice(randomIndex, 1)[0]);
-    //   i += 1;
-    // }
-    let currentWordBank = wordBank.map(item => item.text);
-    if (words.length < quant) {
-      let checkIfAlreadyThere = words.filter(element => currentWordBank.includes(element));
-      quant = words.length - checkIfAlreadyThere.length;
+    const words1minus2 = words.filter(x => !currentWordBankWords.includes(x));
+    let i = 0;
+    while (i < quant) {
+      const randomIndex = Math.floor(words1minus2.length * Math.random());
+      currentWordBankWords.push(words1minus2.splice(randomIndex, 1)[0]);
+      i += 1;
     }
 
-    let newArray =  words.sort(() => 0.5 - Math.random());
-    let selected = newArray.slice(0, quant);
-    let intersection = newArray.filter(element => currentWordBank.includes(element));
-    let filteredArray = selected.filter(element => !intersection.includes(element));
-    finalArray = [...finalArray, ...filteredArray];
-
-    let formattedArray = finalArray.map((item, i) => {
+    let formattedArray = currentWordBankWords.map((item, i) => {
       return { id: i, text: item, selected: false }
     });
 
-    let newWordBank = [...formattedArray, ...wordBank];
-    setWordBank(newWordBank);
+    // let newWordBank = [...formattedArray, ...wordBank];
+    setWordBank(formattedArray);
   }
 
   const onChangeInjectSetting = (e) => {
@@ -1094,8 +1066,8 @@ const Genny = (props) => {
     setSelectedWordList({id: id, name: 'new list', words: words});
   }
 
-  const onSetStatusMessage = (message) => {
-    setStatusMessage(message);
+  const onSetStatusMessage = (message, time, fx) => {
+    setStatusMessage([message, time, fx]);
   }
 
   function shuffle(array) {
@@ -1296,7 +1268,7 @@ const Genny = (props) => {
             </div>
           </div>
           <div className={classes.inputSection}>
-            <GenerateControls editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage}/>
+            <GenerateControls stanza={stanza} editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage}/>
             
           </div>
           </>
@@ -1315,8 +1287,11 @@ const Genny = (props) => {
               <PoemPad onShufflePoem={onShufflePoem} baseFont={baseFont} baseFontSize={baseFontSize} onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
             </div>
             <div className={classes.poemPadStatusSection}>
+            <BaseFont baseFont={baseFont} baseFontSize={baseFontSize} onSetBaseFontSize={onSetBaseFontSize} onSelectFont={onSelectFont}/>
               <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
-              <BaseFont baseFont={baseFont} baseFontSize={baseFontSize} onSetBaseFontSize={onSetBaseFontSize} onSelectFont={onSelectFont}/>
+              <PoemLength poem={poem}/>
+              
+            
             </div>
             </>
           }
@@ -1334,7 +1309,10 @@ const Genny = (props) => {
           { padToShow === 'stanza' && !wordEditMode &&
             <>
             <div className={classes.fxSection}>
-            <span>TYPOGRAPHY</span>
+              <div className={classes.fxHeadingContainer}>
+            <span className={classes.sectionSubheading}>TYPOGRAPHY</span>
+            <span className={classes.sectionTitle}>FX</span>
+            </div>
               <div className={classes.fxTypographyGrid}>
                 <ResizeText onResizeText={onResizeText}/>
                 <ReweightText onReweightText={onReweightText}/>
@@ -1348,13 +1326,13 @@ const Genny = (props) => {
               <FormResetButton onResetTypography={onResetTypography} />
               </div>
               < hr className={classes.line} />
-              <span>N + ?</span>
+              <span className={classes.sectionSubheading}>N+X REPLACEMENT</span>
               <NPlusX getStress={getStress} formStyle={formStyle} onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/> 
               <hr className={classes.line} />
-              <span>API INJECTION</span>
+              <span className={classes.sectionSubheading}>API INJECTION</span>
               <APIFX onUpdate={onUpdate} stanza={stanza} onSetStatusMessage={onSetStatusMessage}/>
               <hr className={classes.line} />
-              <span>LLM </span>
+              <span className={classes.sectionSubheading}>LLM TRANSLATION</span>
               <LLMFX onSetStatusMessage={onSetStatusMessage} onUpdate={onUpdate} stanza={stanza} treatString={treatString}/>
               <hr className={classes.line} />
               <Title />
@@ -1362,7 +1340,7 @@ const Genny = (props) => {
             <div className={classes.composeSection}>
               { (!showEditWordBank && !showAddWordBank) &&
               <>
-              <span>WORD BANK</span>
+              <span className={classes.sectionTitle}>WORD BANK</span>
               <WordBank onShuffleWordBank={onShuffleWordBank} baseFont={baseFont} baseFontSize={baseFontSize} onSaveWordBankAsList={onSaveWordBankAsList} deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
               <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
               <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>

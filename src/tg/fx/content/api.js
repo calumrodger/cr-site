@@ -85,6 +85,8 @@ const APIFX = (props) => {
         onUpdate(newStanzaArray, stanza);
     }
 
+    const keyText = apiType === 'film' ? 'title:' : apiType === 'news' ? 'topic:' : 'place:';
+
     return (
         <div className={classes.apiContainer}>
             <div className={classes.radioContainer}>
@@ -105,7 +107,7 @@ const APIFX = (props) => {
             </div>
             <div className={classes.inputsContainer}>
                     <div className={classes.inputKey}>
-                        <label htmlFor="key">key:</label>
+                        <label htmlFor="key">{keyText}</label>
                         <input className={classes.textInput} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} type="text" />
                     </div>
                     <div className={classes.input}>

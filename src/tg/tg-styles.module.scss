@@ -19,7 +19,7 @@ $disabledColour: #2E294E;
     border-radius: .2rem;
 
     &:hover {
-        background-color: $highlightColour;
+        background-color: $highlightExtra;
         color: $bgColour;
     }
 
@@ -52,7 +52,6 @@ $disabledColour: #2E294E;
 }
 
 .textInput {
-
         appearance: none;
         background: $outlinesColour;
         border: $fillColourLight 1px solid;
@@ -136,7 +135,7 @@ $disabledColour: #2E294E;
 }
 
 .inputPad {
-    height: 85%;
+    height: 480px;
     width: 100%;
 }
 
@@ -332,7 +331,7 @@ width: 6rem;
 
 // POEM PAD SECTION
 .poemPadContainer {
-    height: 70%;
+    height: 370px;
 }
 
 .saveToTxtButton {
@@ -580,7 +579,8 @@ width: 6rem;
 }
 
 .editField {
-    height: 70%;
+    height: 430px;
+    width: 190px;
 }
 
 .populateContainer {
@@ -943,9 +943,10 @@ width: 6rem;
         .inputKey {
             display: flex;
             gap: .2rem;
+            width: 6rem;
 
             input {
-                width: 4rem;
+                max-width: 3.5rem;
             }
         }
     }
