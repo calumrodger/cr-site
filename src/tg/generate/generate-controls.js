@@ -10,6 +10,13 @@ const GenerateControls = (props) => {
     const { stanza, onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
     const [currentForm, setCurrentForm] = useState(form);
     const [loading, setLoading] = useState(false);
+    const [currentNGrams, setCurrentNGrams] = useState({});
+
+    useEffect(() => {
+        if (nLevel !== "10" && nLevel !== "1") {
+            setCurrentNGrams(generateNGrams(currentPreset.text, nLevel));
+        }
+    }, [currentPreset, nLevel])
     
     const getFormArray = (form) => {
         const splitForm = form.split('/').map((item) => parseInt(item));
@@ -232,7 +239,7 @@ const GenerateControls = (props) => {
     }
 
     const getNGramPoemSyllableStanza = (text, form) => {
-        const nGrams = generateNGrams(text, nLevel);
+        const nGrams = currentNGrams;
         const indexArray = [...Array(Object.entries(nGrams).length).keys()];
         let line, nGram, stringArray;
         let currentIndex = 0;
@@ -284,7 +291,7 @@ const GenerateControls = (props) => {
     };
 
     const getNGramPoemStressStanza = (text, form) => {
-        const nGrams = generateNGrams(text, nLevel);
+        const nGrams = currentNGrams;
         const indexArray = [...Array(Object.entries(nGrams).length).keys()];
         let line, nGram, stringArray;
         let currentIndex = 0;
@@ -300,6 +307,8 @@ const GenerateControls = (props) => {
             while (nGram === null) {
                 randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
                 randomNGram = Object.entries(nGrams)[randomIndex];
+                console.log('trying index' + randomIndex + 'of' + indexArray.length)
+                onSetStatusMessage('trying index' + randomIndex + 'of' + indexArray.length, 3000, 'yellow')
                 nGram = getNGramLineStressForIndex(nGrams, formSum, randomNGram);
             }
             stringArray = nGram.trim().split(/\s+/);
