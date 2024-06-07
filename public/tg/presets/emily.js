@@ -1,4 +1,4 @@
-export const emily = {id: 0, name: "Emily", text: `PREFACE.
+export const emily = {id: 1, name: "emily", text: `PREFACE.
 
 THE verses of Emily Dickinson belong emphatically to what Emerson
 long since called "the Poetry of the Portfolio,"--something produced

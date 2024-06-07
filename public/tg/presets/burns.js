@@ -1,4 +1,4 @@
-export const burns = {id: 5, name: 'Burnz', text: `
+export const burns = {id: 0, name: 'burnz', text: `
 POEMS AND SONGS OF ROBERT BURNS
 
 

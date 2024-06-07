@@ -14,35 +14,35 @@ export async function getYouTubeComments(videoId) {
         return res.json()
 }
 
-export async function getWordFromDictionary(word) {
-  const res = await fetch('https://wordsapiv1.p.rapidapi.com/words/' + word,
-    {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com", "Accept": "application/json"}}
-  );
+// export async function getWordFromDictionary(word) {
+//   const res = await fetch('https://wordsapiv1.p.rapidapi.com/words/' + word,
+//     {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com", "Accept": "application/json"}}
+//   );
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  return res.json();
-}
+//   if (!res.ok) {
+//     throw new Error('Failed to fetch data');
+//   }
+//   return res.json();
+// }
 
-export async function getLoadOfWordsFromDictionary(word) {
-  const res = await fetch('https://wordsapiv1.p.mashape.com/words?lettersMax=4',
-    {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com", "Accept": "application/json"}}
-  );
+// export async function getLoadOfWordsFromDictionary(word) {
+//   const res = await fetch('https://wordsapiv1.p.mashape.com/words?lettersMax=4',
+//     {headers: {"x-rapidapi-key": process.env.WORDS_API_KEY, "x-rapidapi-host": "wordsapiv1.p.rapidapi.com", "Accept": "application/json"}}
+//   );
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
+//   if (!res.ok) {
+//     throw new Error('Failed to fetch data');
+//   }
 
-  return res.json();
-}
+//   return res.json();
+// }
 
 
 
 export async function getFilmData(filmTitle) {
   const res = await fetch('https://www.omdbapi.com/?t=' + filmTitle + '&plot=full&apikey=' + process.env.OMDB_API_KEY)
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    return 'error';
   }
 
   return res.json();
@@ -51,7 +51,7 @@ export async function getFilmData(filmTitle) {
 export async function getGuardianData(searchKey) {
   const res = await fetch('https://content.guardianapis.com/search?q=' + searchKey + '&api-key=' + process.env.GUARDIAN_API_KEY)
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    return 'error';
   }
 
   return res.json();
@@ -64,7 +64,7 @@ export async function getWeatherData(location) {
                     .split("T")[0];
   const res = await fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/' + location + '/' + dateString + '?key=' + process.env.VISUAL_CROSSING_API_TOKEN)
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    return 'error';
   }
 
   return res.json();

@@ -25,7 +25,8 @@ const SaveLoad = (props) => {
     }
 
     const onSavePoem = () => {
-        const data = [{poem: poem, poemTitle: poemTitle, oldStanza: oldStanza, wordBank: wordBank, allWordLists: allWordLists, selectedWordList: selectedWordList, presetArray: presetArray, currentPreset: currentPreset, stanza: stanza, form: form, formStyle: formStyle, genType: genType, nLevel: nLevel, outputCheckbox: outputCheckbox, updateStanzaStyles: updateStanzaStyles, outputBgColour: outputBgColour, outputTitleColour: outputTitleColour, outputPoemColour: outputPoemColour, baseFont: baseFont, baseFontSize: baseFontSize + 'rem', punctCounter: punctCounter, injectSetting: injectSetting}];
+        const getNewPresets = presetArray.filter((preset) => preset.id > 4);
+        const data = [{poem: poem, poemTitle: poemTitle, oldStanza: oldStanza, wordBank: wordBank, allWordLists: allWordLists, selectedWordList: selectedWordList, presetArray: getNewPresets, currentPreset: currentPreset, stanza: stanza, form: form, formStyle: formStyle, genType: genType, nLevel: nLevel, outputCheckbox: outputCheckbox, updateStanzaStyles: updateStanzaStyles, outputBgColour: outputBgColour, outputTitleColour: outputTitleColour, outputPoemColour: outputPoemColour, baseFont: baseFont, baseFontSize: baseFontSize + 'rem', punctCounter: punctCounter, injectSetting: injectSetting}];
         const fileName = poemTitle ? poemTitle + '-state' : 'untitled-state';
         const exportType = exportFromJSON.types.json;
         exportFromJSON({data, fileName, exportType});

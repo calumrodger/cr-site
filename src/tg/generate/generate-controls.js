@@ -4,19 +4,50 @@ import { syllable } from 'syllable';
 import { buildNGrams } from 'word-ngrams';
 import OnSaveStanzaToPad from '@tg/stanza-pad/save-stanza-to-pad';
 import { get } from 'http';
+import StanzaUndoRedo from '@tg/stanza-pad/undo-redo-stanza';
 
 const GenerateControls = (props) => {
 
-    const { stanza, onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
+    const { onUndoRedoStanza, wordEditMode, oldStanza, stanza, onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
     const [currentForm, setCurrentForm] = useState(form);
     const [loading, setLoading] = useState(false);
     const [currentNGrams, setCurrentNGrams] = useState({});
+    const [disableGenButton, setDisableGenButton] = useState(false);
 
     useEffect(() => {
-        if (nLevel !== "10" && nLevel !== "1") {
+        if (formStyle === 'syllable') {
+            const presetArrayMapped = currentPreset.text.split(' ').map((item) => syllable(item));
+            if (presetArrayMapped.length < 20) {
+                onSetStatusMessage('input text must be more than 20 words', 10000, 'red');
+                setDisableGenButton(true);
+            } else if (!presetArrayMapped.includes(1)) {
+                onSetStatusMessage('input text must contain at least one one-syllable word', 10000, 'red');
+                setDisableGenButton(true);
+            } else {
+                onSetStatusMessage('all systems good', 0, 'white');
+                setDisableGenButton(false);
+            }
+        }
+        if (formStyle === 'stress') {
+            const presetArrayMapped = currentPreset.text.split(' ').map((item) => getStress(item));
+            if (presetArrayMapped.length < 20) {
+                onSetStatusMessage('input text must be more than 20 words', 3000, 'red');
+                setDisableGenButton(true);
+            } else if (!presetArrayMapped.includes(1)) {
+                onSetStatusMessage('input text must contain at least one single-stressed word', 3000, 'red');
+                setDisableGenButton(true);
+            } else {
+                onSetStatusMessage('all systems good', 0, 'white');
+                setDisableGenButton(false);
+            }
+        }
+    }, [currentPreset, formStyle])
+
+    useEffect(() => {
+        if (nLevel !== "10" && nLevel !== "1" && disableGenButton === false) {
             setCurrentNGrams(generateNGrams(currentPreset.text, nLevel));
         }
-    }, [currentPreset, nLevel])
+    }, [nLevel, currentPreset, disableGenButton])
     
     const getFormArray = (form) => {
         const splitForm = form.split('/').map((item) => parseInt(item));
@@ -510,8 +541,8 @@ const GenerateControls = (props) => {
     return (
         <div className={classes.generatorGrid}>
             <div className={classes.showSrcButton}>
-                
                 <button onClick={onClickShowSrc} className={`${classes.button} ${classes.srcPadButton}`}>SOURCE PAD</button>
+                <StanzaUndoRedo wordEditMode={wordEditMode} onUndoRedoStanza={onUndoRedoStanza} stanza={stanza} oldStanza={oldStanza} />
             </div>
             <div className={classes.preset}>
                     <span>preset: </span>
@@ -526,7 +557,7 @@ const GenerateControls = (props) => {
                 <input className={classes.slider} type="range" id="n-level-slider" name="n-level-slider" min="1" max="10" step="1" value={nLevel} onChange={onChangeNLevelSlider}></input>
             </div>
             <div className={classes.genButtons}>
-                <button className={classes.button} onClick={onFormSubmit}>GENERATE</button>
+                <button className={`${classes.button} ${disableGenButton ? classes.disabled : null}`} onClick={!disableGenButton ? onFormSubmit : null}>GENERATE</button>
             </div>
             <div className={classes.formInput}>
                 <label htmlFor="form">form:</label>

@@ -111,7 +111,7 @@ const NPlusX = (props) => {
         const treatedWord = word1.replace(/[^a-zA-Z]/g, '').toLowerCase();
         const wordInDictionary = checkWordIsInRhymeDictionary(treatedWord);
         if (!wordInDictionary) {
-            onSetStatusMessage('word ' + word1 + ' not in dictionary', 2000, 'red');
+            onSetStatusMessage('word(s) not in dictionary', 2000, 'red');
             return null;
         } else {
         const wordOnePronArray = dictionary[treatedWord]?.split(' ');
@@ -219,6 +219,7 @@ const NPlusX = (props) => {
 
     // Replace function
     const replace = () => {
+        onSetStatusMessage('replacing...', 10000, 'yellow');
         let whatToGet = stanza.filter((word) => {
             if (word.selected === true) {
                 return word.text;
@@ -334,6 +335,7 @@ const NPlusX = (props) => {
                 newObjArray.push(stanza[i]);
             }
         }
+        onSetStatusMessage('success!', 1000, 'green');
         onUpdate(newObjArray, stanza);
     }
 

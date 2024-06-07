@@ -8,13 +8,11 @@ import { dictionary } from '../../../public/tg/cmu-stress-count-dictionary';
 
 // PRESETS
 import { emily } from '../../../public/tg/presets/emily';
-import { flatland } from '../../../public/tg/presets/flatland';
-import { stcrsvp } from 'public/tg/presets/stc';
-import { opiumEater } from 'public/tg/presets/opium-eater';
 import { shake } from '../../../public/tg/presets/shake';
 import { burns } from '../../../public/tg/presets/burns';
 import { gertrude } from '../../../public/tg/presets/gertrude';
 import { grass } from '../../../public/tg/presets/grass';
+import { emptyPreset } from 'public/tg/presets/empty';
 
 // WORD LISTS
 import { wordBankDefaultText, gptBirdArray, prepositions, adjectives } from '../../../public/tg/word-lists';
@@ -27,6 +25,7 @@ import CurrentForm from '@tg/global/current-form';
 import Title from '@tg/global/title';
 import PoemLength from '@tg/global/poem-length';
 import BaseFont from '@tg/global/base-font';
+import StanzaUndoRedo from '@tg/stanza-pad/undo-redo-stanza';
 
 // GENERATE COMPONENTS
 import GenerateControls from '@tg/generate/generate-controls';
@@ -138,7 +137,7 @@ const Genny = (props) => {
   const [wordBank, setWordBank] = useState(wordBankDefaultText);
   const [allWordLists, setAllWordLists] = useState([adjectives, gptBirdArray, prepositions]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([emily, flatland, stcrsvp, opiumEater, shake, burns, gertrude, grass])
+  const [presetArray, setPresetArray] = useState([burns, emily, gertrude, grass, shake, emptyPreset])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
   const [statusMessage, setStatusMessage] = useState(['welcome in genny', 0, 'white'])
@@ -1178,13 +1177,26 @@ const Genny = (props) => {
     let newObjArray = [];
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        let newText = stanza[i].text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+        let newText = stanza[i].text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~?!()]/g,"");
         newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: newText, selected: true });
       } else {
         newObjArray.push(stanza[i]);
       }
     }
     setStanza(newObjArray);
+  }
+
+  const onStripCaps = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        let newText = stanza[i].text.toLowerCase();
+        newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: newText, selected: true });
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    onUpdate(newObjArray, stanza);
   }
 
   const addLineBreakAfterSelected = () => {
@@ -1268,8 +1280,7 @@ const Genny = (props) => {
             </div>
           </div>
           <div className={classes.inputSection}>
-            <GenerateControls stanza={stanza} editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage}/>
-            
+          <GenerateControls wordEditMode={wordEditMode} onUndoRedoStanza={onUndoRedoStanza} stanza={stanza} editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage} oldStanza={oldStanza}/>
           </div>
           </>
           }
@@ -1277,7 +1288,7 @@ const Genny = (props) => {
             <div className={classes.stanzaPadSection}>
               <StanzaPad wordBeingEdited={wordBeingEdited} onSetWordBeingEdited={onSetWordBeingEdited} wordEditMode={wordEditMode} baseFont={baseFont} baseFontSize={baseFontSize} updateStazaStyles={updateStazaStyles} updatePoemStyles={updatePoemStyles} stanza={stanza} onWordClick={onWordClick}/>
               <div className={classes.toolsContainer}>
-                <StanzaPadButtons shiftWordsUp={shiftWordsUp} shiftWordsDown={shiftWordsDown} addLineBreakAfterSelected={addLineBreakAfterSelected} onUndoRedoStanza={onUndoRedoStanza} onAddPunct={onAddPunct} onStripPunct={onStripPunct} onConfirmEditWord={onConfirmEditWord} onSetWordBeingEdited={onSetWordBeingEdited} onSetWordEditMode={onSetWordEditMode} wordEditMode={wordEditMode} onShuffleStanza={onShuffleStanza} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
+                <StanzaPadButtons onStripCaps={onStripCaps} shiftWordsUp={shiftWordsUp} shiftWordsDown={shiftWordsDown} addLineBreakAfterSelected={addLineBreakAfterSelected} onUndoRedoStanza={onUndoRedoStanza} onAddPunct={onAddPunct} onStripPunct={onStripPunct} onConfirmEditWord={onConfirmEditWord} onSetWordBeingEdited={onSetWordBeingEdited} onSetWordEditMode={onSetWordEditMode} wordEditMode={wordEditMode} onShuffleStanza={onShuffleStanza} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
               </div>
             </div>
           }

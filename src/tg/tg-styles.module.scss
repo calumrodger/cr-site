@@ -812,12 +812,13 @@ width: 6rem;
     justify-self: center;
     flex-direction: column;
     width: 3rem;
+    gap: .4rem;
 
     .preset {
         font-size: .8rem;
     }
 
-    .button {
+    .srcPadButton {
         font-size: .8rem;
         width: 4rem;
         height: 4rem;

@@ -1,4 +1,4 @@
-export const gertrude = {id: 6, name: "Button Tenders", text: `
+export const gertrude = {id: 2, name: "button tenders", text: `
 TENDER BUTTONS
 
   Objects · Food · Rooms

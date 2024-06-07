@@ -65,13 +65,15 @@ const ShowAsSlides = (props) => {
 
     return (
         <div className={classes.pageContainer} >
-          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}} >
-            <div className={classes.smallContainerFlex}>
-                {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
+          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}} >
+          <div className={classes.bigContainerFlex}>
+            <div className={classes.smallContainerFlex} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}}>
+                <div style={{color: slideIndex === 0 ? outputTitleColour : "transparent"}} className={classes.poemTitle}>{poemTitle}</div>
                 <div className={classes.mainTextSlides}>
                 {thePoemJSX[slideIndex]}
                 </div>
             </div>
+          </div>
           </div>
           <div className={classes.panel}>
             <div className={classes.colourContainer}>

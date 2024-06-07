@@ -1,7 +1,7 @@
 export const wordBankDefaultText = [{id: 0, text: 'This', selected: false}, {id: 1, text: 'is', selected: false}, {id: 2, text: 'the', selected: false}, {id: 3, text: 'WORD', selected: false}, {id: 4, text: 'BANK.', selected: false}, {id: 5, text: 'Click', selected: false}, {id: 6, text: 'POPULATE', selected: false}, {id: 7, text: 'to', selected: false}, {id: 8, text: 'add', selected: false}, {id: 9, text: 'new', selected: false}, {id: 10, text: 'words.', selected: false}, {id: 11, text: 'Click', selected: false}, {id: 12, text: 'on', selected: false}, {id: 13, text: 'a', selected: false}, {id: 14, text: 'word', selected: false}, {id: 15, text: 'to', selected: false}, {id: 16, text: 'SELECT', selected: false}, {id: 17, text: 'it.', selected: false}, {id: 18, text: 'Click', selected: false}, {id: 19, text: 'INJECT', selected: false}, {id: 20, text: 'to', selected: false}, {id: 21, text: 'transform', selected: false}, {id: 22, text: 'SELECTED', selected: false}, {id: 23, text: 'words', selected: false}, {id: 24, text: 'on', selected: false}, {id: 25, text: 'the', selected: false}, {id: 26, text: 'STANZA', selected: false},  {id: 27, text: 'PAD.', selected: false}]
 
 export const gptBirdArray = 
-{id: 1, name: 'gpt bird words', words: [ 'feather',        'beak',        'wing',         'flight',
+{id: 1, name: 'birds', words: [ 'feather',        'beak',        'wing',         'flight',
 'nest',           'avian',       'plumage',      'song',
 'talon',          'perch',       'flock',        'migration',
 'preen',          'roost',       'hatchling',    'predator',

@@ -16,7 +16,7 @@ const LLMFX = (props) => {
 
     useEffect(() => {
       if (loading === true) {
-        onSetStatusMessage('awaiting LLM response...', 10000, 'yellow');
+        onSetStatusMessage('awaiting LLM response...', 1000000, 'yellow');
       } else {
         onSetStatusMessage('all systems good', 0, 'green');
       }
@@ -106,6 +106,11 @@ const LLMFX = (props) => {
         }),
       });
       const data = await response.json()
+      if (data === 'error') {
+        onSetStatusMessage('something went wrong!', 3000, 'red');
+        setLoading(false);
+        return;
+      }
       console.log(data.join(""));
       if (mode === 'emoji') {
         setRawEmojiOutput(data.join(""));
@@ -128,7 +133,12 @@ const LLMFX = (props) => {
           prompt: remixPrompt,
         }),
       });
-      const data = await response.json()
+      const data = await response.json();
+      if (data === 'error') {
+        onSetStatusMessage('something went wrong!', 3000, 'red');
+        setLoading(false);
+        return;
+      }
       console.log(data.join(""));
       setRawRemixOutput(data.join(""));
       setLoading(false);
@@ -147,12 +157,19 @@ const LLMFX = (props) => {
     }
 
     const processRemixOutput = (text) => {
+      console.log(text.split('"""'))
+      if (text.split('"""').length < 3) {
+        console.log('error')
+        return 'error';
+      } else {
       let firstIndex = text.search('"""');
       let startPoint = firstIndex + 3;
       let topTrimmed = text.slice(startPoint);
       let lastIndex = topTrimmed.search('"""');
       let endPoint = topTrimmed.substring(0, lastIndex);
+      console.log(endPoint)
       return endPoint;
+    }
     }
 
     const onClickEmojify = (e) => {
@@ -170,10 +187,15 @@ const LLMFX = (props) => {
     useEffect(() => {
       if (typeof rawEmojiOutput === 'string' && rawEmojiOutput !== '') {
           let treatedOutput = processLlmOutput(rawEmojiOutput);
+          console.log(treatedOutput);
+          console.log(typeof treatedOutput)
+          console.log(treatedOutput.length)
+          console.log(stanzaAsString.split(' ').length)
           if (typeof treatedOutput === "object") {
+            onSetStatusMessage('success!', 1000, 'green')
               onUpdate(getNewStanzaReplace(treatedOutput), stanza)
           } else {
-              console.log('ERROR' + treatedOutput)
+              onSetStatusMessage('something glitched out!', 3000, 'red')
           }
       }
     }, [rawEmojiOutput])
@@ -182,9 +204,10 @@ const LLMFX = (props) => {
       if (typeof rawIntensifyOutput === 'string' && rawIntensifyOutput !== '') {
           let treatedOutput = processLlmOutput(rawIntensifyOutput);
           if (typeof treatedOutput === "object") {
+            onSetStatusMessage('success!', 1000, 'green')
               onUpdate(getNewStanzaReplace(treatedOutput), stanza)
           } else {
-              console.log('ERROR' + treatedOutput)
+            onSetStatusMessage('something glitched out!', 3000, 'red')
           }
       }
     }, [rawIntensifyOutput])
@@ -192,10 +215,11 @@ const LLMFX = (props) => {
     useEffect(() => {
       if (typeof rawNonsensifyOutput === 'string' && rawNonsensifyOutput !== '') {
           let treatedOutput = processLlmOutput(rawNonsensifyOutput);
-          if (typeof treatedOutput === "object") {
+          if (typeof treatedOutput === "object" ) {
+            onSetStatusMessage('success!', 1000, 'green')
               onUpdate(getNewStanzaReplace(treatedOutput), stanza)
           } else {
-              console.log('ERROR' + treatedOutput)
+            onSetStatusMessage('something glitched out!', 3000, 'red')
           }
       }
     }, [rawNonsensifyOutput])
@@ -203,27 +227,37 @@ const LLMFX = (props) => {
     useEffect(() => {
       if (rawRemixOutput !== '') {
           let treatedOutput = processRemixOutput(rawRemixOutput);
-          onUpdate(treatString(treatedOutput), stanza)
+          if (treatedOutput === 'error') {
+              onSetStatusMessage('ahhh something glitched out!', 3000, 'red')
+          } else {
+            onSetStatusMessage('success!', 1000, 'green')
+            onUpdate(treatString(treatedOutput), stanza)
+          }
       }
     }, [rawRemixOutput])
 
     const getNewStanzaReplace = (treatedOutput) => {
-        let newArray = stanza.map((word) => {
-            if (word.selected) {
-                return { id: word.id, type: "text", style: word?.style, text: null, selected: true }
+      let newArray = stanza.map((word) => {
+          if (word.selected) {
+              return { id: word.id, type: "text", style: word?.style, text: null, selected: true }
+          } else {
+              return word;
+          }
+      });
+      let replacementCount = 0;
+      const newWordsLength = treatedOutput.length;
+      for (let i = 0; i < newArray.length; i++) {
+          if ((newArray[i].type === 'text') && (newArray[i].text === null) && (treatedOutput !== 'error')) {
+            if (replacementCount < newWordsLength) {
+              newArray[i].text = treatedOutput[replacementCount]?.replaceAll(' ', '');
+              replacementCount++;
             } else {
-                return word;
+              newArray[i].text = stanza[i].text;
             }
-        });
-        let replacementCount = 0;
-        for (let i = 0; i < newArray.length; i++) {
-            if ((newArray[i].type === 'text') && (newArray[i].text === null) && (treatedOutput !== 'error')) {
-                newArray[i].text = treatedOutput[replacementCount]?.replaceAll(' ', '');
-                replacementCount++;
-            }
-        }
-        return newArray;
-    }
+          }
+      }
+      return newArray;
+  }
 
     const getNewStanzaAddBefore = (treatedOutput) => {
       let newArray = [];
@@ -247,12 +281,23 @@ const LLMFX = (props) => {
       return newArray;
   }
 
+  const areAnyStanzaWordsSelected = () => {
+    const quantity = stanza.filter((item) => item.selected).length;
+    if (quantity > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const wordsSelected = areAnyStanzaWordsSelected();
+
     return (
         <div className={classes.llmContainer}>
             <div className={classes.buttonsContainer}>
-                <button className={classes.button} onClick={(e) => onClickEmojify(e)}>EMOJIFY</button>
-                <button className={classes.button} onClick={(e) => onClickIntensify(e)}>SLANGIFY</button>
-                <button className={classes.button} onClick={(e) => onClickNonsensify(e)}>NONSENSIFY</button>
+                <button className={`${classes.button} ${wordsSelected ? null : classes.disabled}`} onClick={wordsSelected ? (e) => onClickEmojify(e) : null}>EMOJIFY</button>
+                <button className={`${classes.button} ${wordsSelected ? null : classes.disabled}`} onClick={wordsSelected ? (e) => onClickIntensify(e) : null}>SLANGIFY</button>
+                <button className={`${classes.button} ${wordsSelected ? null : classes.disabled}`} onClick={wordsSelected ? (e) => onClickNonsensify(e) : null}>NONSENSIFY</button>
             </div>
             <div className={classes.promptContainer}>
                 <label htmlFor="llm-prompt">global remix:</label>

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 const StanzaPadButtons = (props) => {
 
-    const { shiftWordsUp, shiftWordsDown, addLineBreakAfterSelected, onAddPunct, onStripPunct, onConfirmEditWord, onSetWordBeingEdited, onSetWordEditMode, wordEditMode, onShuffleStanza, onUndoRedoStanza, stanza, oldStanza, onSaveToWordBank, onSelectAllWords, onUnselectAllWords, onDeleteSelectedWords, onDuplicateSelectedWords, onEditWord } = props;
+    const { onStripCaps, shiftWordsUp, shiftWordsDown, addLineBreakAfterSelected, onAddPunct, onStripPunct, onConfirmEditWord, onSetWordBeingEdited, onSetWordEditMode, wordEditMode, onShuffleStanza, onUndoRedoStanza, stanza, oldStanza, onSaveToWordBank, onSelectAllWords, onUnselectAllWords, onDeleteSelectedWords, onDuplicateSelectedWords, onEditWord } = props;
 
     const backText = "<-";
 
@@ -64,6 +64,10 @@ const StanzaPadButtons = (props) => {
         onStripPunct();
     }
 
+    const onClickStripCaps = () => {
+      onStripCaps();
+    }
+
     const onClickAddPunct = () => { 
         onAddPunct(false);
     }
@@ -102,6 +106,9 @@ const StanzaPadButtons = (props) => {
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={onSaveToWordBank}>save to bank</button>
             </div>
             <div>
+            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={onClickStripCaps}>strip CAPS</button>
+            </div>
+            <div>
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={onClickStripPunct}>strip punct</button>
             </div>
             <div>
@@ -113,7 +120,6 @@ const StanzaPadButtons = (props) => {
             </div>
 
             <div>
-            <StanzaUndoRedo wordEditMode={wordEditMode} onUndoRedoStanza={onUndoRedoStanza} stanza={stanza} oldStanza={oldStanza} />
             </div>
         </div>
     )
