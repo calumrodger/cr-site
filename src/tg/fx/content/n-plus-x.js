@@ -25,6 +25,7 @@ const NPlusX = (props) => {
     const wordListWee = masterWordListWee.split('\n');
     const pos = require('pos');
     const rhymingDictionaryLength = Object.keys(dictionary).length;
+    const rhymingDictionaryWords = Object.keys(dictionary);
     
     function checkPunctuation(word) {
         const punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
@@ -204,10 +205,10 @@ const NPlusX = (props) => {
         let textArray = treatWordFirst(word);
         let finalWord = '';
         while (finalWord === '') {
-            let randomIndex = Math.floor(Math.random() * wordList.length);
-            let randomWord = wordList[randomIndex];
-            if (rhymeCheck(textArray[0], randomWord) === true) {
-                finalWord = randomWord;
+            let randomIndex = Math.floor(Math.random() * rhymingDictionaryLength);
+            let randomWord = rhymingDictionaryWords[randomIndex];
+            if (rhymeCheck(textArray[0], randomWord) === true && randomWord !== textArray[0]) {
+                finalWord = randomWord.replace(/[\d\(\)&]+/g, '');
             }
             if (rhymeCheck(textArray[0], randomWord) === null) {
                 return textArray[1] + textArray[0] + textArray[2];
@@ -221,7 +222,7 @@ const NPlusX = (props) => {
 
     // Replace function
     const replace = () => {
-        let timeout = Date.now() + 2000;
+        let timeout = Date.now() + 5000;
         onSetStatusMessage('replacing...', 10000, 'yellow');
         let whatToGet = stanza.filter((word) => {
             if (word.selected === true) {
