@@ -389,7 +389,6 @@ const Genny = (props) => {
 
   const onUpdate = (newStanza) => {
     if (newStanza === null) {
-      console.log('nope')
       return;
     }
     setStanza(newStanza);

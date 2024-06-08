@@ -85,7 +85,6 @@ const NPlusX = (props) => {
         const tagger = new pos.Tagger();
         const taggedWord1 = tagger.tag(wordOne);
         const taggedWord2 = tagger.tag(wordTwo);
-        console.log(taggedWord1, taggedWord2)
         if (taggedWord1[0][1] === taggedWord2[0][1]) {
             return true;
         } else {

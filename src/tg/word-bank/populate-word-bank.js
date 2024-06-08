@@ -56,7 +56,7 @@ const PopulateWordBank = (props) => {
             if (typeof treatedOutput === "object") {
                 onPopulateWordBank(treatedOutput, quant)
             } else {
-                console.log('error')
+                onSetStatusMessage('something went wrong!', 3000, 'red');
             }
         }
     }, [llmOutput])

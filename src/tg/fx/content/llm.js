@@ -157,9 +157,7 @@ const LLMFX = (props) => {
     }
 
     const processRemixOutput = (text) => {
-      console.log(text.split('"""'))
       if (text.split('"""').length < 3) {
-        console.log('error')
         return 'error';
       } else {
       let firstIndex = text.search('"""');
@@ -167,7 +165,6 @@ const LLMFX = (props) => {
       let topTrimmed = text.slice(startPoint);
       let lastIndex = topTrimmed.search('"""');
       let endPoint = topTrimmed.substring(0, lastIndex);
-      console.log(endPoint)
       return endPoint;
     }
     }
@@ -187,10 +184,6 @@ const LLMFX = (props) => {
     useEffect(() => {
       if (typeof rawEmojiOutput === 'string' && rawEmojiOutput !== '') {
           let treatedOutput = processLlmOutput(rawEmojiOutput);
-          console.log(treatedOutput);
-          console.log(typeof treatedOutput)
-          console.log(treatedOutput.length)
-          console.log(stanzaAsString.split(' ').length)
           if (typeof treatedOutput === "object") {
             onSetStatusMessage('success!', 1000, 'green')
               onUpdate(getNewStanzaReplace(treatedOutput), stanza)

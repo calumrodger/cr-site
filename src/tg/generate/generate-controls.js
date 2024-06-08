@@ -338,8 +338,6 @@ const GenerateControls = (props) => {
             while (nGram === null) {
                 randomIndex = indexArray.splice(Math.floor(indexArray.length * Math.random()), 1)[0];
                 randomNGram = Object.entries(nGrams)[randomIndex];
-                console.log('trying index' + randomIndex + 'of' + indexArray.length)
-                onSetStatusMessage('trying index' + randomIndex + 'of' + indexArray.length, 3000, 'yellow')
                 nGram = getNGramLineStressForIndex(nGrams, formSum, randomNGram);
             }
             stringArray = nGram.trim().split(/\s+/);

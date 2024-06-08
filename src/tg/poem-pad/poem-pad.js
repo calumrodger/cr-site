@@ -148,9 +148,9 @@ const PoemPad = (props) => {
       onShufflePoem();
     }
 
-    const onWordClick = (e) => {
-      console.log('hi')
-    }
+    // const onWordClick = (e) => {
+    //   console.log('hi')
+    // }
 
 
     return (
