@@ -6890,7 +6890,7 @@ The Twa Dogs^1
      Himsel’, a wife, he thus sustains,
      A smytrie o’ wee duddie weans,
      An’ nought but his han’-daurk, to keep
-     Them right an’ tight in thack an’ rape.
+     Them right an’ tight in thack an’.
 
      An’ when they meet wi’ sair disasters,
      Like loss o’ health or want o’ masters,
@@ -7540,7 +7540,7 @@ The Ordination
      Shall here nae mair find quarter:
      Mackinlay, Russell, are the boys
      That heresy can torture;
-     They’ll gie her on a rape a hoyse,
+     They’ll gie her on a  a hoyse,
      And cowe her measure shorter
      By th’ head some day.
 
@@ -10469,7 +10469,7 @@ The Brigs Of Ayr
      The godlike bliss, to give, alone excels.
 
      ’Twas when the stacks get on their winter hap,
-     And thack and rape secure the toil-won crap;
+     And thack and  secure the toil-won crap;
      Potatoe-bings are snugged up frae skaith
      O’ coming Winter’s biting, frosty breath;
      The bees, rejoicing o’er their summer toils,
@@ -14949,7 +14949,7 @@ Impromptu Lines To Captain Riddell
      With little admiring or blaming;
      The Papers are barren
      Of home-news or foreign,
-     No murders or rapes worth the naming.
+     No murders or  worth the naming.
 
      Our friends, the Reviewers,
      Those chippers and hewers,
@@ -16086,8 +16086,8 @@ The Kirk Of Scotland’s Alarm
      Holy Will! holy Will, there was wit in your skull,
      When ye pilfer’d the alms o’ the poor;
      The timmer is scant when ye’re taen for a saunt,
-     Wha should swing in a rape for an hour,
-     Holy Will!^17 Ye should swing in a rape for an hour.
+     Wha should swing in a for an hour,
+     Holy Will!^17 Ye should swing in a for an hour.
 
      Calvin’s sons! Calvin’s sons, seize your spiritual guns,
      Ammunition you never can need;
@@ -17826,7 +17826,7 @@ Tam O’ Shanter
      To note upon the haly table,
      A murderer’s banes, in gibbet-airns;
      Twa span-lang, wee, unchristened bairns;
-     A thief, new-cutted frae a rape,
+     A thief, new-cutted frae a ,
      Wi’ his last gasp his gabudid gape;
      Five tomahawks, wi’ blude red-rusted:
      Five scimitars, wi’ murder crusted;
@@ -23993,7 +23993,7 @@ Ballads on Mr. Heron’s Election, 1795
      But we winna mention Redcastle,
      The body, e’en let him escape!
      He’d venture the gallows for siller,
-     An ’twere na the cost o’ the rape.
+     An ’twere na the cost o’ the .
 
      But where is the Doggerbank hero,
      That made “Hogan Mogan” to skulk?
@@ -26775,7 +26775,6 @@ Glossary
      Randie, randy, a scoundrel, a rascal.
      Rant, to rollick, to roister.
      Rants, merry meetings; rows.
-     Rape, v. raep.
      Raploch, homespun.
      Rash, a rush.
      Rash-buss, a clump of rushes.
@@ -27139,7 +27138,6 @@ Glossary
      Tester, an old silver coin about sixpence in value.
      Teugh, tough.
      Teuk, took.
-     Thack, thatch; thack and rape = the covering of a house, and so, home
        necessities.
      Thae, those.
      Thairm, small guts; catgut (a fiddle-string).
