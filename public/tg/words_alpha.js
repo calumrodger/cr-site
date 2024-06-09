@@ -15666,8 +15666,6 @@ antinaturalist
 antinaturalistic
 antinaturally
 antinaturalness
-antinegro
-antinegroism
 antineologian
 antineoplastic
 antinephritic
@@ -252307,8 +252305,6 @@ pronaval
 pronavy
 prone
 pronegotiation
-pronegro
-pronegroism
 pronely
 proneness
 pronephric
@@ -253654,7 +253650,6 @@ protonate
 protonated
 protonation
 protone
-protonegroid
 protonema
 protonemal
 protonemata
@@ -284405,7 +284400,6 @@ seminationalized
 seminative
 seminebulous
 seminecessary
-seminegro
 seminervous
 seminervously
 seminervousness
@@ -341813,8 +341807,6 @@ unfaded
 unfading
 unfadingly
 unfadingness
-unfagged
-unfagoted
 unfailable
 unfailableness
 unfailably
@@ -346717,7 +346709,6 @@ unnegotiable
 unnegotiableness
 unnegotiably
 unnegotiated
-unnegro
 unneighbored
 unneighborly
 unneighborlike

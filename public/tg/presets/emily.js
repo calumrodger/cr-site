@@ -562,7 +562,7 @@ Till we are helped,
 As if a kingdom cared!
 
 Read then of faith
-That shone above the fagot;
+That shone above;
 Clear strains of hymn
 The river could not drown;
 Brave names of men

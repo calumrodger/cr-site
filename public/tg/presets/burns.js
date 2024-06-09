@@ -25701,7 +25701,7 @@ Glossary
      Brust, burst.
      Buckie, dim. of buck; a smart younker.
      Buckle, a curl.
-     Buckskin, Virginian: the buckskin kye, negroes.
+     Buckskin, Virginian: the buckskin kye.
      Budget, tinker’s bag of tools.
      Buff, to bang, to thump.
      Bughtin, folding.

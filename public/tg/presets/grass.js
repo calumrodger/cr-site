@@ -1308,9 +1308,9 @@ Song of Myself
   They do not hasten, each man hits in his place.
 
        13
-  The negro holds firmly the reins of his four horses, the block swags
+  The holds firmly the reins of his four horses, the block swags
       underneath on its tied-over chain,
-  The negro that drives the long dray of the stone-yard, steady and
+  The that drives the long dray of the stone-yard, steady and
       tall he stands pois’d on one leg on the string-piece,
   His blue shirt exposes his ample neck and breast and loosens over
       his hip-band,
@@ -4838,7 +4838,7 @@ Salut au Monde!
   You poor koboo whom the meanest of the rest look down upon for all
       your glimmering language and spirituality!
   You dwarf’d Kamtschatkan, Greenlander, Lapp!
-  You Austral negro, naked, red, sooty, with protrusive lip,
+  You Austral, naked, red, sooty, with protrusive lip,
       groveling, seeking your food!
   You Caffre, Berber, Soudanese!
   You haggard, uncouth, untutor’d Bedowee!
@@ -5665,7 +5665,7 @@ Our Old Feuillage
   The waving drapery on the live-oak trailing long and low,
       noiselessly waved by the wind,
   The camp of Georgia wagoners just after dark, the supper-fires and
-      the cooking and eating by whites and negroes,
+      the cooking and eating by whites and ,
   Thirty or forty great wagons, the mules, cattle, horses, feeding
       from troughs,
   The shadows, gleams, up under the leaves of the old sycamore-trees,
@@ -5676,7 +5676,7 @@ Our Old Feuillage
       clearing, curing, and packing-houses;
   Deep in the forest in piney woods turpentine dropping from the
       incisions in the trees, there are the turpentine works,
-  There are the negroes at work in good health, the ground in all
+  There are the at work in good health, the ground in all
       directions is cover’d with pine straw;
   In Tennessee and Kentucky slaves busy in the coalings, at the forge,
       by the furnace-blaze, or at the corn-shucking,
@@ -5700,7 +5700,7 @@ Our Old Feuillage
   California life, the miner, bearded, dress’d in his rude costume,
       the stanch California friendship, the sweet air, the graves one
       in passing meets solitary just aside the horse-path;
-  Down in Texas the cotton-field, the negro-cabins, drivers driving
+  Down in Texas the cotton-field, the, drivers driving
       mules or oxen before rude carts, cotton bales piled on banks
       and wharves;
   Encircling all, vast-darting up and wide, the American Soul, with
@@ -8948,7 +8948,7 @@ I Sit and Look Out
   I observe a famine at sea, I observe the sailors casting lots who
       shall be kill’d to preserve the lives of the rest,
   I observe the slights and degradations cast by arrogant persons upon
-      laborers, the poor, and upon negroes, and the like;
+      laborers, the poor, and upon, and the like;
   All these--all the meanness and agony without end I sitting look out upon,
   See, hear, and am silent.
 
@@ -11868,7 +11868,7 @@ There Was a Child Went Forth
       tavern whence he had lately risen,
   And the schoolmistress that pass’d on her way to the school,
   And the friendly boys that pass’d, and the quarrelsome boys,
-  And the tidy and fresh-cheek’d girls, and the barefoot negro boy and girl,
+  And the tidy and fresh-cheek’d girls, and the barefoot boy and girl,
   And all the changes of city and country wherever he went.
 
   His own parents, he that had father’d him and she that had conceiv’d
