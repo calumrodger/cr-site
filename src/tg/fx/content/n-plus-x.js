@@ -210,7 +210,7 @@ const NPlusX = (props) => {
             if (rhymeCheck(textArray[0], randomWord) === true && randomWord !== textArray[0]) {
                 finalWord = randomWord.replace(/[\d\(\)&]+/g, '');
             }
-            if (rhymeCheck(textArray[0], randomWord) === null && randomWord !== "nigger") {
+            if (rhymeCheck(textArray[0], randomWord) === null && randomWord !== "nigger" && randomWord !== "niggers" && randomWord !== "nigger's" && randomWord !== "faggot") {
                 return textArray[1] + textArray[0] + textArray[2];
             }
         }
