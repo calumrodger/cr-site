@@ -15,7 +15,7 @@ const NPlusX = (props) => {
     const [rhyme, setRhyme] = useState(false);
     const [nValue, setNValue] = useState(0);
     const [newWordsArray, setNewWordsArray] = useState([]);
-    const [src, setSrc] = useState('big');
+    const [src, setSrc] = useState('wee');
     const [lastClicked, setLastClicked] = useState('');
     const [success, setSuccess] = useState(true);
 
