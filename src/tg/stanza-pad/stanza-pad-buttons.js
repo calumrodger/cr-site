@@ -79,7 +79,10 @@ const StanzaPadButtons = (props) => {
     return (
         <div className={classes.stanzaPadButtonsContainer}>
           <div>
-            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onSaveToWordBank}>save to bank</button>
+            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onSaveToWordBank}>SAVE TO BANK</button>
+            </div>
+            <div>
+            <button onClick={noneSelected || moreThanOneSelected ? null : onClickEditWord} className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`}>EDIT WORD</button>
             </div>
             <div>
             <button className={`${classes.button} ${allSelected || wordEditMode ? classes.disabled : null}`} onClick={allSelected || wordEditMode ? null : onSelectAllWords}>select all</button>
@@ -88,32 +91,31 @@ const StanzaPadButtons = (props) => {
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onUnselectAllWords}>unselect all</button>
             </div>
             <div>
-            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onDeleteSelectedWords}>delete</button>
+            <button onClick={noneSelected || wordEditMode ? null : shiftWordsUp} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>◀ move</button>
             </div>
             <div>
-            <button onClick={noneSelected || wordEditMode ? null : shiftWordsUp} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move left</button>
-            </div>
-            <div>
-            <button onClick={noneSelected || wordEditMode ? null : shiftWordsDown} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move right</button>
-            </div>
-            <div>
-            <button className={`${classes.button} ${!moreThanOneSelected || wordEditMode ? classes.disabled : null}`} onClick={!moreThanOneSelected || wordEditMode ? null : onShuffleStanza}>shuffle</button>
+            <button onClick={noneSelected || wordEditMode ? null : shiftWordsDown} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move ▶</button>
             </div>
             <div>
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? onDuplicateSelectedWords : null}>duplicate</button>
             </div>
             <div>
-            <button onClick={noneSelected || moreThanOneSelected ? null : onClickEditWord} className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`}>edit word</button>
+            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onDeleteSelectedWords}>delete</button>
+            </div>
+            <div>
+            <button className={`${classes.button} ${!moreThanOneSelected || wordEditMode ? classes.disabled : null}`} onClick={!moreThanOneSelected || wordEditMode ? null : onShuffleStanza}>shuffle</button>
             </div>
             
+            
+            
             <div>
-            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onClickStripCaps}>strip CAPS</button>
+            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onClickStripCaps}>strip caps</button>
             </div>
             <div>
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onClickStripPunct}>strip punct</button>
             </div>
             <div>
-            <button onClick={noneSelected || wordEditMode ? null : onClickAddPunctReverse} className={`${classes.button} ${classes.backButton} ${noneSelected || wordEditMode ? classes.disabled : null}`}><span>{backText}</span></button>
+            <button onClick={noneSelected || wordEditMode ? null : onClickAddPunctReverse} className={`${classes.button} ${classes.backButton} ${noneSelected || wordEditMode ? classes.disabled : null}`}><span>◀</span></button>
             <button onClick={noneSelected || wordEditMode ? null : onClickAddPunct} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>add punct</button>
             </div>
             <div>
