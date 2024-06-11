@@ -47,7 +47,7 @@ const SaveOutputToTxt = (props) => {
 
     return (
         <>
-        <button className={`${classes.button} ${classes.saveToTxtButton}`} onClick={saveToTxt}>save to .txt</button>
+        <button className={`${classes.button} ${poem.length > 0 ? null : classes.disabled} ${classes.saveToTxtButton}`} onClick={poem.length > 0 ? saveToTxt : null}>SAVE TO TXT</button>
         </>
     )
 }

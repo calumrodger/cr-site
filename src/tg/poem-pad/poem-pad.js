@@ -179,14 +179,15 @@ const PoemPad = (props) => {
         <div className={classes.poemPadButtonOuterContainer}>
         <div className={classes.poemPadButtonContainer}>
         <SaveOutputToTxt poem={poem} /> 
+        <button className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`} onClick={editStanza}>EDIT</button>
           <button className={`${classes.button} ${allSelected ? classes.disabled : null}`} onClick={selectAll}>select all</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={unselectAll}>unselect all</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzasUp}>up</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={shiftStanzasDown}>down</button>
-          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={duplicateStanza}>dupe</button>
+          <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={duplicateStanza}>duplicate</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={deleteStanza}>delete</button>
           <button className={`${classes.button} ${!moreThanOneSelected ? classes.disabled : null}`} onClick={shuffleClickHandler}>shuffle</button>
-          <button className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`} onClick={editStanza}>edit</button>
+          
         </div>
         </div>
         </>

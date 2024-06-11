@@ -82,7 +82,7 @@ const StanzaPadButtons = (props) => {
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onSaveToWordBank}>SAVE TO BANK</button>
             </div>
             <div>
-            <button onClick={noneSelected || moreThanOneSelected ? null : onClickEditWord} className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`}>EDIT WORD</button>
+            <button onClick={noneSelected || moreThanOneSelected ? null : onClickEditWord} className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`}>{wordEditMode ? 'DONE' : 'EDIT WORD'}</button>
             </div>
             <div>
             <button className={`${classes.button} ${allSelected || wordEditMode ? classes.disabled : null}`} onClick={allSelected || wordEditMode ? null : onSelectAllWords}>select all</button>

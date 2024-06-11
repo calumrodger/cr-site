@@ -482,6 +482,10 @@ width: 6rem;
             height: 100%;
         }
 
+        &.disabled {
+            cursor: default;
+        }
+
         &.selected {
 
             &::before {

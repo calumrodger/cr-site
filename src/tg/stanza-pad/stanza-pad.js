@@ -32,7 +32,7 @@ const StanzaPad = (props) => {
               if (wordEditMode && t.selected) {
                 return <input id={i} key={i} type="text" value={wordBeingEdited} onChange={(e) => onEditingWord(e)} style={checkStyles(t)} className={`${classes.wordInputField} ${classes.word} ${t.selected ? classes.selected : null}`}></input>
               } else {
-              return <span id={i} key={i} onClick={onWordClick} style={checkStyles(t, baseFontSize)} className={`${classes.word} ${t.selected ? classes.selected : null}`}>{t.text}</span>
+              return <span id={i} key={i} onClick={wordEditMode ? null : onWordClick} style={checkStyles(t, baseFontSize)} className={`${classes.word} ${wordEditMode ? classes.disabled : null} ${t.selected ? classes.selected : null}`}>{t.text}</span>
               }
             }
           })}
