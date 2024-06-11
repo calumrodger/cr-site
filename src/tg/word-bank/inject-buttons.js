@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const InjectControls = (props) => {
 
-    const {onClickInject, onChangeInjectSetting, injectSetting} = props;
+    const {onClickInject, onChangeInjectSetting, injectSetting, areStanzaWordsSelected, areWordBankWordsSelected} = props;
     
         return (
             <div className={classes.injectContainer}>
@@ -22,7 +22,7 @@ const InjectControls = (props) => {
                         <label htmlFor="add-before">add before</label>
                     </div>
                 </div>
-                <button onClick={onClickInject} className={`${classes.button} ${classes.injectButton}`}>INJECT</button>
+                <button onClick={areStanzaWordsSelected && areWordBankWordsSelected ? onClickInject : null} className={`${classes.button} ${classes.injectButton} ${areStanzaWordsSelected && areWordBankWordsSelected ? null : classes.disabled}`}>INJECT</button>
             </div>
         )
 }

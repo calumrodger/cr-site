@@ -6,6 +6,9 @@ $highlightExtra: #2274A5;
 $screenColour: #002400;
 $disabledBg: #896978;
 $disabledColour: #2E294E;
+$buttonColour: #bfacc8;
+$shadowColour: #c8c6d7;
+$hoverColour: #e5c2c0;
 
 .pageContainer {
     margin: auto;
@@ -19,21 +22,24 @@ $disabledColour: #2E294E;
 }
 
 .button {
-    border: 1px solid $fillColourLight;
+    border: 1px solid $bgColour;
     cursor: pointer;
     width: fit-content;
     margin: auto;
-    color: $fillColourLight;
+    color: $screenColour;
+    background-color: $buttonColour;
+    box-shadow: $shadowColour -1px 1px;
     padding: .1rem;
     font-size: .7rem;
     border-radius: .2rem;
 
     &:hover {
-        background-color: $highlightColour;
+        background-color: $hoverColour;
         color: $bgColour;
     }
 
     &.disabled {
+        box-shadow: none;
         background-color: $disabledBg;
         color: $disabledColour;
         cursor: default;
@@ -164,13 +170,13 @@ $disabledColour: #2E294E;
 
 
 .slider {
-    width: 3rem;
     appearance: none;
     width: 100%;
     height: 10px;
     background: $fillColourLight;
     accent-color: $highlightColour; 
-  }
+    cursor: pointer;
+}
 
 .mainTextLines {
     // height: 100%;

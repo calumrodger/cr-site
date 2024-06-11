@@ -18,7 +18,7 @@ const LLMFX = (props) => {
       if (loading === true) {
         onSetStatusMessage('awaiting LLM response...', 1000000, 'yellow');
       } else {
-        onSetStatusMessage('all systems good', 0, 'green');
+        onSetStatusMessage('all systems good', 0, 'white');
       }
     }, [loading])
 
@@ -295,7 +295,7 @@ const LLMFX = (props) => {
             <div className={classes.promptContainer}>
                 <label htmlFor="llm-prompt">global remix:</label>
                 <input className={classes.textInput} value={promptValue} onChange={(e) => handleChange(e)} type="text"  />
-                <button className={classes.button} onClick={handleRemixClick}>GO</button>
+                <button className={`${classes.button} ${promptValue !== '' && stanza.length > 0 ? null : classes.disabled}`} onClick={promptValue !== '' && stanza.length > 0 ? handleRemixClick : null}>GO</button>
             </div>
             <div>
         </div>

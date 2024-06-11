@@ -92,7 +92,6 @@ const APIFX = (props) => {
         let textArray = description.split(' ');
         for (let i = 0; i < stanza.length; i++) {
             if (stanza[i].selected) {
-                // let wordsToAddArray = textArray.filter((word, index) => index < +volumeValue);
                 newStanzaArray.push(stanza[i]);
                 for (let j = 0; j < textArray.length; j++) {
                     newStanzaArray.push({id: stanza.length + j, type: 'text', style: stanza[i].style, text: textArray[j], selected: false})
@@ -106,6 +105,17 @@ const APIFX = (props) => {
     }
 
     const keyText = apiType === 'film' ? 'title:' : apiType === 'news' ? 'topic:' : 'place:';
+
+    const areAnyStanzaWordsSelected = () => {
+        const quantity = stanza.filter((item) => item.selected).length;
+        if (quantity > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    
+      const wordsSelected = areAnyStanzaWordsSelected();
 
     return (
         <div className={classes.apiContainer}>
@@ -137,7 +147,7 @@ const APIFX = (props) => {
                     }
             </div>
             <div className={classes.buttonContainer}>
-                <button className={classes.button} onClick={handleClick}>GO</button>
+                <button className={`${classes.button} ${wordsSelected && promptValue !== '' ? null : classes.disabled}`} onClick={wordsSelected ? handleClick : null}>GO</button>
             </div>
         </div>
     )

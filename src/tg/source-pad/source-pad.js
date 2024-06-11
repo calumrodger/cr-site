@@ -2,13 +2,13 @@
 
 import classes from '../tg-styles.module.scss';
 import PopulateFromYouTubeComments from '@tg/source-pad/populate-from-yt-comments';
-
+import { syllable } from 'syllable';
 import { useState, useEffect } from 'react';
 import LoadFromTxt from './load-from-txt';
 
   const SourcePad = (props) => {
 
-    const { onSetStatusMessage, onSetCurrentPresetText, onSetCurrentPresetName, onOverwritePreset, onSelectPreset, presetArray, onSaveNewPreset, onChangeCurrentPreset, currentPreset, onClickShowSrc, onClickImportAsStanza } = props;
+    const { getStress, onSetStatusMessage, onSetCurrentPresetText, onSetCurrentPresetName, onOverwritePreset, onSelectPreset, presetArray, onSaveNewPreset, onChangeCurrentPreset, currentPreset, onClickShowSrc, onClickImportAsStanza } = props;
     
     const [youTubeString, setYouTubeString] = useState('');
     const [txtString, setTxtString] = useState('');
@@ -32,11 +32,33 @@ import LoadFromTxt from './load-from-txt';
     }
 
     const onClickSaveAsNewPreset = () => {
-        onSaveNewPreset(editingPresetName, editingPresetText)
+        const presetArrayMappedForStress = editingPresetText.split(' ').map((item) => getStress(item));
+        const presetArrayMappedForSyllable = editingPresetText.split(' ').map((item) => syllable(item));
+        if (presetArrayMappedForStress.length < 20) {
+            onSetStatusMessage('input text must be more than 20 words', 10000, 'red');
+        } else if (!presetArrayMappedForStress.includes(1)) {
+            onSetStatusMessage('input text must contain at least one one-stress word', 10000, 'red');
+        } else if (!presetArrayMappedForSyllable.includes(1)) {
+            onSetStatusMessage('input text must contain at least one one-syllable word', 10000, 'red');
+        } else {
+            onSetStatusMessage('new preset "' + editingPresetName + '" saved!', 1000, 'green');
+            onSaveNewPreset(editingPresetName, editingPresetText);
+        }
     }
 
     const onClickOverwritePreset = () => {
-        onOverwritePreset(editingPresetName, editingPresetText)
+        const presetArrayMappedForStress = editingPresetText.split(' ').map((item) => getStress(item));
+        const presetArrayMappedForSyllable = editingPresetText.split(' ').map((item) => syllable(item));
+        if (presetArrayMappedForStress.length < 20) {
+            onSetStatusMessage('input text must be more than 20 words', 10000, 'red');
+        } else if (!presetArrayMappedForStress.includes(1)) {
+            onSetStatusMessage('input text must contain at least one one-stress word', 10000, 'red');
+        } else if (!presetArrayMappedForSyllable.includes(1)) {
+            onSetStatusMessage('input text must contain at least one one-syllable word', 10000, 'red');
+        } else {
+            onSetStatusMessage('preset "' + editingPresetName + '" overwritten!', 1000, 'green');
+            onOverwritePreset(editingPresetName, editingPresetText);
+        }
     }
 
     const onChangeMenuPreset = () => {

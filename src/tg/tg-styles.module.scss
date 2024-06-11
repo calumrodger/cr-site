@@ -6,24 +6,30 @@ $highlightExtra: #2274A5;
 $screenColour: #002400;
 $disabledBg: #896978;
 $disabledColour: #2E294E;
+$buttonColour: #bfacc8;
+$shadowColour: #c8c6d7;
+$hoverColour: #e5c2c0;
 
 // STANDARD CLASSES
 .button {
-    border: 1px solid $fillColourLight;
+    border: 1px solid $bgColour;
     cursor: pointer;
     width: fit-content;
     margin: auto;
-    color: $fillColourLight;
+    color: $screenColour;
+    background-color: $buttonColour;
+    box-shadow: $shadowColour -1px 1px;
     padding: .1rem;
     font-size: .7rem;
     border-radius: .2rem;
 
     &:hover {
-        background-color: $highlightExtra;
+        background-color: $hoverColour;
         color: $bgColour;
     }
 
     &.disabled {
+        box-shadow: none;
         background-color: $disabledBg;
         color: $disabledColour;
         cursor: default;
@@ -36,6 +42,13 @@ $disabledColour: #2E294E;
     height: 10px;
     background: $fillColourLight;
     accent-color: $highlightColour; 
+    cursor: pointer;
+
+    &.disabled {
+        background: $disabledBg;
+        accent-color: $disabledColour;
+        cursor: default;
+    }
 }
 
 .select {
@@ -182,15 +195,14 @@ $disabledColour: #2E294E;
     }
 
     appearance: none;
-    border: 1px solid $fillColourLight;
+    border: 1px solid $bgColour;
     cursor: pointer;
     width: fit-content;
     margin: auto;
-    color: $fillColourLight;
     padding: .1rem;
 
     &:hover {
-        background-color: $highlightExtra;
+        background-color: $hoverColour;
         color: $bgColour;
     }
 }
@@ -252,6 +264,7 @@ $disabledColour: #2E294E;
             .outputLabel {
 
                 &.disabled {
+                    text-decoration: line-through;
                     color: $disabledColour;
                     cursor: default;
                 }
@@ -658,6 +671,7 @@ width: 6rem;
     align-items: stretch;
     justify-content: stretch;
     flex-basis: max-content;
+    gap: .2rem;
 
     .wordBankButton {
         height: 100%;
@@ -679,14 +693,21 @@ width: 6rem;
     flex-direction: column;
     margin-top: .5rem;
     margin-left: .2rem;
+    border-radius: .2rem;
+    box-shadow: $shadowColour -1px 1px;
+
+    &.disabled {
+        box-shadow: none;
+    }
 
     .italic {
         font-style: italic;
         padding: 0 .1rem;
         font-size: .8rem;
-        width: 100%;
-        height: 100%;
+        width: 2.8rem;
         border-radius: .2rem 0 0 0;
+        box-shadow: none;
+        height: 1.5rem;
     }
 
     .mirror {
@@ -694,8 +715,9 @@ width: 6rem;
         transform: scaleX(-1);
         font-size: .8rem;
         padding: 0 .125rem;
-        width: 100%;
-        height: 100%;
+        width: 2.8rem;
+        height: 1.5rem;
+        box-shadow: none;
     }
     
     .caps {
@@ -703,16 +725,18 @@ width: 6rem;
         text-transform: uppercase;
         font-size: .8rem;
         padding: 0 .1rem;
-        width: 100%;
-        height: 100%;
+        width: 2.8rem;
+        height: 1.5rem;
+        box-shadow: none;
     }
 
     .erasure {
         border-radius: 0 0 .2rem 0;
         font-size: .8rem;
         padding: .2rem .1rem;
-        width: 100%;
-        height: 100%;
+        width: 2.8rem;
+        height: 1.5rem;
+        box-shadow: none;
     }
 }
 
@@ -766,6 +790,10 @@ width: 6rem;
         background-color: transparent;
         width: 2rem;
         cursor: pointer;
+    }
+
+    &:disabled {
+        color: $disabledColour;
     }
 }
 ////////////////////

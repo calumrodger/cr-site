@@ -3,8 +3,7 @@
 import classes from './genny.module.scss';
 import { useState, useEffect, useRef } from 'react';
 import { syllable } from 'syllable';
-// import { dictionary } from '../../../public/tg/cmu-stress-count-dictionary';
-import { dictionary } from '../../../public/tg/cmu-stress-count-dictionary';
+import { stressDictionary } from '@tg/utils/cmu-stress-count-dictionary';
 
 // PRESETS
 import { emily } from '../../../public/tg/presets/emily';
@@ -137,7 +136,7 @@ const Genny = (props) => {
   const [wordBank, setWordBank] = useState(wordBankDefaultText);
   const [allWordLists, setAllWordLists] = useState([adjectives, gptBirdArray, prepositions]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([burns, emily, gertrude, grass, shake, emptyPreset])
+  const [presetArray, setPresetArray] = useState([burns, emily, gertrude, grass, shake])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
   const [statusMessage, setStatusMessage] = useState(['welcome in genny', 0, 'white'])
@@ -314,7 +313,7 @@ const Genny = (props) => {
   const getStress = function (theString) {// preprocessed stress dict
     if (theString) {
       const parts = theString.trim().split(/\s+/).map(part => part.replace(/[^\w']|_/g, ""));
-      const stressArray = parts.map(part => dictionary[part] ?? 1);
+      const stressArray = parts.map(part => stressDictionary[part] ?? 1);
       return stressArray.reduce((p, c) => p + c, 0);
     }
     return 0;
@@ -1249,6 +1248,38 @@ const Genny = (props) => {
     setStanza(newArray);
 }
 
+const areAnyStanzaWordsSelected = () => {
+  const quantity = stanza.filter((item) => item.selected).length;
+  if (quantity > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+const areAnyStanzasSelectedOnPoemPad = () => {
+  const quantity = poem.filter((item) => item.selected).length;
+  if (quantity > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+const areAnyWordBankWordsSelected = () => {
+  const quantity = wordBank.filter((item) => item.selected).length;
+  if (quantity > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+const areStanzaWordsSelected = areAnyStanzaWordsSelected();
+const arePoemStanzasSelected = areAnyStanzasSelectedOnPoemPad();
+const areWordBankWordsSelected = areAnyWordBankWordsSelected();
+
 
 
   if (!docsMode) {
@@ -1279,7 +1310,7 @@ const Genny = (props) => {
             </div>
           </div>
           <div className={classes.inputSection}>
-          <GenerateControls wordEditMode={wordEditMode} onUndoRedoStanza={onUndoRedoStanza} stanza={stanza} editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage} oldStanza={oldStanza}/>
+          <GenerateControls statusMessage={statusMessage} wordEditMode={wordEditMode} onUndoRedoStanza={onUndoRedoStanza} stanza={stanza} editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage} oldStanza={oldStanza}/>
           </div>
           </>
           }
@@ -1311,7 +1342,7 @@ const Genny = (props) => {
           <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
           </div>
           <div className={classes.inputPadSection}>
-            <SourcePad onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset} onSetStatusMessage={onSetStatusMessage}/> 
+            <SourcePad getStress={getStress} onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset} onSetStatusMessage={onSetStatusMessage}/> 
           </div>
           </>
           }
@@ -1324,16 +1355,16 @@ const Genny = (props) => {
             <span className={classes.sectionTitle}>FX</span>
             </div>
               <div className={classes.fxTypographyGrid}>
-                <ResizeText onResizeText={onResizeText}/>
-                <ReweightText onReweightText={onReweightText}/>
-                <FontText onChangeFont={onChangeFont} />
-                <FontStyle onChangeTextRotation={onChangeTextRotation} />
+                <ResizeText padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onResizeText={onResizeText}/>
+                <ReweightText padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onReweightText={onReweightText}/>
+                <FontText padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onChangeFont={onChangeFont} />
+                <FontStyle padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onChangeTextRotation={onChangeTextRotation} />
         
               </div>
               <div className={classes.fxTypographyFlex}>
-              <ColourText onChangeTextColour={onChangeTextColour}/>
-              <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
-              <FormResetButton onResetTypography={onResetTypography} />
+              <ColourText padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onChangeTextColour={onChangeTextColour}/>
+              <TypographyButtons padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
+              <FormResetButton padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onResetTypography={onResetTypography} />
               </div>
               < hr className={classes.line} />
               <span className={classes.sectionSubheading}>N+X REPLACEMENT</span>
@@ -1352,7 +1383,7 @@ const Genny = (props) => {
               <>
               <span className={classes.sectionTitle}>WORD BANK</span>
               <WordBank onShuffleWordBank={onShuffleWordBank} baseFont={baseFont} baseFontSize={baseFontSize} onSaveWordBankAsList={onSaveWordBankAsList} deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
-              <InjectControls onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
+              <InjectControls areWordBankWordsSelected={areWordBankWordsSelected} areStanzaWordsSelected={areStanzaWordsSelected} onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
               <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
               </>
               }
@@ -1370,16 +1401,16 @@ const Genny = (props) => {
             <div className={classes.fxSection}>
             <span>TYPOGRAPHY</span>
               <div className={classes.fxTypographyGrid}>
-                <ResizeText onResizeText={onResizeText}/>
-                <ReweightText onReweightText={onReweightText}/>
-                <FontText onChangeFont={onChangeFont} />
-                <FontStyle onChangeTextRotation={onChangeTextRotation} />
+                <ResizeText padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onResizeText={onResizeText}/>
+                <ReweightText padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onReweightText={onReweightText}/>
+                <FontText padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onChangeFont={onChangeFont} />
+                <FontStyle padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onChangeTextRotation={onChangeTextRotation} />
         
               </div>
               <div className={classes.fxTypographyFlex}>
-              <ColourText onChangeTextColour={onChangeTextColour}/>
-              <TypographyButtons onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
-              <FormResetButton onResetTypography={onResetTypography} />
+              <ColourText padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onChangeTextColour={onChangeTextColour}/>
+              <TypographyButtons padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onSetErasure={onSetErasure} onSetCaps={onSetCaps} onSetItalic={onSetItalic} onSetMirror={onSetMirror}/>
+              <FormResetButton padToShow={padToShow} arePoemStanzasSelected={arePoemStanzasSelected} areStanzaWordsSelected={areStanzaWordsSelected} onResetTypography={onResetTypography} />
               </div>
               < hr/>
             </div>

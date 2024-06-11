@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const ColourText = (props) => {
 
-    const { onChangeTextColour } = props;
+    const { onChangeTextColour, areStanzaWordsSelected, arePoemStanzasSelected, padToShow } = props;
 
     const [quant, setQuant] = useState(1);
 
@@ -13,7 +13,7 @@ const ColourText = (props) => {
     }
 
     return (
-    <div className={classes.colourContainer}>
+    <div className={`${classes.colourContainer} ${(areStanzaWordsSelected && padToShow === 'stanza') || (arePoemStanzasSelected && padToShow === 'poem') ? null : classes.disabled}`}>
     <label htmlFor="colour">colour:</label>
     <input type="color" id="colour" name="colour" onChange={onChangeQuant} value={quant}/>
     </div>

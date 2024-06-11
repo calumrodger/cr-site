@@ -1,5 +1,5 @@
 /** @type {{ [word: string]: number }} */
-export const dictionary = {
+export const stressDictionary = {
     "'bout": 1,
     "'cause": 1,
     "'course": 1,
@@ -77795,13 +77795,6 @@ export const dictionary = {
     "negrete": 2,
     "negri": 1,
     "negrin": 1,
-    "negro": 1,
-    "negroes": 1,
-    "negroid": 1,
-    "negron": 1,
-    "negroni": 2,
-    "negropalpus": 2,
-    "negros": 1,
     "negs": 1,
     "negu": 1,
     "negus": 1,

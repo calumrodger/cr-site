@@ -75,3 +75,12 @@ export const checkStyles = (word, baseFontSize) => {
     }
     return thisStyle;
   }
+
+  export const areAnyStanzaWordsSelected = () => {
+    const quantity = stanza.filter((item) => item.selected).length;
+    if (quantity > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }

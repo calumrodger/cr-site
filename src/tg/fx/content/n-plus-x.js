@@ -2,7 +2,7 @@
 import classes from '../../tg-styles.module.scss';
 import { useState, useEffect, useRef, use } from 'react';
 import { syllable } from 'syllable';
-import { dictionary } from 'cmu-pronouncing-dictionary';
+import { rhymingDictionary } from '@tg/utils/cmu-rhyming-dictionary';
 import { masterWordListBig } from 'public/tg/words_alpha';
 import { masterWordListWee } from 'public/tg/words_wee';
 
@@ -24,8 +24,8 @@ const NPlusX = (props) => {
     const wordListBig = masterWordListBig.split('\n');
     const wordListWee = masterWordListWee.split('\n');
     const pos = require('pos');
-    const rhymingDictionaryLength = Object.keys(dictionary).length;
-    const rhymingDictionaryWords = Object.keys(dictionary);
+    const rhymingDictionaryLength = Object.keys(rhymingDictionary).length;
+    const rhymingDictionaryWords = Object.keys(rhymingDictionary);
     
     function checkPunctuation(word) {
         const punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
@@ -72,7 +72,7 @@ const NPlusX = (props) => {
     }
 
     const checkWordIsInRhymeDictionary = (word) => {
-        if (dictionary[word] === undefined) {
+        if (rhymingDictionary[word] === undefined) {
             return false;
         } else {
             return true;
@@ -117,8 +117,8 @@ const NPlusX = (props) => {
             onSetStatusMessage('word(s) not in dictionary', 2000, 'red');
             return null;
         } else {
-        const wordOnePronArray = dictionary[treatedWord]?.split(' ');
-        const wordTwoPronArray = dictionary[word2]?.split(' ');
+        const wordOnePronArray = rhymingDictionary[treatedWord]?.split(' ');
+        const wordTwoPronArray = rhymingDictionary[word2]?.split(' ');
         let notDefined = '';
         if (wordOnePronArray === undefined) {
             notDefined = word1 + ', ';
@@ -210,7 +210,7 @@ const NPlusX = (props) => {
             if (rhymeCheck(textArray[0], randomWord) === true && randomWord !== textArray[0]) {
                 finalWord = randomWord.replace(/[\d\(\)&]+/g, '');
             }
-            if (rhymeCheck(textArray[0], randomWord) === null && randomWord !== "nigger" && randomWord !== "niggers" && randomWord !== "nigger's" && randomWord !== "faggot" && randomWord !== "rape" && randomWord !== "rapes" && randomWord !== "raped") {
+            if (rhymeCheck(textArray[0], randomWord) === null || randomWord === textArray[0]) {
                 return textArray[1] + textArray[0] + textArray[2];
             }
         }
@@ -403,6 +403,17 @@ const NPlusX = (props) => {
             setLastClicked('rhyme');
         }
     }
+
+    const areAnyStanzaWordsSelected = () => {
+        const quantity = stanza.filter((item) => item.selected).length;
+        if (quantity > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    
+      const wordsSelected = areAnyStanzaWordsSelected();
     
 
     return (
@@ -441,7 +452,7 @@ const NPlusX = (props) => {
                     
                 </div>
             </div>
-            <button onClick={handleReplaceClick} className={classes.button}>GO</button>
+            <button onClick={wordsSelected ? handleReplaceClick : null} className={`${classes.button} ${wordsSelected ? null : classes.disabled}`}>GO</button>
         </div>
         </div>
     )

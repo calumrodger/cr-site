@@ -8,40 +8,22 @@ import StanzaUndoRedo from '@tg/stanza-pad/undo-redo-stanza';
 
 const GenerateControls = (props) => {
 
-    const { onUndoRedoStanza, wordEditMode, oldStanza, stanza, onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress } = props;
-    const [currentForm, setCurrentForm] = useState(form);
+    const { onUndoRedoStanza, wordEditMode, oldStanza, stanza, onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress, statusMessage } = props;
+    const [currentForm, setCurrentForm] = useState('5/7/5');
     const [loading, setLoading] = useState(false);
     const [currentNGrams, setCurrentNGrams] = useState({});
     const [disableGenButton, setDisableGenButton] = useState(false);
 
     useEffect(() => {
-        if (formStyle === 'syllable') {
-            const presetArrayMapped = currentPreset.text.split(' ').map((item) => syllable(item));
-            if (presetArrayMapped.length < 20) {
-                onSetStatusMessage('input text must be more than 20 words', 10000, 'red');
-                setDisableGenButton(true);
-            } else if (!presetArrayMapped.includes(1)) {
-                onSetStatusMessage('input text must contain at least one one-syllable word', 10000, 'red');
-                setDisableGenButton(true);
-            } else {
-                onSetStatusMessage('all systems good', 0, 'white');
-                setDisableGenButton(false);
-            }
+        if (currentForm === '') {
+            onSetStatusMessage('enter form to generate', 10000, 'red');
+            setDisableGenButton(true);
         }
-        if (formStyle === 'stress') {
-            const presetArrayMapped = currentPreset.text.split(' ').map((item) => getStress(item));
-            if (presetArrayMapped.length < 20) {
-                onSetStatusMessage('input text must be more than 20 words', 3000, 'red');
-                setDisableGenButton(true);
-            } else if (!presetArrayMapped.includes(1)) {
-                onSetStatusMessage('input text must contain at least one single-stressed word', 3000, 'red');
-                setDisableGenButton(true);
-            } else {
-                onSetStatusMessage('all systems good', 0, 'white');
-                setDisableGenButton(false);
-            }
+        if (currentForm !== '' && statusMessage[0] === 'enter form to generate') {
+            onSetStatusMessage('all systems good', 0, 'white');
+            setDisableGenButton(false);
         }
-    }, [currentPreset, formStyle])
+    }, [currentForm])
 
     useEffect(() => {
         if (nLevel !== "10" && nLevel !== "1" && disableGenButton === false) {
@@ -455,20 +437,32 @@ const GenerateControls = (props) => {
         setLoading(true)
         // onSetStatusMessage('processing', 10000, 'yellow');
         const thePoem = functionToPerform(currentPreset.text, currentForm);
-        const formattedPoem = formatPoem(thePoem, currentForm);
-        onUpdate(formattedPoem);
-        setLoading(false)
-        onSetStatusMessage('success!', 1000, 'green');
+        console.log(thePoem)
+        if (thePoem.length === 0) {
+            setLoading(false)
+            onSetStatusMessage('no poem found - try a bigger string or a different form', 3000, 'red');
+        } else {
+            const formattedPoem = formatPoem(thePoem, currentForm);
+            onUpdate(formattedPoem);
+            setLoading(false)
+            onSetStatusMessage('success!', 1000, 'green');
+        }
     }
 
     const submitSelectionWithSansBreaks = (functionToPerform) => {
         setLoading(true)
         // onSetStatusMessage('processing', 10000, 'yellow');
         const thePoem = functionToPerform(currentPreset.text, getFormArraySansBreaks(currentForm));
-        const formattedPoem = formatPoem(thePoem, currentForm);
-        onUpdate(formattedPoem);
-        setLoading(false)
-        onSetStatusMessage('success!', 1000, 'green');
+        console.log(thePoem)
+        if (thePoem.length === 0) {
+            setLoading(false)
+            onSetStatusMessage('no poem found - try a bigger string or a different form', 3000, 'red');
+        } else {
+            const formattedPoem = formatPoem(thePoem, currentForm);
+            onUpdate(formattedPoem);
+            setLoading(false)
+            onSetStatusMessage('success!', 1000, 'green');
+        }
     }
     
     const onFormSubmit = () => {

@@ -1,4 +1,5 @@
 import classes from '../tg-styles.module.scss';
+// import { dictionary } from 'cmu-pronouncing-dictionary';
 
 const SaveOutputToTxt = (props) => {
 
@@ -7,6 +8,12 @@ const SaveOutputToTxt = (props) => {
     // const shakeArr = shake.split('');
     // const shakewrds = shakeArr.filter((item) => item !== "0" && item !== "1" && item !== "2" && item !== "3" && item !== "4" && item !== "5" && item !== "6" && item !== "7" && item !== "8" && item !== "9").join('');
     // console.log(shakewrds)
+
+    // let dictionaryKeys = Object.keys(dictionary);
+    // let dictionaryValues = Object.values(dictionary);
+    // let newArray = dictionaryKeys.map((item, index) => {
+    //     return {word: item, pronunciation: dictionaryValues[index]};
+    // });
 
     let formattedPoem = [];
 
@@ -19,7 +26,7 @@ const SaveOutputToTxt = (props) => {
     const saveToTxt = () => {
 
         const theText = formattedPoem.map((item) => item.text).join('\n');
-        // const theText = shakewrds;
+        // const theText = newArray;
         const blob = new Blob([theText], { type: "text/plain;charset=utf-8" })
         const fileName = 'output.txt'
         let newLink = document.createElement('a')
