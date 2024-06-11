@@ -7,11 +7,10 @@ import { stressDictionary } from '@tg/utils/cmu-stress-count-dictionary';
 
 // PRESETS
 import { emily } from '../../../public/tg/presets/emily';
-import { shake } from '../../../public/tg/presets/shake';
 import { burns } from '../../../public/tg/presets/burns';
 import { gertrude } from '../../../public/tg/presets/gertrude';
 import { grass } from '../../../public/tg/presets/grass';
-import { emptyPreset } from 'public/tg/presets/empty';
+import { wwwaste } from 'public/tg/presets/wwwaste';
 
 // WORD LISTS
 import { wordBankDefaultText, gptBirdArray, prepositions, adjectives } from '../../../public/tg/word-lists';
@@ -136,7 +135,7 @@ const Genny = (props) => {
   const [wordBank, setWordBank] = useState(wordBankDefaultText);
   const [allWordLists, setAllWordLists] = useState([adjectives, gptBirdArray, prepositions]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([burns, emily, gertrude, grass, shake])
+  const [presetArray, setPresetArray] = useState([burns, emily, gertrude, grass, wwwaste])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(treatString(source));
   const [statusMessage, setStatusMessage] = useState(['welcome in genny', 0, 'white'])
