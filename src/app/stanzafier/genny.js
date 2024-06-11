@@ -195,6 +195,10 @@ const Genny = (props) => {
     setStatusMessage('state loaded')
   }
 
+  useEffect(() => {
+    document.body.style.background = outputBgColour;
+  }, [outputBgColour]);
+
   const onSetDocsMode = () => {
     setDocsMode(!docsMode);
   }
