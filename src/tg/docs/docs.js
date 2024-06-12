@@ -55,7 +55,16 @@ const Docs = (props) => {
                 <li>Tweak colours and style as desired.</li>
                 <li>EXPORT your poem as a png (lines, grid, pages) or gif (loop: coming soon).</li>
             </ul>
-            <p>So that’s:</p> <p><b>1. click GENERATE → 2. play on STANZA PAD → 3. click SAVE STANZA → 4. repeat steps 1-3 a few times → 5. click POEM PAD → 6. play on POEM PAD → 7. select output style then click OUTPUT → 8. rinse and repeat.</b></p>
+            <p>So that’s:</p> 
+            <b>
+            <p>1. click GENERATE → </p>
+            <p>2. play on STANZA PAD → </p>
+            <p>3. click SAVE STANZA → </p>
+            <p>4. repeat steps 1-3 a few times → </p>
+            <p>5. click POEM PAD → </p>
+            <p>6. play on POEM PAD → </p>
+            <p>7. select output style then click OUTPUT → </p>
+            <p>8. rinse and repeat.</p></b>
             <p>This section will be expanded with fun graphics etc. soon; in the meantime check the Docs or the tutorial video (coming soon) for more comprehensive instructions - or just start playing and figure it out!</p>
             <h2 id="theoretical-lore">THEORETICAL LORE</h2>
             <p>Stanzafier is built according to ‘The Five Columns of the Well-Poetic Framework’™. These are as follows:</p>
