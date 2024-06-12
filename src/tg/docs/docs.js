@@ -292,7 +292,7 @@ const Docs = (props) => {
         <p>Stanzafier was made by Calum Rodger with additional coding support and “glider” logo by Sebastian Charles.</p>
         <p>Explore more of Rodger’s work at <Link href="/" legacyBehavior passHref><a target="_blank">his website</a></Link> (opens in a new tab).</p>
         <h2 id="further-reading">FURTHER READING</h2>
-        <p>Eleven years prior to building Stanzafier, its creator Calum Rodger (at the time a PhD student in Scottish Literature) published award-winning research on poetry-generating computer programs, focusing on two such examples - JanusNode and Gnoetry. Little did he know then that a decade hence he would have the skillset to produce his own (to whit, Stanzafier). Read this original article <Link href="/reading-the-drones" legacyBehavior passHref><a target="_blank">here</a></Link>.</p>
+        <p>Eleven years prior to building Stanzafier, its creator Calum Rodger (at the time a PhD student in Scottish Literature) published award-winning research on poetry-generating computer programs, focusing on two such examples - JanusNode and Gnoetry. Read this original article <Link href="/reading-the-drones" legacyBehavior passHref><a target="_blank">here</a></Link>.</p>
         </div>
         
         <div className={classes.panel}>
