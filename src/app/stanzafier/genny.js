@@ -136,7 +136,7 @@ const Genny = (props) => {
   const [wordBank, setWordBank] = useState(wordBankDefaultText);
   const [allWordLists, setAllWordLists] = useState([adjectives, adverbs, commonNouns, commonVerbs, prepositions, gptBirdArray, treeWords, spaceWords, internetWords, literaryWords]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([burns, emily, gertrude, sonnets, wwwaste])
+  const [presetArray, setPresetArray] = useState([gertrude, burns, emily, sonnets, wwwaste])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(stanzaPadDefault);
   const [statusMessage, setStatusMessage] = useState(['welcome in genny', 0, 'white'])
@@ -466,8 +466,8 @@ const Genny = (props) => {
   }
 
   useEffect(() => {
-    console.log(poem)
-  }, [poem])
+    console.log(stanza)
+  }, [stanza])
 
   const handleResize = () => {
     if (window.innerWidth < 461 ) {

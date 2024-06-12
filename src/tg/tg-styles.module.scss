@@ -827,14 +827,15 @@ width: 6rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: "show-src preset form-input n-slider "
+    grid-template-areas: "show-src form-input preset n-slider "
                          "show-src form-style reseed gen-buttons"
                         "show-src form-style reseed save-buttons";
     gap: .5rem; 
 
     select {
 
-        width: 6rem;
+        // margin-left: 2rem;
+        margin-right: -1rem;
 
         
     }
@@ -944,6 +945,7 @@ width: 6rem;
 .reseedToggle {
     grid-area: reseed;
     font-size: .8rem;
+    width: 5rem;
 }
 
 .apiContainer {
