@@ -89,8 +89,8 @@ const Docs = (props) => {
                     <li>burnz: the complete poetical works of Robert Burns</li>
                     <li>emily: the complete poetical works of Emily Dickinson</li>
                     <li>button tenders: ‘Tender Buttons’ by Gertrude Stein</li>
-                    <li>astroturf walt: ‘Leaves of Grass’ by Walt Whitman</li>
-                    <li>tintern waste land: ‘Lines Composed at Tintern Abbey’ by William Wordsworth and ‘The Waste Land’ by T.S. Eliot</li>
+                    <li>sonnets: Shakespeare’s Sonnets</li>
+                    <li>tintern wasted: ‘Lines Composed at Tintern Abbey’ by William Wordsworth and ‘The Waste Land’ by T.S. Eliot</li>
                 </ul>
                 <li><b>form</b>: set a poetic form to generate stanzas in. Enter the desired form in the box. Numbers determine the length of each line (determined in measures – syllables or stresses); forward-slashes indicate a line-break. For example, a haiku is represented by ‘5/7/5’. Note that multiple forward-slashes can be used to create spaces between lines. Only numerals and forward-slashes may be entered in this box; all other key presses are disabled.</li>
                 <li><b>n-level</b>: this determines the degree of randomness in the stanza. The lower the n-level, the higher the randomness.</li>

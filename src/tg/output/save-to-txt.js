@@ -1,5 +1,5 @@
 import classes from '../tg-styles.module.scss';
-// import { dictionary } from 'cmu-pronouncing-dictionary';
+import { stressDictionary } from '../utils/cmu-stress-count-dictionary';
 
 const SaveOutputToTxt = (props) => {
 
@@ -16,6 +16,123 @@ const SaveOutputToTxt = (props) => {
     // });
 
     let formattedPoem = [];
+
+    const it = `a
+    about
+    all
+    also
+    and
+    as
+    at
+    be
+    because
+    but
+    by
+    can
+    come
+    could
+    day
+    do
+    even
+    find
+    first
+    for
+    from
+    get
+    give
+    go
+    have
+    he
+    her
+    here
+    him
+    his
+    how
+    I
+    if
+    in
+    into
+    it
+    its
+    just
+    know
+    like
+    look
+    make
+    man
+    many
+    me
+    more
+    my
+    new
+    no
+    not
+    now
+    of
+    on
+    one
+    only
+    or
+    other
+    our
+    out
+    people
+    say
+    see
+    she
+    so
+    some
+    take
+    tell
+    than
+    that
+    the
+    their
+    them
+    then
+    there
+    these
+    they
+    thing
+    think
+    this
+    those
+    time
+    to
+    two
+    up
+    use
+    very
+    want
+    way
+    we
+    well
+    what
+    when
+    which
+    who
+    will
+    with
+    would
+    year
+    you
+    your`
+    
+    const itArray = it.split("\n");
+    console.log(itArray)
+    
+    let newDictionary = [];
+    let dictionaryKeys = Object.keys(stressDictionary);
+    let dictionaryValues = Object.values(stressDictionary);
+
+    for (let i = 0; i < dictionaryKeys.length; i++) {
+        if (itArray.includes(dictionaryKeys[i])) {
+            newDictionary.push({word: dictionaryKeys[i], pronunciation: 0});
+        } else {
+            newDictionary.push({word: dictionaryKeys[i], pronunciation: dictionaryValues[i]});
+        }
+    }
+    console.log(newDictionary)
 
     for (let i = 0; i < poem.length; i++) {
         let stanzaString = poem[i].stanza.map((item) => item.text).join(' ');

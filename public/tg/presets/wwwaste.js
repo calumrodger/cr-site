@@ -1,4 +1,4 @@
-export const wwwaste = {name: 'tintern waste land', id: 4, text: `Five years have past; five summers, with the length
+export const wwwaste = {name: 'tintern wasted', id: 4, text: `Five years have past; five summers, with the length
 Of five long winters! and again I hear
 These waters, rolling from their mountain-springs
 With a soft inland murmur.—Once again

@@ -9,8 +9,8 @@ import { stressDictionary } from '@tg/utils/cmu-stress-count-dictionary';
 import { emily } from '../../../public/tg/presets/emily';
 import { burns } from '../../../public/tg/presets/burns';
 import { gertrude } from '../../../public/tg/presets/gertrude';
-import { grass } from '../../../public/tg/presets/grass';
 import { wwwaste } from 'public/tg/presets/wwwaste';
+import { sonnets } from 'public/tg/presets/sonnets';
 
 // WORD LISTS
 import { stanzaPadDefault, poemPadDefault,wordBankDefaultText, gptBirdArray, prepositions, adjectives, commonVerbs, commonNouns, adverbs, treeWords, spaceWords, internetWords, literaryWords } from '../../../public/tg/word-lists';
@@ -136,7 +136,7 @@ const Genny = (props) => {
   const [wordBank, setWordBank] = useState(wordBankDefaultText);
   const [allWordLists, setAllWordLists] = useState([adjectives, adverbs, commonNouns, commonVerbs, prepositions, gptBirdArray, treeWords, spaceWords, internetWords, literaryWords]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
-  const [presetArray, setPresetArray] = useState([burns, emily, gertrude, grass, wwwaste])
+  const [presetArray, setPresetArray] = useState([burns, emily, gertrude, sonnets, wwwaste])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
   const [stanza, setStanza] = useState(stanzaPadDefault);
   const [statusMessage, setStatusMessage] = useState(['welcome in genny', 0, 'white'])
