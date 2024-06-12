@@ -105,6 +105,7 @@ const APIFX = (props) => {
     }
 
     const keyText = apiType === 'film' ? 'title:' : apiType === 'news' ? 'topic:' : 'place:';
+    const placeholderText = apiType === 'film' ? 'film...' : apiType === 'news' ? 'topic...' : 'place...';
 
     const areAnyStanzaWordsSelected = () => {
         const quantity = stanza.filter((item) => item.selected).length;
@@ -138,7 +139,7 @@ const APIFX = (props) => {
             <div className={classes.inputsContainer}>
                     <div className={classes.inputKey}>
                         <label htmlFor="key">{keyText}</label>
-                        <input className={classes.textInput} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} type="text" />
+                        <input placeholder={placeholderText} className={classes.textInput} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} type="text" />
                     </div>
                     { apiType !== 'weather' && <div className={classes.input}>
                         <label htmlFor="vol">vol:</label>

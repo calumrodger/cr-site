@@ -13,7 +13,7 @@ import { grass } from '../../../public/tg/presets/grass';
 import { wwwaste } from 'public/tg/presets/wwwaste';
 
 // WORD LISTS
-import { wordBankDefaultText, gptBirdArray, prepositions, adjectives } from '../../../public/tg/word-lists';
+import { stanzaPadDefault, poemPadDefault,wordBankDefaultText, gptBirdArray, prepositions, adjectives, commonVerbs, commonNouns, adverbs, treeWords, spaceWords, internetWords, literaryWords } from '../../../public/tg/word-lists';
 
 // GLOBAL COMPONENTS
 import SaveLoad from '@tg/global/save-load';
@@ -129,22 +129,23 @@ const Genny = (props) => {
   }
   
   // Words
-  const [oldStanza, setOldStanza] = useState([]);
-  const [poem, setPoem] = useState([]);
+  const [oldStanza, setOldStanza] = useState([{id: 0, type: 'text', text: 'easter', selected: false}, {id: 1, type: 'text', text: 'egg!', selected: false}]);
+  const [poem, setPoem] = useState(poemPadDefault);
+  const [oldPoem, setOldPoem] = useState([]);
   const [poemTitle, setPoemTitle] = useState('');
   const [wordBank, setWordBank] = useState(wordBankDefaultText);
-  const [allWordLists, setAllWordLists] = useState([adjectives, gptBirdArray, prepositions]);
+  const [allWordLists, setAllWordLists] = useState([adjectives, adverbs, commonNouns, commonVerbs, prepositions, gptBirdArray, treeWords, spaceWords, internetWords, literaryWords]);
   const [selectedWordList, setSelectedWordList] = useState(allWordLists[0]);
   const [presetArray, setPresetArray] = useState([burns, emily, gertrude, grass, wwwaste])
   const [currentPreset, setCurrentPreset] = useState(presetArray[0]);
-  const [stanza, setStanza] = useState(treatString(source));
+  const [stanza, setStanza] = useState(stanzaPadDefault);
   const [statusMessage, setStatusMessage] = useState(['welcome in genny', 0, 'white'])
 
   // Settings
   const [form, setForm] = useState('5/7/5');
   const [formStyle, setFormStyle] = useState('syllable');
   const [genType, setGenType] = useState('stanza');
-  const [nLevel, setNLevel] = useState("10");
+  const [nLevel, setNLevel] = useState("2");
   const [outputMode, setOutputMode] = useState('none');
   const [outputCheckbox, setOutputCheckbox] = useState('lines');  
   const [updateStazaStyles, setUpdateStanzaStyles] = useState(null);
@@ -166,6 +167,7 @@ const Genny = (props) => {
   const [showAddWordBank, setShowAddWordBank] = useState(false);
   const [wordEditMode, setWordEditMode] = useState(false);
   const [docsMode, setDocsMode] = useState(false);
+  const [smallScreen, setSmallScreen] = useState(false);
 
   const onLoadState = (state) => {
     setStatusMessage('loading state');
@@ -404,6 +406,13 @@ const Genny = (props) => {
     setOldStanza(newOne);
   }
 
+  const onUndoRedoPoem = () => {
+    const oldOne = oldPoem;
+    const newOne = poem;
+    setPoem(oldOne);
+    setOldPoem(newOne);
+  }
+
 
   const onSwitchPad = () => {
     if (padToShow === 'stanza') {
@@ -421,6 +430,7 @@ const Genny = (props) => {
   }
 
   const onUpdatePoem = (newPoem) => {
+    setOldPoem(poem);
     setPoem(newPoem);
   }
 
@@ -455,9 +465,25 @@ const Genny = (props) => {
     setUpdatePoemStyles(poemStyles);
   }
 
-  // useEffect(() => {
-  //   console.log(poem)
-  // }, [poem])
+  useEffect(() => {
+    console.log(poem)
+  }, [poem])
+
+  const handleResize = () => {
+    if (window.innerWidth < 461 ) {
+      console.log('go small')
+      setSmallScreen(true)
+    }
+    if (window.innerWidth > 460 ) {
+      setSmallScreen(false)
+    }
+  }
+
+  // create an event listener
+  useEffect(() => {
+    handleResize()
+    window.addEventListener("resize", handleResize)
+}, [])
 
   const onSelectAllWords = () => {
     let newObjArray = stanza.map((item) => {
@@ -498,7 +524,7 @@ const Genny = (props) => {
           newObjArray.push(stanza[i]);
         }
       }
-    setStanza(newObjArray);
+    onUpdate(newObjArray, stanza);
   }
 
   const onDuplicateSelectedWords = () => {
@@ -544,7 +570,12 @@ const Genny = (props) => {
 
   const onPopulateWordBank = (words, quant) => {
 
-    let currentWordBankWords = wordBank.map(item => item.text);
+    let initialWordBankWords = wordBank.map(item => item.text);
+    let currentWordBankWords = [];
+    for (let i = 0; i < initialWordBankWords.length; i++) {
+      let removedSpaces = initialWordBankWords[i].replace(/\s+/g, "").trim();
+      currentWordBankWords.push(removedSpaces);
+    }
 
     const words1minus2 = words.filter(x => !currentWordBankWords.includes(x));
     let i = 0;
@@ -557,8 +588,6 @@ const Genny = (props) => {
     let formattedArray = currentWordBankWords.map((item, i) => {
       return { id: i, text: item, selected: false }
     });
-
-    // let newWordBank = [...formattedArray, ...wordBank];
     setWordBank(formattedArray);
   }
 
@@ -609,7 +638,7 @@ const Genny = (props) => {
         }
       }
     }
-    setStanza(newObjArray);
+    onUpdate(newObjArray, stanza);
   }
 
   const onClickShowSrc = (preset) => {
@@ -891,6 +920,13 @@ const Genny = (props) => {
     }
   }
 
+  const onCreateNewPreset = (name, text) => {
+    const id = presetArray.length - 1;
+    const newArray = [...presetArray, {id: id, name: name, text: text}];
+    setPresetArray(newArray);
+    setCurrentPreset({id: id, name: name, text: text});
+  }
+
   const onSaveNewPreset = (presetName, text) => {
     const id = presetArray.length - 1;
     const newArray = [...presetArray, {id: id, name: presetName, text: text}];
@@ -911,6 +947,7 @@ const Genny = (props) => {
     }
     setPresetArray(newArray);
     setCurrentPreset({id: id, name: presetName, text: text});
+    // setPadToShow('stanza');
   }
 
   const onSelectPreset = (presetName) => {
@@ -1104,7 +1141,7 @@ const Genny = (props) => {
         newObjArray.push(stanza[i]);
       }
     }
-    setStanza(newObjArray);
+    onUpdate(newObjArray, stanza);
   }
 
   const onShuffleWordBank = () => {
@@ -1184,7 +1221,7 @@ const Genny = (props) => {
         newObjArray.push(stanza[i]);
       }
     }
-    setStanza(newObjArray);
+    onUpdate(newObjArray, stanza);
   }
 
   const onStripCaps = () => {
@@ -1210,23 +1247,32 @@ const Genny = (props) => {
         newObjArray.push(stanza[i]);
       }
     }
-    setStanza(newObjArray);
+    onUpdate(newObjArray, stanza);
   }
 
   function shiftWordsUp() {
+    if (stanza[0].selected) {
+      onSetStatusMessage('cannot shift words beyond stanza limits!', 3000, 'red');
+      return;
+    }
+
     // copy stanzaArray and replace unselected stanzas with null
     const newArray = stanza.map(word => word.selected ? word : null);
 
     // rotate left to place selected stanzas in correct position
     newArray.push(newArray.shift());
+    console.log(newArray)
 
     // etc...
     stanza.forEach((word, index) => {
         if (!word.selected) {
             const offsetIndex = newArray.indexOf(null, index);
+            console.log(word.text, index, offsetIndex, newArray)
             const newIndex = offsetIndex !== -1
                 ? offsetIndex
                 : newArray.indexOf(null);
+            console.log(newArray.indexOf(null), newArray.length - 1 )
+                // : newArray.length;
             newArray[newIndex] = word;
         }
     });
@@ -1236,6 +1282,10 @@ const Genny = (props) => {
 }
 
   function shiftWordsDown() {
+    if (stanza[stanza.length - 1].selected) {
+      onSetStatusMessage('cannot shift words beyond stanza limits!', 3000, 'red');
+      return;
+    }
     const newArray = stanza.map(word => word.selected ? word : null);
     newArray.unshift(newArray.pop());
     stanza.forEach((word, index) => {
@@ -1285,7 +1335,7 @@ const areWordBankWordsSelected = areAnyWordBankWordsSelected();
 
 
 
-  if (!docsMode) {
+  if (!docsMode && !smallScreen) {
     if (outputMode === 'none') {
     return (
       <div className={classes.background}>
@@ -1328,7 +1378,7 @@ const areWordBankWordsSelected = areAnyWordBankWordsSelected();
           { padToShow === 'poem' &&
             <>
             <div className={classes.poemPadSection}>
-              <PoemPad onShufflePoem={onShufflePoem} baseFont={baseFont} baseFontSize={baseFontSize} onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
+              <PoemPad onSetStatusMessage={onSetStatusMessage} onUndoRedoPoem={onUndoRedoPoem} oldPoem={oldPoem} onShufflePoem={onShufflePoem} baseFont={baseFont} baseFontSize={baseFontSize} onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
             </div>
             <div className={classes.poemPadStatusSection}>
             <BaseFont baseFont={baseFont} baseFontSize={baseFontSize} onSetBaseFontSize={onSetBaseFontSize} onSelectFont={onSelectFont}/>
@@ -1345,7 +1395,7 @@ const areWordBankWordsSelected = areAnyWordBankWordsSelected();
           <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
           </div>
           <div className={classes.inputPadSection}>
-            <SourcePad getStress={getStress} onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset} onSetStatusMessage={onSetStatusMessage}/> 
+            <SourcePad onCreateNewPreset={onCreateNewPreset} getStress={getStress} onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset} onSetStatusMessage={onSetStatusMessage}/> 
           </div>
           </>
           }
@@ -1457,9 +1507,15 @@ const areWordBankWordsSelected = areAnyWordBankWordsSelected();
         </div>
       )
     }
-  } else {
+  } else if (docsMode && !smallScreen){
     return (
       <Docs onSetDocsMode={onSetDocsMode} />
+    )
+  } else if (smallScreen && !docsMode) {
+    return (
+      <>
+      <p>Your device is too small to run Stanzafier.</p>
+      </>
     )
   }
 };

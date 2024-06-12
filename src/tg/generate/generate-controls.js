@@ -538,7 +538,7 @@ const GenerateControls = (props) => {
             </div>
             <div className={classes.preset}>
                     <span>preset: </span>
-                    <select name="presets" id="presets" defaultValue={currentPreset.name} onChange={(e) => onSelectPreset(presets.value)} placeholder="Select a preset...">
+                    <select className={classes.select} name="presets" id="presets" defaultValue={currentPreset.name} onChange={(e) => onSelectPreset(presets.value)} placeholder="Select a preset...">
                             { presetArray.map((p, i) => {
                             return <option key={i} onClick={() => setSelectedPreset(p)}>{p.name}</option>
                         })}

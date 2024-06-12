@@ -19,6 +19,10 @@ $disabledColour: #2E294E;
     a {
         color: $highlightExtra;
     }
+
+    h2 {
+        color: $highlightColour;
+    }
 }
 
 .imageContainer {
@@ -29,13 +33,13 @@ $disabledColour: #2E294E;
 
 .panel {
     height: 3rem;
-    width: 18rem;
+    width: 22rem;
     // border: 1px solid #000;
     border-radius: .2rem;
     background: $bgColour;
     position: fixed;
     bottom: 10%;
-    right: calc(50% - 9rem);
+    right: calc(50% - 11rem);
     margin: auto;
     display: flex;
     gap: .2rem;
@@ -51,7 +55,7 @@ $disabledColour: #2E294E;
     margin: auto;
     color: $fillColourLight;
     padding: .1rem;
-    font-size: 1rem;
+    font-size: .8rem;
     border-radius: .2rem;
 
     &:hover {

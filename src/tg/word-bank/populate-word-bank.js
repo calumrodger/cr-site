@@ -116,7 +116,7 @@ const PopulateWordBank = (props) => {
                 <div className={classes.promptInput}>
                     <input className={`${classes.radioInput} ${populateType === 'ai' ? classes.selected : null}`} type="radio" id="ai" name="ai" value="ai" readOnly checked={populateType === 'ai'} onClick={(e) => onSetPopulateType(e.target.value)}/>
                     <label htmlFor="populate-prompt">llm: </label>
-                    <input className={classes.textInput} type="text" id="populate-prompt" name="populate-prompt" value={currentPrompt} onChange={(e) => changePromptHandler(e)}/>
+                    <input placeholder="enter prompt..." className={classes.textInput} type="text" id="populate-prompt" name="populate-prompt" value={currentPrompt} onChange={(e) => changePromptHandler(e)}/>
                 </div>
             </div>
         </div>

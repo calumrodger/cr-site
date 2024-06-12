@@ -3,10 +3,11 @@ import classes from '../tg-styles.module.scss';
 import { useState, useEffect } from 'react';
 import { checkStyles, checkPoemStyles } from '@tg/utils/utils';
 import SaveOutputToTxt from '@tg/output/save-to-txt';
+import PoemUndoRedo from './undo-redo-poem';
 
 const PoemPad = (props) => {
 
-    const { baseFont, baseFontSize, poem, onEditStanza, onUpdatePoem, onShufflePoem } = props;
+    const { onSetStatusMessage, onUndoRedoPoem, oldPoem, baseFont, baseFontSize, poem, onEditStanza, onUpdatePoem, onShufflePoem } = props;
 
     const [stanzaArray, setStanzaArray] = useState(poem);
 
@@ -58,6 +59,10 @@ const PoemPad = (props) => {
     }, [stanzaArray])
 
     function shiftStanzasUp() {
+      if (poem[0].selected) {
+        onSetStatusMessage('cannot shift stanzas beyond poem limits!', 3000, 'red');
+        return;
+      }
       // copy stanzaArray and replace unselected stanzas with null
       const newArray = stanzaArray.map(stanza => stanza.selected ? stanza : null);
   
@@ -80,6 +85,10 @@ const PoemPad = (props) => {
   }
 
     function shiftStanzasDown() {
+      if (poem[poem.length - 1].selected) {
+        onSetStatusMessage('cannot shift stanzas beyond poem limits!', 3000, 'red');
+        return;
+      }
       const newArray = stanzaArray.map(stanza => stanza.selected ? stanza : null);
       newArray.unshift(newArray.pop());
       stanzaArray.forEach((stanza, index) => {
@@ -94,6 +103,7 @@ const PoemPad = (props) => {
       setStanzaArray(newArray);
       onUpdatePoem(newArray);
   }
+
 
     const editStanza = (e) => {
       let stanzaIndex = stanzaArray.findIndex((item) => item.selected === true);
@@ -187,7 +197,7 @@ const PoemPad = (props) => {
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={duplicateStanza}>duplicate</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={deleteStanza}>delete</button>
           <button className={`${classes.button} ${!moreThanOneSelected ? classes.disabled : null}`} onClick={shuffleClickHandler}>shuffle</button>
-          
+          <PoemUndoRedo oldPoem={oldPoem} onUndoRedoPoem={onUndoRedoPoem}/>
         </div>
         </div>
         </>

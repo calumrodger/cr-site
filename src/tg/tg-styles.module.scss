@@ -53,11 +53,18 @@ $hoverColour: #e5c2c0;
 
 .select {
     padding-left: .3rem;
+    // padding-right: 1rem;
     appearance: none;
     background: $highlightColour;
     border: $fillColourLight 1px solid;
     border-radius: .2rem;
     color: $fillColourLight;
+    background: url("../../public/tg/down_arrow.png") no-repeat 95% $highlightColour;
+
+    // &::after {
+    //     color: #fff;
+    //     content: '⯆';
+    // }
 
     &:focus {
         outline: none;
@@ -71,7 +78,13 @@ $hoverColour: #e5c2c0;
         color: $bgColour;
         height: .9rem;
         border-radius: .2rem;
-    
+
+        &::placeholder {
+            color: $outlinesColour;
+            opacity: 70%;
+        }
+
+        
             &:focus {
                 outline: none;
             }
@@ -334,6 +347,11 @@ width: 6rem;
             border: $fillColourLight 1px solid;
             color: $fillColourLight;
             border-radius: .2rem;
+
+            &::placeholder {
+                color: $outlinesColour;
+                opacity: 70%;
+            }    
 
         &:focus {
             outline: none;
@@ -813,19 +831,9 @@ width: 6rem;
     gap: .5rem; 
 
     select {
-        padding-left: .3rem;
-        appearance: none;
-        width: 6rem;
-        background: $highlightColour;
-        border: $fillColourLight 1px solid;
-        border-radius: .2rem;
-        color: $fillColourLight;
-        // border: none;
-        // background: $bg-img no-repeat right .1rem top 80%;
 
-        &:focus {
-            outline: none;
-        }
+        width: 6rem;
+
         
     }
 }

@@ -97,7 +97,7 @@ const StanzaPadButtons = (props) => {
             <button onClick={noneSelected || wordEditMode ? null : shiftWordsDown} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move ▶</button>
             </div>
             <div>
-            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? onDuplicateSelectedWords : null}>duplicate</button>
+            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onDuplicateSelectedWords}>duplicate</button>
             </div>
             <div>
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onDeleteSelectedWords}>delete</button>
