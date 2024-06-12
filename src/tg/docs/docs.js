@@ -278,11 +278,13 @@ const Docs = (props) => {
         <h2 id="features">FUTURE FEATURES</h2>
         <p>Future features planned for Stanzafier include but are not limited to:</p>
         <ul>
-            <li>Preset mashup mode: select two presets at once to create poetic mashups (in the meantime this can be done manually by adding discrete source texts to a single preset).</li>
+            <li>Preset mashup mode: select two presets at once to create poetic mashups (in the meantime this can be done manually by adding discrete source texts to a single preset text).</li>
             <li>Regenerate selected: part-regenerate stanzas to create new Yahtzee-esque creative possibilities.</li>
             <li>Freeform mode: drag n drop on Stanza Pad to assist creation of concrete poetry.</li>
-            <li>More LLM leveraging to extend creative possibilities.</li>
-            <li>And more!</li>
+            <li>More FX including more complex LLM interactions.</li>
+            <li>A programmable interface to auto-produce extended permutational sequences.</li>
+            <li>Knobs!</li>
+            <li>And more...</li>
             <li>(And if there is a particular feature you would like to see, get in touch!)</li>
         </ul>
         <h2 id="credits">CREDITS</h2>
