@@ -434,18 +434,18 @@ export const internetWords = {id: 7, name: "the internet", words: [
 export const literaryWords = {id: 8, name: "literary terms", words: [
     "allegory", "alliteration", "allusion", "anachronism", "analogy", "anaphora", "antagonist", "antihero", "antithesis", "aphorism",
     "apostrophe", "archetype", "assonance", "bildungsroman", "cacophony", "caesura", "caricature", "catharsis", "chiasmus", "climax",
-    "colloquialism", "conceit", "connotation", "consonance", "couplet", "denotation", "denouement", "deus ex machina", "diction", "didactic",
+    "colloquialism", "conceit", "connotation", "consonance", "couplet", "denotation", "denouement", "deusexmachina", "diction", "didactic",
     "doppelganger", "dramatic irony", "elegy", "ellipsis", "enjambment", "epic", "epigraph", "epiphany", "epistolary", "epithet",
     "euphemism", "euphony", "fable", "farce", "figurative", "flashback", "foil", "foreshadowing", "frame story", "genre",
-    "gothic", "grotesque", "hamartia", "hyperbole", "imagery", "in media res", "irony", "juxtaposition", "leitmotif", "litotes",
+    "gothic", "grotesque", "hamartia", "hyperbole", "imagery", "inmediares", "irony", "juxtaposition", "leitmotif", "litotes",
     "malapropism", "meiosis", "metaphor", "metonymy", "mood", "motif", "narrative", "narrator", "ode", "onomatopoeia",
-    "oxymoron", "parable", "paradox", "parallelism", "parody", "pastoral", "pathetic fallacy", "personification", "plot", "point of view",
-    "polysyndeton", "prologue", "protagonist", "pun", "quatrain", "refrain", "rhetoric", "rhetorical question", "satire", "scansion",
-    "setting", "simile", "soliloquy", "sonnet", "stanza", "stream of consciousness", "subplot", "symbol", "synecdoche", "syntax",
-    "theme", "tone", "tragic flaw", "understatement", "unreliable narrator", "verisimilitude", "verse", "vignette", "voice", "wit",
+    "oxymoron", "parable", "paradox", "parallelism", "parody", "pastoral", "patheticfallacy", "personification", "plot", "pointofview",
+    "polysyndeton", "prologue", "protagonist", "pun", "quatrain", "refrain", "rhetoric", "rhetoricalquestion", "satire", "scansion",
+    "setting", "simile", "soliloquy", "sonnet", "stanza", "streamofconsciousness", "subplot", "symbol", "synecdoche", "syntax",
+    "theme", "tone", "tragicflaw", "understatement", "unreliablenarrator", "verisimilitude", "verse", "vignette", "voice", "wit",
     "acrostic", "adage", "anagram", "annotation", "anthology", "anticlimax", "asynchronous", "autobiography", "bibliography", "biography",
     "blurb", "cadence", "canon", "cliffhanger", "cliché", "compendium", "context", "critique", "dialogue", "dystopia",
-    "ellipsis", "encyclopedia", "epilogue", "euphuism", "existentialism", "fantasy", "flash fiction", "foreshadow", "free verse", "haiku",
+    "ellipsis", "encyclopedia", "epilogue", "euphuism", "existentialism", "fantasy", "flashfiction", "foreshadow", "free verse", "haiku",
     "homonym", "intertextuality", "lexicon", "memoir", "myth", "novella", "ode", "omniscient", "picaresque", "plagiarism",
-    "prose", "realism", "red herring", "reminiscence", "retrospective", "romance", "saga", "science fiction", "sestina", "subtext"
+    "prose", "realism", "redherring", "reminiscence", "retrospective", "romance", "saga", "science fiction", "sestina", "subtext"
 ]};
