@@ -445,7 +445,7 @@ export const literaryWords = {id: 8, name: "literary terms", words: [
     "theme", "tone", "tragicflaw", "understatement", "unreliablenarrator", "verisimilitude", "verse", "vignette", "voice", "wit",
     "acrostic", "adage", "anagram", "annotation", "anthology", "anticlimax", "asynchronous", "autobiography", "bibliography", "biography",
     "blurb", "cadence", "canon", "cliffhanger", "cliché", "compendium", "context", "critique", "dialogue", "dystopia",
-    "ellipsis", "encyclopedia", "epilogue", "euphuism", "existentialism", "fantasy", "flashfiction", "foreshadow", "free verse", "haiku",
+    "ellipsis", "encyclopedia", "epilogue", "euphuism", "existentialism", "fantasy", "flashfiction", "foreshadow", "freeverse", "haiku",
     "homonym", "intertextuality", "lexicon", "memoir", "myth", "novella", "ode", "omniscient", "picaresque", "plagiarism",
     "prose", "realism", "redherring", "reminiscence", "retrospective", "romance", "saga", "science fiction", "sestina", "subtext"
 ]};
