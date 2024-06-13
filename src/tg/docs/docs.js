@@ -128,6 +128,7 @@ const Docs = (props) => {
                 <li><b>duplicate</b>: creates a copy of each selected word, adding this copy directly after the selected word</li>
                 <li><b>edit word</b>: opens ‘edit word mode’ so a word can be manually tweaked. Note that only one word can be edited at a time. Also, if you add a space in the edit word field, the word will automatically be broken into two words when you exit edit word mode.</li>
                 <li><b>save to bank</b>: adds all selected words to the WORD BANK</li>
+                <li><b>strip caps</b>: removes all capital letters from all selected words (note that this does NOT apply to caps added using the ‘CAPS’ button on the Typography FX panel. To remove caps added in this fashion, click the ‘CAPS’ or ‘RESET’ button on the FX panel.</li>
                 <li><b>strip punct</b>: removes punctuation from all selected words</li>
                 <li><b>add punct</b>: adds various punctuation to all selected words. To go back to the previously added punctuation, use the small arrow to the left of the button.</li>
                 <li><b>line break</b>: adds a new line break after all selected words</li>
@@ -201,13 +202,13 @@ const Docs = (props) => {
                         <li><b>rhyme</b> keeps the selected rhyme (if possible).</li>
                         <li><b>class</b> keeps the selected words’ word class.</li>
                     </ul>
-                <li><b>src</b> setting allows you to choose the source word list to select words from. The <b>big</b> list contains around 70000 words; the <b>wee</b> list around 26000. Note that this setting has no effect when <b>keep: rhyme</b> is selected, as this function uses its own rhyming dictionary (containing approx. 25000 words). It is only relevant to when either <b>measure</b> or <b>class</b> or both <b>measure</b> and <b>class</b> are active as the <b>keep</b> setting.</li>
+                <li><b>src</b> setting allows you to choose the source word list to select words from. The <b>big</b> list contains around 370000 words; the <b>wee</b> list around 10000. Note that this setting has no effect when <b>keep: rhyme</b> is selected, as this function uses its own rhyming dictionary (containing approx. 125000 words). It is only relevant when rhyme is <b>not</b> active as a ‘keep’ setting.</li>
             </ul>
             <h4>API INJECTION</h4>
             <p>This FX panel calls various live online sources to inject words into your stanza. In all cases, words are injected AFTER all selected words. The number of words injected after each selected word can be set using the <b>vol</b> setting.</p>
             <ul>
                 <li><b>news</b>: injects headline text from Guardian articles. Use ‘topic’ to enter a keyword to search on.</li>
-                <li><b>weather</b>: injects a brief description of the current weather. Use ‘place’ to enter a place name to grab the weather description for.</li>
+                <li><b>weather</b>: injects a brief description of the current weather. Use ‘place’ to enter a place name to grab the weather description for. Note that the ‘volume’ setting does not apply to this injection; the entire brief description is injected (usually ten words or so).</li>
                 <li><b>film:</b> injects fragments of blurb for various films. Use ‘title’ to add a film title to search for.</li>
                 <li>Note that none of the API Injection FX will work unless you enter some text – a topic, place or film title – in the input field prior to clicking <b>GO</b>.</li>
             </ul>
@@ -284,6 +285,7 @@ const Docs = (props) => {
         <ul>
             <li>Performance issues: longer stanza forms, larger source texts and using n-grams (i.e. setting n-level at 2-9) can create severe performance issues, especially when used in combination. If you are encountering such issues, try using a shorter form or shorter source text. </li>
             <li>Grabbing comments from a YouTube url has been known to crash the app, so be sure to save your work beforehand.</li>
+            <li>Populating the Word Bank via LLM often randomly clips the first letter from added words.</li>
         </ul>
         <h2 id="features">FUTURE FEATURES</h2>
         <p>Future features planned for Stanzafier include but are not limited to:</p>

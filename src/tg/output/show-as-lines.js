@@ -29,6 +29,15 @@ const ShowAsLines = (props) => {
         setSliderValue(e.target.value);
     }
 
+    const date = new Date().toISOString().slice(0, 16);
+
+    let theTitle;
+    if (poemTitle !== '') {
+        theTitle = poemTitle;
+    } else {
+        theTitle = 'untitled';
+    }
+
     const exportAsImage = useCallback(() => {
       if (refer.current === null) {
         return
@@ -36,7 +45,7 @@ const ShowAsLines = (props) => {
       toPng(refer.current, { cacheBust: true})
       .then((dataUrl) => {
         const link = document.createElement('a');
-        link.download = `${poemTitle}.png`;
+        link.download = `${theTitle}-${date}.png`;
         link.href = dataUrl;
         link.click();
       })

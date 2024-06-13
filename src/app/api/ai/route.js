@@ -29,10 +29,8 @@ export async function POST(request) {
 //       },
 //     });
 //   }
- 
+try {
   const { prompt } = await request.json();
- 
-  try {
     const output = await replicate.run(
       // This is the ID of the replicate model you are running
       "meta/meta-llama-3-8b",
@@ -44,14 +42,9 @@ export async function POST(request) {
       },
     );
  
-    return NextResponse.json(output, {
-      headers: {
-      },
-    });
+    return NextResponse.json(output, {headers: {}});
   } catch (error) {
     console.log(error);
-    return NextResponse.json("An error occurred. Please try again later.", {
-      status: 500,
-    });
+    return 'error';
   }
 }

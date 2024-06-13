@@ -17,8 +17,6 @@ const LLMFX = (props) => {
     useEffect(() => {
       if (loading === true) {
         onSetStatusMessage('awaiting LLM response...', 1000000, 'yellow');
-      } else {
-        onSetStatusMessage('all systems good', 0, 'white');
       }
     }, [loading])
 
@@ -99,16 +97,22 @@ const LLMFX = (props) => {
     const handlePromptClick = async (e, thePrompt, mode) => {
       e.preventDefault();
       setLoading(true);
-      const response = await fetch("/api/ai", {
-        method: "POST",
-        body: JSON.stringify({
-          prompt: thePrompt,
-        }),
-      });
-      const data = await response.json()
+      let data;
+      try {
+        const response = await fetch("/api/ai", {
+          method: "POST",
+          body: JSON.stringify({
+            prompt: thePrompt,
+          }),
+        });
+        data = await response.json()
+      } catch (error) {
+        console.log(error)
+        data = "error";
+      }
       if (data === 'error') {
-        onSetStatusMessage('something went wrong!', 3000, 'red');
         setLoading(false);
+        onSetStatusMessage('something went wrong!', 3000, 'red');
         return;
       }
       console.log(data.join(""));
@@ -127,13 +131,19 @@ const LLMFX = (props) => {
     const handleRemixClick = async (e) => {
       e.preventDefault();
       setLoading(true);
-      const response = await fetch("/api/ai", {
-        method: "POST",
-        body: JSON.stringify({
-          prompt: remixPrompt,
-        }),
-      });
-      const data = await response.json();
+      let data;
+      try {
+        const response = await fetch("/api/ai", {
+          method: "POST",
+          body: JSON.stringify({
+            prompt: remixPrompt,
+          }),
+        });
+        data = await response.json();
+      } catch (error) {
+        console.log(error);
+        data ='error';
+      }
       if (data === 'error') {
         onSetStatusMessage('something went wrong!', 3000, 'red');
         setLoading(false);
@@ -186,7 +196,7 @@ const LLMFX = (props) => {
           let treatedOutput = processLlmOutput(rawEmojiOutput);
           if (typeof treatedOutput === "object") {
             onSetStatusMessage('success!', 1000, 'green')
-              onUpdate(getNewStanzaReplace(treatedOutput), stanza)
+            onUpdate(getNewStanzaReplace(treatedOutput), stanza)
           } else {
               onSetStatusMessage('something glitched out!', 3000, 'red')
           }
@@ -241,7 +251,7 @@ const LLMFX = (props) => {
       const newWordsLength = treatedOutput.length;
       for (let i = 0; i < newArray.length; i++) {
           if ((newArray[i].type === 'text') && (newArray[i].text === null) && (treatedOutput !== 'error')) {
-            if (replacementCount < newWordsLength) {
+            if (replacementCount < newWordsLength && treatedOutput[replacementCount] !== '') {
               newArray[i].text = treatedOutput[replacementCount]?.replaceAll(' ', '');
               replacementCount++;
             } else {

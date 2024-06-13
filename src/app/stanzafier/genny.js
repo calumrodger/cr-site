@@ -571,10 +571,13 @@ const Genny = (props) => {
   const onPopulateWordBank = (words, quant) => {
 
     let initialWordBankWords = wordBank.map(item => item.text);
+    console.log(initialWordBankWords)
     let currentWordBankWords = [];
     for (let i = 0; i < initialWordBankWords.length; i++) {
-      let removedSpaces = initialWordBankWords[i].replace(/\s+/g, "").trim();
-      currentWordBankWords.push(removedSpaces);
+      // if (initialWordBankWords[i]) {
+        let removedSpaces = initialWordBankWords[i].replace(/\s+/g, "").trim();
+        currentWordBankWords.push(removedSpaces);
+      // }
     }
 
     const words1minus2 = words.filter(x => !currentWordBankWords.includes(x));
@@ -1378,7 +1381,7 @@ const areWordBankWordsSelected = areAnyWordBankWordsSelected();
           { padToShow === 'poem' &&
             <>
             <div className={classes.poemPadSection}>
-              <PoemPad onSetStatusMessage={onSetStatusMessage} onUndoRedoPoem={onUndoRedoPoem} oldPoem={oldPoem} onShufflePoem={onShufflePoem} baseFont={baseFont} baseFontSize={baseFontSize} onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
+              <PoemPad poemTitle={poemTitle} onSetStatusMessage={onSetStatusMessage} onUndoRedoPoem={onUndoRedoPoem} oldPoem={oldPoem} onShufflePoem={onShufflePoem} baseFont={baseFont} baseFontSize={baseFontSize} onUpdatePoem={onUpdatePoem} poem={poem} onEditStanza={onEditStanza} />
             </div>
             <div className={classes.poemPadStatusSection}>
             <BaseFont baseFont={baseFont} baseFontSize={baseFontSize} onSetBaseFontSize={onSetBaseFontSize} onSelectFont={onSelectFont}/>

@@ -7,7 +7,7 @@ import PoemUndoRedo from './undo-redo-poem';
 
 const PoemPad = (props) => {
 
-    const { onSetStatusMessage, onUndoRedoPoem, oldPoem, baseFont, baseFontSize, poem, onEditStanza, onUpdatePoem, onShufflePoem } = props;
+    const { poemTitle, onSetStatusMessage, onUndoRedoPoem, oldPoem, baseFont, baseFontSize, poem, onEditStanza, onUpdatePoem, onShufflePoem } = props;
 
     const [stanzaArray, setStanzaArray] = useState(poem);
 
@@ -188,7 +188,7 @@ const PoemPad = (props) => {
         </div>
         <div className={classes.poemPadButtonOuterContainer}>
         <div className={classes.poemPadButtonContainer}>
-        <SaveOutputToTxt poem={poem} /> 
+        <SaveOutputToTxt poemTitle={poemTitle} poem={poem} /> 
         <button className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`} onClick={editStanza}>EDIT</button>
           <button className={`${classes.button} ${allSelected ? classes.disabled : null}`} onClick={selectAll}>select all</button>
           <button className={`${classes.button} ${noneSelected ? classes.disabled : null}`} onClick={unselectAll}>unselect all</button>
