@@ -1253,6 +1253,22 @@ const Genny = (props) => {
     onUpdate(newObjArray, stanza);
   }
 
+  const removeLineBreakAfterSelected = () => {
+    let newObjArray = [];
+    for (let i = 0; i < stanza.length; i++) {
+      if (stanza[i].selected) {
+        newObjArray.push(stanza[i]);
+        if (stanza[i + 1]?.type === 'break') {
+          i++;
+        }
+      } else {
+        newObjArray.push(stanza[i]);
+      }
+    }
+    onUpdate(newObjArray, stanza);
+  }
+
+
   function shiftWordsUp() {
     if (stanza[0].selected) {
       onSetStatusMessage('cannot shift words beyond stanza limits!', 3000, 'red');
@@ -1374,7 +1390,7 @@ const areWordBankWordsSelected = areAnyWordBankWordsSelected();
             <div className={classes.stanzaPadSection}>
               <StanzaPad wordBeingEdited={wordBeingEdited} onSetWordBeingEdited={onSetWordBeingEdited} wordEditMode={wordEditMode} baseFont={baseFont} baseFontSize={baseFontSize} updateStazaStyles={updateStazaStyles} updatePoemStyles={updatePoemStyles} stanza={stanza} onWordClick={onWordClick}/>
               <div className={classes.toolsContainer}>
-                <StanzaPadButtons onStripCaps={onStripCaps} shiftWordsUp={shiftWordsUp} shiftWordsDown={shiftWordsDown} addLineBreakAfterSelected={addLineBreakAfterSelected} onUndoRedoStanza={onUndoRedoStanza} onAddPunct={onAddPunct} onStripPunct={onStripPunct} onConfirmEditWord={onConfirmEditWord} onSetWordBeingEdited={onSetWordBeingEdited} onSetWordEditMode={onSetWordEditMode} wordEditMode={wordEditMode} onShuffleStanza={onShuffleStanza} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
+                <StanzaPadButtons removeLineBreakAfterSelected={removeLineBreakAfterSelected} onStripCaps={onStripCaps} shiftWordsUp={shiftWordsUp} shiftWordsDown={shiftWordsDown} addLineBreakAfterSelected={addLineBreakAfterSelected} onUndoRedoStanza={onUndoRedoStanza} onAddPunct={onAddPunct} onStripPunct={onStripPunct} onConfirmEditWord={onConfirmEditWord} onSetWordBeingEdited={onSetWordBeingEdited} onSetWordEditMode={onSetWordEditMode} wordEditMode={wordEditMode} onShuffleStanza={onShuffleStanza} setStanza={setStanza} setOldStanza={setOldStanza} stanza={stanza} oldStanza={oldStanza} onSaveToWordBank={onSaveToWordBank} onSelectAllWords={onSelectAllWords} onUnselectAllWords={onUnselectAllWords} onDeleteSelectedWords={onDeleteSelectedWords} onDuplicateSelectedWords={onDuplicateSelectedWords}/>
               </div>
             </div>
           }

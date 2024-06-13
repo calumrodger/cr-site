@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 const StanzaPadButtons = (props) => {
 
-    const { onStripCaps, shiftWordsUp, shiftWordsDown, addLineBreakAfterSelected, onAddPunct, onStripPunct, onConfirmEditWord, onSetWordBeingEdited, onSetWordEditMode, wordEditMode, onShuffleStanza, onUndoRedoStanza, stanza, oldStanza, onSaveToWordBank, onSelectAllWords, onUnselectAllWords, onDeleteSelectedWords, onDuplicateSelectedWords, onEditWord } = props;
+    const { removeLineBreakAfterSelected, onStripCaps, shiftWordsUp, shiftWordsDown, addLineBreakAfterSelected, onAddPunct, onStripPunct, onConfirmEditWord, onSetWordBeingEdited, onSetWordEditMode, wordEditMode, onShuffleStanza, onUndoRedoStanza, stanza, oldStanza, onSaveToWordBank, onSelectAllWords, onUnselectAllWords, onDeleteSelectedWords, onDuplicateSelectedWords, onEditWord } = props;
 
     const backText = "<-";
 
@@ -85,6 +85,9 @@ const StanzaPadButtons = (props) => {
             <button onClick={noneSelected || moreThanOneSelected ? null : onClickEditWord} className={`${classes.button} ${noneSelected || moreThanOneSelected ? classes.disabled : null}`}>{wordEditMode ? 'DONE' : 'EDIT WORD'}</button>
             </div>
             <div>
+            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onDeleteSelectedWords}>DELETE</button>
+            </div>
+            <div>
             <button className={`${classes.button} ${allSelected || wordEditMode ? classes.disabled : null}`} onClick={allSelected || wordEditMode ? null : onSelectAllWords}>select all</button>
             </div>
             <div>
@@ -97,11 +100,9 @@ const StanzaPadButtons = (props) => {
             <button onClick={noneSelected || wordEditMode ? null : shiftWordsDown} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move ▶</button>
             </div>
             <div>
-            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onDuplicateSelectedWords}>duplicate</button>
+            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onDuplicateSelectedWords}>dupe</button>
             </div>
-            <div>
-            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onDeleteSelectedWords}>delete</button>
-            </div>
+          
             <div>
             <button className={`${classes.button} ${!moreThanOneSelected || wordEditMode ? classes.disabled : null}`} onClick={!moreThanOneSelected || wordEditMode ? null : onShuffleStanza}>shuffle</button>
             </div>
@@ -120,6 +121,8 @@ const StanzaPadButtons = (props) => {
             </div>
             <div>
             <button onClick={noneSelected || wordEditMode ? null : addLineBreakAfterSelected} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>line break</button>
+         
+            <button onClick={noneSelected || wordEditMode ? null : removeLineBreakAfterSelected} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>x</button>
             </div>
 
             <div>
