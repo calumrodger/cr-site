@@ -50,7 +50,7 @@ const WordBank = (props) => {
             })}
             </div>
             <div className={classes.wordBankButtons}>
-              <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={onSaveWordBankAsList}>SAVE LIST</button>
+              <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={onSaveWordBankAsList}>SAVE AS LIST</button>
               <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={deleteSelectedWordBank}>DELETE</button>
                 <button className={`${classes.button} ${classes.wordBankButton} ${allSelected ? classes.disabled : null}`} onClick={selectAllWordBank}>select all</button>
                 <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={unselectAllWordBank}>unselect all</button>
