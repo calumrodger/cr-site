@@ -459,6 +459,7 @@ const Genny = (props) => {
   const onEditStanza = (stanza, stanzaIndex, stanzaStyles, poemStyles) => {
     setEditStanzaIndex(stanzaIndex);
     setStanza(stanza);
+    setOldStanza(stanza);
     setEditExistingStanzaMode(true);
     setPadToShow('stanza');
     setUpdateStanzaStyles(stanzaStyles);
