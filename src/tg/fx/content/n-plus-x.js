@@ -438,7 +438,7 @@ const NPlusX = (props) => {
         <div className={classes.numberAndButton}>
             <div className={classes.synonymSlider}>
                 <div className={classes.radioButtons}>
-                    <span>src:</span>
+                    <span>dict:</span>
                 <div className={classes.nplusxSrcButtonsContainer}>
                 <div className={classes.buttonContainer}>
                     <label htmlFor="big-src">big: </label>
