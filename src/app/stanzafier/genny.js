@@ -320,7 +320,7 @@ const Genny = (props) => {
 
   const getStress = function (theString) {// preprocessed stress dict
     if (theString) {
-      const parts = theString.trim().split(/\s+/).map(part => part.replace(/[^\w']|_/g, ""));
+      const parts = theString.trim().split(/\s+/).map(part => part.replace("’", "'").replace(/[^\w']|_/g, ""));
       const stressArray = parts.map(part => stressDictionary[part.toLowerCase()] ?? 1);
       return stressArray.reduce((p, c) => p + c, 0);
     }
