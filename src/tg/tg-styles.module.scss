@@ -719,7 +719,7 @@ width: 6rem;
     margin-top: .5rem;
     margin-left: .2rem;
     border-radius: .2rem;
-    box-shadow: $shadowColour -1px 1px;
+    box-shadow: $shadowColour 1px 1px;
 
     &.disabled {
         box-shadow: none;
