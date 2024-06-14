@@ -70790,7 +70790,7 @@ export const stressDictionary = {
     "maxxim": 1,
     "maxy": 1,
     "maxzide": 1,
-    "may": 1,
+    "may": 0,
     "may's": 1,
     "maya": 1,
     "mayaguez": 2,

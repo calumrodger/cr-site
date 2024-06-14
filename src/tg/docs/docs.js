@@ -286,6 +286,7 @@ const Docs = (props) => {
             <li>Performance issues: longer stanza forms, larger source texts and using n-grams (i.e. setting n-level at 2-9) can create severe performance issues, especially when used in combination. If you are encountering such issues, try using a shorter form or shorter source text. </li>
             <li>Grabbing comments from a YouTube url has been known to crash the app, so be sure to save your work beforehand.</li>
             <li>Populating the Word Bank via LLM often randomly clips the first letter from added words.</li>
+            <li>CURRENT FORM does not always accurately represent line-breaks.</li>
         </ul>
         <h2 id="features">FUTURE FEATURES</h2>
         <p>Future features planned for Stanzafier include but are not limited to:</p>
