@@ -95,8 +95,7 @@ const StanzaPadButtons = (props) => {
             </div>
             <div>
             <button onClick={noneSelected || wordEditMode ? null : shiftWordsUp} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>◀ move</button>
-            </div>
-            <div>
+    
             <button onClick={noneSelected || wordEditMode ? null : shiftWordsDown} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move ▶</button>
             </div>
             <div>
@@ -122,7 +121,7 @@ const StanzaPadButtons = (props) => {
             <div>
             <button onClick={noneSelected || wordEditMode ? null : addLineBreakAfterSelected} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>line break</button>
          
-            <button onClick={noneSelected || wordEditMode ? null : removeLineBreakAfterSelected} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>x</button>
+            <button onClick={noneSelected || wordEditMode ? null : removeLineBreakAfterSelected} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>X</button>
             </div>
 
             <div>
