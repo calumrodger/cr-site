@@ -648,12 +648,24 @@ const Genny = (props) => {
     onUpdate(newObjArray, stanza);
   }
 
-  const onClickShowSrc = (preset) => {
+  const onClickShowSrc = () => {
     if (padToShow !== 'input') {
       setPadToShow('input');
     } else {
       setPadToShow('stanza');
     }
+  }
+
+  const onDeletePreset = () => {
+    let newObjArray = [];
+    for (let i = 0; i < presetArray.length; i++) {
+      if (presetArray[i].name !== currentPreset.name) {
+        newObjArray.push(presetArray[i]);
+      }
+    }
+    setPresetArray(newObjArray);
+    setCurrentPreset(newObjArray[0]);
+    setStatusMessage('preset deleted', 1000, 'green');
   }
 
   const onSetGenType = (e) => {
@@ -672,6 +684,7 @@ const Genny = (props) => {
   const onClickImportAsStanza = (text) => {
     setStanza(treatImportString(text));
     setPadToShow('stanza');
+    setStatusMessage('imported as stanza', 1000, 'green');
   }
 
   const onSaveToWordBank = () => {
@@ -927,11 +940,11 @@ const Genny = (props) => {
     }
   }
 
-  const onCreateNewPreset = (name, text) => {
+  const onCreateNewPreset = () => {
     const id = presetArray.length - 1;
-    const newArray = [...presetArray, {id: id, name: name, text: text}];
+    const newArray = [...presetArray, {id: id, name: '', text: ''}];
     setPresetArray(newArray);
-    setCurrentPreset({id: id, name: name, text: text});
+    setCurrentPreset({id: id, name: '', text: ''});
   }
 
   const onSaveNewPreset = (presetName, text) => {
@@ -943,7 +956,6 @@ const Genny = (props) => {
 
   const onOverwritePreset = (presetName, text) => {
     const id = currentPreset.id;
-    const presetInArray = presetArray.find((item) => item.id === id);
     let newArray = []
     for (let i = 0; i < presetArray.length; i++) {
       if (presetArray[i].id === id) {
@@ -956,6 +968,7 @@ const Genny = (props) => {
     setCurrentPreset({id: id, name: presetName, text: text});
     // setPadToShow('stanza');
   }
+
 
   const onSelectPreset = (presetName) => {
     const preset = presetArray.find((item) => item.name === presetName);
@@ -1418,7 +1431,7 @@ const areWordBankWordsSelected = areAnyWordBankWordsSelected();
           <StatusBar statusMessage={statusMessage} onSetStatusMessage={onSetStatusMessage}/>
           </div>
           <div className={classes.inputPadSection}>
-            <SourcePad onCreateNewPreset={onCreateNewPreset} getStress={getStress} onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset} onSetStatusMessage={onSetStatusMessage}/> 
+            <SourcePad onDeletePreset={onDeletePreset} onCreateNewPreset={onCreateNewPreset} getStress={getStress} onSetCurrentPresetName={onSetCurrentPresetName} onSetCurrentPresetText={onSetCurrentPresetText} onSelectPreset={onSelectPreset} presetArray={presetArray} onSaveNewPreset={onSaveNewPreset} onOverwritePreset={onOverwritePreset} onClickImportAsStanza={onClickImportAsStanza} onClickShowSrc={onClickShowSrc} onChangeCurrentPreset={onChangeCurrentPreset} currentPreset={currentPreset} onSetStatusMessage={onSetStatusMessage}/> 
           </div>
           </>
           }
