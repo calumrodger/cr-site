@@ -115,7 +115,7 @@ import LoadFromTxt from './load-from-txt';
                 </div>
                 <div className={classes.presetContainer}>
                 <span>current preset:</span>
-                <select className={classes.select} value={editingPresetName} name="presets" id="presets" onChange={() => onChangeMenuPreset(presets.value)} placeholder="Select a preset...">
+                <select className={`${classes.select} ${classes.srcPadSelect}`} value={editingPresetName} name="presets" id="presets" onChange={() => onChangeMenuPreset(presets.value)} placeholder="Select a preset...">
                      { presetArray.map((p, i) => {
                         return <option key={i} onClick={() => setSelectedPreset(p)}>{p.name}</option>
                     })}

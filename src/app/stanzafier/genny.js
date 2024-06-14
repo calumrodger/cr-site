@@ -430,6 +430,7 @@ const Genny = (props) => {
     const currentPoemLength = poem.length;
     const newStanzaId = currentPoemLength + 1;
     setPoem(poem => [...poem, {id: newStanzaId, stanza: stanza, selected: false}]);
+    onSetStatusMessage('stanza saved', 1000, 'green');
   }
 
   const onUpdatePoem = (newPoem) => {
@@ -445,6 +446,7 @@ const Genny = (props) => {
     setPoem(newOrder);
     setEditExistingStanzaMode(false);
     setPadToShow('poem');
+    onSetStatusMessage('stanza updated', 1000, 'green');
   }
 
   const onLeaveOutputMode = () => {
@@ -577,10 +579,10 @@ const Genny = (props) => {
     let initialWordBankWords = wordBank.map(item => item.text);
     let currentWordBankWords = [];
     for (let i = 0; i < initialWordBankWords.length; i++) {
-      // if (initialWordBankWords[i]) {
+      if (initialWordBankWords[i]) {
         let removedSpaces = initialWordBankWords[i].replace(/\s+/g, "").trim();
         currentWordBankWords.push(removedSpaces);
-      // }
+      }
     }
 
     const words1minus2 = words.filter(x => !currentWordBankWords.includes(x));
