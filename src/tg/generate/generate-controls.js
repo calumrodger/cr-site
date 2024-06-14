@@ -13,6 +13,8 @@ const GenerateControls = (props) => {
     const [loading, setLoading] = useState(false);
     const [currentNGrams, setCurrentNGrams] = useState({});
     const [disableGenButton, setDisableGenButton] = useState(false);
+    const [keepPunct, setKeepPunct] = useState(true);
+    const [keepCase, setKeepCase] = useState(true);
 
     useEffect(() => {
         if (currentForm === '') {
@@ -29,7 +31,7 @@ const GenerateControls = (props) => {
         if (nLevel !== "10" && nLevel !== "1" && disableGenButton === false) {
             setCurrentNGrams(generateNGrams(currentPreset.text, nLevel));
         }
-    }, [nLevel, currentPreset, disableGenButton])
+    }, [nLevel, currentPreset, disableGenButton, keepCase, keepPunct])
     
     const getFormArray = (form) => {
         const splitForm = form.split('/').map((item) => parseInt(item));
@@ -79,12 +81,18 @@ const GenerateControls = (props) => {
     }
 
     const getRandomWordPoemSyllable = (text, form) => {
-        let poem = [];
+        let thePoem = [];
         for (let i = 0; i < form.length; i++) {
             let line = getRandomLineSyllable(text, form[i]);
-            poem.push(line);
+            thePoem.push(line);
         }
-        return poem;
+        if (keepCase === false) {
+            thePoem = thePoem.map((item) => item.toLowerCase());
+        }
+        if (keepPunct === false) {
+            thePoem = thePoem.map((item) => item.replace(/[.,\/#!$%\^&\*;:{}‘’“”=\-_`~?!()]/g,""));
+        }
+        return thePoem;
     }
 
     const getRandomLinePoemSyllable = (text, form) => {
@@ -97,12 +105,18 @@ const GenerateControls = (props) => {
     }
 
     const getRandomWordPoemStress = (text, form) => {
-        let poem = [];
+        let thePoem = [];
         for (let i = 0; i < form.length; i++) {
             let line = getRandomLineStress(text, form[i]);
-            poem.push(line);
+            thePoem.push(line);
         }
-        return poem;
+        if (keepCase === false) {
+            thePoem = thePoem.map((item) => item.toLowerCase());
+        }
+        if (keepPunct === false) {
+            thePoem = thePoem.map((item) => item.replace(/[.,\/#!$%\^&\*;:{}‘’“”=\-_`~?!()]/g,""));
+        }
+        return thePoem;
     }
 
     const getRandomLinePoemStress = (text, form) => {
@@ -152,6 +166,12 @@ const GenerateControls = (props) => {
         if (thePoem.length === 0) {
             onSetStatusMessage("no poem found - try a bigger string or a different form", 3000, 'red');
         }
+        if (keepCase === false) {
+            thePoem = thePoem.map((item) => item.toLowerCase());
+        }
+        if (keepPunct === false) {
+            thePoem = thePoem.map((item) => item.replace(/[.,\/#!$%\^&\*;:{}‘’“”=\-_`~?!()]/g,""));
+        }
         return thePoem;
     };
 
@@ -193,6 +213,12 @@ const GenerateControls = (props) => {
         if (thePoem.length === 0) {
             onSetStatusMessage("no poem found - try a bigger string or a different form", 3000, 'red');
         }
+        if (keepCase === false) {
+            thePoem = thePoem.map((item) => item.toLowerCase());
+        }
+        if (keepPunct === false) {
+            thePoem = thePoem.map((item) => item.replace(/[.,\/#!$%\^&\*;:{}‘’“”=\-_`~?!()]/g,""));
+        }
         return thePoem;
     };
 
@@ -213,7 +239,7 @@ const GenerateControls = (props) => {
     }
 
     const generateNGrams = (text, currentNLevel) => {
-        return buildNGrams(text, +currentNLevel, {caseSensitive: true, includePunctuation: true});
+        return buildNGrams(text, +currentNLevel, {caseSensitive: keepCase, includePunctuation: keepPunct});
     }
 
     const addNGramToNGramForIndex = (nGram, nGrams) => {
@@ -453,7 +479,6 @@ const GenerateControls = (props) => {
         setLoading(true)
         // onSetStatusMessage('processing', 10000, 'yellow');
         const thePoem = functionToPerform(currentPreset.text, getFormArraySansBreaks(currentForm));
-        console.log(thePoem)
         if (thePoem.length === 0) {
             setLoading(false)
             onSetStatusMessage('no poem found - try a bigger string or a different form', 3000, 'red');
@@ -530,6 +555,22 @@ const GenerateControls = (props) => {
         onSetNLevel(e.target.value);
     }
 
+    const onChangePunctSetting = () => {
+        if (keepPunct === true) {
+            setKeepPunct(false);
+        } else {
+            setKeepPunct(true);
+        }
+    }
+
+    const onChangeCaseSetting = () => {
+        if (keepCase === true) {
+            setKeepCase(false);
+        } else {
+            setKeepCase(true);
+        }
+    }
+
     return (
         <div className={classes.generatorGrid}>
             <div className={classes.showSrcButton}>
@@ -558,29 +599,44 @@ const GenerateControls = (props) => {
             <div className={classes.saveStanzaButton}>
                 <OnSaveStanzaToPad editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad}/> 
             </div>
-            <div className={classes.formStyleToggle}>
-                <span>measure:</span>
-                <div className={classes.toggleButtonsContainer}>
-                    <div>
-                        <input className={`${classes.radioInput} ${formStyle === 'syllable' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="syllable" checked={formStyleCheckbox === 'syllable'} onChange={() => onChangeFormStyleCheckbox('syllable')} />
-                        <label htmlFor="syllable">syllable</label>
-                    </div>
-                    <div>
-                        <input className={`${classes.radioInput} ${formStyle === 'stress' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="stress" checked={formStyleCheckbox === 'stress'} onChange={() => onChangeFormStyleCheckbox('stress')} />
-                        <label htmlFor="stress">stress</label>
+            <div className={classes.genSettingsBox}>
+                <div className={classes.formStyleToggle}>
+                    <span>measure:</span>
+                    <div className={classes.toggleButtonsContainer}>
+                        <div>
+                            <input className={`${classes.radioInput} ${formStyle === 'syllable' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="syllable" onClick={() => onChangeFormStyleCheckbox('syllable')} />
+                            <label htmlFor="syllable">syllable</label>
+                        </div>
+                        <div>
+                            <input className={`${classes.radioInput} ${formStyle === 'stress' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="stress" onClick={() => onChangeFormStyleCheckbox('stress')} />
+                            <label htmlFor="stress">stress</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className={classes.reseedToggle}>
-                <span>reseed by:</span>
-                <div className={classes.toggleButtonsContainer}>
-                    <div>
-                        <input className={`${classes.radioInput} ${reseedCheckbox === 'stanza' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="stanza" checked={reseedCheckbox === 'stanza'} onChange={() => onChangeReseedCheckbox('stanza')} />
-                        <label htmlFor="stanza">stanza</label>
+                <div className={classes.reseedToggle}>
+                    <span>reseed by:</span>
+                    <div className={classes.toggleButtonsContainer}>
+                        <div>
+                            <input className={`${classes.radioInput} ${reseedCheckbox === 'stanza' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="stanza" onClick={() => onChangeReseedCheckbox('stanza')} />
+                            <label htmlFor="stanza">stanza</label>
+                        </div>
+                        <div>
+                            <input className={`${classes.radioInput} ${reseedCheckbox === 'line' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="line" onClick={() => onChangeReseedCheckbox('line')} />
+                            <label htmlFor="line">line</label>
+                        </div>
                     </div>
-                    <div>
-                        <input className={`${classes.radioInput} ${reseedCheckbox === 'line' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="line" checked={reseedCheckbox === 'line'} onChange={() => onChangeReseedCheckbox('line')} />
-                        <label htmlFor="line">line</label>
+                </div>
+                <div className={classes.miscToggle}>
+                    <span>keep:</span>
+                    <div className={classes.toggleButtonsContainer}>
+                        <div>
+                            <input className={`${classes.radioInput} ${keepCase === true ? classes.selected : null}`} type="radio" id="case" name="case" value="case" onClick={() => onChangeCaseSetting()} />
+                            <label htmlFor="case">case</label>
+                        </div>
+                        <div>
+                            <input className={`${classes.radioInput} ${keepPunct ? classes.selected : null}`} type="radio" id="punct" name="punct" value="punct" onClick={() => onChangePunctSetting()} />
+                            <label htmlFor="punct">punct</label>
+                        </div>
                     </div>
                 </div>
             </div>

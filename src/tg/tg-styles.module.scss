@@ -829,9 +829,9 @@ width: 6rem;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas: "show-src form-input preset n-slider "
-                         "show-src form-style reseed gen-buttons"
-                        "show-src form-style reseed save-buttons";
-    gap: .5rem; 
+                         "show-src gen-set gen-set gen-buttons"
+                        "show-src gen-set gen-set save-buttons";
+    gap: .4rem; 
 
     select {
 
@@ -840,6 +840,43 @@ width: 6rem;
 
         
     }
+}
+
+.genSettingsBox {
+    grid-area: gen-set;
+    // padding-top: .3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "form-style reseed misc"
+                         "form-style reseed misc";
+}
+
+.toggleButtonsContainer {
+    background-color: $highlightExtra;
+    border: $fillColourLight 1px solid;
+    padding: .1rem;
+    // margin-top: 1rem;
+}
+
+.miscToggle {
+    grid-area: misc;
+    display: flex;
+    flex-direction: column;
+    // gap: .2rem;
+    font-size: .65rem;
+}
+
+.formStyleToggle {
+    grid-area: form-style;
+    font-size: .65rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.reseedToggle {
+    grid-area: reseed;
+    font-size: .65rem;
 }
 
 .infinitySelected {
@@ -900,12 +937,7 @@ width: 6rem;
     }
 }
 
-.toggleButtonsContainer {
-    background-color: $highlightExtra;
-    border: $fillColourLight 1px solid;
-    padding: .3rem;
-    margin-top: .2rem;
-}
+
 
 .saveStanzaButton {
     grid-area: save-buttons;
@@ -934,19 +966,6 @@ width: 6rem;
         outline: none;
     }
 }
-}
-
-.formStyleToggle {
-    grid-area: form-style;
-    font-size: .8rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.reseedToggle {
-    grid-area: reseed;
-    font-size: .8rem;
-    width: 5rem;
 }
 
 .apiContainer {

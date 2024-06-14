@@ -224,7 +224,7 @@ const Genny = (props) => {
       case 6:
         return `${finalWord}...`;
       case 7:
-        return `${finalWord} -`;
+        return `${finalWord} —`;
       case 8:
         return `*${finalWord}*`;
       case 9:
@@ -236,21 +236,24 @@ const Genny = (props) => {
       case 12:
         return `~${finalWord}~`;
       case 13:
-        return `"${finalWord}"`;
+        return `“${finalWord}”`;
+      case 14:
+        return `‘${finalWord}’`;
         default: 
         return word;
   }
 }
 
+
   const onAddPunct = (reverse) => {
     if (reverse) {
       if (punctCounter === 0) {
-        setPunctCounter(13);
+        setPunctCounter(14);
       } else {
         setPunctCounter(punctCounter - 1);
       }
     } else {
-      if (punctCounter === 13) {
+      if (punctCounter === 14) {
         setPunctCounter(0);
       } else {
         setPunctCounter(punctCounter + 1);
@@ -1219,7 +1222,7 @@ const Genny = (props) => {
     let newObjArray = [];
     for (let i = 0; i < stanza.length; i++) {
       if (stanza[i].selected) {
-        let newText = stanza[i].text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~?!()]/g,"");
+        let newText = stanza[i].text.replace(/[.,\/#!$%\^&\*;:{}[\]‘’“”=\-_`~?!()]/g,"");
         newObjArray.push({ id: stanza[i].id, type: 'text', style: stanza[i]?.style, text: newText, selected: true });
       } else {
         newObjArray.push(stanza[i]);
