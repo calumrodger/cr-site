@@ -846,6 +846,7 @@ width: 6rem;
     grid-area: gen-set;
     // padding-top: .3rem;
     display: grid;
+    gap: .1rem;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: "form-style reseed misc"
