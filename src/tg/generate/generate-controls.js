@@ -463,7 +463,6 @@ const GenerateControls = (props) => {
         setLoading(true)
         // onSetStatusMessage('processing', 10000, 'yellow');
         const thePoem = functionToPerform(currentPreset.text, currentForm);
-        console.log(thePoem)
         if (thePoem.length === 0) {
             setLoading(false)
             onSetStatusMessage('no poem found - try a bigger string or a different form', 3000, 'red');

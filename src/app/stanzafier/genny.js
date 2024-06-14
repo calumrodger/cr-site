@@ -469,25 +469,25 @@ const Genny = (props) => {
     setUpdatePoemStyles(poemStyles);
   }
 
-  useEffect(() => {
-    console.log(stanza)
-  }, [stanza])
+  // useEffect(() => {
+  //   console.log(stanza)
+  // }, [stanza])
 
-  const handleResize = () => {
-    if (window.innerWidth < 461 ) {
-      console.log('go small')
-      setSmallScreen(true)
-    }
-    if (window.innerWidth > 460 ) {
-      setSmallScreen(false)
-    }
-  }
+//   const handleResize = () => {
+//     if (window.innerWidth < 461 ) {
+//       console.log('go small')
+//       setSmallScreen(true)
+//     }
+//     if (window.innerWidth > 460 ) {
+//       setSmallScreen(false)
+//     }
+//   }
 
-  // create an event listener
-  useEffect(() => {
-    handleResize()
-    window.addEventListener("resize", handleResize)
-}, [])
+//   // create an event listener
+//   useEffect(() => {
+//     handleResize()
+//     window.addEventListener("resize", handleResize)
+// }, [])
 
   const onSelectAllWords = () => {
     let newObjArray = stanza.map((item) => {
@@ -575,7 +575,6 @@ const Genny = (props) => {
   const onPopulateWordBank = (words, quant) => {
 
     let initialWordBankWords = wordBank.map(item => item.text);
-    console.log(initialWordBankWords)
     let currentWordBankWords = [];
     for (let i = 0; i < initialWordBankWords.length; i++) {
       // if (initialWordBankWords[i]) {
@@ -1297,17 +1296,14 @@ const Genny = (props) => {
 
     // rotate left to place selected stanzas in correct position
     newArray.push(newArray.shift());
-    console.log(newArray)
 
     // etc...
     stanza.forEach((word, index) => {
         if (!word.selected) {
             const offsetIndex = newArray.indexOf(null, index);
-            console.log(word.text, index, offsetIndex, newArray)
             const newIndex = offsetIndex !== -1
                 ? offsetIndex
                 : newArray.indexOf(null);
-            console.log(newArray.indexOf(null), newArray.length - 1 )
                 // : newArray.length;
             newArray[newIndex] = word;
         }
@@ -1473,7 +1469,7 @@ const areWordBankWordsSelected = areAnyWordBankWordsSelected();
               <span className={classes.sectionTitle}>WORD BANK</span>
               <WordBank onShuffleWordBank={onShuffleWordBank} baseFont={baseFont} baseFontSize={baseFontSize} onSaveWordBankAsList={onSaveWordBankAsList} deleteSelectedWordBank={deleteSelectedWordBank} selectAllWordBank={selectAllWordBank} unselectAllWordBank={unselectAllWordBank} onWordBankClick={onWordBankClick} wordBank={wordBank}/>
               <InjectControls areWordBankWordsSelected={areWordBankWordsSelected} areStanzaWordsSelected={areStanzaWordsSelected} onClickInject={onClickInject} onChangeInjectSetting={onChangeInjectSetting} injectSetting={injectSetting}/> 
-              <PopulateWordBank onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
+              <PopulateWordBank onSetStatusMessage={onSetStatusMessage} onOpenWordBankAdd={onOpenWordBankAdd} allWordLists={allWordLists} selectedWordList={selectedWordList} onSetSelectedWordList={onSetSelectedWordList} onOpenWordBankEdit={onOpenWordBankEdit} onPopulateWordBank={onPopulateWordBank}/>
               </>
               }
               { showEditWordBank &&
