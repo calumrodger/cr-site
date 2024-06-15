@@ -224,7 +224,7 @@ const Docs = (props) => {
             <h4>TYPOGRAPHY</h4>
             <Image src={fxTypo.src} height={fxTypo.height / 2} width={fxTypo.width /2}/>
             <ul>
-                <li>Use the sliders to adjust the typographical properties - <b>size, weight, font, rotation</b> - of selected words.</li>
+                <li>Use the sliders to adjust the typographical properties – <b>size, weight, font, rotation</b> – of selected words.</li>
                 <li>Use the buttons – <b>italic, CAPS, mirror, erase</b> – to switch the relevant typographical properties on and off for selected words.</li>
                 <li>Use <b>RESET</b> to revert all selected words back to their original typographical state.</li>
             </ul>
@@ -340,11 +340,12 @@ const Docs = (props) => {
         <h2 id="features">FUTURE FEATURES</h2>
         <p>Future features planned for Stanzafier include but are not limited to:</p>
         <ul>
-            <li>Preset mashup mode: select two presets at once to create poetic mashups (in the meantime this can be done manually by adding discrete source texts to a single preset text).</li>
+            <li>Preset mashup mode: select two presets at once to create poetic mashups (in the meantime this can be done manually by adding discrete source texts to a single preset text, as in the ‘tintern wasted’ built-in preset).</li>
             <li>Regenerate selected: part-regenerate stanzas to create new Yahtzee-esque creative possibilities.</li>
             <li>Freeform mode: drag n drop on Stanza Pad to assist creation of concrete poetry.</li>
             <li>More FX including more complex LLM interactions.</li>
             <li>A programmable interface to auto-produce extended permutational sequences.</li>
+            <li>More/better fonts.</li>
             <li>Knobs!</li>
             <li>And more...</li>
             <li>(And if there is a particular feature you would like to see, get in touch!)</li>
