@@ -53,6 +53,14 @@ $hoverColour: #e5c2c0;
     margin-bottom: 2rem;
 }
 
+.coloursContainer {
+    display: flex;
+    flex-direction: column;
+    color: $fillColourLight;
+    gap: .2rem;
+    font-size: .7rem;
+}
+
 .mainTextGrid {
     // margin-bottom: 4rem;
     display: grid;

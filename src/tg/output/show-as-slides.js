@@ -99,7 +99,7 @@ const ShowAsSlides = (props) => {
             </div>
             <button className={`${classes.button} ${slideIndex === 0 ? classes.greyed : null}`} onClick={onClickLeft}>previous</button>
             <button className={`${classes.button} ${slideIndex === (thePoemJSX.length - 1) ? classes.greyed : null}`} onClick={onClickRight}>next</button>
-            <button onClick={exportAsImage}className={classes.button}>export page as .png</button>
+            <button onClick={exportAsImage}className={classes.button}>export page as png</button>
             <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
         </div>

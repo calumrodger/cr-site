@@ -99,7 +99,7 @@ const ShowAsLines = (props) => {
           <input type="range" min="0" max="9" step="1" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="spacing"/>
           </div>
           
-          <button onClick={exportAsImage} className={classes.button}>export as .png</button>
+          <button onClick={exportAsImage} className={classes.button}>export as png</button>
           <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
         </div>
