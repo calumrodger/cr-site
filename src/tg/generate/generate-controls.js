@@ -8,13 +8,12 @@ import StanzaUndoRedo from '@tg/stanza-pad/undo-redo-stanza';
 
 const GenerateControls = (props) => {
 
-    const { onUndoRedoStanza, wordEditMode, oldStanza, stanza, onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress, statusMessage } = props;
-    const [currentForm, setCurrentForm] = useState('5/7/5');
+    const { currentForm, keepPunct, keepCase, reseedCheckbox, onSetCurrentForm, onSetKeepPunct, onSetKeepCase, onSetReseedCheckbox, onUndoRedoStanza, wordEditMode, oldStanza, stanza, onSetStatusMessage, editExistingStanzaMode, onSaveStanzaToPad, onUpdateStanzaToPad, onSelectPreset, currentPreset, presetArray, nLevel, onSetNLevel, formStyle, onSetFormStyle, treatString, onClickShowSrc, genType, onSetGenType, onUpdate , form, padToShow, getStress, statusMessage } = props;
+    
     const [loading, setLoading] = useState(false);
     const [currentNGrams, setCurrentNGrams] = useState({});
     const [disableGenButton, setDisableGenButton] = useState(false);
-    const [keepPunct, setKeepPunct] = useState(true);
-    const [keepCase, setKeepCase] = useState(true);
+    
 
     useEffect(() => {
         if (currentForm === '') {
@@ -534,19 +533,17 @@ const GenerateControls = (props) => {
         const formArray = e.target.value.split('');
         const newFormArray = formArray.filter((item) => permittedCharacters.includes(item));
         const finalString = newFormArray.join('');
-        setCurrentForm(finalString)
+        onSetCurrentForm(finalString)
     }
 
-    const [reseedCheckbox, setReseedCheckbox] = useState('stanza');
-    const [formStyleCheckbox, setFormStyleCheckbox] = useState('syllable');
 
-    const onChangeReseedCheckbox = (e) => {
-        setReseedCheckbox(e);
-        onSetGenType(e);
+
+    const onChangeReseedCheckbox = () => {
+        onSetReseedCheckbox();
+        onSetGenType();
     }
 
-    const onChangeFormStyleCheckbox = (e) => {
-        setFormStyleCheckbox(e);
+    const onChangeFormStyleCheckbox = () => {
         onSetFormStyle();
     }
 
@@ -555,19 +552,11 @@ const GenerateControls = (props) => {
     }
 
     const onChangePunctSetting = () => {
-        if (keepPunct === true) {
-            setKeepPunct(false);
-        } else {
-            setKeepPunct(true);
-        }
+            onSetKeepPunct();
     }
 
     const onChangeCaseSetting = () => {
-        if (keepCase === true) {
-            setKeepCase(false);
-        } else {
-            setKeepCase(true);
-        }
+            onSetKeepCase();
     }
 
     return (
@@ -603,11 +592,11 @@ const GenerateControls = (props) => {
                     <span>measure:</span>
                     <div className={classes.toggleButtonsContainer}>
                         <div>
-                            <input className={`${classes.radioInput} ${formStyle === 'syllable' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="syllable" onClick={() => onChangeFormStyleCheckbox('syllable')} />
+                            <input className={`${classes.radioInput} ${formStyle === 'syllable' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="syllable" onClick={() => onChangeFormStyleCheckbox()} />
                             <label htmlFor="syllable">syllable</label>
                         </div>
                         <div>
-                            <input className={`${classes.radioInput} ${formStyle === 'stress' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="stress" onClick={() => onChangeFormStyleCheckbox('stress')} />
+                            <input className={`${classes.radioInput} ${formStyle === 'stress' ? classes.selected : null}`} type="radio" id="form-style" name="form-style" value="stress" onClick={() => onChangeFormStyleCheckbox()} />
                             <label htmlFor="stress">stress</label>
                         </div>
                     </div>
@@ -616,11 +605,11 @@ const GenerateControls = (props) => {
                     <span>reseed by:</span>
                     <div className={classes.toggleButtonsContainer}>
                         <div>
-                            <input className={`${classes.radioInput} ${reseedCheckbox === 'stanza' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="stanza" onClick={() => onChangeReseedCheckbox('stanza')} />
+                            <input className={`${classes.radioInput} ${reseedCheckbox === 'stanza' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="stanza" onClick={() => onChangeReseedCheckbox()} />
                             <label htmlFor="stanza">stanza</label>
                         </div>
                         <div>
-                            <input className={`${classes.radioInput} ${reseedCheckbox === 'line' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="line" onClick={() => onChangeReseedCheckbox('line')} />
+                            <input className={`${classes.radioInput} ${reseedCheckbox === 'line' ? classes.selected : null}`} type="radio" id="reseed" name="reseed" value="line" onClick={() => onChangeReseedCheckbox()} />
                             <label htmlFor="line">line</label>
                         </div>
                     </div>

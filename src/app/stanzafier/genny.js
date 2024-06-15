@@ -157,6 +157,10 @@ const Genny = (props) => {
   const [baseFontSize, setBaseFontSize] = useState('1');
   const [wordBeingEdited, setWordBeingEdited] = useState('');
   const [punctCounter, setPunctCounter] = useState(0);
+  const [currentForm, setCurrentForm] = useState('5/7/5');
+  const [keepPunct, setKeepPunct] = useState(true);
+  const [keepCase, setKeepCase] = useState(true);
+  const [reseedCheckbox, setReseedCheckbox] = useState('stanza');
 
   // Switches
   const [padToShow, setPadToShow] = useState('stanza');
@@ -168,6 +172,34 @@ const Genny = (props) => {
   const [wordEditMode, setWordEditMode] = useState(false);
   const [docsMode, setDocsMode] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
+
+  const onSetCurrentForm = (str) => {
+    setCurrentForm(str);
+  }
+
+  const onSetKeepPunct = () => {
+    if (keepPunct) {
+      setKeepPunct(false);
+    } else {
+      setKeepPunct(true);
+    }
+  }
+
+  const onSetKeepCase = () => {
+    if (keepCase) {
+      setKeepCase(false);
+    } else {
+      setKeepCase(true);
+    }
+  }
+
+  const onSetReseedCheckbox = () => {
+    if (reseedCheckbox === 'stanza') {
+      setReseedCheckbox('line');
+    } else {
+      setReseedCheckbox('stanza');
+    }
+  }
 
   const onLoadState = (state) => {
     setStatusMessage('loading state');
@@ -669,8 +701,12 @@ const Genny = (props) => {
     setStatusMessage('preset deleted', 1000, 'green');
   }
 
-  const onSetGenType = (e) => {
-    setGenType(e);
+  const onSetGenType = () => {
+    if (genType === 'stanza') {
+      setGenType('line');
+    } else {
+      setGenType('stanza');
+    }
   }
   
   // const onChangeString = (e) => {
@@ -1397,7 +1433,7 @@ const areWordBankWordsSelected = areAnyWordBankWordsSelected();
             </div>
           </div>
           <div className={classes.inputSection}>
-          <GenerateControls statusMessage={statusMessage} wordEditMode={wordEditMode} onUndoRedoStanza={onUndoRedoStanza} stanza={stanza} editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage} oldStanza={oldStanza}/>
+          <GenerateControls onSetCurrentForm={onSetCurrentForm} currentForm={currentForm} onSetKeepPunct={onSetKeepPunct} keepPunct={keepPunct} keepCase={keepCase} onSetKeepCase={onSetKeepCase} reseedCheckbox={reseedCheckbox} onSetReseedCheckbox={onSetReseedCheckbox} statusMessage={statusMessage} wordEditMode={wordEditMode} onUndoRedoStanza={onUndoRedoStanza} stanza={stanza} editExistingStanzaMode={editExistingStanzaMode} onSaveStanzaToPad={onSaveStanzaToPad} onUpdateStanzaToPad={onUpdateStanzaToPad} onSelectPreset={onSelectPreset}  presetArray={presetArray} currentPreset={currentPreset} nLevel={nLevel} onSetNLevel={onSetNLevel} getStress={getStress} formStyle={formStyle} onSetFormStyle={onSetFormStyle}padToShow={padToShow} onClickShowSrc={onClickShowSrc} treatString={treatString} form={form} onUpdate={onUpdate} genType={genType} onSetGenType={onSetGenType} onSetStatusMessage={onSetStatusMessage} oldStanza={oldStanza}/>
           </div>
           </>
           }
