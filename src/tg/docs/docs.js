@@ -40,7 +40,12 @@ const Docs = (props) => {
                 <li>Stanzafier is entirely contained in this webpage. <b>If you navigate away from the page (e.g. clicking ‘back’ or ‘refresh’ on your browser) you will lose all your work.</b> (This also applies to the page you are currently reading – use the ‘back’ button on the panel below to return to the main Stanzafier screen.)</li>
                 <li>Stanzafier is a work-in-progress and prone to bugs and occasional crashes.</li>
                 <li>In particular, combinations of long/complex forms, very large source texts and n-level settings 2-9 can create long wait times and freezes between stanzas. In the program’s alpha state no limits have been placed on input/output sizes, so if you encounter these issues please try a smaller source text and/or more simple poetic form. Please be aware also that the syllable- and stress-counting logic is far from perfect (especially the latter). The Stanzafier devs will work against the limits of language to improve this logic in future versions.</li>
-                <li>As such, ensure you save regularly using the ‘SAVE STATE’ button to ensure you do not lose valuable work if/when you accidentally navigate away from the page and/or it crashes!</li>
+                <li>As such, ensure you save regularly to ensure you do not lose valuable work if/when you accidentally navigate away from the page and/or it crashes! There are three ways to save:</li>
+                    <ul>
+                        <li><b>SAVE STATE</b>: saves your poem and all your settings for re-loading in Stanzafier via the LOAD STATE button. Find both in the centre-top-right of the home screen.</li>
+                        <li><b>SAVE TO TXT</b>: save your poem as a txt file. Note typographical styles are lost in this process. Find the button on the lower-left of the POEM PAD screen.</li>
+                        <li><b>export to png</b>: save your finished, styled poem as an image file. Accessible via the OUTPUT screens for LINES, GRID and PAGES (export to gif for LOOP output coming soon).</li> 
+                    </ul>
                 <li>CONTENT WARNING: One of Stanzafier’s key features is the ability to create randomly-generated stanzas from various source texts. Although care has been taken to remove the most egregiously offensive language from word lists, some traces may remain – and given the infinite syntactical possibilities of language generation, the possibility of offensive results can never be wholly avoided. <b>When you click the ‘GENERATE’ button, you do so at your own risk!</b></li>
             </ul>
             </div>
