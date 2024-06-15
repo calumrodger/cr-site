@@ -130,12 +130,12 @@ import LoadFromTxt from './load-from-txt';
                 <input id="title" type="text" className={classes.textInput} value={editingPresetName} onChange={(e) => setEditingPresetName(e.target.value)}/>
                 <textarea className={classes.inputPad} type="textarea" id="article-name" name="article-name" value={editingPresetText} onChange={(e) => setEditingPresetText(e.target.value)}/>
             <div className={classes.bottomButtons}>
-                <button onClick={onFirstClickImportAsStanza} className={classes.button}>import as stanza</button>
+                <button onClick={onFirstClickImportAsStanza} className={classes.button}>IMPORT AS STANZA</button>
                 <button onClick={onClickCreateNewPreset} className={classes.button}>new preset</button>
                 <button onClick={onClickSaveAsNewPreset} className={classes.button}>save as new preset</button>
                 <button onClick={onClickOverwritePreset} className={classes.button}>save as current preset</button>
                 <button onClick={onClickDeletePreset} className={classes.button}>delete preset</button>
-                <button onClick={onClickBack} className={classes.button}>back</button>
+                <button onClick={onClickBack} className={classes.button}>BACK</button>
             </div>
         </div>
 
