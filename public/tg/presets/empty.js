@@ -1,1 +1,0 @@
-export const emptyPreset = {id: 5, name: "empty", text: ""}
