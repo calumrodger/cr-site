@@ -94,9 +94,9 @@ const StanzaPadButtons = (props) => {
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onUnselectAllWords}>unselect all</button>
             </div>
             <div>
-            <button onClick={noneSelected || wordEditMode ? null : shiftWordsUp} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>◀ move</button>
+            <button onClick={noneSelected || wordEditMode ? null : shiftWordsUp} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>◀ mo</button>
     
-            <button onClick={noneSelected || wordEditMode ? null : shiftWordsDown} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>move ▶</button>
+            <button onClick={noneSelected || wordEditMode ? null : shiftWordsDown} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>ve ▶</button>
             </div>
             <div>
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onDuplicateSelectedWords}>dupe</button>
@@ -112,16 +112,16 @@ const StanzaPadButtons = (props) => {
             <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onClickStripCaps}>strip caps</button>
             </div>
             <div>
-            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onClickStripPunct}>strip punct</button>
+            <button className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`} onClick={noneSelected || wordEditMode ? null : onClickStripPunct}>strip punc</button>
             </div>
             <div>
-            <button onClick={noneSelected || wordEditMode ? null : onClickAddPunctReverse} className={`${classes.button} ${classes.backButton} ${noneSelected || wordEditMode ? classes.disabled : null}`}><span>◀</span></button>
-            <button onClick={noneSelected || wordEditMode ? null : onClickAddPunct} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>add punct</button>
+            <button onClick={noneSelected || wordEditMode ? null : onClickAddPunctReverse} className={`${classes.button} ${classes.backButton} ${noneSelected || wordEditMode ? classes.disabled : null}`}><span>◀ pu</span></button>
+            <button onClick={noneSelected || wordEditMode ? null : onClickAddPunct} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>nc ▶</button>
             </div>
             <div>
             <button onClick={noneSelected || wordEditMode ? null : addLineBreakAfterSelected} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>line break</button>
          
-            <button onClick={noneSelected || wordEditMode ? null : removeLineBreakAfterSelected} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>X</button>
+            <button onClick={noneSelected || wordEditMode ? null : removeLineBreakAfterSelected} className={`${classes.button} ${noneSelected || wordEditMode ? classes.disabled : null}`}>/merge</button>
             </div>
 
             <div>

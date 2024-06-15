@@ -623,7 +623,7 @@ const GenerateControls = (props) => {
                         </div>
                         <div>
                             <input className={`${classes.radioInput} ${keepPunct ? classes.selected : null}`} type="radio" id="punct" name="punct" value="punct" onClick={() => onChangePunctSetting()} />
-                            <label htmlFor="punct">punct</label>
+                            <label htmlFor="punct">punc</label>
                         </div>
                     </div>
                 </div>
