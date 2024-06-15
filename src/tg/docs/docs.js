@@ -46,7 +46,7 @@ const Docs = (props) => {
                         <li><b>SAVE TO TXT</b>: save your poem as a txt file. Note typographical styles are lost in this process. Find the button on the lower-left of the POEM PAD screen.</li>
                         <li><b>export to png</b>: save your finished, styled poem as an image file. Accessible via the OUTPUT screens for LINES, GRID and PAGES (export to gif for LOOP output coming soon).</li> 
                     </ul>
-                <li>CONTENT WARNING: One of Stanzafier’s key features is the ability to create randomly-generated stanzas from various source texts. Although care has been taken to remove the most egregiously offensive language from word lists, some traces may remain – and given the infinite syntactical possibilities of language generation, the possibility of offensive results can never be wholly avoided. <b>When you click the ‘GENERATE’ button, you do so at your own risk!</b></li>
+                <li>CONTENT WARNING: One of Stanzafier’s key features is the ability to create randomly-generated stanzas from various source texts. Although care has been taken to remove the most egregiously offensive language from word lists, some traces may remain – and given the infinite syntactical possibilities of language generation, the possibility of offensive results can never be wholly avoided. <b>When you use the ‘GENERATE’ and ‘FX’ tools, you do so at your own risk!</b></li>
             </ul>
             </div>
             <div>
