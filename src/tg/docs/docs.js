@@ -155,13 +155,14 @@ const Docs = (props) => {
                 <li><b>DELETE</b>: delete all selected words</li>
                 <li><b>select all</b>: select all words in the stanza.</li>
                 <li><b>unselect all</b>: unselect all selected words in the stanza.</li>
-                <li><b>move left/move right</b>: move all selected words left or right</li>
+                <li><b>◀ move ▶</b>: move all selected words left or right</li>
                 <li><b>dupe</b>: creates a copy of each selected word, adding this copy directly after the selected word</li>
                 <li><b>shuffle</b>: randomly rearrange all selected words</li>
                 <li><b>strip caps</b>: removes all capital letters from all selected words (note that this does NOT apply to caps added using the ‘CAPS’ button on the Typography FX panel. To remove caps added in this fashion, click the ‘CAPS’ or ‘RESET’ button on the FX panel.</li>
-                <li><b>strip punct</b>: removes punctuation from all selected words</li>
-                <li><b>add punct</b>: adds various punctuation to all selected words. To go back to the previously added punctuation, use the small arrow to the left of the button.</li>
-                <li><b>line break</b>: adds a new line break immediately after all selected words. Click the X to the right to remove any line breaks immediately after selected words.</li>
+                <li><b>strip punc</b>: removes punctuation from all selected words</li>
+                <li><b>◀ punc ▶</b>: adds various punctuation to all selected words. Use the arrows to cycle through the options.</li>
+                <li><b>line break</b>: adds a new line break immediately after all selected words.</li>
+                <li><b>/merge</b>: removes any line breaks immediately after all selected words.</li>
                 
             </ul>
             <h3 id="word-bank">WORD BANK</h3>
