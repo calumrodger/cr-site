@@ -332,7 +332,7 @@ const Docs = (props) => {
         <p>As previously mentioned Stanzafier is still in an early stage of development so some bugs remain. These include:</p>
         <ul>
             <li>Performance issues: longer stanza forms, larger source texts and using n-grams (i.e. setting n-level at 2-9, especially at the higher end) can create severe performance issues, especially when used in combination. If you are encountering such issues, try using a shorter form or shorter source text. </li>
-            <li>Grabbing comments from a YouTube url has been known to crash the app, so be sure to save your work beforehand.</li>
+            <li>Grabbing comments from a YouTube url has been known to crash the app, so be sure to save your work beforehand. (This should be fixed now.)</li>
             <li>Populating the Word Bank via LLM often randomly clips the first letter from added words.</li>
             <li>CURRENT FORM does not always accurately represent line-breaks.</li>
             <li>Word Bank Populate (word list) is supposed to exempt duplicate words, but a single dupe word is added if there are no other non-dupe words left in the word list.</li>
