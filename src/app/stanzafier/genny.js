@@ -1135,6 +1135,7 @@ const Genny = (props) => {
     if (padToShow === 'poem') {
       for (let i = 0; i < poem.length; i++) {
         if (poem[i].selected) {
+          console.log(poem[i])
           if (poem[i]?.style?.visibility === "hidden") {
             newObjArray.push({ id: poem[i].id, stanza: poem[i].stanza, selected: poem[i].selected, style: {...poem[i]?.style, visibility: null} });
           } else {
