@@ -994,6 +994,7 @@ width: 6rem;
         background-color: $highlightExtra;
         border: $fillColourLight 1px solid;
         padding: .2rem;
+        font-size: .7rem;
     }
 
     .inputsContainer {
@@ -1112,7 +1113,8 @@ width: 6rem;
         background: $highlightExtra;
         padding: .3rem;
         // margin-top: 4px;
-        width: 5rem;
+        width: 4.4rem;
+        font-size: .7rem;
     }
 
     .nplusxSrcButtonsContainer {
@@ -1125,17 +1127,13 @@ width: 6rem;
         align-items: center;
         width: fit-content;
 
-        .buttonContainer {
-            font-size: .7rem;
-        }
-
         .radioInput {
             width: .6rem;
         }
     }
 
     .buttonContainer {
-        font-size: .8rem;
+        font-size: .7rem;
         display: flex;
         align-items: center;
     }
