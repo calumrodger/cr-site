@@ -20,6 +20,13 @@ import stanzaUndo from '../../../public/tg/docs-images/stanza-undo.png'
 import wordBankButtons from '../../../public/tg/docs-images/word-bank-buttons.png'
 import wordBankPopulate from '../../../public/tg/docs-images/word-bank-populate.png'
 import wordBankInject from '../../../public/tg/docs-images/word-bank-inject.png'
+import qs1 from '../../../public/tg/docs-images/qs1.png'
+import qs2 from '../../../public/tg/docs-images/qs2.png'
+import qs3 from '../../../public/tg/docs-images/qs3.png'
+import qs4 from '../../../public/tg/docs-images/qs4.png'
+import qs5 from '../../../public/tg/docs-images/qs5.png'
+import qs6 from '../../../public/tg/docs-images/qs6.png'
+import qs7 from '../../../public/tg/docs-images/qs7.png'
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -80,13 +87,21 @@ const Docs = (props) => {
             <p>So that’s:</p> 
             <b>
             <p>1. click GENERATE → </p>
+            <Image src={qs1.src} height={qs1.height / 2} width={qs1.width /2}/>
             <p>2. play on STANZA PAD → </p>
+            <Image src={qs2.src} height={qs2.height / 2} width={qs2.width /2}/>
             <p>3. click SAVE STANZA → </p>
+            <Image src={qs3.src} height={qs3.height / 2} width={qs3.width /2}/>
             <p>4. repeat steps 1-3 a few times → </p>
             <p>5. click POEM PAD → </p>
+            <Image src={qs4.src} height={qs4.height / 2} width={qs4.width /2}/>
             <p>6. play on POEM PAD → </p>
+            <Image src={qs5.src} height={qs5.height / 2} width={qs5.width /2}/>
             <p>7. select output style then click OUTPUT → </p>
-            <p>8. rinse and repeat.</p></b>
+            <Image src={qs6.src} height={qs6.height / 2} width={qs6.width /2}/>
+            <p>8. tweak colours and style as desired, then click EXPORT → </p>
+            <Image src={qs7.src} height={qs7.height / 2} width={qs7.width /2}/>
+            <p>8. you have created a poem! now rinse and repeat</p></b>
             <p>This section will be expanded with fun graphics etc. soon; in the meantime check the Docs or the tutorial video (coming soon) for more comprehensive instructions - or just start playing and figure it out!</p>
             <h2 id="theoretical-lore">THEORETICAL LORE</h2>
             <p>Stanzafier is built according to ‘The Five Columns of the Well-Poetic Framework’™. These are as follows:</p>
