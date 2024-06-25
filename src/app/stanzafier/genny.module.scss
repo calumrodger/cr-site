@@ -6,7 +6,7 @@ $highlightExtra: #2274A5;
 
 .bigContainer {
     margin: auto;
-    height: 500px !important;
+    height: 520px !important;
     width: 1250px !important;
     background-color: gray;
     position: absolute;
@@ -47,7 +47,7 @@ $highlightExtra: #2274A5;
 .pageContent {
     height: 100%;
     display: grid;
-    grid-template-rows: 25% 37.5% 25% 12.5%;
+    grid-template-rows: 30% 37.5% 25% 7.5%;
     grid-template-columns: 20% 25% 25% 10% 20%;
     grid-template-areas: "composeSection globalSection inputSection inputSection fxSection"
                          "composeSection padSection padSection padSection fxSection"
@@ -194,7 +194,6 @@ $highlightExtra: #2274A5;
     gap: .3rem;
     align-items: center;
     justify-content: center;
-    margin: auto;
 }
 
 .switcherSection {
