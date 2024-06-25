@@ -125057,7 +125057,7 @@ export const stressDictionary = {
     "younkins": 1,
     "yount": 1,
     "younts": 1,
-    "your": 1,
+    "your": 0,
     "youree": 1,
     "youri": 1,
     "yours": 1,
