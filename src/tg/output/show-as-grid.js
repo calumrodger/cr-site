@@ -56,6 +56,15 @@ const ShowAsGrid = (props) => {
         setPadding(e.target.value);
     }
 
+    const date = new Date().toISOString().slice(0, 16);
+
+    let theTitle;
+    if (poemTitle !== '') {
+        theTitle = poemTitle;
+    } else {
+        theTitle = 'untitled';
+    }
+
     const exportAsImage = useCallback(() => {
       if (refer.current === null) {
         return
@@ -63,7 +72,7 @@ const ShowAsGrid = (props) => {
       toPng(refer.current, { cacheBust: true})
       .then((dataUrl) => {
         const link = document.createElement('a');
-        link.download = `${poemTitle}.png`;
+        link.download = `${theTitle}-${date}.png`;
         link.href = dataUrl;
         link.click();
       })
@@ -95,18 +104,20 @@ const ShowAsGrid = (props) => {
               </div>
           </div>
           <div className={classes.panel}>
-          <div className={classes.colourContainer}>
-            <label htmlFor="colour-bg">bg:</label>
-            <input type="color" id="colour-bg" name="colour-bg" onChange={onChangeBgColour} value={outputBgColour}/>
-            </div>
-            <div className={classes.colourContainer}>
-            <label htmlFor="colour-title">title:</label>
-            <input type="color" id="colour-title" name="colour-title" onChange={onChangeTitleColour} value={outputTitleColour}/>
-            </div>
-            <div className={classes.colourContainer}>
-            <label htmlFor="colour-poem">poem:</label>
-            <input type="color" id="colour-poem" name="colour-poem" onChange={onChangePoemColour} value={outputPoemColour}/>
-            </div>
+   
+                <div className={classes.colourContainer}>
+                <label htmlFor="colour-bg">bg:</label>
+                <input type="color" id="colour-bg" name="colour-bg" onChange={onChangeBgColour} value={outputBgColour}/>
+                </div>
+                <div className={classes.colourContainer}>
+                <label htmlFor="colour-title">title:</label>
+                <input type="color" id="colour-title" name="colour-title" onChange={onChangeTitleColour} value={outputTitleColour}/>
+                </div>
+                <div className={classes.colourContainer}>
+                <label htmlFor="colour-poem">poem:</label>
+                <input type="color" id="colour-poem" name="colour-poem" onChange={onChangePoemColour} value={outputPoemColour}/>
+                </div>
+    
            <div className={classes.sliderContainer}>
             <label htmlFor="grid-x">columns/rows:</label>
             <input className={classes.slider} type="range" id="grid-x" name="grid-x" min="1" max="10" step="1" onChange={onChangeGridCoOrds} value={renderMode ? gridY : gridX}/>
@@ -116,7 +127,7 @@ const ShowAsGrid = (props) => {
             <input className={classes.slider} type="range" id="padding" name="padding" min="-9" max="9" step="1" onChange={onChangePadding} value={padding}/>
             </div>
             <button onClick={switchRenderMode} className={classes.button}>{renderModeButtonText}</button>
-            <button onClick={exportAsImage} className={classes.button}>export to .png</button>
+            <button onClick={exportAsImage} className={classes.button}>export as png</button>
             <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
         </div>

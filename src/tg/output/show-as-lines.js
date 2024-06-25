@@ -29,6 +29,15 @@ const ShowAsLines = (props) => {
         setSliderValue(e.target.value);
     }
 
+    const date = new Date().toISOString().slice(0, 16);
+
+    let theTitle;
+    if (poemTitle !== '') {
+        theTitle = poemTitle;
+    } else {
+        theTitle = 'untitled';
+    }
+
     const exportAsImage = useCallback(() => {
       if (refer.current === null) {
         return
@@ -36,7 +45,7 @@ const ShowAsLines = (props) => {
       toPng(refer.current, { cacheBust: true})
       .then((dataUrl) => {
         const link = document.createElement('a');
-        link.download = `${poemTitle}.png`;
+        link.download = `${theTitle}-${date}.png`;
         link.href = dataUrl;
         link.click();
       })
@@ -47,8 +56,9 @@ const ShowAsLines = (props) => {
 
     return (
       <div className={classes.pageContainer}  >
-          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}} >
-          <div className={classes.smallContainerFlex}>
+          <div className={classes.poemContainer}  style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}} >
+          <div className={classes.bigContainerFlex}>
+          <div className={classes.smallContainerFlex} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}}>
           {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
               <div className={classes.mainTextLines}>
               {thePoem.map((t, i) => {
@@ -67,6 +77,7 @@ const ShowAsLines = (props) => {
                 </div>
             )}
             )}
+            </div>
             </div>
               </div>
           </div>
@@ -88,7 +99,7 @@ const ShowAsLines = (props) => {
           <input type="range" min="0" max="9" step="1" onChange={onChangeSlider} value={sliderValue} className={classes.slider} id="spacing"/>
           </div>
           
-          <button onClick={exportAsImage} className={classes.button}>export as .png</button>
+          <button onClick={exportAsImage} className={classes.button}>export as png</button>
           <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
         </div>

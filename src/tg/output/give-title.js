@@ -7,7 +7,7 @@ const GiveTitle = (props) => {
     return (
         <div className={classes.titleContainer}>
             <span>Title:</span>
-            <input type="text" value={poemTitle} onChange={onSetPoemTitle}/>
+            <input type="text" placeholder="(optional) poem title here..." value={poemTitle} onChange={onSetPoemTitle}/>
         </div>
     );
 }

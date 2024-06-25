@@ -22,6 +22,15 @@ const ShowAsSlides = (props) => {
       onChangeOutputPoemColour(e.target.value);
     }
 
+    const date = new Date().toISOString().slice(0, 16);
+
+    let theTitle;
+    if (poemTitle !== '') {
+        theTitle = poemTitle;
+    } else {
+        theTitle = 'untitled';
+    }
+
     const exportAsImage = useCallback(() => {
       if (refer.current === null) {
         return
@@ -29,7 +38,7 @@ const ShowAsSlides = (props) => {
       toPng(refer.current, { cacheBust: true})
       .then((dataUrl) => {
         const link = document.createElement('a');
-        link.download = `${poemTitle}.png`;
+        link.download = `${theTitle}-${date}.png`;
         link.href = dataUrl;
         link.click();
       })
@@ -65,13 +74,15 @@ const ShowAsSlides = (props) => {
 
     return (
         <div className={classes.pageContainer} >
-          <div className={classes.poemContainer} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}} >
-            <div className={classes.smallContainerFlex}>
-                {poemTitle !== '' && <div style={{color: outputTitleColour}} className={classes.poemTitle}>{poemTitle}</div> }
+          <div className={classes.poemContainer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}} >
+          <div className={classes.bigContainerFlex}>
+            <div className={classes.smallContainerFlex} ref={refer} style={{backgroundColor: outputBgColour, color: outputPoemColour, fontFamily: baseFont, fontSize: baseFontSize + 'rem'}}>
+                <div style={{color: slideIndex === 0 ? outputTitleColour : "transparent"}} className={classes.poemTitle}>{poemTitle}</div>
                 <div className={classes.mainTextSlides}>
                 {thePoemJSX[slideIndex]}
                 </div>
             </div>
+          </div>
           </div>
           <div className={classes.panel}>
             <div className={classes.colourContainer}>
@@ -88,7 +99,7 @@ const ShowAsSlides = (props) => {
             </div>
             <button className={`${classes.button} ${slideIndex === 0 ? classes.greyed : null}`} onClick={onClickLeft}>previous</button>
             <button className={`${classes.button} ${slideIndex === (thePoemJSX.length - 1) ? classes.greyed : null}`} onClick={onClickRight}>next</button>
-            <button onClick={exportAsImage}className={classes.button}>export page as .png</button>
+            <button onClick={exportAsImage}className={classes.button}>export page as png</button>
             <button onClick={onLeaveOutputMode} className={classes.button}>back</button>
           </div>
         </div>

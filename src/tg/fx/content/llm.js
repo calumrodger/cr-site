@@ -16,9 +16,7 @@ const LLMFX = (props) => {
 
     useEffect(() => {
       if (loading === true) {
-        onSetStatusMessage('awaiting LLM response...', 10000, 'yellow');
-      } else {
-        onSetStatusMessage('all systems good', 0, 'green');
+        onSetStatusMessage('awaiting LLM response...', 1000000, 'yellow');
       }
     }, [loading])
 
@@ -99,13 +97,24 @@ const LLMFX = (props) => {
     const handlePromptClick = async (e, thePrompt, mode) => {
       e.preventDefault();
       setLoading(true);
-      const response = await fetch("/api/ai", {
-        method: "POST",
-        body: JSON.stringify({
-          prompt: thePrompt,
-        }),
-      });
-      const data = await response.json()
+      let data;
+      try {
+        const response = await fetch("/api/ai", {
+          method: "POST",
+          body: JSON.stringify({
+            prompt: thePrompt,
+          }),
+        });
+        data = await response.json()
+      } catch (error) {
+        console.log(error)
+        data = "error";
+      }
+      if (data === 'error') {
+        setLoading(false);
+        onSetStatusMessage('something went wrong!', 3000, 'red');
+        return;
+      }
       console.log(data.join(""));
       if (mode === 'emoji') {
         setRawEmojiOutput(data.join(""));
@@ -122,13 +131,24 @@ const LLMFX = (props) => {
     const handleRemixClick = async (e) => {
       e.preventDefault();
       setLoading(true);
-      const response = await fetch("/api/ai", {
-        method: "POST",
-        body: JSON.stringify({
-          prompt: remixPrompt,
-        }),
-      });
-      const data = await response.json()
+      let data;
+      try {
+        const response = await fetch("/api/ai", {
+          method: "POST",
+          body: JSON.stringify({
+            prompt: remixPrompt,
+          }),
+        });
+        data = await response.json();
+      } catch (error) {
+        console.log(error);
+        data ='error';
+      }
+      if (data === 'error') {
+        onSetStatusMessage('something went wrong!', 3000, 'red');
+        setLoading(false);
+        return;
+      }
       console.log(data.join(""));
       setRawRemixOutput(data.join(""));
       setLoading(false);
@@ -147,12 +167,16 @@ const LLMFX = (props) => {
     }
 
     const processRemixOutput = (text) => {
+      if (text.split('"""').length < 3) {
+        return 'error';
+      } else {
       let firstIndex = text.search('"""');
       let startPoint = firstIndex + 3;
       let topTrimmed = text.slice(startPoint);
       let lastIndex = topTrimmed.search('"""');
       let endPoint = topTrimmed.substring(0, lastIndex);
       return endPoint;
+    }
     }
 
     const onClickEmojify = (e) => {
@@ -171,9 +195,10 @@ const LLMFX = (props) => {
       if (typeof rawEmojiOutput === 'string' && rawEmojiOutput !== '') {
           let treatedOutput = processLlmOutput(rawEmojiOutput);
           if (typeof treatedOutput === "object") {
-              onUpdate(getNewStanzaReplace(treatedOutput), stanza)
+            onSetStatusMessage('success!', 1000, 'green')
+            onUpdate(getNewStanzaReplace(treatedOutput), stanza)
           } else {
-              console.log('ERROR' + treatedOutput)
+              onSetStatusMessage('something glitched out!', 3000, 'red')
           }
       }
     }, [rawEmojiOutput])
@@ -182,9 +207,10 @@ const LLMFX = (props) => {
       if (typeof rawIntensifyOutput === 'string' && rawIntensifyOutput !== '') {
           let treatedOutput = processLlmOutput(rawIntensifyOutput);
           if (typeof treatedOutput === "object") {
+            onSetStatusMessage('success!', 1000, 'green')
               onUpdate(getNewStanzaReplace(treatedOutput), stanza)
           } else {
-              console.log('ERROR' + treatedOutput)
+            onSetStatusMessage('something glitched out!', 3000, 'red')
           }
       }
     }, [rawIntensifyOutput])
@@ -192,10 +218,11 @@ const LLMFX = (props) => {
     useEffect(() => {
       if (typeof rawNonsensifyOutput === 'string' && rawNonsensifyOutput !== '') {
           let treatedOutput = processLlmOutput(rawNonsensifyOutput);
-          if (typeof treatedOutput === "object") {
+          if (typeof treatedOutput === "object" ) {
+            onSetStatusMessage('success!', 1000, 'green')
               onUpdate(getNewStanzaReplace(treatedOutput), stanza)
           } else {
-              console.log('ERROR' + treatedOutput)
+            onSetStatusMessage('something glitched out!', 3000, 'red')
           }
       }
     }, [rawNonsensifyOutput])
@@ -203,27 +230,37 @@ const LLMFX = (props) => {
     useEffect(() => {
       if (rawRemixOutput !== '') {
           let treatedOutput = processRemixOutput(rawRemixOutput);
-          onUpdate(treatString(treatedOutput), stanza)
+          if (treatedOutput === 'error') {
+              onSetStatusMessage('ahhh something glitched out!', 3000, 'red')
+          } else {
+            onSetStatusMessage('success!', 1000, 'green')
+            onUpdate(treatString(treatedOutput), stanza)
+          }
       }
     }, [rawRemixOutput])
 
     const getNewStanzaReplace = (treatedOutput) => {
-        let newArray = stanza.map((word) => {
-            if (word.selected) {
-                return { id: word.id, type: "text", style: word?.style, text: null, selected: true }
+      let newArray = stanza.map((word) => {
+          if (word.selected) {
+              return { id: word.id, type: "text", style: word?.style, text: null, selected: true }
+          } else {
+              return word;
+          }
+      });
+      let replacementCount = 0;
+      const newWordsLength = treatedOutput.length;
+      for (let i = 0; i < newArray.length; i++) {
+          if ((newArray[i].type === 'text') && (newArray[i].text === null) && (treatedOutput !== 'error')) {
+            if (replacementCount < newWordsLength && treatedOutput[replacementCount] !== '') {
+              newArray[i].text = treatedOutput[replacementCount]?.replaceAll(' ', '');
+              replacementCount++;
             } else {
-                return word;
+              newArray[i].text = stanza[i].text;
             }
-        });
-        let replacementCount = 0;
-        for (let i = 0; i < newArray.length; i++) {
-            if ((newArray[i].type === 'text') && (newArray[i].text === null) && (treatedOutput !== 'error')) {
-                newArray[i].text = treatedOutput[replacementCount]?.replaceAll(' ', '');
-                replacementCount++;
-            }
-        }
-        return newArray;
-    }
+          }
+      }
+      return newArray;
+  }
 
     const getNewStanzaAddBefore = (treatedOutput) => {
       let newArray = [];
@@ -247,17 +284,28 @@ const LLMFX = (props) => {
       return newArray;
   }
 
+  const areAnyStanzaWordsSelected = () => {
+    const quantity = stanza.filter((item) => item.selected).length;
+    if (quantity > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const wordsSelected = areAnyStanzaWordsSelected();
+
     return (
         <div className={classes.llmContainer}>
             <div className={classes.buttonsContainer}>
-                <button className={classes.button} onClick={(e) => onClickEmojify(e)}>EMOJIFY</button>
-                <button className={classes.button} onClick={(e) => onClickIntensify(e)}>SLANGIFY</button>
-                <button className={classes.button} onClick={(e) => onClickNonsensify(e)}>NONSENSIFY</button>
+                <button className={`${classes.button} ${wordsSelected ? null : classes.disabled}`} onClick={wordsSelected ? (e) => onClickEmojify(e) : null}>EMOJIFY</button>
+                <button className={`${classes.button} ${wordsSelected ? null : classes.disabled}`} onClick={wordsSelected ? (e) => onClickIntensify(e) : null}>SLANGIFY</button>
+                <button className={`${classes.button} ${wordsSelected ? null : classes.disabled}`} onClick={wordsSelected ? (e) => onClickNonsensify(e) : null}>NONSENSIFY</button>
             </div>
             <div className={classes.promptContainer}>
                 <label htmlFor="llm-prompt">global remix:</label>
-                <input className={classes.textInput} value={promptValue} onChange={(e) => handleChange(e)} type="text"  />
-                <button className={classes.button} onClick={handleRemixClick}>GO</button>
+                <input placeholder="enter prompt..." className={classes.textInput} value={promptValue} onChange={(e) => handleChange(e)} type="text"  />
+                <button className={`${classes.button} ${promptValue !== '' && stanza.length > 0 ? null : classes.disabled}`} onClick={promptValue !== '' && stanza.length > 0 ? handleRemixClick : null}>GO</button>
             </div>
             <div>
         </div>

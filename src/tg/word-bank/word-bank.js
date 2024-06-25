@@ -50,11 +50,11 @@ const WordBank = (props) => {
             })}
             </div>
             <div className={classes.wordBankButtons}>
+              <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={onSaveWordBankAsList}>SAVE AS LIST</button>
+              <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={deleteSelectedWordBank}>DELETE</button>
                 <button className={`${classes.button} ${classes.wordBankButton} ${allSelected ? classes.disabled : null}`} onClick={selectAllWordBank}>select all</button>
                 <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={unselectAllWordBank}>unselect all</button>
-                <button className={`${classes.button} ${classes.wordBankButton} ${!moreThanOneSelected ? classes.disabled : null}`} onClick={onShuffleWordBank}>shuffle</button>
-                <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={onSaveWordBankAsList}>save as list</button>
-                <button className={`${classes.button} ${classes.wordBankButton} ${noneSelected ? classes.disabled : null}`} onClick={deleteSelectedWordBank}>delete</button>
+                <button className={`${classes.button} ${classes.wordBankButton}`} onClick={onShuffleWordBank}>shuffle</button>
             </div>
         </div>
     )

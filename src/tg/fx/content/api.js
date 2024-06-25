@@ -24,7 +24,13 @@ const APIFX = (props) => {
 
     const onGetFilmData = async () => {
         const treatedPrompt = promptValue.replace(' ', '_');
+        onSetStatusMessage('fetching data...', 10000, 'yellow')
         const data = await getFilmData(treatedPrompt);
+        console.log(data)
+        if (data === 'error' || data.Response === 'False') {
+            onSetStatusMessage('something went wrong! try another title', 3000, 'red');
+            return;
+        }
         const plot = data.Plot;
         let newStanzaArray = [];
         let textArray = plot.split(' ');
@@ -41,13 +47,19 @@ const APIFX = (props) => {
             }
         }
         onUpdate(newStanzaArray, stanza);
+        onSetStatusMessage('success!', 1000, 'green');
     }
 
     const onGetGuardianData = async () => {
         const treatedPrompt = promptValue.replace(' ', '-');
+        onSetStatusMessage('fetching data...', 10000, 'yellow')
         const data = await getGuardianData(treatedPrompt);
+        console.log(data)
+        if (data === 'error' || data.response.status !== 'ok' || data.response.results.length === 0) {
+            onSetStatusMessage('something went wrong!', 3000, 'red');
+            return;
+        }
         const headlines = data.response.results.map((article) => article.webTitle).join(' ');
-        console.log(headlines)
         let newStanzaArray = [];
         let textArray = headlines.split(' ');
         for (let i = 0; i < stanza.length; i++) {
@@ -63,29 +75,48 @@ const APIFX = (props) => {
             }
         }
         onUpdate(newStanzaArray, stanza);
+        onSetStatusMessage('success!', 1000, 'green');
     }
 
     const onGetWeatherData = async () => {
         const treatedPrompt = promptValue.replace(' ', '_');
+        onSetStatusMessage('fetching data...', 10000, 'yellow')
         const data = await getWeatherData(treatedPrompt);
+        console.log(data)
+        if (data === 'error') {
+            onSetStatusMessage('something went wrong! try another location', 3000, 'red');
+            return;
+        }
         const description = data.description;
         let newStanzaArray = [];
         let textArray = description.split(' ');
         for (let i = 0; i < stanza.length; i++) {
             if (stanza[i].selected) {
-                let wordsToAddArray = textArray.filter((word, index) => index < +volumeValue);
                 newStanzaArray.push(stanza[i]);
-                for (let j = 0; j < wordsToAddArray.length; j++) {
-                    newStanzaArray.push({id: stanza.length + j, type: 'text', style: stanza[i].style, text: wordsToAddArray[j], selected: false})
+                for (let j = 0; j < textArray.length; j++) {
+                    newStanzaArray.push({id: stanza.length + j, type: 'text', style: stanza[i].style, text: textArray[j], selected: false})
                 }
             } else {
                 newStanzaArray.push(stanza[i]);
             }
         }
         onUpdate(newStanzaArray, stanza);
+        onSetStatusMessage('success!', 1000, 'green');
     }
 
     const keyText = apiType === 'film' ? 'title:' : apiType === 'news' ? 'topic:' : 'place:';
+    const placeholderText = apiType === 'film' ? 'film...' : apiType === 'news' ? 'topic...' : 'place...';
+
+    const areAnyStanzaWordsSelected = () => {
+        const quantity = stanza.filter((item) => item.selected).length;
+        if (quantity > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    
+      const wordsSelected = areAnyStanzaWordsSelected();
 
     return (
         <div className={classes.apiContainer}>
@@ -108,15 +139,16 @@ const APIFX = (props) => {
             <div className={classes.inputsContainer}>
                     <div className={classes.inputKey}>
                         <label htmlFor="key">{keyText}</label>
-                        <input className={classes.textInput} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} type="text" />
+                        <input placeholder={placeholderText} className={classes.textInput} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} type="text" />
                     </div>
-                    <div className={classes.input}>
+                    { apiType !== 'weather' && <div className={classes.input}>
                         <label htmlFor="vol">vol:</label>
                         <input className={classes.numberInput} value={volumeValue} onChange={(e) => setVolumeValue(e.target.value)} type="number" />
                     </div>
+                    }
             </div>
             <div className={classes.buttonContainer}>
-                <button className={classes.button} onClick={handleClick}>GO</button>
+                <button className={`${classes.button} ${wordsSelected && promptValue !== '' ? null : classes.disabled}`} onClick={wordsSelected ? handleClick : null}>GO</button>
             </div>
         </div>
     )

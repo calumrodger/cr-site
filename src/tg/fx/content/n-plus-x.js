@@ -1,7 +1,8 @@
+
 import classes from '../../tg-styles.module.scss';
 import { useState, useEffect, useRef, use } from 'react';
 import { syllable } from 'syllable';
-import { dictionary } from 'cmu-pronouncing-dictionary';
+import { rhymingDictionary } from '@tg/utils/cmu-rhyming-dictionary';
 import { masterWordListBig } from 'public/tg/words_alpha';
 import { masterWordListWee } from 'public/tg/words_wee';
 
@@ -14,15 +15,17 @@ const NPlusX = (props) => {
     const [rhyme, setRhyme] = useState(false);
     const [nValue, setNValue] = useState(0);
     const [newWordsArray, setNewWordsArray] = useState([]);
-    const [src, setSrc] = useState('big');
+    const [src, setSrc] = useState('wee');
     const [lastClicked, setLastClicked] = useState('');
+    const [success, setSuccess] = useState(true);
 
     const posTypes = ["CC", "CD", "DT", "EX", "FW", "IN", "JJ", "JJR", "JJS", "LS", "MD", "NN", "NNP", "NNPS", "NNS", "POS", "PDT", "PP$", "PRP", "RB", "RBR", "RBS", "RP", "SYM", "TO", "UH", "VB", "VBD", "VBG", "VBN", "VBP", "VBZ", "WDT", "WP", "WP$", "WRB"]
 
     const wordListBig = masterWordListBig.split('\n');
     const wordListWee = masterWordListWee.split('\n');
     const pos = require('pos');
-    const rhymingDictionaryLength = Object.keys(dictionary).length;
+    const rhymingDictionaryLength = Object.keys(rhymingDictionary).length;
+    const rhymingDictionaryWords = Object.keys(rhymingDictionary);
     
     function checkPunctuation(word) {
         const punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
@@ -69,7 +72,7 @@ const NPlusX = (props) => {
     }
 
     const checkWordIsInRhymeDictionary = (word) => {
-        if (dictionary[word] === undefined) {
+        if (rhymingDictionary[word] === undefined) {
             return false;
         } else {
             return true;
@@ -78,8 +81,8 @@ const NPlusX = (props) => {
 
     // Check if two words are of the same class/measure/rhyme
     const wordClassCheck = (word1, word2) => {
-        const wordOne = new pos.Lexer().lex(word1);
-        const wordTwo = new pos.Lexer().lex(word2);
+        const wordOne = new pos.Lexer().lex(word1.toLowerCase());
+        const wordTwo = new pos.Lexer().lex(word2.toLowerCase());
         const tagger = new pos.Tagger();
         const taggedWord1 = tagger.tag(wordOne);
         const taggedWord2 = tagger.tag(wordTwo);
@@ -111,11 +114,11 @@ const NPlusX = (props) => {
         const treatedWord = word1.replace(/[^a-zA-Z]/g, '').toLowerCase();
         const wordInDictionary = checkWordIsInRhymeDictionary(treatedWord);
         if (!wordInDictionary) {
-            onSetStatusMessage('word ' + word1 + ' not in dictionary', 2000, 'red');
+            onSetStatusMessage('word(s) not in dictionary', 2000, 'red');
             return null;
         } else {
-        const wordOnePronArray = dictionary[treatedWord]?.split(' ');
-        const wordTwoPronArray = dictionary[word2]?.split(' ');
+        const wordOnePronArray = rhymingDictionary[treatedWord]?.split(' ');
+        const wordTwoPronArray = rhymingDictionary[word2]?.split(' ');
         let notDefined = '';
         if (wordOnePronArray === undefined) {
             notDefined = word1 + ', ';
@@ -202,12 +205,12 @@ const NPlusX = (props) => {
         let textArray = treatWordFirst(word);
         let finalWord = '';
         while (finalWord === '') {
-            let randomIndex = Math.floor(Math.random() * wordList.length);
-            let randomWord = wordList[randomIndex];
-            if (rhymeCheck(textArray[0], randomWord) === true) {
-                finalWord = randomWord;
+            let randomIndex = Math.floor(Math.random() * rhymingDictionaryLength);
+            let randomWord = rhymingDictionaryWords[randomIndex];
+            if (rhymeCheck(textArray[0], randomWord) === true && randomWord !== textArray[0]) {
+                finalWord = randomWord.replace(/[\d\(\)&]+/g, '');
             }
-            if (rhymeCheck(textArray[0], randomWord) === null) {
+            if (rhymeCheck(textArray[0], randomWord) === null || randomWord === textArray[0]) {
                 return textArray[1] + textArray[0] + textArray[2];
             }
         }
@@ -219,6 +222,8 @@ const NPlusX = (props) => {
 
     // Replace function
     const replace = () => {
+        let timeout = Date.now() + 5000;
+        onSetStatusMessage('replacing...', 10000, 'yellow');
         let whatToGet = stanza.filter((word) => {
             if (word.selected === true) {
                 return word.text;
@@ -244,68 +249,76 @@ const NPlusX = (props) => {
                 array.push(findWordThatRhymes(whatToGet[i].text, wordList))
             }
             if (rhyme && measure && !wordClass) {
-                for (let rm = 0; rm < rhymingDictionaryLength; rm++) {
-                    if (rm === rhymingDictionaryLength - 1) {
-                        onSetStatusMessage('no match found', 3000, 'red');
-                        return whatToGet[i].text;
-                    }
+                for (;i % 1000 !== 0 || Date.now() < timeout;) {
                     let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
                     let doesItMatchMeasure = measureCheck(whatToGet[i].text, matchedWord);
                     if (doesItMatchMeasure) {
                         array.push(matchedWord);
+                        setSuccess(true);
                         break;
                     } else {
                         continue;
                     }
                 }
+                if (Date.now() >= timeout) {
+                    setSuccess(false);
+                    onSetStatusMessage('no match found', 3000, 'red');
+                    array.push(whatToGet[i].text);
+                }
             }
             if (rhyme && wordClass && !measure) {
-                for (let rc = 0; rc < rhymingDictionaryLength; rc++) {
-                    if (rc === rhymingDictionaryLength - 1) {
-                        onSetStatusMessage('no match found', 3000, 'red');
-                        return whatToGet[i].text;
-                    }
+                for (;i % 1000 !== 0 || Date.now() < timeout;) {
                     let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
                     let doesItMatchClass = wordClassCheck(whatToGet[i].text, matchedWord);
                     if (doesItMatchClass) {
                         array.push(matchedWord);
+                        setSuccess(true);
                         break;
                     } else {
                         continue;
                     }
                 }
+                if (Date.now() >= timeout) {
+                    setSuccess(false);
+                    onSetStatusMessage('no match found', 3000, 'red');
+                    array.push(whatToGet[i].text);
+                }
             }
             if (measure && wordClass && !rhyme) {
-                for (let mc = 0; mc < wordList.length; mc++) {
-                    if (mc === wordList.length - 1) {
-                        onSetStatusMessage('no match found', 3000, 'red');
-                        return whatToGet[i].text;
-                    }
+                for (;i % 1000 !== 0 || Date.now() < timeout;) {
                     let matchedWord = findWordOfSameClass(whatToGet[i].text, wordList);
                     let doesItMatchMeasure = measureCheck(whatToGet[i].text, matchedWord);
                     if (doesItMatchMeasure) {
                         array.push(matchedWord);
+                        setSuccess(true);
                         break;
                     } else {
                         continue;
                     }
                 }
+                if (Date.now() >= timeout) {
+                    setSuccess(false);
+                    onSetStatusMessage('no match found', 3000, 'red');
+                    array.push(whatToGet[i].text);
+                }
             }
             if (measure && wordClass && rhyme) {
-                for (let mcr = 0; mcr < rhymingDictionaryLength; mcr++) {
-                    if (mcr === rhymingDictionaryLength - 1) {
-                        onSetStatusMessage('no match found', 3000, 'red');
-                        return whatToGet[i].text;
-                    }
+                for (;i % 1000 !== 0 || Date.now() < timeout;) {
                     let matchedWord = findWordThatRhymes(whatToGet[i].text, wordList);
                     let doesItMatchMeasure = measureCheck(whatToGet[i].text, matchedWord);
                     let doesItMatchClass = wordClassCheck(whatToGet[i].text, matchedWord);
                     if (doesItMatchMeasure && doesItMatchClass) {
                         array.push(matchedWord);
+                        setSuccess(true);
                         break;
                     } else {
                         continue;
                     }
+                }
+                if (Date.now() >= timeout) {
+                    setSuccess(false);
+                    onSetStatusMessage('no match found', 3000, 'red');
+                    array.push(whatToGet[i].text);
                 }
             }
             if (!measure && !wordClass && !rhyme) {
@@ -333,6 +346,9 @@ const NPlusX = (props) => {
             } else {
                 newObjArray.push(stanza[i]);
             }
+        }
+        if (success) {
+            onSetStatusMessage('success!', 1000, 'green');
         }
         onUpdate(newObjArray, stanza);
     }
@@ -387,6 +403,17 @@ const NPlusX = (props) => {
             setLastClicked('rhyme');
         }
     }
+
+    const areAnyStanzaWordsSelected = () => {
+        const quantity = stanza.filter((item) => item.selected).length;
+        if (quantity > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    
+      const wordsSelected = areAnyStanzaWordsSelected();
     
 
     return (
@@ -411,7 +438,7 @@ const NPlusX = (props) => {
         <div className={classes.numberAndButton}>
             <div className={classes.synonymSlider}>
                 <div className={classes.radioButtons}>
-                    <span>src:</span>
+                    <span>dict:</span>
                 <div className={classes.nplusxSrcButtonsContainer}>
                 <div className={classes.buttonContainer}>
                     <label htmlFor="big-src">big: </label>
@@ -425,7 +452,7 @@ const NPlusX = (props) => {
                     
                 </div>
             </div>
-            <button onClick={handleReplaceClick} className={classes.button}>GO</button>
+            <button onClick={wordsSelected ? handleReplaceClick : null} className={`${classes.button} ${wordsSelected ? null : classes.disabled}`}>GO</button>
         </div>
         </div>
     )

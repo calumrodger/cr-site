@@ -2,11 +2,17 @@ import classes from '../tg-styles.module.scss';
 
 const SaveOutputToTxt = (props) => {
 
-    const { poem } = props;
+    const { poem, poemTitle } = props;
 
     // const shakeArr = shake.split('');
     // const shakewrds = shakeArr.filter((item) => item !== "0" && item !== "1" && item !== "2" && item !== "3" && item !== "4" && item !== "5" && item !== "6" && item !== "7" && item !== "8" && item !== "9").join('');
     // console.log(shakewrds)
+
+    // let dictionaryKeys = Object.keys(dictionary);
+    // let dictionaryValues = Object.values(dictionary);
+    // let newArray = dictionaryKeys.map((item, index) => {
+    //     return {word: item, pronunciation: dictionaryValues[index]};
+    // });
 
     let formattedPoem = [];
 
@@ -16,12 +22,21 @@ const SaveOutputToTxt = (props) => {
         formattedPoem.push({id: poem[i].id, text: trailingSpacesRemoved});
     }
 
+    const date = new Date().toISOString().slice(0, 16);
+
+    let theTitle;
+    if (poemTitle !== '') {
+        theTitle = poemTitle;
+    } else {
+        theTitle = 'untitled';
+    }
+
     const saveToTxt = () => {
 
         const theText = formattedPoem.map((item) => item.text).join('\n');
-        // const theText = shakewrds;
+        // const theText = newArray;
         const blob = new Blob([theText], { type: "text/plain;charset=utf-8" })
-        const fileName = 'output.txt'
+        const fileName = `${theTitle}-${date}.txt`
         let newLink = document.createElement('a')
         newLink.download = fileName
 
@@ -40,7 +55,7 @@ const SaveOutputToTxt = (props) => {
 
     return (
         <>
-        <button className={`${classes.button} ${classes.saveToTxtButton}`} onClick={saveToTxt}>save to .txt</button>
+        <button className={`${classes.button} ${poem.length > 0 ? null : classes.disabled} ${classes.saveToTxtButton}`} onClick={poem.length > 0 ? saveToTxt : null}>SAVE TO TXT</button>
         </>
     )
 }

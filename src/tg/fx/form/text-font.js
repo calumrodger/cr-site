@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const FontText = (props) => {
 
-    const { onChangeFont } = props;
+    const { onChangeFont, areStanzaWordsSelected, arePoemStanzasSelected, padToShow } = props;
 
     const [quant, setQuant] = useState(2);
 
@@ -13,9 +13,9 @@ const FontText = (props) => {
     }
 
     return (
-    <div className={classes.formSliderContainer}>
+    <div className={`${classes.formSliderContainer}`}>
     <label htmlFor="font-quant">font:</label>
-    <input className={classes.slider} type="range" min="1" max="8" id="font-quant" name="font-quant" onChange={onChangeQuant} value={quant}/>
+    <input className={`${classes.slider} ${(areStanzaWordsSelected && padToShow === 'stanza') || (arePoemStanzasSelected && padToShow === 'poem') ? null : classes.disabled}`} type="range" min="1" max="8" id="font-quant" name="font-quant" onChange={onChangeQuant} value={quant}/>
     </div>
  )
 }

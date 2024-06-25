@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const FontStyle = (props) => {
 
-    const {  onChangeTextRotation } = props;
+    const {  onChangeTextRotation, areStanzaWordsSelected, arePoemStanzasSelected, padToShow } = props;
 
     const [quant, setQuant] = useState(0);
 
@@ -13,9 +13,9 @@ const FontStyle = (props) => {
     }
 
     return (
-    <div className={classes.formSliderContainer}>
+    <div className={`${classes.formSliderContainer}`}>
     <label htmlFor="style-quant">rotate:</label>
-    <input className={classes.slider} type="range" min="0" max="36" id="style-quant" name="style-quant" onChange={onChangeQuant} value={quant}/>
+    <input className={`${classes.slider} ${classes.slider} ${(areStanzaWordsSelected && padToShow === 'stanza') || (arePoemStanzasSelected && padToShow === 'poem') ? null : classes.disabled}`} type="range" min="0" max="36" id="style-quant" name="style-quant" onChange={onChangeQuant} value={quant}/>
     </div>
  )
 }

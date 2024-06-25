@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 const PopulateWordBank = (props) => {
 
-    const {onPopulateWordBank, onOpenWordBankEdit, onOpenWordBankAdd, allWordLists, selectedWordList, onSetSelectedWordList} = props;
+    const { onSetStatusMessage, onPopulateWordBank, onOpenWordBankEdit, onOpenWordBankAdd, allWordLists, selectedWordList, onSetSelectedWordList} = props;
 
     const [quant, setQuant] = useState(10);
     const [populateType, setPopulateType] = useState('list');
@@ -27,21 +27,39 @@ const PopulateWordBank = (props) => {
         setQuant(e.target.value);
     }
 
+    useEffect(() => {
+        if (loading === true) {
+          onSetStatusMessage('awaiting LLM response...', 1000000, 'yellow');
+        }
+      }, [loading])
+
     const handlePromptClick = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const response = await fetch("/api/ai", {
-          method: "POST",
-          body: JSON.stringify({
-            prompt: fullPrompt,
-          }),
-        });
-        const data = await response.json();
+        let data;
+        try {
+            const response = await fetch("/api/ai", {
+                method: "POST",
+                body: JSON.stringify({
+                  prompt: fullPrompt,
+                }),
+              });
+              data = await response.json();
+        } catch (error) {
+            console.error(error);
+            data = 'error';
+        }
+        if (data === 'error') {
+            setLoading(false);
+            onSetStatusMessage('something went wrong!', 3000, 'red');
+            return;
+        }
         setLlmOutput(data.join(""));
         setLoading(false);
     };
 
     const processLlmOutput = (output) => {
+        console.log(output)
         // const trimmedOutput = output.replace(/[^\w\s\']|_/g, "").trim();
         const words = output.split('[')[1].split(']')[0].split(',');
         for (let i = 0; i < words.length; i++) {
@@ -55,8 +73,9 @@ const PopulateWordBank = (props) => {
             let treatedOutput = processLlmOutput(llmOutput);
             if (typeof treatedOutput === "object") {
                 onPopulateWordBank(treatedOutput, quant)
+                onSetStatusMessage('success!', 1000, 'green')
             } else {
-                console.log('error')
+                onSetStatusMessage('something went wrong!', 3000, 'red');
             }
         }
     }, [llmOutput])
@@ -116,7 +135,7 @@ const PopulateWordBank = (props) => {
                 <div className={classes.promptInput}>
                     <input className={`${classes.radioInput} ${populateType === 'ai' ? classes.selected : null}`} type="radio" id="ai" name="ai" value="ai" readOnly checked={populateType === 'ai'} onClick={(e) => onSetPopulateType(e.target.value)}/>
                     <label htmlFor="populate-prompt">llm: </label>
-                    <input className={classes.textInput} type="text" id="populate-prompt" name="populate-prompt" value={currentPrompt} onChange={(e) => changePromptHandler(e)}/>
+                    <input placeholder="enter prompt..." className={classes.textInput} type="text" id="populate-prompt" name="populate-prompt" value={currentPrompt} onChange={(e) => changePromptHandler(e)}/>
                 </div>
             </div>
         </div>

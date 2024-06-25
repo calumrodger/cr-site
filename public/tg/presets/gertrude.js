@@ -1,4 +1,4 @@
-export const gertrude = {id: 6, name: "Button Tenders", text: `
+export const gertrude = {id: 2, name: "button tenders", text: `
 TENDER BUTTONS
 
   Objects · Food · Rooms
@@ -1475,7 +1475,7 @@ Egg ear nuts, look a bout. Shoulder. Let it strange, sold in bell next
 herds.
 
 It was a time when in the acres in late there was a wheel that shot a
-burst of land and needless are niggers and a sample sample set of old
+burst of land and needless are n- and a sample sample set of old
 eaten butterflies with spoons, all of it to be are fled and measure make
 it, make it, yet all the one in that we see where shall not it set with
 a left and more so, yes there add when the longer not it shall the best
