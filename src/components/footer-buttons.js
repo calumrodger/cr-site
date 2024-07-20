@@ -37,7 +37,6 @@ const FooterButtons = () => {
                 <div className={`${classes.link} ${path === '/press' ? classes.selectedButton : null}`}><Link href='/press'>press</Link></div>
                 <div className={`${classes.link} ${path === '/bio' ? classes.selectedButton : null}`}><Link href='/bio'>bio</Link></div>
                 <div className={`${classes.link} ${path === '/contact' ? classes.selectedButton : null}`}><Link href='/contact'>contact</Link></div>
-                <div className={`${classes.link} ${path === '/mailing-list' ? classes.selectedButton : null}`}><Link href='/mailing-list'>maillist</Link></div>
         </div>
         }
         <div className={classes.burgerIcon} onClick={burgerHandler}>{burgerIcon}</div>

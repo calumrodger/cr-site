@@ -25,7 +25,8 @@ const ContactPage = async () => {
     <Layout cat="" posts={posts} categories={categories}>
         <div className={classes.pageContent}>
             <div className={classes.contentBit}>
-                <ContactForm />
+                <p style={{textAlign: "center"}}>email: <b><a href="mailto:calumrodger@gmail.com">calumrodger@gmail.com</a></b></p>
+                <p style={{textAlign: "center"}}>insta: <b><a href="https://www.instagram.com/calum.rodger">calum.rodger</a></b></p>
             </div>
         </div>
     </Layout>
