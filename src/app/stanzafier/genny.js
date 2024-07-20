@@ -158,8 +158,8 @@ const Genny = (props) => {
   const [wordBeingEdited, setWordBeingEdited] = useState('');
   const [punctCounter, setPunctCounter] = useState(0);
   const [currentForm, setCurrentForm] = useState('5/7/5');
-  const [keepPunct, setKeepPunct] = useState(true);
-  const [keepCase, setKeepCase] = useState(true);
+  const [keepPunct, setKeepPunct] = useState(false);
+  const [keepCase, setKeepCase] = useState(false);
   const [reseedCheckbox, setReseedCheckbox] = useState('stanza');
 
   // Switches
