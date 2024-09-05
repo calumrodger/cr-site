@@ -39,7 +39,8 @@
 .imageCredit {
     font-size: .6rem;
     border: 2px solid var(--border);
-    width: calc(100% - 2 * (var(--border-size-mob)));
+    margin: .2rem;
+    // width: calc(100% - 2 * (var(--border-size-mob)));
     width: fit-content;
     background-color: var(--main-bg);
     clear: both;
@@ -182,7 +183,7 @@
 
     .imageCredit {
         font-size: small;
-        width: 23.5rem;
+
         background-color: var(--main-bg);
         // clear: both;
         
