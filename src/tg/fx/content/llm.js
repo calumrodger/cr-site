@@ -24,20 +24,19 @@ const LLMFX = (props) => {
       let stanzaString = stanza.map((word) => word.text).join(" ");
       setStanzaAsString(stanzaString);
     }, [stanza])
- 
 
     const emojiPrompt = 
-    `Give me a JavaScript array of ${selectedWords.length} emojis that represent the following words:
+    `Your job is to translate words into their closest emoji equivalents.
     
-    ${selectedWords.join(", ")}
+    Give me a JavaScript array of ${selectedWords.length} emojis that represent the following words:
     
-    Return the list of emojis in the same order as the words. Your complete response should be in the format below, enclosed by ::: - triple colons.
+    ${selectedWords.join(", ")}.
+    
+    Enclose your response in triple colons, like this:
     
     :::
     ['emoji1', 'emoji2', 'emoji3', ...]
-    :::
-    
-    Do not include anything else in your response.`
+    :::`
 
     const intensifyPrompt = 
     `Give me a JavaScript array of ${selectedWords.length} slang words which are synonyms of the following words:
