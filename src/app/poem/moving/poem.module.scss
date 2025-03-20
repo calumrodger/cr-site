@@ -1,0 +1,19 @@
+.pageContainer {
+    margin: 0;
+    background-color: var(--main-bg);
+    color: var(--text-colour);
+    height: 100%;
+    width: 100%;
+}
+
+.pageContent {
+    height: 100%;
+    width: 100%;
+}
+
+.circle {
+    border-radius: 50%;
+    border: 1px solid #000;
+    height: 50px;
+    width: 50px;
+}

@@ -1,3 +1,4 @@
+
 'use client';
 
 import classes from './genny.module.scss';
