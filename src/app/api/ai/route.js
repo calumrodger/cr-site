@@ -33,7 +33,7 @@ try {
   const { prompt } = await request.json();
     const output = await replicate.run(
       // This is the ID of the replicate model you are running
-      "meta/meta-llama-3-8b",
+      "anthropic/claude-3.5-haiku",
       {
         input: {
           prompt: prompt,
