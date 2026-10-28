@@ -14,7 +14,9 @@ There is no test suite or test framework. No env vars are needed to build.
 
 ## Hosting
 
-The site is a **static export** (`output: 'export'` in `next.config.js`) hosted on statichost.eu, which serves files only. `statichost.yml` builds with `npm ci && npm run build` and publishes `out/`. statichost serves `/x` from `x.html` and 308-redirects `/x/` to `/x`, and serves `404.html` for unknown paths. Anything that needs a server at request time won't work:
+The site is a **static export** (`output: 'export'` in `next.config.js`) hosted on statichost.eu, which serves files only. `statichost.yml` builds with `npm ci && npm run build` and publishes `out/`.
+
+statichost serves `/x` from `x.html` and serves `404.html` for unknown paths. On its own it would 404 `/x/`, so the `postbuild` script `scripts/trailing-slash-redirects.mjs` writes a `/x/ → /x` 308 rule for every exported page to `out/_redirects`. Those links matter: they appear in old WordPress-era links and inside `content/`. Anything that needs a server at request time won't work:
 
 - No route handlers or server actions. Request-time APIs (`cookies()`, `headers()`, `searchParams` in server components) are out too.
 - Dynamic routes need `generateStaticParams`.
