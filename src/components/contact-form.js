@@ -3,7 +3,7 @@
 import { useState } from "react"
 import classes from './contact-form.module.scss'
 import Notification from "./notification"
-import { sendContactData } from "../helpers/api-utils"
+import { sendContactData } from "../helpers/contact-utils"
 
 
 const ContactForm = () => {

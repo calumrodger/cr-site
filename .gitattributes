@@ -1,0 +1,4 @@
+# Post bodies are parsed by top-level element, and the code drops '\n' text nodes
+# between elements. A CRLF checkout would leave '\r\n' nodes behind and break the
+# home page and post pages, so keep content/ as LF on every platform.
+content/** text eol=lf

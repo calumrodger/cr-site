@@ -4,6 +4,20 @@ import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPo
 import classes from './slug.module.scss'
 import { notFound } from "next/navigation";
 
+// Every post gets a page, except slugs that 404 here (see generateMetadata) and
+// slugs that are taken by a static route
+const excludedSlugs = [
+    'book', 'poem', 'web', 'performance', 'article', 'film-image',
+    'bio', 'contact', 'mailing-list', 'news', 'press', 'stanzafier', 'category'
+]
+
+export async function generateStaticParams() {
+    const data = await getPostData()
+    return postDataSorter(data)
+        .filter((post) => !excludedSlugs.includes(post.slug))
+        .map((post) => ({ slug: post.slug }))
+}
+
 export async function generateMetadata({ params }) {
 
     const { slug } = params;

@@ -3,6 +3,10 @@ import Layout from "@components/layout";
 import AllPostsByCategory from "@components/cat-component";
 import { notFound } from "next/navigation";
 
+export function generateStaticParams() {
+    return ['book', 'film-image', 'performance', 'game', 'article'].map((cat) => ({ cat }))
+}
+
 export async function generateMetadata({ params }) {
 
     const cat = params.cat;

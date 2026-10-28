@@ -1,91 +1,59 @@
-const API_URL = process.env.WORDPRESS_API_URL
+import fs from 'fs'
+import path from 'path'
+import matter from 'gray-matter'
 
-async function fetchAPI(query) {
-    const headers = { 'Content-Type': 'application/json' }
-  
-    // WPGraphQL Plugin must be enabled
-    const res = await fetch(API_URL, {
-      headers,
-      method: 'POST',
-      body: JSON.stringify({
-        query,
-      }),
-      next: {revalidate: 10}
-    })
-  
-    const json = await res.json()
-    if (json.errors) {
-      console.error(json.errors)
-      throw new Error('Failed to fetch API')
-    }
-    return json.data
-}
+// Content used to come from WPGraphQL. It now lives in content/ (exported once by
+// scripts/export-wordpress.mjs) and is read at build time. getPostData() and
+// getCategoryData() return the same shape WPGraphQL did, so everything below them
+// is unchanged.
+const CONTENT_DIR = path.join(process.cwd(), 'content')
+const POSTS_DIR = path.join(CONTENT_DIR, 'posts')
 
 export async function getPostData() {
-    const query = `
-    query AllPosts {
-      posts(first: 100, where: { orderby: { field: DATE, order: DESC } }) {
-        edges {
-          node {
-            id
-            title
-            excerpt
-            slug
-            content
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-                mediaDetails {
-                  height
-                  width
+    const posts = fs.readdirSync(POSTS_DIR)
+      .filter((file) => file.endsWith('.html'))
+      .map((file) => {
+        const { data, content } = matter(fs.readFileSync(path.join(POSTS_DIR, file), 'utf8'))
+        return {
+          node: {
+            id: data.id,
+            title: data.title,
+            slug: path.basename(file, '.html'),
+            date: data.date,
+            content,
+            featuredImage: data.featuredImage ? {
+              node: {
+                sourceUrl: data.featuredImage.sourceUrl,
+                altText: data.featuredImage.altText,
+                mediaDetails: {
+                  height: data.featuredImage.height,
+                  width: data.featuredImage.width
                 }
               }
-            }
-            extraPostData {
-              featuredPost
-              blurb
-              indexPost
-            }
-            categories {
-                nodes {
-                  name
-                  slug
-              }
+            } : null,
+            extraPostData: {
+              featuredPost: data.featuredPost,
+              blurb: data.blurb,
+              indexPost: data.indexPost
+            },
+            categories: {
+              nodes: data.categories
             }
           }
         }
-      }
-    }
-  `
-    const data = await fetchAPI(
-        query,
-      )
-    
-      return data?.posts.edges
+      })
+
+    // WPGraphQL returned posts ordered by date, newest first
+    return posts.sort((a, b) => new Date(b.node.date) - new Date(a.node.date))
 }
 
 export async function getCategoryData() {
-  const data = await fetchAPI(
-      `
-      query Categories {
-        categories {
-          edges {
-            node {
-              id
-              slug
-              name
-            }
-          }
-        }
-      }
-    `,
-    )
-    return data?.categories.edges
+  const categories = JSON.parse(fs.readFileSync(path.join(CONTENT_DIR, 'categories.json'), 'utf8'))
+  return categories.map((node) => ({ node }))
 }
 
 export function postDataSorter(data) {
-  const placeholderImage = 'http://cms.calumrodger.com/wp-content/uploads/2023/03/placeholderImage.png'
+  const placeholderImage = '/wp-content/uploads/2023/03/placeholderImage.png'
   const posts = data.map((item) => ({
     title: item.node.title,
     content: item.node.content ? item.node.content : '',
@@ -133,21 +101,3 @@ export async function getCategoryIntroPost(currentCat) {
   const post = sortedData.filter((post) => (post.title === currentCat))
   return post[0]
 }
-
-export const sendContactData = async (path, details) => {
-
-  const response = await fetch(path, {
-       method: 'POST',
-       body: JSON.stringify(details),
-       headers: {
-           'Content-Type': 'application/json'
-       }
-   })
-
-   const data = await response.json()
-
-   if (!response.ok) {
-       throw new Error(data.message || "That didn't work.")
-   }
-}
-

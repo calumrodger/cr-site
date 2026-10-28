@@ -1,0 +1,37 @@
+[
+  {
+    "id": "dGVybTo4",
+    "slug": "article",
+    "name": "Article"
+  },
+  {
+    "id": "dGVybTo0",
+    "slug": "book",
+    "name": "Book"
+  },
+  {
+    "id": "dGVybTo2",
+    "slug": "film-image",
+    "name": "Film/Image"
+  },
+  {
+    "id": "dGVybToz",
+    "slug": "game",
+    "name": "Game"
+  },
+  {
+    "id": "dGVybTo1",
+    "slug": "performance",
+    "name": "Performance"
+  },
+  {
+    "id": "dGVybTox",
+    "slug": "uncategorized",
+    "name": "Uncategorized"
+  },
+  {
+    "id": "dGVybToxMA==",
+    "slug": "web",
+    "name": "Web"
+  }
+]
