@@ -12,6 +12,13 @@ const WebCategory = (props) => {
           <div className={classes.pageContent}>
         <div className={classes.intro} dangerouslySetInnerHTML={{__html: introPost.content}} />
         <div className={classes.poemsListContainer}>
+        <h3>Apps</h3>
+        <ul className={classes.poemsList}>
+        <li><a href='https://makepoem.press'>makepoem.press</a> (live app and publishing platform)</li>
+        <p>My current major project. A &apos;digital poetry workstation&apos; and publishing platform responding to the question &apos;what happens when you fuse two forms of media - the <em>poem</em> and the <em>webpage</em>?&apos; Development began in spring 2026 and is ongoing. Disclaimer: Claude Code used extensively in development.</p>
+        <li><Link href='/stanzafier'>Stanzafier</Link> (abandoned app but still largely functional)</li>
+        <p>A poetry generator and editor. API features (LLM and third-party text sources) are broken because I&apos;ve not kept the API keys up-to-date, but core functionality still works. The generator is also available via <a href='https://makepoem.press'>makepoem.press</a> as <em>StanzafierLite</em>. Developed largely in the first half of 2024. Disclaimer: handcoded.</p>
+        </ul>
         <h3>Original Poems</h3>
         <ul className={classes.poemsList}>
         <li><Link href='/poem/kafkaesque-senryu'>kafkaesque senryu</Link> (static)</li>

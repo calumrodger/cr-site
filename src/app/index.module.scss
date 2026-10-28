@@ -97,7 +97,6 @@
         border-style: dotted;
         margin-top: 6rem;
         font-size: .8rem;
-        font-weight: 800;
         // padding-top: 3rem;
         // padding-left: 2rem;
         height: 15rem;
@@ -105,19 +104,34 @@
         float: left;
         clear: left;
         rotate: 350deg;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
 
         // position: fixed;
         // bottom: 10%;
         background-color: var(--navtext-highlight);
         border-radius: 50%;
 
-        p {
-            margin-top: 2rem;
-            margin-left: 1.3rem;
+        a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .25rem;
+            text-decoration: none;
         }
-        span {
-            padding-left: 2rem;
-            margin-top: 2rem;
+        img {
+            width: 2.75rem;
+            height: 2.75rem;
+            margin-bottom: .3rem;
+        }
+        strong {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+        span:last-child {
+            text-decoration: underline;
         }
 
     }

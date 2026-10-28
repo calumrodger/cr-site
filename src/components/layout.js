@@ -74,12 +74,12 @@ useEffect(() => {
 
 
             {isMobile && showCatbar &&
-            <div className={classes.mobileCatbar} >
+            <div className={classes.mobileCatbar} style={{height: topPadding}}>
                  <CatBar cat={props.cat} categories={props.categories} burgerToggle={props.burgerToggle}/>
             </div>
             }
 
-            <div className={classes.mainContent} style={{marginTop: topPadding}}>
+            <div className={classes.mainContent}>
                 {props.children}
             </div>
 
