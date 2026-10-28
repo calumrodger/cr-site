@@ -33,9 +33,6 @@ const FooterButtons = () => {
         <div className={classes.footerButtonsContainer}>
         {showLinks && 
         <div className={classes.footerButtons}>
-                <div className={`${classes.link} ${path === '/news' ? classes.selectedButton : null}`}><Link href='/news'>news</Link></div>
-                <div className={`${classes.link} ${path === '/press' ? classes.selectedButton : null}`}><Link href='/press'>press</Link></div>
-                <div className={`${classes.link} ${path === '/bio' ? classes.selectedButton : null}`}><Link href='/bio'>bio</Link></div>
                 <div className={`${classes.link} ${path === '/contact' ? classes.selectedButton : null}`}><Link href='/contact'>contact</Link></div>
         </div>
         }

@@ -51,6 +51,10 @@ The repo has two largely separate parts: a portfolio site whose content lives in
   - `src/components/cat-bar.js`
 
   `web` is not part of the dynamic route; it has its own route at `src/app/category/web/`.
+- **Retired pages.** The bio, news and press pages are off the site, but kept for possible reuse.
+  - Their routes are parked in `src/app/_bio/`, `_news/` and `_press/`. The `_` prefix keeps them out of the build, so `/bio` etc. return 404.
+  - Their copy is still in `content/posts/` (`bio.html`, `news.html`, `press.html`). `src/app/[slug]/page.js` keeps those slugs excluded so they don't get pages through the dynamic route.
+  - To bring one back, drop the `_` from its folder and re-add its link in `src/components/footer-buttons.js`.
 
 ### Web poems (`src/app/poem/<slug>/`)
 

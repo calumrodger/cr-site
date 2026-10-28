@@ -4,8 +4,9 @@ import { getPostData, postDataSorter, getCategoryData, categoryDataSorter, getPo
 import classes from './slug.module.scss'
 import { notFound } from "next/navigation";
 
-// Every post gets a page, except slugs that 404 here (see generateMetadata) and
-// slugs that are taken by a static route
+// Every post gets a page, except slugs that 404 here (see generateMetadata),
+// slugs that are taken by a static route, and the retired bio/news/press pages
+// (their routes are parked in src/app/_bio etc.)
 const excludedSlugs = [
     'book', 'poem', 'web', 'performance', 'article', 'film-image',
     'bio', 'contact', 'mailing-list', 'news', 'press', 'stanzafier', 'category'
